@@ -1,8 +1,15 @@
 {
   "name": "swipeup",
   "version": "1.0.0",
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
+  },
   "dependencies": {
     "image-palette": "^2.1.0",
-    "image-pixels": "^2.2.2"
+    "image-pixels": "^2.2.2",
+    "webpack-dev-server": "4.9.3"
   }
 }
