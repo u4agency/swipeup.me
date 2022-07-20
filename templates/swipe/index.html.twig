@@ -3,26 +3,172 @@
 {% block title %}Hello SwipeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div id="app" class="md:flex">
+        <div class="md:w-3/4 w-2/4 hidden md:block bg-slate-900">
+            <div class="grid place-items-center h-screen">
+                <img src="/static/wyssual_logo.png" alt="" class="max-w-sm h-16 animate__animated animate__fadeIn">
+            </div>
+            <div class="fixed left-0 right-0 spotlight opacity-25" id="spotlight"></div>
+        </div>
+        <div class="md:w-2/4 xl:w-1/4 bg-orange-400 mx-auto md:mx-0">
+            <div id="fullpage">
+                <div class="section bg-cover bg-no-repeat bg-center" style="background-image: url(/static/1.webp)">
+                    <div class="h-screen relative m-8">
+                        <img src="/static/wyssual_logo.png" alt=""
+                             class="left-1/2 transform -translate-x-1/2 top-0 absolute px-8 max-w-xs h-auto">
+                        <div class="grid place-items-center h-full">
+                            <h1 class="animate__animated animate__bounceIn font-bold text-5xl text-center text-white">
+                                Bienvenue sur le site internet WYSSUAL</h1>
+                        </div>
+                        <div class="scroll-icon"></div>
+                    </div>
+                </div>
+                <div class="section bg-cover bg-no-repeat bg-center" style="background-image: url(/static/2.webp)">
+                    <div class="h-screen relative m-8">
+                        <div class="grid place-items-center h-full">
+                            <h2 class="animate__animated animate__bounceIn font-bold text-3xl text-center text-white">
+                                PARLONS DE VOTRE PROJET ENSEMBLE</h2>
+                        </div>
+                        <a
+                                href="https://calendly.com/rdv_projet/private/"
+                                target="_blank"
+                                class="left-1/2 transform -translate-x-1/2 rounded-lg bg-gray-200 bottom-0 p-4 absolute max-w-xs w-full h-24 grid place-items-center shadow-lg shadow-white/50">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" viewBox="0 0 20 20"
+                                 fill="currentColor">
+                                <path
+                                        d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="section bg-cover bg-no-repeat bg-center" style="background-image: url(/static/3.webp)">
+                    <div class="h-screen relative m-8">
+                        <div class="grid place-items-center h-full">
+                            <h2 class="animate__animated animate__bounceIn font-bold text-3xl text-center text-white">
+                                LOCALISATION</h2>
+                        </div>
+                        <a
+                                href="https://www.google.com/maps/place/15+Quai+de+la+Gare+d'Eau,+69009+Lyon/data=!4m2!3m1!1s0x47f4eb6ba85a876d:0xa5e157ff1721230f?sa=X&ved=2ahUKEwje9Jvh2t_3AhUIxYUKHUdkB7QQ8gF6BAgbEAE"
+                                target="_blank"
+                                class="left-1/2 transform -translate-x-1/2 rounded-lg bg-gradient-to-tr from-[#00dc82] via-[#36e4da] to-[#0047e1] bottom-0 p-4 absolute max-w-xs w-full h-24 grid place-items-center shadow-lg shadow-[#00dc82]/50">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-700" viewBox="0 0 20 20"
+                                 fill="currentColor">
+                                <path fill-rule="evenodd"
+                                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="section bg-cover bg-no-repeat bg-center" style="background-image: url(/static/4.webp)">
+                    <div class="h-screen relative m-8">
+                        <div class="grid place-items-center h-full">
+                            <h2 class="animate__animated animate__bounceIn font-bold text-3xl text-center text-white">
+                                Instagram</h2>
+                        </div>
+                        <a
+                                href="https://www.instagram.com/wyssual/"
+                                target="_blank"
+                                class="left-1/2 transform -translate-x-1/2 rounded-lg bg-gradient-to-tr from-[#fa8c10] to-[#ee0078] bottom-0 p-4 absolute max-w-xs w-full h-24 grid place-items-center shadow-lg shadow-[#fa8c10]/50">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white" viewBox="0 0 24 24"
+                                 fill="currentColor">
+                                <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('swipe') }}
+    <style>
+        .fp-watermark {
+            z-index: -1
+        }
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/kelli/Github Desktop/swipeup/src/Controller/SwipeController.php'|file_link(0) }}">src/Controller/SwipeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/kelli/Github Desktop/swipeup/templates/swipe/index.html.twig'|file_link(0) }}">templates/swipe/index.html.twig</a></code></li>
-    </ul>
-</div>
+        .fp-table {
+            justify-content: unset;
+        }
+
+        .spotlight {
+            /*background: linear-gradient(45deg, #00dc82, #36e4da 50%, #0047e1);*/
+            bottom: -40vh;
+            filter: blur(20vh);
+            height: 50vh;
+            animation: gradie 10s infinite;
+        }
+
+        .scroll-icon {
+            box-sizing: border-box;
+            border: solid 4px #fff;
+            display: block;
+            position: absolute;
+            left: calc(50% - 16px);
+            bottom: 16px;
+            height: 48px;
+            width: 32px;
+            border-radius: 32px;
+            opacity: 0.5;
+        }
+
+        .scroll-icon::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            border-radius: 100%;
+            animation: mouse 3s infinite;
+        }
+
+        @keyframes mouse {
+            0% {
+                transform: none;
+                opacity: 1;
+            }
+            40% {
+                transform: translateY(16px);
+            }
+            80% {
+                transform: translateY(16px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(16px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes gradie {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #fp-nav ul li a span {
+            background: #fff;
+        }
+
+        #fp-nav ul li a span {
+            background: #fff;
+        }
+    </style>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-
-    <script>
-
-    </script>
+    {{ encore_entry_script_tags('swipe') }}
 {% endblock %}
