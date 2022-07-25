@@ -1,4 +1,5 @@
 import './styles/swipe.css';
+import 'animate.css';
 
 let palette = require('image-palette');
 let pixels = require('image-pixels');
