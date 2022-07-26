@@ -3,9 +3,7 @@ import 'animate.css';
 import fullpage from 'fullpage.js' ;
 
 new fullpage('#fullpage', {
-    //options here
-    autoScrolling:true,
-    scrollHorizontally: true
+    navigation: true
 });
 
 let palette = require('image-palette');
