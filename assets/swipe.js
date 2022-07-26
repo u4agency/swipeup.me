@@ -1,6 +1,7 @@
 import './styles/swipe.css';
 import 'animate.css';
-import fullpage from 'fullpage.js' ;
+import 'fullpage.js/dist/fullpage.css';
+import fullpage from 'fullpage.js';
 
 new fullpage('#fullpage', {
     navigation: true
