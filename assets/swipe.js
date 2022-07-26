@@ -1,5 +1,12 @@
 import './styles/swipe.css';
 import 'animate.css';
+import fullpage from 'fullpage.js' ;
+
+new fullpage('#fullpage', {
+    //options here
+    autoScrolling:true,
+    scrollHorizontally: true
+});
 
 let palette = require('image-palette');
 let pixels = require('image-pixels');
