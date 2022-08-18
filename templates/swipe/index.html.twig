@@ -85,7 +85,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('swipe') }}
     <style>
         .fp-watermark {
             z-index: -1
@@ -166,9 +165,4 @@
             background: #fff;
         }
     </style>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('swipe') }}
 {% endblock %}
