@@ -3,6 +3,12 @@
 {% block body %}
     <section class="font-light sm:text-xl text-gray-400 body-font">
         <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+            <div class="absolute inset-0 -z-[1] overflow-hidden blur-[100px] select-none pointer-events-none">
+                <div class="top-2/5 left-3/5 w-[700px] h-[700px] -z-[2] bg-swipe-100 absolute rounded-full opacity-60 ease-gradient animate-gradient-1"></div>
+                <div class="top-3/5 left-2/5 w-[600px] h-[600px] -z-[1] bg-swipe-500 absolute rounded-full opacity-60 ease-gradient animate-gradient-2"></div>
+                <div class="top-1/2 left-1/2 w-[500px] h-[500px] -z-[3] bg-swipe-900 absolute rounded-full opacity-60 ease-gradient animate-gradient-3"></div>
+            </div>
+
             <div class="md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                 <h1 class="title-font text-5xl sm:text-6xl mb-4 font-medium text-white">
                     Tout ce dont vous avez besoin en un <span class="font-black text-transparent bg-clip-text bg-gradient-to-tr from-swipe-900 to-swipe-100">Swipe</span> !
@@ -20,7 +26,7 @@
                 </div>
             </div>
             <div class="w-full md:w-1/2">
-                <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
+                <img class="object-cover object-center rounded" alt="hero" src="/assets/images/design-hero.svg">
             </div>
         </div>
     </section>
