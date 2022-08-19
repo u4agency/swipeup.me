@@ -6,6 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      minHeight: {
+        'hd': '720px',
+      },
+      maxHeight: {
+        'fhd': '1920px',
+      },
       fontFamily: {
         'swipe': ['"Reem Kufi"', 'sans-serif'],
       },
