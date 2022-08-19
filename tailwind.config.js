@@ -27,6 +27,9 @@ module.exports = {
           '800': "#1a64dd",
           '900': "#1d4ed8",
         }
+      },
+      transitionTimingFunction: {
+        'gradient': 'cubic-bezier(.1, 0, .9, 1)',
       }
     },
   },
