@@ -5,7 +5,11 @@ module.exports = {
     'templates/**/*.html.twig',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'swipe': ['"Reem Kufi"', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }
