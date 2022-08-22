@@ -29,6 +29,19 @@
             cursorFollower.style.cssText = `display: block; transform: translate3d(${e.clientX - 150}px, ${e.clientY - 150}px, 0);`
         });
     </script>
+
+    <script>
+        let faqButton = document.getElementsByClassName("faq-button");
+
+        for (let i = 0; i < faqButton.length; i++) {
+            faqButton[i].addEventListener("click", e => {
+                let faqDropdown = faqButton[i].parentNode.getElementsByClassName("faq-dropdown")[0];;
+                faqDropdown.classList.toggle("hidden");
+                faqButton[i].getElementsByTagName("svg")[0].classList.toggle("transform")
+                faqButton[i].getElementsByTagName("svg")[0].classList.toggle("rotate-180")
+            });
+        }
+    </script>
 {% endblock %}
 </body>
 </html>
