@@ -6,22 +6,8 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
+import './styles/swiper-bundle.min.css';
 import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
-
-import Swiper from 'swiper';
-// import Swiper styles
-import 'swiper/css';
-
-const swiper = new Swiper(".mySwiper", {
-    direction: "vertical",
-    slidesPerView: 1,
-    spaceBetween: 30,
-    mousewheel: true,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-    }
-});
