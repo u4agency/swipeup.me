@@ -3,7 +3,7 @@
 {% block title %}Hello SwipeController!{% endblock %}
 
 {% block body %}
-    <div id="app" class="md:flex">
+    <div id="app" class="md:flex h-full">
         <div class="md:w-3/4 w-2/4 hidden md:block bg-slate-900">
             <div class="grid place-items-center h-screen">
                 <img src="{{ asset('assets/images/wyssual_logo.png') }}" alt=""
@@ -11,7 +11,7 @@
             </div>
             <div class="fixed left-0 right-0 spotlight opacity-25" id="spotlight"></div>
         </div>
-        <div class="md:w-2/4 xl:w-1/4 bg-orange-400 mx-auto md:mx-0 h-screen">
+        <div class="md:w-2/4 xl:w-1/4 mx-auto md:mx-0 h-full">
             <div class="h-full w-full mySwiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" style="background-image: url({{ asset('assets/images/1.webp') }})">
