@@ -3,3 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.swiper-slide {
+    @apply text-center text-lg flex justify-center items-center;
+}
