@@ -15,12 +15,4 @@ class SwipeController extends AbstractController
             'controller_name' => 'SwipeController',
         ]);
     }
-
-    #[Route('/swipe/swipeup', name: 'app_swipeup')]
-    public function swipeup(): Response
-    {
-        return $this->render('swipe/swipe.html.twig', [
-            'controller_name' => 'SwipeupController',
-        ]);
-    }
 }
