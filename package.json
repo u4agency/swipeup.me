@@ -25,6 +25,7 @@
         "animate.css": "^4.1.1",
         "fullpage.js": "^4.0.9",
         "image-palette": "^2.1.0",
-        "image-pixels": "^2.2.2"
+        "image-pixels": "^2.2.2",
+        "swiper": "^8.3.2"
     }
 }
