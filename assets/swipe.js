@@ -1,24 +1,27 @@
-import './styles/swipe.css';
-import 'animate.css';
-import 'fullpage.js/dist/fullpage.css';
-import fullpage from 'fullpage.js';
+/*
+ * Welcome to your app's main JavaScript file!
+ *
+ * We recommend including the built version of this JavaScript file
+ * (and its CSS file) in your base layout (base.html.twig).
+ */
 
-new fullpage('#fullpage', {
-    navigation: true
+// any CSS you import will output into a single css file (app.css in this case)
+import './styles/app.css';
+
+// start the Stimulus application
+import './bootstrap';
+
+import Swiper from 'swiper';
+// import Swiper styles
+import 'swiper/css';
+
+const swiper = new Swiper(".mySwiper", {
+    direction: "vertical",
+    slidesPerView: 1,
+    spaceBetween: 30,
+    mousewheel: true,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+    }
 });
-
-let palette = require('image-palette');
-let pixels = require('image-pixels');
-
-async function ipalette() {
-    let {colors} = palette(await pixels(require(`./images/swipeup.png`)), 3);
-
-    console.log(colors)
-
-    let dom = document.getElementById('spotlight');
-    dom.style.backgroundImage = `linear-gradient(45deg, rgba(${colors[2][0]},${colors[2][1]},${colors[2][2]},${colors[2][3]}), rgba(${colors[1][0]},${colors[1][1]},${colors[1][2]},${colors[1][3]}) 50%, rgba(${colors[0][0]},${colors[0][1]},${colors[0][2]},${colors[0][3]}))`;
-    // dom.style.backgroundImage = "linear-gradient(45deg, #00dc82, #36e4da 50%, #0047e1)";
-    return colors;
-}
-
-ipalette()
