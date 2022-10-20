@@ -1,3 +1,8 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+swipe_up_subdomain:
+  path:       /swiper
+  host:       host.localhost:8000
+  controller: App\Controller\SwipeController::index

@@ -4,6 +4,21 @@
 @tailwind components;
 @tailwind utilities;
 
-.swiper-slide {
-    @apply text-center text-lg flex justify-center items-center bg-cover bg-no-repeat bg-center;
+.spotlight {
+  background: linear-gradient(45deg, #00dc82, #36e4da 50%, #0047e1);
+  bottom: -40vh;
+  filter: blur(20vh);
+  height: 50vh;
+  animation: gradie 10s infinite;
+}
+@keyframes gradie {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

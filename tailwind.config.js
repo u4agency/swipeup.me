@@ -60,11 +60,17 @@ module.exports = {
                     '80%': {transform: 'translateY(-50%) translateX(-50%) translateX(5%) translateY(35%)'},
                     '100%': {transform: 'translateY(-50%) translateX(-50%) translateX(-15%) translateY(10%)'},
                 },
+                spotlight: {
+                    '0%': {opacity: 1},
+                    '50%': {opacity: 1},
+                    '100%': {opacity: 1},
+                },
             },
             animation: {
                 'gradient-1': 'firstGradient 11s ease infinite',
                 'gradient-2': 'secondGradient 11s ease infinite reverse',
                 'gradient-3': 'thirdGradient 11s ease infinite',
+                'spotlight': 'spotlight 10s infinite',
             },
         },
     },
