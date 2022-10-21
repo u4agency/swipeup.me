@@ -8,11 +8,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SwipeController extends AbstractController
 {
-    #[Route('/swipe', name: 'app_swipe')]
-    public function index(): Response
+    #[Route('/wyssual-expert', name: 'app_wyssual-expert')]
+    public function wyssualexpert(): Response
     {
-        return $this->render('swipe/index.html.twig', [
-            'controller_name' => 'SwipeController',
+        return $this->render('swipe/wyssual-expert.twig', [
+            'controller_name' => 'SwipeWyssualExpertController',
         ]);
     }
 }
