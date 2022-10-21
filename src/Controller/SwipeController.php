@@ -15,4 +15,12 @@ class SwipeController extends AbstractController
             'controller_name' => 'SwipeController',
         ]);
     }
+
+    #[Route('/wyssual-basic', name: 'app_wyssual-basic')]
+    public function wyssualbasic(): Response
+    {
+        return $this->render('swipe/wyssual-basic.html.twig', [
+            'controller_name' => 'SwipeController',
+        ]);
+    }
 }
