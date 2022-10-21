@@ -1,0 +1,73 @@
+{% extends 'swipe.html.twig' %}
+
+{% block title %}OMNIP
+{% endblock %}
+
+{% block body %}
+	<div id="app" class="md:flex h-full">
+		<div class="md:w-3/4 w-2/4 hidden md:block bg-slate-900">
+			<div class="grid place-items-center h-screen">
+				<img src="{{ asset('assets/images/omnip_logo.svg') }}" alt="" class="aos-init aos-animate max-w-sm h-16" data-aos="zoom-in">
+			</div>
+			<div class="fixed left-0 right-0 spotlight opacity-25"></div>
+		</div>
+		<div class="md:w-2/4 xl:w-1/4 mx-auto md:mx-0 h-full">
+			<div class="h-full w-full mySwiper">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="p-8 h-full w-full relative text-center text-lg flex justify-center items-center bg-cover bg-no-repeat bg-center" style=" background-image: url({{ asset('assets/images/omnip1.webp') }})">
+							<img src="{{ asset('assets/images/omnip_logo.svg') }}" alt="" class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto">
+							<div class="grid place-items-center h-full">
+								<h1 class="animate__animated animate__bounceIn font-bold text-5xl text-center text-white">
+								BIENVENUE SUR LA PAGE D'OMNIP
+								</h1>
+							</div>
+							<div class="scroll-icon"></div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="p-8 h-full w-full relative text-center text-lg flex justify-center items-center bg-cover bg-no-repeat bg-center" style="background-image: url({{ asset('assets/images/omnip2.webp') }})">
+							<div class="grid place-items-center h-full">
+								<h2 class="animate__animated animate__bounceIn font-bold text-3xl text-center text-white">
+									AVEC OMNIP <br> FAITES DU DIGITAL VOTRE UNIVERS
+								</h2>
+							</div>
+									<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+								</svg>
+							</a>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="p-8 h-full w-full relative text-center text-lg flex justify-center items-center bg-cover bg-no-repeat bg-center" style="background-image: url({{ asset('assets/images/omnip3.webp') }})">
+							<div class="grid place-items-center h-full relative">
+								<h2 class="animate__animated animate__bounceIn font-bold text-3xl text-center text-white">
+									DÉVELOPPEMENT WEB, RÉFÉRENCEMENT, ANALYSES ET BIEN D'AUTRES. DÉCOUVREZ TOUS NOS SERVICES SUR OMNIP.FR</h2>
+							</div>
+							<a href="http://www.omnip.fr" target="_blank" class="left-1/2 transform -translate-x-1/2 rounded-lg bg-gradient-to-tr from-[#00dc82] via-[#36e4da] to-[#0047e1] bottom-8 p-4 absolute max-w-xs w-full h-24 grid place-items-center shadow-lg shadow-[#00dc82]/50">
+                            <h2 class="text-white p-4  ">CLIQUEZ ICI</h2>
+									<path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+								</svg>
+							</a>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="p-8 h-full w-full relative text-center text-lg flex justify-center items-center bg-cover bg-no-repeat bg-center" style="background-image: url({{ asset('assets/images/omnip4.webp') }})">
+							<div class="grid place-items-center h-full">
+								<h2 class="animate__animated animate__bounceIn font-bold text-3xl text-center text-white">
+									RETROUVEZ NOS AUSSI SUR INSTAGRAM</h2>
+							</div>
+							<a href="https://www.instagram.com/omnip.fr/" target="_blank" class="left-1/2 transform -translate-x-1/2 rounded-lg bg-gradient-to-tr from-[#fa8c10] to-[#ee0078] bottom-8 p-4 absolute max-w-xs w-full h-24 grid place-items-center shadow-lg shadow-[#fa8c10]/50">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white" viewBox="0 0 24 24"
+									<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+								</svg>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-pagination"></div>
+	</div>
+</div></div>
+{% endblock %}
+

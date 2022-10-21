@@ -15,4 +15,12 @@ class SwipeController extends AbstractController
             'controller_name' => 'SwipeController',
         ]);
     }
+
+    #[Route('/omnip', name: 'app_omnip')]
+    public function swipe(): Response
+    {
+        return $this->render('swipe/omnip.html.twig', [
+            'controller_name' => 'SwipeController',
+        ]);
+    }
 }
