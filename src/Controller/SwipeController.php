@@ -43,4 +43,15 @@ class SwipeController extends AbstractController
             'controller_name' => 'SwipeWyssbarberController',
         ]);
     }
+
+
+    #[Route('/sobella', name: 'sobella')]
+    public function sobella(): Response
+    {
+        return $this->render('swipe/sobella.html.twig', [
+
+            'controller_name' => 'SwipeSoBellaController',
+        ]);
+    }
+
 }
