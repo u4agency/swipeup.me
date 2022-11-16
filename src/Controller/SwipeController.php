@@ -44,6 +44,7 @@ class SwipeController extends AbstractController
         ]);
     }
 
+
     #[Route('/sobella', name: 'sobella')]
     public function sobella(): Response
     {
@@ -52,4 +53,5 @@ class SwipeController extends AbstractController
             'controller_name' => 'SwipeSoBellaController',
         ]);
     }
+
 }
