@@ -1,18 +1,13 @@
 {% extends 'swipe.html.twig' %}
 
-{% block title %}WYSSBARBER
+{% block title %}SoBella
 {% endblock %}
 
 {% block body %}
 	<div id="app" class="md:flex h-full">
 		<div class="md:w-3/4 w-2/4 hidden md:block bg-slate-900">
 			<div class="grid place-items-center h-screen">
-
-				<img src="{{ asset('assets/images/sobella.png') }}" alt=""
-                     class="aos-init aos-animate max-w-sm h-16"
-                     data-aos="zoom-in">
-            </div>
-
+				<img src="{{ asset('assets/images/sobella_logo.png') }}" alt="" class="aos-init aos-animate max-w-sm h-16" data-aos="zoom-in">
 			</div>
 			<div class="fixed left-0 right-0 spotlight opacity-25"></div>
 		</div>
@@ -21,71 +16,26 @@
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
 						<div class="h-full w-full relative text-center text-lg">
-
-							<video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
-								<source src="{{ asset('assets/videos/wyssbarber1.mp4') }}" type="video/mp4">
-							</video>
-
+							<img src="{{ asset('assets/images/sobella.webp') }}" alt="" class="object-cover object-center absolute w-full h-full ">
 							<div class="p-8 relative flex justify-center items-center h-full w-full">
-								<div class="grid place-items-center h-full">
-									<h1 class="relative z-30 p-5 top-64 text-xl text-white bg-black w-screen bg-opacity-50">
-										BIENVENUE CHEZ WYSSBARBER
+								<img src="{{ asset('assets/images/sobella_logo.webp') }}" alt="" class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto">
+								<div class="grid place-items-center h-full ">
+									<h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-purple-400 w-screen bg-opacity-50 ">
+                                    BIENVENUE CHEZ SO'BELLA
 									</h1>
 								</div>
 								<div class="scroll-icon"></div>
 							</div>
 						</div>
 					</div>
-
                     <div class="swiper-slide">
 						<div class="h-full w-full relative text-center text-lg">
-
-							<video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
-								<source src="{{ asset('assets/videos/wyssbarber2.mp4') }}" type="video/mp4">
-							</video>
-
+							<img src="{{ asset('assets/images/sobella2.webp') }}" alt="" class="object-cover object-center absolute w-full h-full blur-sm ">
 							<div class="p-8 relative flex justify-center items-center h-full w-full">
-								<div class="grid place-items-center h-full">
-									<h1 class="relative z-30 p-5 top-64 text-lg text-white bg-black w-screen bg-opacity-50">
-										BESOIN D'UN RAFRAICHISSEMENT CAPILLAIRE ?
-									</h1>
-								</div>
-								<div class="scroll-icon"></div>
-							</div>
-						</div>
-					</div>
-
-                    <div class="swiper-slide">
-						<div class="h-full w-full relative text-center text-lg">
-
-							<video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
-								<source src="{{ asset('assets/videos/wyssbarber3.mp4') }}" type="video/mp4">
-							</video>
-
-							<div class="p-8 relative flex justify-center items-center h-full w-full">
-								<div class="grid place-items-center h-full">
-									<h1 class="relative z-30 p-5 top-64 text-xl text-white bg-black w-screen bg-opacity-50">
-									<a href="https://calendly.com/rdv_projet/private/"> PRENEZ RENDEZ-VOUS EN LIGNE </a>	
-									</h1>
-								</div>
-								<div class="scroll-icon"></div>
-							</div>
-						</div>
-					</div>
-
-                    
-                    <div class="swiper-slide">
-						<div class="h-full w-full relative text-center text-lg">
-
-							<video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
-								<source src="{{ asset('assets/videos/wyssbarber4.mp4') }}" type="video/mp4">
-							</video>
-
-							<div class="p-8 relative flex justify-center items-center h-full w-full">
-								<div class="grid place-items-center h-full">
-									<h1 class="relative z-30 p-5 top-64 text-xl text-white bg-black w-screen bg-opacity-50">
-									<a href="https://www.google.com/maps/place/Onlineformapro/@45.7684278,4.8593306,17z/data=!3m1!4b1!4m5!3m4!1s0x47f4ebe52d10205d:0x70d9a5425c8297f9!8m2!3d45.7684278!4d4.8615193"> OÙ RENDEZ-VOUS DIRECTEMENT AU SALON </a>	
-									</h1>
+								<img src="{{ asset('assets/images/sobella_logo.webp') }}" alt="" class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto">
+								<div class="grid place-items-center h-full ">
+									<h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-purple-400 w-screen bg-opacity-50 ">
+                                   VOTRE DÉJEUNER, BRUNCH & DINER <a href="https://www.google.com/maps/place/so'bella/@43.7012542,7.2871965,15z/data=!4m2!3m1!1s0x0:0xba376db6437e362f?sa=X&ved=2ahUKEwjmqu6c7Kr4AhVH8BoKHXmDCkcQ_BJ6BAheEAU">À NICE</a> 
 								</div>
 								<div class="scroll-icon"></div>
 							</div>
@@ -94,28 +44,53 @@
 
                      <div class="swiper-slide">
 						<div class="h-full w-full relative text-center text-lg">
-
-							<video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
-								<source src="{{ asset('assets/videos/wyssbarber5.mp4') }}" type="video/mp4">
-							</video>
-
+							<img src="{{ asset('assets/images/sobella3.webp') }}" alt="" class="object-cover object-center absolute w-full h-full  ">
 							<div class="p-8 relative flex justify-center items-center h-full w-full">
-								<div class="grid place-items-center h-full">
-									<h1 class="relative z-30 p-5 top-64 text-xl text-white bg-black w-screen bg-opacity-50">
-									<a href="https://www.instagram.com/wyssual/"> RETROUVEZ NOUS SUR INSTAGRAM </a>	
-									</h1>
+								<img src="{{ asset('assets/images/sobella_logo.webp') }}" alt="" class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto">
+								<div class="grid place-items-center h-full ">
+									<h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-purple-400 w-screen bg-opacity-50 ">
+                                   NOS HORAIRES
 								</div>
 								<div class="scroll-icon"></div>
 							</div>
 						</div>
 					</div>
 
+                    <div class="swiper-slide">
+						<div class="h-full w-full relative text-center text-lg">
+							<video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
+								<source src="{{ asset('assets/videos/sobella4.mp4') }}" type="video/mp4">
+							</video>
+							<div class="p-8 relative flex justify-center items-center h-full w-full">
+								<img src="{{ asset('assets/images/sobella_logo.webp') }}" alt="" class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto z-40">
+								<div class="grid place-items-center h-full ">
+									<h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-purple-400 w-screen bg-opacity-50 ">
+                                   POUR PLUS D'INFORMATIONS VISITER NOTRE  <a href="https://sobellarestaurant.com/">SITE WEB</a> 
+								</div>
+								<div class="scroll-icon"></div>
+							</div>
+						</div>
+					</div>
 					
-		
-		
+			  <div class="swiper-slide">
+						<div class="h-full w-full relative text-center text-lg">
+							<video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
+								<source src="{{ asset('assets/videos/sobella5.mp4') }}" type="video/mp4">
+							</video>
+							<div class="p-8 relative flex justify-center items-center h-full w-full">
+								<img src="{{ asset('assets/images/sobella_logo.webp') }}" alt="" class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto z-40">
+								<div class="grid place-items-center h-full ">
+									<h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-purple-400 w-screen bg-opacity-50 ">
+                                  OU RETROUVEZ NOUS  <a href="https://www.instagram.com/sobellarestaurant/">SUR INSTAGRAM</a> 
+								</div>
+								<div class="scroll-icon"></div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
 	</div>
-</div>
-</div>
-</div>
-<div class="swiper-pagination">
-</div></div></div></div>{% endblock %}
+</div></div></div><div class="swiper-pagination"></div></div></div></div>{% endblock %}
