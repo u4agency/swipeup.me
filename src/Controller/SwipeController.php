@@ -34,4 +34,13 @@ class SwipeController extends AbstractController
             'controller_name' => 'SwipeWyssualBasicController',
         ]);
     }
+
+    #[Route('/wyssbarber', name: 'app_wyssbarber')]
+    public function wyssbarber(): Response
+    {
+        return $this->render('swipe/wyssbarber.html.twig', [
+
+            'controller_name' => 'SwipeWyssbarberController',
+        ]);
+    }
 }
