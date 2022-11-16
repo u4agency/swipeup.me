@@ -43,4 +43,14 @@ class SwipeController extends AbstractController
             'controller_name' => 'SwipeWyssbarberController',
         ]);
     }
+
+    
+    #[Route('/domino', name: 'app_wyssbarber')]
+    public function domino(): Response
+    {
+        return $this->render('swipe/domino.html.twig', [
+
+            'controller_name' => 'SwipeDominoController',
+        ]);
+    }
 }
