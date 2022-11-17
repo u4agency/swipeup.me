@@ -44,6 +44,7 @@ class SwipeController extends AbstractController
         ]);
     }
 
+
     
     #[Route('/domino', name: 'app_wyssbarber')]
     public function domino(): Response
@@ -53,4 +54,16 @@ class SwipeController extends AbstractController
             'controller_name' => 'SwipeDominoController',
         ]);
     }
+
+
+    #[Route('/sobella', name: 'sobella')]
+    public function sobella(): Response
+    {
+        return $this->render('swipe/sobella.html.twig', [
+
+            'controller_name' => 'SwipeSoBellaController',
+        ]);
+    }
+
+
 }
