@@ -1,8 +1,8 @@
 <!-- NAVBAR -->
 <nav class="backdrop-blur-[10px] bg-gradient-to-b from-swipe-500/20 to-swipe-500/0 px-2 sm:px-4 py-2.5 fixed w-full top-0 z-50">
     <div class="container flex flex-wrap justify-between items-center mx-auto">
-        <a href="/" class="flex items-center">
-            <img src="/assets/images/swipeup.png" class="mr-3 h-6 sm:h-9" alt="Logo de SwipeUp">
+        <a href="{{ path('app_homepage') }}" class="flex items-center">
+            <img src="{{ asset('assets/images/swipeup.png') }}" class="mr-3 h-6 sm:h-9" alt="Logo de SwipeUp">
             <span class="sr-only">SwipeUp</span>
         </a>
         <button data-collapse-toggle="navbar-default" type="button"
@@ -19,30 +19,30 @@
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul class="flex flex-col p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                 <li>
-                    <a href="#"
+                    <a href="{{ path('app_homepage') }}"
                        class="block py-2 pr-4 pl-3 text-white bg-yellow-300 rounded md:bg-transparent md:text-omnip-blue-lighter md:p-0"
                        aria-current="page">Accueil</a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="{{ path('app_homepage') }}#projet-ecologique"
                        class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                        A propos</a>
+                        Projet écologique</a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="{{ path('app_homepage') }}#faq"
                        class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                        Services</a>
+                        FAQ</a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="{{ path('app_homepage') }}#offres"
                        class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                        Les news</a>
+                        Nos offres</a>
                 </li>
-                <li>
-                    <a href="#"
-                       class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                        Contact</a>
-                </li>
+{#                <li>#}
+{#                    <a href="#"#}
+{#                       class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">#}
+{#                        Blog</a>#}
+{#                </li>#}
             </ul>
         </div>
     </div>
