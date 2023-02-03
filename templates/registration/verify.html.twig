@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vérifiez votre adresse mail{% endblock %}
+
+{% block body %}
+    <section class="font-light sm:text-xl text-gray-300 body-font">
+        <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+            <div class="opacity-75 absolute inset-0 -z-[1] overflow-hidden blur-[100px] select-none pointer-events-none">
+                <div class="top-2/5 left-3/5 w-[700px] h-[700px] -z-[2] bg-swipe-100 absolute rounded-full opacity-60 ease-gradient animate-gradient-1"></div>
+                <div class="top-3/5 left-2/5 w-[600px] h-[600px] -z-[1] bg-swipe-500 absolute rounded-full opacity-60 ease-gradient animate-gradient-2"></div>
+                <div class="top-1/2 left-1/2 w-[500px] h-[500px] -z-[3] bg-swipe-900 absolute rounded-full opacity-60 ease-gradient animate-gradient-3"></div>
+            </div>
+
+
+            <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mx-auto">
+                <div class="w-full max-w-md space-y-8">
+                    <div>
+                        <img class="mx-auto h-12 w-auto"
+                             src="{{ asset('assets/images/swipeup.png') }}" alt="SwipeUp">
+                        <h1 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-100">Vérifiez votre
+                            compte
+                            <span
+                                    class="font-black text-transparent bg-clip-text bg-gradient-to-tr from-swipe-900 to-swipe-100">SwipeUp</span>
+                            !
+                        </h1>
+                    </div>
+                    <div class="mt-8 space-y-6 rounded-2xl shadow-sm bg-white p-6">
+                        <p class="text-gray-700 text-base">Votre compte SwipeUp a bien été créé. Nous vous avons envoyé
+                            un
+                            email de confirmation. Cliquez sur le lien afin de pouvoir parcourir SwipeUp dans son
+                            entièreté !</p>
+                        <a href="{{ path('app_verify_send_email') }}"
+                                class="group relative flex w-full justify-center rounded-md border border-transparent bg-swipe-600 py-2 px-4 text-sm font-medium text-white hover:bg-swipe-700 focus:outline-none focus:ring-2 focus:ring-swipe-500 focus:ring-offset-2">
+                            Renvoyer le lien
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

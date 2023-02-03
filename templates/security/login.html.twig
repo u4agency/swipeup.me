@@ -3,6 +3,91 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    <section class="font-light sm:text-xl text-gray-300 body-font">
+        <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+            <div class="opacity-75 absolute inset-0 -z-[1] overflow-hidden blur-[100px] select-none pointer-events-none">
+                <div class="top-2/5 left-3/5 w-[700px] h-[700px] -z-[2] bg-swipe-100 absolute rounded-full opacity-60 ease-gradient animate-gradient-1"></div>
+                <div class="top-3/5 left-2/5 w-[600px] h-[600px] -z-[1] bg-swipe-500 absolute rounded-full opacity-60 ease-gradient animate-gradient-2"></div>
+                <div class="top-1/2 left-1/2 w-[500px] h-[500px] -z-[3] bg-swipe-900 absolute rounded-full opacity-60 ease-gradient animate-gradient-3"></div>
+            </div>
+
+
+            <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mx-auto">
+                <div class="w-full max-w-md space-y-8">
+                    <div>
+                        <img class="mx-auto h-12 w-auto"
+                             src="{{ asset('assets/images/swipeup.png') }}" alt="Your Company">
+                        <h1 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-100">Créez votre comtpe
+                            <span
+                                    class="font-black text-transparent bg-clip-text bg-gradient-to-tr from-swipe-900 to-swipe-100">SwipeUp</span>
+                            !
+                        </h1>
+                    </div>
+                    <form class="mt-8 space-y-6" action="#" method="POST">
+                        <input type="hidden" name="remember" value="true">
+                        <div class="-space-y-px rounded-md shadow-sm">
+                            <div>
+                                <label for="email-address"
+                                       class="sr-only">Email address</label>
+                                <input id="email-address"
+                                       name="email"
+                                       type="email"
+                                       autocomplete="email"
+                                       required
+                                       class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"
+                                       placeholder="Email address">
+                            </div>
+                            <div>
+                                <label for="password"
+                                       class="sr-only">Password</label>
+                                <input id="password"
+                                       name="password"
+                                       type="password"
+                                       autocomplete="current-password"
+                                       required
+                                       class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"
+                                       placeholder="Password">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input id="remember-me"
+                                       name="remember-me"
+                                       type="checkbox"
+                                       class="h-4 w-4 rounded border-gray-300 text-swipe-600 focus:ring-swipe-500">
+                                <label for="remember-me"
+                                       class="ml-2 block text-sm text-gray-900">Remember me</label>
+                            </div>
+
+                            <div class="text-sm">
+                                <a href="#" class="font-medium text-swipe-600 hover:text-swipe-500">Forgot your
+                                    password?</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit"
+                                    class="group relative flex w-full justify-center rounded-md border border-transparent bg-swipe-600 py-2 px-4 text-sm font-medium text-white hover:bg-swipe-700 focus:outline-none focus:ring-2 focus:ring-swipe-500 focus:ring-offset-2">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <!-- Heroicon name: mini/lock-closed -->
+            <svg class="h-5 w-5 text-swipe-500 group-hover:text-swipe-400" xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                    d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                    clip-rule="evenodd"/>
+            </svg>
+          </span>
+                                Sign in
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

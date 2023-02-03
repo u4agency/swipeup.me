@@ -1,21 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Incrivez-vous gratuitement{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+    <section class="font-light sm:text-xl text-gray-300 body-font">
+        <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+            <div class="opacity-75 absolute inset-0 -z-[1] overflow-hidden blur-[100px] select-none pointer-events-none">
+                <div class="top-2/5 left-3/5 w-[700px] h-[700px] -z-[2] bg-swipe-100 absolute rounded-full opacity-60 ease-gradient animate-gradient-1"></div>
+                <div class="top-3/5 left-2/5 w-[600px] h-[600px] -z-[1] bg-swipe-500 absolute rounded-full opacity-60 ease-gradient animate-gradient-2"></div>
+                <div class="top-1/2 left-1/2 w-[500px] h-[500px] -z-[3] bg-swipe-900 absolute rounded-full opacity-60 ease-gradient animate-gradient-3"></div>
+            </div>
 
-    <h1>Register</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mx-auto">
+                {{ form_start(registrationForm) }}
+                <div class="w-full max-w-md space-y-8">
+                    <div>
+                        <img class="mx-auto h-12 w-auto"
+                             src="{{ asset('assets/images/swipeup.png') }}" alt="SwipeUp">
+                        <h1 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-100">Créez votre comtpe
+                            <span
+                                    class="font-black text-transparent bg-clip-text bg-gradient-to-tr from-swipe-900 to-swipe-100">SwipeUp</span>
+                            !
+                        </h1>
+                        {% for flash_error in app.flashes('verify_email_error') %}
+                            <div class="text-red-600" role="alert">{{ flash_error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mt-8 space-y-6">
+                        <div class="-space-y-px rounded-md shadow-sm">
+                            <div>
+                                <div class="sr-only">{{ form_label(registrationForm.username) }}</div>
+                                {{ form_widget(registrationForm.username, {'attr': {'class': 'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm'} }) }}
+                            </div>
+                            <div>
+                                <div class="sr-only">{{ form_label(registrationForm.email) }}</div>
+                                {{ form_widget(registrationForm.email, {'attr': {'class': 'relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm'} }) }}
+                            </div>
+                            <div>
+                                <div class="sr-only">{{ form_label(registrationForm.password.first) }}</div>
+                                {{ form_widget(registrationForm.password.first, {'attr': {'class': "relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"} }) }}
+                            </div>
+                            <div>
+                                <div class="sr-only">{{ form_label(registrationForm.password.second) }}</div>
+                                {{ form_widget(registrationForm.password.second, {'attr': {'class': "relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"} }) }}
+                            </div>
+                        </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': "h-4 w-4 rounded border-gray-300 text-swipe-600 focus:ring-swipe-500"} }) }}
+                                {{ form_label(registrationForm.agreeTerms) }}
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit"
+                                    class="group relative flex w-full justify-center rounded-md border border-transparent bg-swipe-600 py-2 px-4 text-sm font-medium text-white hover:bg-swipe-700 focus:outline-none focus:ring-2 focus:ring-swipe-500 focus:ring-offset-2">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                    <svg class="h-5 w-5 text-swipe-500 group-hover:text-swipe-400"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                              d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                                              clip-rule="evenodd"/>
+                                    </svg>
+                                </span>
+                                Suivant
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </section>
 {% endblock %}
