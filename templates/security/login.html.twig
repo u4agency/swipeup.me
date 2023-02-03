@@ -17,7 +17,8 @@
                     <div>
                         <img class="mx-auto h-12 w-auto"
                              src="{{ asset('assets/images/swipeup.png') }}" alt="SwipeUp">
-                        <h1 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-100">Connectez-vous à votre compte
+                        <h1 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-100">Connectez-vous à
+                            votre compte
                             <span
                                     class="font-black text-transparent bg-clip-text bg-gradient-to-tr from-swipe-900 to-swipe-100">SwipeUp</span>
                             !
@@ -66,7 +67,8 @@
                                     moi</label>
                             </div>
                             <div class="text-sm">
-                                <a href="#" class="font-medium text-swipe-600 hover:text-swipe-500">Mot de passe oublié</a>
+                                <a href="#" class="font-medium text-swipe-200 hover:text-swipe-300">Mot de passe
+                                    oublié</a>
                             </div>
                         </div>
 
@@ -84,6 +86,14 @@
                                 </span>
                                 Suivant
                             </button>
+                        </div>
+                        <div class="text-sm text-center">
+                            <p class="font-medium">Je n'ai pas encore de compte.
+                                <a href="{{ path('app_register') }}"
+                                   class="text-swipe-200 hover:text-swipe-300">
+                                    Inscrivez-vous gratuitement !
+                                </a>
+                            </p>
                         </div>
                     </form>
                 </div>
