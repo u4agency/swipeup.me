@@ -661,13 +661,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script>
-        let cursorFollower = document.querySelector("#cursor-follower");
-
-        document.addEventListener("mousemove", e => {
-            cursorFollower.style.cssText = `display: block; transform: translate3d(${e.clientX - 150}px, ${e.clientY - 150}px, 0);`
-        });
-    </script>
 
     <script>
         let faqButton = document.getElementsByClassName("faq-button");
