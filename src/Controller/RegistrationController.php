@@ -34,7 +34,7 @@ class RegistrationController extends AbstractController
                 ->from(new Address('no-reply@swipeup.me', 'SwipeUp Team'))
                 ->to($user->getEmail())
                 ->subject('Please Confirm your Email')
-                ->htmlTemplate('registration/confirmation_email.html.twig')
+                ->htmlTemplate('security/confirmation_email.html.twig')
         );
     }
 
@@ -85,7 +85,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('security/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
@@ -101,7 +101,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_homepage');
         }
 
-        return $this->render('registration/verify.html.twig');
+        return $this->render('security/verify.html.twig');
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
