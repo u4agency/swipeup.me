@@ -5,9 +5,12 @@ namespace App\Entity;
 use App\Repository\SwipeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Uid\Uuid;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: SwipeRepository::class)]
+#[Vich\Uploadable]
 class Swipe
 {
     #[ORM\Id]
@@ -46,6 +49,13 @@ class Swipe
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $font = null;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $logoName;
+
+    #[Vich\UploadableField(mapping: "swipe_logo", fileNameProperty: "logoName")]
+    private $logoFile;
+
 
     public function __toString() {
         return $this->title;
@@ -179,5 +189,41 @@ class Swipe
         $this->font = $font;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogoName()
+    {
+        return $this->logoName;
+    }
+
+    /**
+     * @param mixed $logoName
+     */
+    public function setLogoName($logoName): void
+    {
+        $this->logoName = $logoName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogoFile()
+    {
+        return $this->logoFile;
+    }
+
+    /**
+     * @param mixed $logoFile
+     */
+    public function setLogoFile(File $logoFile = null): void
+    {
+        $this->logoFile = $logoFile;
+
+        if ($logoFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 }

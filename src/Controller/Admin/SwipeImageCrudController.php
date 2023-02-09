@@ -26,12 +26,12 @@ class SwipeImageCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $imageFile = TextareaField::new('imageFile', 'Image')
+        $imageFile = TextareaField::new('backgroundFile', 'Image')
             ->setFormType(VichImageType::class)
             ->setLabel('Thumbnail');
-        $imageName = ImageField::new('imageName', 'Image')
-            ->setBasePath('/assets/images/swipe_images');
-        $imagePath = TextField::new('imageName', 'Image Path');
+        $imageName = ImageField::new('backgroundName', 'Image')
+            ->setBasePath('/assets/uploaded/swipe_images');
+        $imagePath = TextField::new('backgroundName', 'Image Path');
 
         $fields = [
             TextField::new('id', 'Id')

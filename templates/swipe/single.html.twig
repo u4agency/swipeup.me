@@ -16,8 +16,11 @@
     <div id="app" class="md:flex h-full">
         <div class="md:w-3/4 w-2/4 hidden md:block bg-slate-900">
             <div class="grid place-items-center h-screen">
-                <img src="{{ asset('assets/images/wyssual_logo.png') }}" alt=""
-                     class="max-w-sm h-16">
+                <div class="max-w-xs w-full h-auto">
+                    <img src="{{ vich_uploader_asset(swipe, 'logoFile') }}"
+                         alt="Logo de {{ swipe.title }}"
+                         class="">
+                </div>
             </div>
             <div class="fixed left-0 right-0 spotlight opacity-25"></div>
         </div>

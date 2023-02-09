@@ -1,3 +1,5 @@
-<img src="{{ asset('assets/images/wyssual_logo.png') }}"
-     alt="Logo de {{ swipe.title }}"
-     class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto">
+<div class="absolute p-8 left-1/2 transform -translate-x-1/2 top-0 max-w-xs w-full h-auto">
+    <img src="{{ vich_uploader_asset(swipe, 'logoFile') }}"
+         alt="Logo de {{ swipe.title }}"
+         class="rounded-xl">
+</div>
