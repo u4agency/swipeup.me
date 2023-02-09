@@ -43,6 +43,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: SwipeImage::class, orphanRemoval: true)]
     private Collection $swipeImages;
 
+    public function __toString()
+    {
+        return $this->username;
+    }
+
     public function __construct()
     {
         $this->swipes = new ArrayCollection();

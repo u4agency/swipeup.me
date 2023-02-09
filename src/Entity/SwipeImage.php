@@ -41,6 +41,7 @@ class SwipeImage
     public function __construct()
     {
         $this->uploadedAt = new \DateTimeImmutable();
+        $this->isPublic = false;
     }
 
     public function getId(): ?Uuid
