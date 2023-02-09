@@ -4,6 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .pause {
+    animation-play-state: paused;
+  }
+
+  .animation-duration-30 {
+    animation-duration: 30s;
+  }
+
+  .animation-duration-60 {
+    animation-duration: 60s;
+  }
+}
+
 .spotlight {
   background: linear-gradient(45deg, #00dc82, #36e4da 50%, #0047e1);
   bottom: -40vh;
@@ -11,6 +25,7 @@
   height: 50vh;
   animation: gradie 10s infinite;
 }
+
 @keyframes gradie {
   0% {
     opacity: 1;
