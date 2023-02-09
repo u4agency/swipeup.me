@@ -2,17 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Swipe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SwipeController extends AbstractController
 {
-    #[Route('/swipe', name: 'app_swipe')]
-    public function index(): Response
+    #[Route('/swipe/{slug}', name: 'app_swipe')]
+    public function index(Swipe $swipe): Response
     {
         return $this->render('swipe/index.html.twig', [
             'controller_name' => 'SwipeController',
+            'swipe' => $swipe
         ]);
     }
 
