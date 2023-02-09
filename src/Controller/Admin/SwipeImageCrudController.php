@@ -14,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class SwipeImageCrudController extends AbstractCrudController
@@ -25,11 +26,12 @@ class SwipeImageCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $imageFile = TextareaField::new('imageFile')
+        $imageFile = TextareaField::new('imageFile', 'Image')
             ->setFormType(VichImageType::class)
             ->setLabel('Thumbnail');
-        $imageName = ImageField::new('imageName')
+        $imageName = ImageField::new('imageName', 'Image')
             ->setBasePath('/assets/images/swipe_images');
+        $imagePath = TextField::new('imageName', 'Image Path');
 
         $fields = [
             TextField::new('id', 'Id')
@@ -44,6 +46,7 @@ class SwipeImageCrudController extends AbstractCrudController
 
         if ($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL) {
             $fields[] = $imageName;
+            $fields[] = $imagePath;
         } else {
             $fields[] = $imageFile;
         }

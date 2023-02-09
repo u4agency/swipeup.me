@@ -1,0 +1,17 @@
+<div class="grid place-items-center h-full">
+    {% if slide.title %}
+        {% if key == 0 %}
+            <h1 class="font-bold text-5xl text-center text-white">
+                {{ slide.title }}
+            </h1>
+        {% else %}
+            <h2 class="font-bold text-3xl text-center text-white">
+                {{ slide.title }}
+            </h2>
+        {% endif %}
+    {% else %}
+        <h1 class="sr-only">
+            {{ swipe.title }}
+        </h1>
+    {% endif %}
+</div>

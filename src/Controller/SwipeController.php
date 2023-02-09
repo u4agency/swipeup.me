@@ -3,17 +3,29 @@
 namespace App\Controller;
 
 use App\Entity\Swipe;
+use App\Repository\SwipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/@')]
+#[Route('/')]
 class SwipeController extends AbstractController
 {
-    #[Route('{slug}', name: 'app_swipe', priority: -1)]
-    public function index(Swipe $swipe): Response
+    #[Route('swipe', name: 'app_swipe')]
+    public function allSwipe(
+        SwipeRepository $swipeRepository,
+    ): Response
     {
         return $this->render('swipe/index.html.twig', [
+            'controller_name' => 'SwipeController',
+            'swipes' => $swipeRepository->findAll()
+        ]);
+    }
+
+    #[Route('@{slug}', name: 'app_swipe_single', priority: -1)]
+    public function singleSwipe(Swipe $swipe): Response
+    {
+        return $this->render('swipe/single.html.twig', [
             'controller_name' => 'SwipeController',
             'swipe' => $swipe
         ]);

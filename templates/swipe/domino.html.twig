@@ -4,100 +4,113 @@
 {% endblock %}
 
 {% block body %}
-	<div id="app" class="md:flex h-full">
-		<div class="md:w-3/4 w-2/4 hidden md:block bg-slate-900">
-			<div class="grid place-items-center h-screen">
-				<img src="{{ asset('assets/images/sobella_logo.png') }}" alt="" class="aos-init aos-animate max-w-sm h-16" data-aos="zoom-in">
-			</div>
-			<div class="fixed left-0 right-0 spotlight opacity-25"></div>
-		</div>
-		<div class="md:w-2/4 xl:w-1/4 mx-auto md:mx-0 h-full">
-			<div class="h-full w-full mySwiper">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<div class="h-full w-full relative text-center text-lg">
-                        <video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full object-cover">
-								<source src="{{ asset('assets/videos/domino1.mp4') }}" type="video/mp4">
-							</video>
-							<div class="p-8 relative flex justify-center items-center h-full w-full">
-								<img src="{{ asset('assets/images/domino_logo.webp') }}" alt="" class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto z-40">
-								<div class="grid place-items-center h-full ">
-									<h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-orange-600 w-screen bg-opacity-50 ">
-                                    BIENVENUE AU GROUPE DOMINO
-									</h1>
-								</div>
-								<div class="scroll-icon"></div>
-							</div>
-						</div>
-					</div>
+    <div id="app" class="md:flex h-full">
+        <div class="md:w-3/4 w-2/4 hidden md:block bg-slate-900">
+            <div class="grid place-items-center h-screen">
+                <img src="{{ asset('assets/images/sobella_logo.png') }}" alt=""
+                     class="aos-init aos-animate max-w-sm h-16" data-aos="zoom-in">
+            </div>
+            <div class="fixed left-0 right-0 spotlight opacity-25"></div>
+        </div>
+        <div class="md:w-2/4 xl:w-1/4 mx-auto md:mx-0 h-full">
+            <div class="h-full w-full mySwiper">
+                <div class="swiper-wrapper">
                     <div class="swiper-slide">
-						<div class="h-full w-full relative text-center text-lg">
-							<img src="{{ asset('assets/images/domino2.webp') }}" alt="" class="object-cover object-center absolute w-full h-full blur-lg ">
-                            <p class=" text-white object-cover object-center absolute h-full top-64 ">Domino RH est aujourd’hui un acteur majeur sur le marché du travail, capable de s’adapter à toutes ses fluctuations tout en acquérant de nouvelles compétences dans les ressources humaines. </p>
-							<div class="p-8 relative flex justify-center items-center h-full w-full">
-								<img src="{{ asset('assets/images/domino_logo.webp') }}" alt="" class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto">
-								<div class="grid place-items-center h-full ">
-									<h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-orange-900 w-screen bg-opacity-50 ">
-                                  QUI SOMMES-NOUS ?  
-								</div>
-								<div class="scroll-icon"></div>
-							</div>
-						</div>
-					</div>
-
+                        <div class="h-full w-full relative text-center text-lg">
+                            <video autoplay
+                                   loop
+                                   muted
+                                   class="absolute z-10 inset-0 w-full h-full object-cover">
+                                <source src="{{ asset('assets/videos/domino1.mp4') }}" type="video/mp4">
+                            </video>
+                            <div class="p-8 relative flex justify-center items-center h-full w-full">
+                                <img src="{{ asset('assets/images/domino_logo.webp') }}" alt=""
+                                     class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto z-40">
+                                <div class="grid place-items-center h-full ">
+                                    <h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-orange-600 w-screen bg-opacity-50 ">
+                                        BIENVENUE AU GROUPE DOMINO
+                                    </h1>
+                                </div>
+                                <div class="scroll-icon"></div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="swiper-slide">
-						<div class="h-full w-full relative text-center text-lg">
-							<video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
-								<source src="{{ asset('assets/videos/domino3.mp4') }}" type="video/mp4">
-							</video>
-							<div class="p-8 relative flex justify-center items-center h-full w-full">
-								<img src="{{ asset('assets/images/sobella_logo.webp') }}" alt="" class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto z-40">
-								<div class="grid place-items-center h-full ">
-									<h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-orange-900 w-screen bg-opacity-50 ">
-                                   BESOIN D'UN EMPLOI ?
-								</div>
-								<div class="scroll-icon"></div>
-							</div>
-						</div>
-					</div>
-
-                    
+                        <div class="h-full w-full relative text-center text-lg">
+                            <img src="{{ asset('assets/images/domino2.webp') }}" alt=""
+                                 class="object-cover object-center absolute w-full h-full blur-lg ">
+                            <p class=" text-white object-cover object-center absolute h-full top-64 ">Domino RH est
+                                aujourd’hui un acteur majeur sur le marché du travail, capable de s’adapter à toutes ses
+                                fluctuations tout en acquérant de nouvelles compétences dans les ressources
+                                humaines. </p>
+                            <div class="p-8 relative flex justify-center items-center h-full w-full">
+                                <img src="{{ asset('assets/images/domino_logo.webp') }}" alt=""
+                                     class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto">
+                                <div class="grid place-items-center h-full ">
+                                    <h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-orange-900 w-screen bg-opacity-50 ">
+                                        QUI SOMMES-NOUS ?
+                                </div>
+                                <div class="scroll-icon"></div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="swiper-slide">
-						<div class="h-full w-full relative text-center text-lg">
-							<video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
-								<source src="{{ asset('assets/videos/domino4.mp4') }}" type="video/mp4">
-							</video>
-							<div class="p-8 relative flex justify-center items-center h-full w-full">
-								<img src="{{ asset('assets/images/sobella_logo.webp') }}" alt="" class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto z-40">
-								<div class="grid place-items-center h-full ">
-									<h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-orange-900 w-screen bg-opacity-50 ">
-                                   RENDEZ VOUS SUR <br> <a href="https://domino-rh.com/">DOMINO-RH.COM</a>
-								</div>
-								<div class="scroll-icon"></div>
-							</div>
-						</div>
-					</div>
-					
-			  <div class="swiper-slide">
-						<div class="h-full w-full relative text-center text-lg">
-							<video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
-								<source src="{{ asset('assets/videos/domino5.mp4') }}" type="video/mp4">
-							</video>
-							<div class="p-8 relative flex justify-center items-center h-full w-full">
-								<img src="{{ asset('assets/images/sobella_logo.webp') }}" alt="" class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto z-40">
-								<div class="grid place-items-center h-full ">
-									<h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-orange-900 w-screen bg-opacity-50 ">
-                                  OU DANS <a href="https://domino-rh.com/agences/"> L'AGENCE LA PLUS PROCHE</a>
-								</div>
-								<div class="scroll-icon"></div>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
+                        <div class="h-full w-full relative text-center text-lg">
+                            <video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
+                                <source src="{{ asset('assets/videos/domino3.mp4') }}" type="video/mp4">
+                            </video>
+                            <div class="p-8 relative flex justify-center items-center h-full w-full">
+                                <img src="{{ asset('assets/images/sobella_logo.webp') }}" alt=""
+                                     class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto z-40">
+                                <div class="grid place-items-center h-full ">
+                                    <h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-orange-900 w-screen bg-opacity-50 ">
+                                        BESOIN D'UN EMPLOI ?
+                                </div>
+                                <div class="scroll-icon"></div>
+                            </div>
+                        </div>
+                    </div>
 
-		</div>
-	</div>
-</div></div></div><div class="swiper-pagination"></div></div></div></div>{% endblock %}
+
+                    <div class="swiper-slide">
+                        <div class="h-full w-full relative text-center text-lg">
+                            <video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
+                                <source src="{{ asset('assets/videos/domino4.mp4') }}" type="video/mp4">
+                            </video>
+                            <div class="p-8 relative flex justify-center items-center h-full w-full">
+                                <img src="{{ asset('assets/images/sobella_logo.webp') }}" alt=""
+                                     class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto z-40">
+                                <div class="grid place-items-center h-full ">
+                                    <h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-orange-900 w-screen bg-opacity-50 ">
+                                        RENDEZ VOUS SUR <br> <a href="https://domino-rh.com/">DOMINO-RH.COM</a>
+                                </div>
+                                <div class="scroll-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="h-full w-full relative text-center text-lg">
+                            <video controls autoplay loop muted class="absolute z-10 inset-0 w-full h-full">
+                                <source src="{{ asset('assets/videos/domino5.mp4') }}" type="video/mp4">
+                            </video>
+                            <div class="p-8 relative flex justify-center items-center h-full w-full">
+                                <img src="{{ asset('assets/images/sobella_logo.webp') }}" alt=""
+                                     class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto z-40">
+                                <div class="grid place-items-center h-full ">
+                                    <h1 class="animate__animated animate__bounceIn top-60 relative font-bold text-2xl text-center text-white  z-30 p-5  text-xl text-white bg-orange-900 w-screen bg-opacity-50 ">
+                                        OU DANS <a href="https://domino-rh.com/agences/"> L'AGENCE LA PLUS PROCHE</a>
+                                </div>
+                                <div class="scroll-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div></div></div>
+    <div class="swiper-pagination"></div></div></div></div>{% endblock %}

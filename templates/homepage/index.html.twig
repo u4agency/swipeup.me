@@ -653,13 +653,12 @@
                                     <div data-aos="fade-up"
                                          data-aos-delay="{{ 200*(key+1) }}"
                                          class="w-[100px] sm:w-[200px]">
-                                        <a href="{{ path('app_swipe', {slug:swipe.slug}) }}"
+                                        <a href="{{ path('app_swipe_single', {slug:swipe.slug}) }}"
                                            target="_blank"
                                            class="relative group"
                                            tabindex="-1">
                                             <img src="{{ swipe.swipe[0].image }}"
                                                  alt="{{ swipe.title }}"
-                                                 loading="lazy"
                                                  class="px-0 rounded-lg"/>
                                             <div class="px-4 py-3 text-center w-full">
                                                 <h3 class="truncate font-semibold text-indigo-700 group-hover:text-indigo-800 duration-100">

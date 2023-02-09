@@ -1,56 +1,10 @@
 {% extends 'swipe.html.twig' %}
 
-{% block title %}{{ swipe.title }}{% endblock %}
-
 {% block body %}
-    <div id="app" class="md:flex h-full">
-        <div class="md:w-3/4 w-2/4 hidden md:block bg-slate-900">
-            <div class="grid place-items-center h-screen">
-                <img src="{{ asset('assets/images/wyssual_logo.png') }}" alt=""
-                     class="max-w-sm h-16">
-            </div>
-            <div class="fixed left-0 right-0 spotlight opacity-25"></div>
-        </div>
-        <div class="md:w-2/4 xl:w-1/4 mx-auto md:mx-0 h-full">
-            <div class="h-full w-full mySwiper">
-                <div class="swiper-wrapper">
-                    {% for slide in swipe.swipe %}
-                        <div class="swiper-slide">
-                            <div class="p-8 h-full w-full relative text-center text-lg flex justify-center items-center bg-cover bg-no-repeat bg-center"
-                                 style="background-image: url({{ slide.image }})">
-                                <img src="{{ asset('assets/images/wyssual_logo.png') }}"
-                                     alt=""
-                                     class="left-1/2 transform -translate-x-1/2 top-0 absolute p-8 max-w-xs h-auto">
-                                <div class="grid place-items-center h-full">
-                                    <h1 class="font-bold text-5xl text-center text-white">
-                                        {{ slide.title }}</h1>
-                                </div>
-                                <div class="scroll-icon"></div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <div class="swiper-slide">
-                        <div class="p-8 h-full w-full relative text-center text-lg flex justify-center items-center bg-cover bg-no-repeat bg-center"
-                             style="background-image: url({{ asset('assets/images/2.webp') }})">
-                            <div class="grid place-items-center h-full">
-                                <h2 class="font-bold text-3xl text-center text-white">
-                                    PARLONS DE VOTRE PROJET ENSEMBLE</h2>
-                            </div>
-                            <a
-                                    href="https://calendly.com/rdv_projet/private/"
-                                    target="_blank"
-                                    class="left-1/2 transform -translate-x-1/2 rounded-lg bg-gray-200 bottom-8 p-4 absolute max-w-xs w-full h-24 grid place-items-center shadow-lg shadow-white/50">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" viewBox="0 0 20 20"
-                                     fill="currentColor">
-                                    <path
-                                            d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    </div>
+
 {% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

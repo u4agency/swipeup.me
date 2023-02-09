@@ -44,6 +44,9 @@ class Swipe
     #[ORM\Column]
     private ?bool $homepageDisplay = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $font = null;
+
     public function __toString() {
         return $this->title;
     }
@@ -162,6 +165,18 @@ class Swipe
     public function setHomepageDisplay(bool $homepageDisplay): self
     {
         $this->homepageDisplay = $homepageDisplay;
+
+        return $this;
+    }
+
+    public function getFont(): ?string
+    {
+        return $this->font;
+    }
+
+    public function setFont(?string $font): self
+    {
+        $this->font = $font;
 
         return $this;
     }

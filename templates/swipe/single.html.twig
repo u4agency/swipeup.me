@@ -1,0 +1,39 @@
+{% extends 'swipe.html.twig' %}
+
+{% block title %}{{ swipe.title }}{% endblock %}
+
+{% block body %}
+    {% if swipe.font is not null %}
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family={{swipe.font}}&display=swap');
+
+            .mySwiper {
+                font-family: '{{swipe.font}}', 'Reem Kufi', sans-serif;
+            }
+        </style>
+    {% endif %}
+
+    <div id="app" class="md:flex h-full">
+        <div class="md:w-3/4 w-2/4 hidden md:block bg-slate-900">
+            <div class="grid place-items-center h-screen">
+                <img src="{{ asset('assets/images/wyssual_logo.png') }}" alt=""
+                     class="max-w-sm h-16">
+            </div>
+            <div class="fixed left-0 right-0 spotlight opacity-25"></div>
+        </div>
+        <div class="md:w-2/4 xl:w-1/4 mx-auto md:mx-0 h-full">
+            <div class="h-full w-full mySwiper">
+                <div class="swiper-wrapper">
+                    {% for key, slide in swipe.swipe %}
+                        {% if slide.image is defined %}
+                            {{ include('_composants/swipe.image.html.twig') }}
+                        {% elseif slide.video is defined %}
+                            {{ include('_composants/swipe.video.html.twig') }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
