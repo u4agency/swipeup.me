@@ -7,9 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/@')]
 class SwipeController extends AbstractController
 {
-    #[Route('/swipe/{slug}', name: 'app_swipe')]
+    #[Route('{slug}', name: 'app_swipe', priority: -1)]
     public function index(Swipe $swipe): Response
     {
         return $this->render('swipe/index.html.twig', [
@@ -19,7 +20,7 @@ class SwipeController extends AbstractController
     }
 
 
-    #[Route('/omnip-basic', name: 'app_omnip-basic')]
+    #[Route('omnip-basic', name: 'app_omnip-basic')]
     public function omnipbasic(): Response
     {
         return $this->render('swipe/omnip.html.twig', [
@@ -28,7 +29,7 @@ class SwipeController extends AbstractController
         ]);
     }
 
-    #[Route('/wyssual-basic', name: 'app_wyssual-basic')]
+    #[Route('wyssual-basic', name: 'app_wyssual-basic')]
     public function wyssualbasic(): Response
     {
         return $this->render('swipe/wyssual-basic.html.twig', [
@@ -37,7 +38,7 @@ class SwipeController extends AbstractController
         ]);
     }
 
-    #[Route('/wyssbarber', name: 'app_wyssbarber')]
+    #[Route('wyssbarber', name: 'app_wyssbarber')]
     public function wyssbarber(): Response
     {
         return $this->render('swipe/wyssbarber.html.twig', [
@@ -47,8 +48,7 @@ class SwipeController extends AbstractController
     }
 
 
-    
-    #[Route('/domino', name: 'app_wyssbarber')]
+    #[Route('domino', name: 'app_wyssbarber')]
     public function domino(): Response
     {
         return $this->render('swipe/domino.html.twig', [
@@ -58,7 +58,7 @@ class SwipeController extends AbstractController
     }
 
 
-    #[Route('/sobella', name: 'sobella')]
+    #[Route('sobella', name: 'sobella')]
     public function sobella(): Response
     {
         return $this->render('swipe/sobella.html.twig', [

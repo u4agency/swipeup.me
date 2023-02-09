@@ -40,9 +40,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Swipe::class, orphanRemoval: true)]
     private Collection $swipes;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: SwipeImage::class, orphanRemoval: true)]
+    private Collection $swipeImages;
+
     public function __construct()
     {
         $this->swipes = new ArrayCollection();
+        $this->swipeImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,6 +167,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($swipe->getAuthor() === $this) {
                 $swipe->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SwipeImage>
+     */
+    public function getSwipeImages(): Collection
+    {
+        return $this->swipeImages;
+    }
+
+    public function addSwipeImage(SwipeImage $swipeImage): self
+    {
+        if (!$this->swipeImages->contains($swipeImage)) {
+            $this->swipeImages->add($swipeImage);
+            $swipeImage->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSwipeImage(SwipeImage $swipeImage): self
+    {
+        if ($this->swipeImages->removeElement($swipeImage)) {
+            // set the owning side to null (unless already changed)
+            if ($swipeImage->getAuthor() === $this) {
+                $swipeImage->setAuthor(null);
             }
         }
 
