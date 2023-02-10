@@ -2,6 +2,38 @@
 
 {% block title %}{{ swipe.title }}{% endblock %}
 
+{% block meta %}
+    <meta name="title"
+          content="{{ swipe.title }}">
+    <meta name="description"
+          content="{{ swipe.description }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="{{ swipe.createdAt|date('c') }}">
+    <meta property="article:modified_time" content="{{ swipe.updatedAt|date('c') }}">
+    <meta property="article:author" content="{{ swipe.author }}">
+    <meta property="article:section" content="SwipeUp">
+    <meta property="og:title"
+          content="{{ swipe.title }}">
+    <meta property="og:description"
+          content="{{ swipe.description }}">
+    <meta property="og:image"
+          content="{{ app.request.schemeAndHttpHost }}{{ vich_uploader_asset(swipe, 'logoFile') }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card"
+          content="summary">
+    <meta property="twitter:site"
+          content="@SwipeUp.me">
+    <meta property="twitter:title"
+          content="{{ swipe.title }}">
+    <meta property="twitter:description"
+          content="{{ swipe.description }}">
+    <meta property="twitter:image"
+          content="{{ app.request.schemeAndHttpHost }}{{ vich_uploader_asset(swipe, 'logoFile') }}">
+{% endblock %}
+
 {% block body %}
     {% if swipe.font is not null %}
         <style>
