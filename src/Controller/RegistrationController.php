@@ -41,7 +41,12 @@ class RegistrationController extends AbstractController
     #[Route('/verify/sendEmail', name: 'app_verify_send_email')]
     public function verifySendEmail(): \Symfony\Component\HttpFoundation\RedirectResponse
     {
-        if (!$this->getUser()) {
+        if (
+            !$this->getUser() ||
+            $this->getUser() &&
+            $this->getUser()->isVerified() === true &&
+            $this->isGranted('IS_AUTHENTICATED_FULLY')
+        ) {
             return $this->redirectToRoute('app_homepage');
         }
 
@@ -94,6 +99,7 @@ class RegistrationController extends AbstractController
     public function verifyUser(): Response
     {
         if (
+            !$this->getUser() ||
             $this->getUser() &&
             $this->getUser()->isVerified() === true &&
             $this->isGranted('IS_AUTHENTICATED_FULLY')
