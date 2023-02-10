@@ -47,6 +47,10 @@ class SitemapController extends AbstractController
                 'lastmod' => $swipe->getUpdatedAt()->format('c'),
                 'changefreq' => 'daily',
                 'priority' => 0.8,
+                'image' => [
+                    'loc' => $uploaderHelper->asset($swipe, 'logoFile'),
+                    'title' => $swipe->getTitle()
+                ]
             ];
         }
 
