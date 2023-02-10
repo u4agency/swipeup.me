@@ -70,6 +70,18 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "sentry/sentry-symfony": {
+        "version": "4.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "4.0",
+            "ref": "9ac202e84b6fb3c276cb3d7846006e0df65272d0"
+        },
+        "files": [
+            "./config/packages/sentry.yaml"
+        ]
+    },
     "symfony/console": {
         "version": "6.1",
         "recipe": {
@@ -246,6 +258,18 @@
         "files": [
             "./config/packages/twig.yaml",
             "./templates/base.html.twig"
+        ]
+    },
+    "symfony/uid": {
+        "version": "6.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "6.2",
+            "ref": "d294ad4add3e15d7eb1bae0221588ca89b38e558"
+        },
+        "files": [
+            "./config/packages/uid.yaml"
         ]
     },
     "symfony/validator": {
