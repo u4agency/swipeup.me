@@ -1,20 +1,19 @@
-{% if slide.button is defined %}
-    <div class="h-1/6 flex items-center justify-center">
-        <a href="{{ slide.button.href }}"
-           target="_blank"
-           class="rounded-full bg-swipe-500 bottom-8 py-4 px-8 max-w-xs shadow-lg shadow-swipe-500/50"
-           style="--tw-shadow-color: {{ slide.button.colorType == "simple" ?
-           slide.button.color :
-           slide.button.color.from }}AA;
-                   background:{% if slide.button.colorType == "simple" %}
+<div class="h-1/6 flex items-center justify-center relative"
+     data-aos="zoom-in-up">
+    {% if slide.button is defined %}
+    <a href="{{ slide.button.href }}"
+       class="rounded-full bg-swipe-500 bottom-8 py-4 px-8 max-w-xs shadow-lg shadow-swipe-500/50"
+       style="--tw-shadow-color: {{ slide.button.colorType == "simple" ?
+       slide.button.color :
+       slide.button.color.from }}AA;
+               background:{% if slide.button.colorType == "simple" %}
            {{ slide.button.color }}
        {% elseif slide.button.colorType == "gradient" %}
                linear-gradient(to bottom right, {{ slide.button.color.from }}, {{ slide.button.color.to }});
        {% endif %};
-                   color:{{ slide.button.textColor is defined ? slide.button.textColor : '#ffffff' }}
-                   ">
-            {{ slide.button.text }}
-        </a>
-    </div>
-{% else %}
-{% endif %}
+               color:{{ slide.button.textColor is defined ? slide.button.textColor : '#ffffff' }}
+               ">
+        {{ slide.button.text }}
+    </a>
+    {% endif %}
+</div>
