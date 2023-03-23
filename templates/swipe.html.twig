@@ -47,11 +47,16 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+            integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{ encore_entry_script_tags('swipe') }}
     <script>
         Fancybox.bind("[data-fancybox]", {
             // Your options go here
         });
+
+        const swipe = document.getElementsByClassName("swiper-slide");
 
         const swiper = new Swiper(".mySwiper", {
             direction: "vertical",
@@ -62,10 +67,26 @@
                 el: ".swiper-pagination",
                 clickable: true
             },
+            // on: {
+            //     slideChangeTransitionStart: function () {
+            //         Array.prototype.forEach.call(swipe, element => {
+            //             Array.prototype.forEach.call(element.getElementsByClassName("aos-init"), child => {
+            //                 child.classList.add('aos');
+            //                 child.classList.remove('aos-init', 'aos-animate');
+            //             });
+            //         });
+            //     },
+            //     slideChangeTransitionEnd: function () {
+            //         let swipeNew = document.getElementsByClassName("aos");
+            //
+            //         Array.prototype.forEach.call(swipeNew, element2 => {
+            //             element2.classList.add('aos-init', 'aos-animate');
+            //         });
+            //     },
+            // }
         });
 
-        const swiperHorizontal = new Swiper(".mySwiperHorizontal", {
-        });
+        const swiperHorizontal = new Swiper(".mySwiperHorizontal", {});
     </script>
 
 
@@ -73,7 +94,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TMBTV6N0QS"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-TMBTV6N0QS');
@@ -81,14 +106,17 @@
 
     <!-- Hotjar Tracking Code for SwipeUp -->
     <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:3362111,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () {
+                (h.hj.q = h.hj.q || []).push(arguments)
+            };
+            h._hjSettings = {hjid: 3362111, hjsv: 6};
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script');
+            r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
             a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     </script>
 {% endblock %}
 </body>

@@ -1,5 +1,8 @@
 <div class="swiper-slide">
-    <div class="p-8 h-full w-full relative text-center text-lg bg-cover bg-no-repeat bg-center"
+    <div class="
+    h-full w-full relative text-center text-lg bg-cover bg-no-repeat bg-center
+    before:bg-black/50 before:content-[''] before:w-full before:h-full before:block before:absolute
+"
          style="background-image: url({{ slide.image.src }})">
         {{ include('_components/_swipe.logo.html.twig') }}
         {{ include('_components/_swipe.title.html.twig') }}

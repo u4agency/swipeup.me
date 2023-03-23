@@ -12,9 +12,6 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+// import AOS from 'aos';
+// import 'aos/dist/aos.css';
 
-AOS.init({
-    duration: 1000,
-});
