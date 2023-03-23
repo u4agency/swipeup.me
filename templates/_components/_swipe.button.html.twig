@@ -7,9 +7,9 @@
        slide.button.color :
        slide.button.color.from }}AA;
                background:{% if slide.button.colorType == "simple" %}
-           {{ slide.button.color }}
+           {{ slide.button.color }}AA
        {% elseif slide.button.colorType == "gradient" %}
-               linear-gradient(to bottom right, {{ slide.button.color.from }}, {{ slide.button.color.to }});
+               linear-gradient(to bottom right, {{ slide.button.color.from }}AA, {{ slide.button.color.to }}AA);
        {% endif %};
                color:{{ slide.button.textColor is defined ? slide.button.textColor : '#ffffff' }}
                ">
