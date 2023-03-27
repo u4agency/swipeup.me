@@ -66,6 +66,19 @@
                             {{ include('_composants/swipe.video.html.twig') }}
                         {% endif %}
                     {% endfor %}
+                    <div class="swiper-slide">
+                        <div class="h-full w-full relative text-center text-lg bg-gradient-to-br from-swipe-900 to-swipe-600 flex justify-center items-center">
+                            <div class="block space-y-4 w-full p-8">
+                                {% for key, slide in swipe.swipe %}
+                                    {% if slide.button is defined %}
+                                        {{ include('_components/_swipe.button.html.twig', {
+                                            sc:"w-full"
+                                        }) }}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
