@@ -81,3 +81,39 @@
   border: .25em solid #fff;
   border-radius: 1em;
 }
+
+.down-arrow {
+  position: absolute;
+  width: 0;
+  height: 38px;
+  border: 2px solid;
+  border-radius: 2px;
+  animation: jumpInfinite 1.5s infinite;
+  color: white;
+}
+
+.down-arrow:after {
+  color: white;
+  content: " ";
+  position: absolute;
+  top: 18px;
+  left: -9px;
+  width: 18px;
+  height: 18px;
+  border-bottom: 4px solid;
+  border-right: 4px solid;
+  border-radius: 4px;
+  transform: rotateZ(45deg);
+}
+
+@keyframes jumpInfinite {
+  0% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: 20px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
