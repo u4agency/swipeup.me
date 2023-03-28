@@ -50,6 +50,25 @@
         </div>
     </section>
     <section data-aos="fade-right"
+             class="py-16 px-4 mx-auto max-w-screen-xl lg:py-32 lg:px-6 text-gray-400">
+        <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Rejoignez l'aventure !</h2>
+        </div>
+        {{ form_start(newsletterForm) }}
+        <div class="bg-white rounded-full flex w-full max-w-2xl mx-auto gap-2">
+            <div class="sr-only">{{ form_label(newsletterForm.email) }}</div>
+            {{ form_widget(newsletterForm.email, {
+                attr: {
+                    class:"focus:outline-none bg-transparent text-black rounded-l-full py-3 px-5 w-full md:w-3/5 border-none"
+                }
+            }) }}
+            <button class="rounded-full bg-gradient-to-br from-swipe-400 to-swipe-900 py-3 px-2 text-white w-full md:w-2/5">
+                Rejoignez la waitlist
+            </button>
+        </div>
+        {{ form_end(newsletterForm) }}
+    </section>
+    <section data-aos="fade-right"
              id="presentation"
              class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 text-gray-400">
         <div class="max-w-xl mb-10 mx-auto text-center lg:max-w-2xl md:mb-12">
