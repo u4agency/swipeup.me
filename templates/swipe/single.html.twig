@@ -116,13 +116,16 @@
                         </div>
                     {% endfor %}
                     <div class="swiper-slide">
-                        <div class="h-full w-full relative text-center text-lg bg-gradient-to-br from-swipe-900 to-swipe-600 flex justify-center items-center">
+                        <div class="h-full w-full relative text-center text-lg bg-slate-900 flex justify-center items-center">
                             <div class="block space-y-4 w-full p-4">
                                 {% for key, slide in swipe.swipe %}
                                     {% if slide.button is defined %}
-                                        {{ include('_components/_swipe.button.html.twig', {
-                                            sc:"w-full"
-                                        }) }}
+                                        <div class="h-1/6 flex items-start justify-center relative">
+                                            <a href="{{ slide.button.href }}"
+                                               class="rounded-full bg-white/5 border border-white bottom-8 py-4 px-8 w-full text-white shadow-lg shadow-white/10 hover:scale-105 duration-100">
+                                                {{ slide.button.text }}
+                                            </a>
+                                        </div>
                                     {% endif %}
                                 {% endfor %}
                             </div>
