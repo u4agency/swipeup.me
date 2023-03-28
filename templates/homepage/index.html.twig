@@ -86,6 +86,44 @@
         {{ form_end(newsletterForm) }}
     </section>
     <section data-aos="fade-right"
+             class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 text-gray-400">
+        <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Quelques SwipeUp</h2>
+        </div>
+        <div class="mt-20">
+            <div class="relative">
+                <div class="rounded-lg overflow-hidden">
+                    <div class="m-auto relative"
+                         style="width: calc(50%*8)">
+                        <div class="flex w-full hover:pause mb-2 sm:mb-8 animate-scroll space-x-8 md:space-x-16 animation-duration-30 md:animation-duration-60">
+                            {% for n in 1..2 %}
+                                {% for key, swipe in swipes %}
+                                    <div data-aos="fade-up"
+                                         data-aos-delay="{{ 200*(key+1) }}"
+                                         class="w-[200px]">
+                                        <a href="{{ path('app_swipe_single', {slug:swipe.slug}) }}"
+                                           target="_blank"
+                                           class="relative group"
+                                           tabindex="-1">
+                                            <img src="{{ swipe.swipe[0].image.src }}"
+                                                 alt="{{ swipe.title }}"
+                                                 class="px-0 rounded-lg h-[300px] w-full object-center object-cover"/>
+                                            <div class="px-4 py-3 text-center w-full">
+                                                <h3 class="truncate font-semibold text-indigo-700 group-hover:text-indigo-800 duration-100">
+                                                    {{ swipe.title }}
+                                                </h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section data-aos="fade-right"
              id="presentation"
              class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 text-gray-400">
         <div class="max-w-xl mb-10 mx-auto text-center lg:max-w-2xl md:mb-12">
@@ -674,44 +712,6 @@
     {#            </div> #}
     {#        </div> #}
     {#    </section> #}
-    <section data-aos="fade-right"
-             class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 text-gray-400">
-        <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Quelques SwipeUp</h2>
-        </div>
-        <div class="mt-20">
-            <div class="relative">
-                <div class="rounded-lg overflow-hidden">
-                    <div class="m-auto relative"
-                         style="width: calc(50%*8)">
-                        <div class="flex w-full hover:pause mb-2 sm:mb-8 animate-scroll space-x-8 md:space-x-16 animation-duration-30 md:animation-duration-60">
-                            {% for n in 1..2 %}
-                                {% for key, swipe in swipes %}
-                                    <div data-aos="fade-up"
-                                         data-aos-delay="{{ 200*(key+1) }}"
-                                         class="w-[200px]">
-                                        <a href="{{ path('app_swipe_single', {slug:swipe.slug}) }}"
-                                           target="_blank"
-                                           class="relative group"
-                                           tabindex="-1">
-                                            <img src="{{ swipe.swipe[0].image.src }}"
-                                                 alt="{{ swipe.title }}"
-                                                 class="px-0 rounded-lg h-[300px] w-full object-center object-cover"/>
-                                            <div class="px-4 py-3 text-center w-full">
-                                                <h3 class="truncate font-semibold text-indigo-700 group-hover:text-indigo-800 duration-100">
-                                                    {{ swipe.title }}
-                                                </h3>
-                                            </div>
-                                        </a>
-                                    </div>
-                                {% endfor %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <section data-aos="fade-right"
              class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 text-gray-400">
         <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
