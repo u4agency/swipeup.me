@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ["./assets/**/*.js", 'templates/**/*.html.twig', 'templates/*.html.twig', 'src/**/*.php',], theme: {
+    content: ["./assets/**/*.js", 'templates/**/*.html.twig', 'templates/*.html.twig', 'src/**/*.php', "./node_modules/flowbite/**/*.js"],
+    theme: {
         extend: {
             inset: {
                 '1/5': '20%', '2/5': '40%', '3/5': '60%', '4/5': '80%',
@@ -57,5 +58,6 @@ module.exports = {
                 'scroll': 'scroll 60s linear infinite',
             },
         },
-    }, plugins: [require('@tailwindcss/forms'),],
+    },
+    plugins: [require('@tailwindcss/forms'), require('flowbite/plugin')],
 }
