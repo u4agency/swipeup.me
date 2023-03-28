@@ -57,6 +57,14 @@
         });
 
         const swipe = document.getElementsByClassName("swiper-slide");
+        const newsletterPopup = document.getElementById("newsletter-popup");
+        let isNewsletterPopup = true;
+
+        const closePopup = (id) => {
+            const popup = document.getElementById(id);
+            popup.classList.add('hidden');
+            swiper.enable()
+        }
 
         const swiper = new Swiper(".mySwiper", {
             direction: "vertical",
@@ -67,23 +75,34 @@
                 el: ".swiper-pagination",
                 clickable: true
             },
-            // on: {
-            //     slideChangeTransitionStart: function () {
-            //         Array.prototype.forEach.call(swipe, element => {
-            //             Array.prototype.forEach.call(element.getElementsByClassName("aos-init"), child => {
-            //                 child.classList.add('aos');
-            //                 child.classList.remove('aos-init', 'aos-animate');
-            //             });
-            //         });
-            //     },
-            //     slideChangeTransitionEnd: function () {
-            //         let swipeNew = document.getElementsByClassName("aos");
-            //
-            //         Array.prototype.forEach.call(swipeNew, element2 => {
-            //             element2.classList.add('aos-init', 'aos-animate');
-            //         });
-            //     },
-            // }
+            on: {
+                {% if swipe.homepageDisplay %}
+                slideChange: function (event) {
+                    if (event.activeIndex === 1 && isNewsletterPopup) {
+                        isNewsletterPopup = false;
+
+                        newsletterPopup.classList.remove("hidden")
+
+                        swiper.disable()
+                    }
+                },
+                {% endif %}
+                // slideChangeTransitionStart: function () {
+                //     Array.prototype.forEach.call(swipe, element => {
+                //         Array.prototype.forEach.call(element.getElementsByClassName("aos-init"), child => {
+                //             child.classList.add('aos');
+                //             child.classList.remove('aos-init', 'aos-animate');
+                //         });
+                //     });
+                // },
+                // slideChangeTransitionEnd: function () {
+                //     let swipeNew = document.getElementsByClassName("aos");
+                //
+                //     Array.prototype.forEach.call(swipeNew, element2 => {
+                //         element2.classList.add('aos-init', 'aos-animate');
+                //     });
+                // },
+            }
         });
 
         const swiperHorizontal = new Swiper(".mySwiperHorizontal", {});
