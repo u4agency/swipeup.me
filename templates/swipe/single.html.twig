@@ -129,6 +129,13 @@
                                     {% endif %}
                                 {% endfor %}
                             </div>
+                            <div class="absolute bottom-0 w-full p-8 inline-flex gap-x-2 justify-center">
+                                <p class="self-center text-white font-black text-lg">Créé avec</p>
+                                <a href="{{ path('app_homepage') }}" class="flex items-center">
+                                    <img src="{{ asset('swipeup.png') }}" class="mr-3 h-6" alt="Logo de SwipeUp">
+                                    <span class="sr-only">SwipeUp</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
