@@ -7,7 +7,8 @@
         </a>
         <button data-collapse-toggle="navbar-default" type="button"
                 class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                aria-controls="navbar-default" aria-expanded="false">
+                aria-controls="navbar-default" aria-expanded="false"
+                onclick="dropdown('navbar-default')">
             <span class="sr-only">Open main menu</span>
             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                  xmlns="http://www.w3.org/2000/svg">
@@ -20,17 +21,17 @@
             <ul class="flex flex-col p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                 <li>
                     <a href="{{ path('app_homepage') }}"
-                       class="block py-2 pr-4 pl-3 text-white bg-yellow-300 rounded md:bg-transparent md:text-omnip-blue-lighter md:p-0"
+                       class="block py-2 pr-4 pl-3 text-white bg-white/50 rounded md:bg-transparent md:p-0"
                        aria-current="page">Accueil</a>
                 </li>
                 <li>
                     <a href="{{ path('app_homepage') }}#presentation"
-                       class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                       class="block py-2 pr-4 pl-3 text-gray-300 md:p-0">
                         Présentation de la solution</a>
                 </li>
                 <li>
                     <a href="{{ path('app_homepage') }}#offres"
-                       class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                       class="block py-2 pr-4 pl-3 text-gray-300 md:p-0">
                         Nos offres</a>
                 </li>
                 {% if app.user %}
@@ -98,3 +99,10 @@
     <!-- ALERT -->
 </nav>
 <!-- NAVBAR -->
+
+<script>
+    function dropdown(id) {
+        const dropdown = document.getElementById(id);
+        dropdown.classList.toggle('hidden');
+    }
+</script>
