@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Newsletter;
 use App\Entity\Swipe;
 use App\Entity\SwipeImage;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -44,5 +45,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('SwipeUp', 'fas fa-list', Swipe::class);
         yield MenuItem::linkToCrud('SwipeUp Images', 'fas fa-list', SwipeImage::class);
+        yield MenuItem::linkToCrud('Newsletter', 'fas fa-clipboard', Newsletter::class);
     }
 }
