@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Newsletter;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\AppCustomAuthenticator;
@@ -77,7 +78,12 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $newsletter = new Newsletter();
+            $newsletter->setSource($request->attributes->get('_route'));
+            $newsletter->setEmail($user->getEmail());
+
             $entityManager->persist($user);
+            $entityManager->persist($newsletter);
             $entityManager->flush();
 
             $this->sendVerifyEmail($user);
