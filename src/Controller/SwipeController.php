@@ -39,7 +39,7 @@ class SwipeController extends AbstractController
             $form->handleRequest($request);
             if ($form->isSubmitted()) {
                 if ($form->isValid()) {
-                    $newsletter->setSource($request->attributes->get('_route'));
+                    $newsletter->setSource($request->attributes->get('_route') . " (" . $swipe->getSlug() . ")");
                     try {
                         $entityManager->persist($newsletter);
                         $entityManager->flush();
