@@ -26,7 +26,9 @@ module.exports = {
             }, transitionTimingFunction: {
                 'gradient': 'cubic-bezier(.1, 0, .9, 1)',
             }, keyframes: {
-                'scroll': {
+                fadeOut: {
+                    '0%': {opacity: '100%'}, '100%': {opacity: '0%'},
+                }, 'scroll': {
                     '0%': {transform: 'translate(0)'}, '100%': {transform: 'translate(-50%)'}
                 }, firstGradient: {
                     '0%': {transform: 'translateY(-50%) translateX(-50%) rotate(-20deg) translateX(20%)'},
@@ -56,6 +58,7 @@ module.exports = {
                 'gradient-3': 'thirdGradient 11s ease infinite',
                 'spotlight': 'spotlight 10s infinite',
                 'scroll': 'scroll 60s linear infinite',
+                'fade-out': 'fadeOut 1s ease-in-out .5s',
             },
         },
     },
