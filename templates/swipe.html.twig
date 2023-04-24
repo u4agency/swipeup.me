@@ -43,7 +43,7 @@
     {% endblock %}
 </head>
 <body class="bg-black font-swipe h-screen overflow-hidden">
-<div class="bg-black h-full w-full absolute z-50 animate-fade-out flex items-center justify-center"
+<div class="bg-black h-full w-full absolute z-50 flex items-center justify-center"
      id="waitingScreen">
     <img src="{{ asset('swipeup.png') }}" class="mr-3 h-12 sm:h-16" alt="Logo de SwipeUp">
     <div class="opacity-75 absolute inset-0 -z-[1] overflow-hidden blur-[100px] select-none pointer-events-none">
@@ -61,12 +61,13 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{ encore_entry_script_tags('swipe') }}
     <script>
+
         window.addEventListener('load', function () {
-            waitingScreen.classList.add("opacity-0");
+            waitingScreen.classList.add("animate-fade-out");
 
             setTimeout(() => {
                 waitingScreen.classList.add("hidden");
-            }, 1000)
+            }, 1500)
         });
 
         var customViewportCorrectionVariable = 'vh';
