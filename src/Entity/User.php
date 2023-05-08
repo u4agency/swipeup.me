@@ -37,11 +37,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Swipe::class, orphanRemoval: true)]
-    private Collection $swipes;
-
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: SwipeImage::class, orphanRemoval: true)]
     private Collection $swipeImages;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: SwipeUp::class)]
+    private Collection $swipeUps;
 
     public function __toString()
     {
@@ -52,6 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->swipes = new ArrayCollection();
         $this->swipeImages = new ArrayCollection();
+        $this->swipeUps = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -149,36 +150,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Swipe>
-     */
-    public function getSwipes(): Collection
-    {
-        return $this->swipes;
-    }
-
-    public function addSwipe(Swipe $swipe): self
-    {
-        if (!$this->swipes->contains($swipe)) {
-            $this->swipes->add($swipe);
-            $swipe->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSwipe(Swipe $swipe): self
-    {
-        if ($this->swipes->removeElement($swipe)) {
-            // set the owning side to null (unless already changed)
-            if ($swipe->getAuthor() === $this) {
-                $swipe->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, SwipeImage>
      */
     public function getSwipeImages(): Collection
@@ -202,6 +173,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($swipeImage->getAuthor() === $this) {
                 $swipeImage->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SwipeUp>
+     */
+    public function getSwipeUps(): Collection
+    {
+        return $this->swipeUps;
+    }
+
+    public function addSwipeUp(SwipeUp $swipeUp): self
+    {
+        if (!$this->swipeUps->contains($swipeUp)) {
+            $this->swipeUps->add($swipeUp);
+            $swipeUp->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSwipeUp(SwipeUp $swipeUp): self
+    {
+        if ($this->swipeUps->removeElement($swipeUp)) {
+            // set the owning side to null (unless already changed)
+            if ($swipeUp->getAuthor() === $this) {
+                $swipeUp->setAuthor(null);
             }
         }
 
