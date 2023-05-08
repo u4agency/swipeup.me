@@ -4,13 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Newsletter;
 use App\Entity\Swipe;
+use App\Entity\SwipeImage;
 use App\Form\NewsletterType;
+use App\Form\SwipeUploadType;
 use App\Repository\SwipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('/')]
 class SwipeController extends AbstractController
@@ -59,53 +62,19 @@ class SwipeController extends AbstractController
         ]);
     }
 
-
-    #[Route('omnip-basic', name: 'app_omnip-basic')]
-    public function omnipbasic(): Response
+    #[Route('create', name: 'app_swipe_create')]
+    public function createSwipe(
+        Request                $request,
+        EntityManagerInterface $entityManager,
+        UploaderHelper         $uploaderHelper
+    ): Response
     {
-        return $this->render('swipe/omnip.html.twig', [
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
 
-            'controller_name' => 'SwipeOmnipBasicController',
+        return $this->render('swipe/create.html.twig', [
+            'controller_name' => 'SwipeController'
         ]);
     }
-
-    #[Route('wyssual-basic', name: 'app_wyssual-basic')]
-    public function wyssualbasic(): Response
-    {
-        return $this->render('swipe/wyssual-basic.html.twig', [
-
-            'controller_name' => 'SwipeWyssualBasicController',
-        ]);
-    }
-
-    #[Route('wyssbarber', name: 'app_wyssbarber')]
-    public function wyssbarber(): Response
-    {
-        return $this->render('swipe/wyssbarber.html.twig', [
-
-            'controller_name' => 'SwipeWyssbarberController',
-        ]);
-    }
-
-
-    #[Route('domino', name: 'app_wyssbarber')]
-    public function domino(): Response
-    {
-        return $this->render('swipe/domino.html.twig', [
-
-            'controller_name' => 'SwipeDominoController',
-        ]);
-    }
-
-
-    #[Route('sobella', name: 'sobella')]
-    public function sobella(): Response
-    {
-        return $this->render('swipe/sobella.html.twig', [
-
-            'controller_name' => 'SwipeSoBellaController',
-        ]);
-    }
-
-
 }
