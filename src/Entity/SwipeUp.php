@@ -7,14 +7,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Uid\Uuid;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: SwipeUpRepository::class)]
+#[Vich\Uploadable]
 class SwipeUp
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private ?Uuid $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'swipeUps')]
     #[ORM\JoinColumn(nullable: false)]
@@ -44,6 +49,18 @@ class SwipeUp
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $font = null;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $logoName;
+
+    #[Vich\UploadableField(mapping: "swipeup_logo", fileNameProperty: "logoName")]
+    private $logoFile;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $iconName;
+
+    #[Vich\UploadableField(mapping: "swipeup_icon", fileNameProperty: "iconName")]
+    private $iconFile;
+
     #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: Swipe::class, orphanRemoval: true)]
     private Collection $swipes;
 
@@ -52,7 +69,7 @@ class SwipeUp
         $this->swipes = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -163,6 +180,76 @@ class SwipeUp
         $this->font = $font;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogoName()
+    {
+        return $this->logoName;
+    }
+
+    /**
+     * @param mixed $logoName
+     */
+    public function setLogoName($logoName): void
+    {
+        $this->logoName = $logoName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogoFile()
+    {
+        return $this->logoFile;
+    }
+
+    /**
+     * @param mixed $logoFile
+     */
+    public function setLogoFile(File $logoFile = null): void
+    {
+        $this->logoFile = $logoFile;
+        if ($logoFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIconName()
+    {
+        return $this->iconName;
+    }
+
+    /**
+     * @param mixed $iconName
+     */
+    public function setIconName($iconName): void
+    {
+        $this->iconName = $iconName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIconFile()
+    {
+        return $this->iconFile;
+    }
+
+    /**
+     * @param mixed $iconFile
+     */
+    public function setIconFile(File $iconFile = null): void
+    {
+        $this->iconFile = $iconFile;
+        if ($iconFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
     /**
