@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SwipeUpRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -41,6 +43,14 @@ class SwipeUp
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $font = null;
+
+    #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: Swipe::class, orphanRemoval: true)]
+    private Collection $swipes;
+
+    public function __construct()
+    {
+        $this->swipes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -151,6 +161,36 @@ class SwipeUp
     public function setFont(?string $font): self
     {
         $this->font = $font;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Swipe>
+     */
+    public function getSwipes(): Collection
+    {
+        return $this->swipes;
+    }
+
+    public function addSwipe(Swipe $swipe): self
+    {
+        if (!$this->swipes->contains($swipe)) {
+            $this->swipes->add($swipe);
+            $swipe->setSwipeup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSwipe(Swipe $swipe): self
+    {
+        if ($this->swipes->removeElement($swipe)) {
+            // set the owning side to null (unless already changed)
+            if ($swipe->getSwipeup() === $this) {
+                $swipe->setSwipeup(null);
+            }
+        }
 
         return $this;
     }
