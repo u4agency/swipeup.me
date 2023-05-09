@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Newsletter;
 use App\Entity\Swipe;
 use App\Entity\SwipeImage;
+use App\Entity\SwipeUp;
 use App\Form\NewsletterType;
 use App\Form\SwipeUploadType;
 use App\Repository\SwipeRepository;
@@ -18,31 +19,31 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 #[Route('/')]
 class SwipeController extends AbstractController
 {
-    #[Route('swipe', name: 'app_swipe')]
-    public function allSwipe(
+    #[Route('swipeup', name: 'app_swipeup')]
+    public function allSwipeUps(
         SwipeRepository $swipeRepository,
     ): Response
     {
         return $this->render('swipe/index.html.twig', [
-            'controller_name' => 'SwipeController',
+            'controller_name' => 'SwipeUpController',
             'swipes' => $swipeRepository->findAll()
         ]);
     }
 
-    #[Route('@{slug}', name: 'app_swipe_single', priority: -1)]
-    public function singleSwipe(
-        Swipe                  $swipe,
+    #[Route('@{slug}', name: 'app_swipeup_single', priority: -1)]
+    public function singleSwipeUp(
+        SwipeUp                $swipeup,
         EntityManagerInterface $entityManager,
         Request                $request
     ): Response
     {
         $newsletter = new Newsletter();
         $form = $this->createForm(NewsletterType::class, $newsletter);
-        if ($swipe->isHomepageDisplay()) {
+        if ($swipeup->isFeaturedSwipeUp()) {
             $form->handleRequest($request);
             if ($form->isSubmitted()) {
                 if ($form->isValid()) {
-                    $newsletter->setSource($request->attributes->get('_route') . " (" . $swipe->getSlug() . ")");
+                    $newsletter->setSource($request->attributes->get('_route') . " (" . $swipeup->getSlug() . ")");
                     try {
                         $entityManager->persist($newsletter);
                         $entityManager->flush();
@@ -57,7 +58,7 @@ class SwipeController extends AbstractController
 
         return $this->render('swipe/single.html.twig', [
             'controller_name' => 'SwipeController',
-            'swipe' => $swipe,
+            'swipeup' => $swipeup,
             'newsletterForm' => $form
         ]);
     }

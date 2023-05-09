@@ -6,15 +6,7 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/swiper-bundle.min.css';
 import './styles/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
-
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
-AOS.init();
-
-import 'flowbite';

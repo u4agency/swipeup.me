@@ -33,6 +33,7 @@
         "postcss-100vh-fix": "^1.0.2",
         "postcss-viewport-height-correction": "^1.1.1",
         "stimulus": "^3.2.1",
-        "swiper": "^8.3.2"
+        "stimulus-carousel": "^5.0.1",
+        "swiper": "^8.4.7"
     }
 }

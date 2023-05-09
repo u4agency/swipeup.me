@@ -43,6 +43,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: SwipeUp::class)]
     private Collection $swipeUps;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: WidgetUser::class, orphanRemoval: true)]
+    private Collection $widgets;
+
     public function __toString()
     {
         return $this->username;
@@ -53,6 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->swipes = new ArrayCollection();
         $this->swipeImages = new ArrayCollection();
         $this->swipeUps = new ArrayCollection();
+        $this->widgets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -203,6 +207,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($swipeUp->getAuthor() === $this) {
                 $swipeUp->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WidgetUser>
+     */
+    public function getWidgets(): Collection
+    {
+        return $this->widgets;
+    }
+
+    public function addWidget(WidgetUser $widget): self
+    {
+        if (!$this->widgets->contains($widget)) {
+            $this->widgets->add($widget);
+            $widget->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWidget(WidgetUser $widget): self
+    {
+        if ($this->widgets->removeElement($widget)) {
+            // set the owning side to null (unless already changed)
+            if ($widget->getUser() === $this) {
+                $widget->setUser(null);
             }
         }
 

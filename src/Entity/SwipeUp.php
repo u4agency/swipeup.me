@@ -64,6 +64,11 @@ class SwipeUp
     #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: Swipe::class, orphanRemoval: true)]
     private Collection $swipes;
 
+    public function __toString(): string
+    {
+        return $this->title . ' @' . $this->slug;
+    }
+
     public function __construct()
     {
         $this->swipes = new ArrayCollection();

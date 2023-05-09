@@ -4,6 +4,6 @@
        loop
        muted
        class="absolute -z-10 inset-0 w-full h-full object-cover">
-    <source src="{{ slide.video }}" type="video/mp4">
+    <source src="{{ vich_uploader_asset(swipe.background, 'backgroundFile') }}" type="{{ swipe.background|get_mime('backgroundFile') }}">
     Votre navigateur ne supporte pas la balise video.
 </video>

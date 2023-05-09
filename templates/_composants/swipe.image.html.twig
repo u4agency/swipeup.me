@@ -2,10 +2,32 @@
     h-screen w-full relative text-center text-lg bg-cover bg-no-repeat bg-center
     before:bg-black/50 before:content-[''] before:w-full before:h-full before:block before:absolute
 "
-     style="background-image: url({{ slide.image.src }})">
+     style="background-image: url({{ vich_uploader_asset(swipe.background, 'backgroundFile') }})">
     <div class="p-8 h-full w-full relative">
-        {{ include('_components/_swipe.logo.html.twig') }}
-        {{ include('_components/_swipe.title.html.twig') }}
-        {{ include('_components/_swipe.button.html.twig') }}
+        {{ include('_components/_swipe.logo.html.twig', {
+            swipeup: swipeup
+        }) }}
+        <div class="relative py-8 flex justify-center items-center h-2/3">
+            {% if swipe.widgetBody %}
+                {{ include('_components/_widget_body.html.twig', {
+                    widget: swipe.widgetBody.widget,
+                    data: swipe.widgetBody.widgetData,
+                }) }}
+            {% endif %}
+        </div>
+        <div class="h-1/6 flex items-start justify-center relative">
+            {% if swipe.widgetFooter %}
+                {{ include('_components/_widget_footer.html.twig', {
+                    widget: swipe.widgetFooter.widget,
+                    data: swipe.widgetFooter.widgetData,
+                }) }}
+            {% else %}
+                <div class="block">
+                    <div class="down-arrow cursor-pointer"
+                         data-action="click->swiper#nextSlide"
+                    ></div>
+                </div>
+            {% endif %}
+        </div>
     </div>
 </div>

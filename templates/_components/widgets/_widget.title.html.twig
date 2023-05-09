@@ -1,0 +1,15 @@
+{% set text = '' %}
+{% set color = '#ffffff' %}
+
+{% for widgetData in data %}
+    {% if widgetData.dataName == "text" %}
+        {% set text = widgetData.dataValue %}
+    {% elseif widgetData.dataName == "color" %}
+        {% set color = widgetData.dataValue %}
+    {% endif %}
+{% endfor %}
+
+<h2 class="font-bold text-3xl text-center text-white"
+    style="{{ color is defined ? 'color:'~color }}">
+    {{ text }}
+</h2>

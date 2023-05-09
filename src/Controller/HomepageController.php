@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Newsletter;
 use App\Form\NewsletterType;
-use App\Repository\SwipeRepository;
+use App\Repository\SwipeUpRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ class HomepageController extends AbstractController
 {
     #[Route('/', name: 'app_homepage')]
     public function index(
-        SwipeRepository        $swipeRepository,
+        SwipeUpRepository      $swipeUpRepository,
         EntityManagerInterface $entityManager,
         Request                $request
     ): Response
@@ -39,7 +39,7 @@ class HomepageController extends AbstractController
 
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomepageController',
-            'swipes' => $swipeRepository->findBy(['homepageDisplay' => true]),
+            'swipeups' => $swipeUpRepository->findBy(['featuredSwipeUp' => true]),
             'newsletterForm' => $form->createView(),
         ]);
     }

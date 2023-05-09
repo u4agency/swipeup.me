@@ -34,10 +34,6 @@
     <link rel="icon"
           href="{{ app.request.schemeAndHttpHost }}{{ asset('favicon.ico') }}">
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"
-    />
     {% block stylesheets %}
         {{ encore_entry_link_tags('swipe') }}
     {% endblock %}
@@ -54,12 +50,8 @@
 </div>
 {% block body %}{% endblock %}
 {% block javascripts %}
-    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
-            integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{ encore_entry_script_tags('swipe') }}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TMBTV6N0QS"></script>
     <script>
 
         window.addEventListener('load', function () {
@@ -91,10 +83,6 @@
 
         window.addEventListener('resize', setViewportProperty(document.documentElement));
 
-        Fancybox.bind("[data-fancybox]", {
-            // Your options go here
-        });
-
         const swipe = document.getElementsByClassName("swiper-slide");
         const newsletterPopup = document.getElementById("newsletter-popup");
         let isNewsletterPopup = true;
@@ -105,52 +93,7 @@
             swiper.enable()
         }
 
-        const swiper = new Swiper(".mySwiper", {
-            direction: "vertical",
-            slidesPerView: 1,
-            spaceBetween: 0,
-            mousewheel: true,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true
-            },
-            on: {
-                {% if swipe.homepageDisplay %}
-                slideChange: function (event) {
-                    if (event.activeIndex === 1 && isNewsletterPopup) {
-                        isNewsletterPopup = false;
 
-                        newsletterPopup.classList.remove("hidden")
-
-                        swiper.disable()
-                    }
-                },
-                {% endif %}
-                // slideChangeTransitionStart: function () {
-                //     Array.prototype.forEach.call(swipe, element => {
-                //         Array.prototype.forEach.call(element.getElementsByClassName("aos-init"), child => {
-                //             child.classList.add('aos');
-                //             child.classList.remove('aos-init', 'aos-animate');
-                //         });
-                //     });
-                // },
-                // slideChangeTransitionEnd: function () {
-                //     let swipeNew = document.getElementsByClassName("aos");
-                //
-                //     Array.prototype.forEach.call(swipeNew, element2 => {
-                //         element2.classList.add('aos-init', 'aos-animate');
-                //     });
-                // },
-            }
-        });
-
-        const swiperHorizontal = new Swiper(".mySwiperHorizontal", {});
-    </script>
-
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TMBTV6N0QS"></script>
-    <script>
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -160,10 +103,7 @@
         gtag('js', new Date());
 
         gtag('config', 'G-TMBTV6N0QS');
-    </script>
 
-    <!-- Hotjar Tracking Code for SwipeUp -->
-    <script>
         (function (h, o, t, j, a, r) {
             h.hj = h.hj || function () {
                 (h.hj.q = h.hj.q || []).push(arguments)

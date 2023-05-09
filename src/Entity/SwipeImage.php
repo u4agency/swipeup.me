@@ -38,6 +38,11 @@ class SwipeImage
     #[ORM\Column]
     private ?bool $isPublic = null;
 
+    public function __toString(): string
+    {
+        return '#' . $this->id;
+    }
+
     public function __construct()
     {
         $this->uploadedAt = new \DateTimeImmutable();

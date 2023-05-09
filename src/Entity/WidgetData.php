@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\SwipeRepository;
+use App\Repository\WidgetDataRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: SwipeRepository::class)]
-class Swipe
+#[ORM\Entity(repositoryClass: WidgetDataRepository::class)]
+class WidgetData
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
@@ -15,13 +16,13 @@ class Swipe
     #[ORM\Column(type: 'uuid', unique: true)]
     private ?Uuid $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'swipes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?SwipeUp $swipeup = null;
-
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?SwipeImage $background = null;
+    private ?Widget $widget = null;
+
+    #[ORM\ManyToOne(inversedBy: 'widgetData')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?WidgetSwipe $widgetSwipe = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -29,15 +30,15 @@ class Swipe
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?WidgetSwipe $widgetBody = null;
+    #[ORM\Column(length: 255)]
+    private ?string $dataName = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?WidgetSwipe $widgetFooter = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $dataValue = null;
 
     public function __toString(): string
     {
-        return $this->id;
+        return "Données de " . $this->widget->getName();
     }
 
     public function __construct()
@@ -51,26 +52,26 @@ class Swipe
         return $this->id;
     }
 
-    public function getSwipeup(): ?SwipeUp
+    public function getWidget(): ?Widget
     {
-        return $this->swipeup;
+        return $this->widget;
     }
 
-    public function setSwipeup(?SwipeUp $swipeup): self
+    public function setWidget(?Widget $widget): self
     {
-        $this->swipeup = $swipeup;
+        $this->widget = $widget;
 
         return $this;
     }
 
-    public function getBackground(): ?SwipeImage
+    public function getWidgetSwipe(): ?WidgetSwipe
     {
-        return $this->background;
+        return $this->widgetSwipe;
     }
 
-    public function setBackground(?SwipeImage $background): self
+    public function setWidgetSwipe(?WidgetSwipe $widgetSwipe): self
     {
-        $this->background = $background;
+        $this->widgetSwipe = $widgetSwipe;
 
         return $this;
     }
@@ -99,26 +100,26 @@ class Swipe
         return $this;
     }
 
-    public function getWidgetBody(): ?WidgetSwipe
+    public function getDataName(): ?string
     {
-        return $this->widgetBody;
+        return $this->dataName;
     }
 
-    public function setWidgetBody(?WidgetSwipe $widgetBody): self
+    public function setDataName(string $dataName): self
     {
-        $this->widgetBody = $widgetBody;
+        $this->dataName = $dataName;
 
         return $this;
     }
 
-    public function getWidgetFooter(): ?WidgetSwipe
+    public function getDataValue(): ?string
     {
-        return $this->widgetFooter;
+        return $this->dataValue;
     }
 
-    public function setWidgetFooter(?WidgetSwipe $widgetFooter): self
+    public function setDataValue(string $dataValue): self
     {
-        $this->widgetFooter = $widgetFooter;
+        $this->dataValue = $dataValue;
 
         return $this;
     }
