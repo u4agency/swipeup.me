@@ -1,0 +1,36 @@
+<h1>Maintenance en cours</h1>
+
+<form class="mt-8 space-y-6" method="POST" action="{{ path('app_login_form') }}">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+    <div class="-space-y-px rounded-md shadow-sm">
+        <div>
+            <label for="inputEmail" class="sr-only">Votre email</label>
+            <input type="email"
+                   name="email"
+                   placeholder="Adresse mail"
+                   id="inputEmail"
+                   class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"
+                   autocomplete="email"
+                   required
+                   autofocus>
+        </div>
+        <div>
+            <label for="inputPassword" class="sr-only">Votre mot de passe</label>
+            <input type="password"
+                   name="password"
+                   placeholder="Mot de passe"
+                   id="inputPassword"
+                   class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"
+                   autocomplete="current-password"
+                   required>
+        </div>
+    </div>
+
+    <div>
+        <button type="submit"
+                class="group relative w-full justify-center rounded-md border border-transparent bg-swipe-600 py-2 px-4 text-sm font-medium text-white hover:bg-swipe-700 focus:outline-none focus:ring-2 focus:ring-swipe-500 focus:ring-offset-2">
+            Suivant
+        </button>
+    </div>
+</form>
