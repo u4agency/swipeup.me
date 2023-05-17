@@ -1,7 +1,9 @@
 {
     "devDependencies": {
         "@hotwired/stimulus": "^3.0.0",
+        "@hotwired/turbo": "^7.0.1",
         "@symfony/stimulus-bridge": "^3.2.0",
+        "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
         "@symfony/webpack-encore": "^3.0.0",
         "autoprefixer": "^10.4.8",
         "core-js": "^3.23.0",
@@ -10,7 +12,9 @@
         "regenerator-runtime": "^0.13.9",
         "sass": "^1.54.4",
         "sass-loader": "13.0.0",
+        "slugify": "^1.6.6",
         "tailwindcss": "^3.3.2",
+        "uuid": "^9.0.0",
         "webpack-notifier": "^1.15.0"
     },
     "license": "UNLICENSED",
@@ -34,6 +38,7 @@
         "postcss-viewport-height-correction": "^1.1.1",
         "stimulus": "^3.2.1",
         "stimulus-carousel": "^5.0.1",
+        "stimulus-use": "^0.52.0",
         "swiper": "^8.4.7"
     }
 }

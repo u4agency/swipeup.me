@@ -3,34 +3,37 @@
 namespace App\Controller;
 
 use App\Entity\SwipeImage;
-use App\Form\SwipeUploadType;
+use App\Form\SwipeBackgroundType;
 use App\Repository\SwipeRepository;
+use App\Repository\SwipeUpRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-#[Route('/api')]
+#[Route('/api/')]
 #[IsGranted('IS_AUTHENTICATED_FULLY')]
 class ApiController extends AbstractController
 {
     /**
-     * @param SwipeRepository $swipeRepository
+     * @param SwipeUpRepository $swipeUpRepository
      * @param Request $request
      * @return JsonResponse
      */
-    #[Route('/check-name', name: 'api_checkname')]
+    #[Route('check-name', name: '_api_checkname')]
     public function checkName(
-        SwipeRepository $swipeRepository,
-        Request         $request
+        SwipeUpRepository $swipeUpRepository,
+        Request           $request
     ): JsonResponse
     {
         $searchTerm = $request->query->get('q');
 
-        $swipe = $swipeRepository->findOneBy(['slug' => $searchTerm]);
+        $swipe = $swipeUpRepository->findOneBy(['slug' => $searchTerm]);
         return $this->json([
             "response" => !$swipe
         ]);
@@ -42,7 +45,7 @@ class ApiController extends AbstractController
      * @param UploaderHelper $uploaderHelper
      * @return JsonResponse
      */
-    #[Route('/upload-swipe', name: 'api_uploadswipe', methods: 'POST')]
+    #[Route('upload-swipe', name: '_api_upload-swipe', methods: 'POST')]
     public function uploadSwipe(
         Request                $request,
         EntityManagerInterface $entityManager,
@@ -84,4 +87,35 @@ class ApiController extends AbstractController
 //    {
 //        return $this->render('_components/_create.section.html.twig');
 //    }
+
+    #[Route('upload-background', name: '_api_upload-background')]
+    public function uploadBackground(
+        Request                $request,
+        EntityManagerInterface $entityManager,
+        UploaderHelper         $uploaderHelper,
+    ): Response
+    {
+        $swipeImage = new SwipeImage();
+        $form = $this->createForm(SwipeBackgroundType::class, $swipeImage);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $swipeImage->setAlt("");
+            $swipeImage->setAuthor($this->getUser());
+
+            $entityManager->persist($swipeImage);
+            $entityManager->flush();
+
+            return $this->json([
+                "response" => [
+                    "id" => $swipeImage->getId(),
+                    "url" => $uploaderHelper->asset($swipeImage, 'backgroundFile'),
+                ],
+            ]);
+        }
+
+        return $this->json([
+            "error" => "Bad request",
+        ]);
+    }
 }
