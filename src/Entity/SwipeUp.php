@@ -55,7 +55,7 @@ class SwipeUp
     #[Vich\UploadableField(mapping: "swipeup_logo", fileNameProperty: "logoName")]
     private $logoFile;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $iconName;
 
     #[Vich\UploadableField(mapping: "swipeup_icon", fileNameProperty: "iconName")]
