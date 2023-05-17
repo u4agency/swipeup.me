@@ -3,6 +3,6 @@
 #    controller: App\Controller\DefaultController::index
 
 swipe_up_subdomain:
-  path:       /
-  host:       yacine.swipeup.me
+  path: /
+  host: yacine.swipeup.me
   controller: App\Controller\SwipeController::allSwipeUps

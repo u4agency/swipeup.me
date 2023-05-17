@@ -30,3 +30,7 @@ services:
           - Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
           - EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException
           - Symfony\Component\Security\Core\Exception\AccessDeniedException
+
+  App\Utils\MaintenanceMode:
+    arguments:
+      $maintenanceMode: '%env(bool:APP_MAINTENANCE_MODE)%'
