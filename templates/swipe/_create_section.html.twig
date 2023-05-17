@@ -1,0 +1,43 @@
+<turbo-frame id="swipe_section">
+    <div
+            class="grid grid-cols-2 gap-4"
+    >
+        <div
+                {{ stimulus_controller('swipe-single') }}
+                {{ stimulus_action(
+                    'swipe-single',
+                    'addBackground',
+                    'upload-background:submitted'
+                ) }}
+        >
+            {{ form_start(swipeForm, {
+                'attr': {
+                    'data-action': 'upload-background:submitted->swipe-single#addBackground'
+                }
+            }) }}
+            {{ form_widget(swipeForm.swipeup, {
+                'attr': {
+                    'data-swipe-single-target': 'swipeup'
+                }
+            }) }}
+            {{ form_widget(swipeForm.background, {
+                'attr': {
+                    'data-swipe-single-target': 'background'
+                }
+            }) }}
+            {{ form_end(swipeForm) }}
+        </div>
+        <div>
+            {{ form_start(backgroundForm, {
+                'attr': {
+                    action: path('_api_upload-background'),
+                    'data-controller': 'upload-background',
+                    'data-action': 'change->upload-background#submitForm',
+                }
+            }) }}
+            {{ form_widget(backgroundForm.backgroundFile, {
+            }) }}
+            {{ form_end(backgroundForm) }}
+        </div>
+    </div>
+</turbo-frame>

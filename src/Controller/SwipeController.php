@@ -7,7 +7,9 @@ use App\Entity\Swipe;
 use App\Entity\SwipeImage;
 use App\Entity\SwipeUp;
 use App\Form\NewsletterType;
-use App\Form\SwipeUploadType;
+use App\Form\SwipeBackgroundType;
+use App\Form\SwipeSectionType;
+use App\Form\SwipeUpType;
 use App\Repository\SwipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -74,8 +76,63 @@ class SwipeController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $swipeup = new SwipeUp();
+        $form = $this->createForm(SwipeUpType::class, $swipeup);
+        $form->handleRequest($request);
+
+        $swipeImage = new SwipeImage();
+        $formImage = $this->createForm(SwipeBackgroundType::class, $swipeImage);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $swipeup->setFeaturedSwipeUp(false);
+            $swipeup->setAuthor($this->getUser());
+            $entityManager->persist($swipeup);
+            $entityManager->flush();
+
+            if ($request->isXmlHttpRequest()) {
+                return new Response(null, 204);
+            }
+
+            return $this->redirectToRoute('app_swipeup_single', ['slug' => $swipeup->getSlug()], Response::HTTP_SEE_OTHER);
+        }
+
+
         return $this->render('swipe/create.html.twig', [
-            'controller_name' => 'SwipeController'
+            'form' => $form->createView(),
+            'formImage' => $formImage->createView(),
+        ]);
+    }
+
+    public function _sectionCreate(
+        Request                $request,
+        EntityManagerInterface $entityManager,
+    ): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $swipe = new Swipe();
+        $swipeForm = $this->createForm(SwipeSectionType::class, $swipe);
+        $swipeForm->handleRequest($request);
+
+        $swipeImage = new SwipeImage();
+        $backgroundForm = $this->createForm(SwipeBackgroundType::class, $swipeImage);
+
+        if ($swipeForm->isSubmitted() && $swipeForm->isValid()) {
+            $entityManager->persist($swipe);
+            $entityManager->flush();
+
+            if ($request->isXmlHttpRequest()) {
+                return new Response(null, 204);
+            }
+        }
+
+        return $this->render('swipe/_create_section.html.twig', [
+            'swipeForm' => $swipeForm->createView(),
+            'backgroundForm' => $backgroundForm->createView(),
+            'sectionCount' => $request->query->get('sectionCount'),
         ]);
     }
 }
