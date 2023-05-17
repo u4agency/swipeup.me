@@ -72,6 +72,8 @@ class SwipeUp
     public function __construct()
     {
         $this->swipes = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?Uuid
