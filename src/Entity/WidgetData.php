@@ -38,7 +38,7 @@ class WidgetData
 
     public function __toString(): string
     {
-        return "Données de " . $this->widget->getName();
+        return "Données de " . $this->widget->getName(). " sur ".$this->widgetSwipe->getSwipe();
     }
 
     public function __construct()

@@ -29,15 +29,15 @@ class Swipe
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'swipe', cascade: ['persist', 'remove'])]
     private ?WidgetSwipe $widgetBody = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'swipe', cascade: ['persist', 'remove'])]
     private ?WidgetSwipe $widgetFooter = null;
 
     public function __toString(): string
     {
-        return $this->id;
+        return "Section de @".$this->swipeup->getSlug()." créée le ". $this->getCreatedAt()->format('d/m/Y \à H:i:s');
     }
 
     public function __construct()

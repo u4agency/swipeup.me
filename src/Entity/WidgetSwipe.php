@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 #[ORM\Entity(repositoryClass: WidgetSwipeRepository::class)]
 class WidgetSwipe
@@ -24,14 +25,21 @@ class WidgetSwipe
     #[ORM\OneToMany(mappedBy: 'widgetSwipe', targetEntity: WidgetData::class)]
     private Collection $widgetData;
 
+    #[ORM\OneToOne(mappedBy: 'widgetBody', cascade: ['persist', 'remove'])]
+    private ?Swipe $swipe = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function __toString(): string
     {
-        return $this->id;
+        return $this->getWidget() . ' créé le ' . $this->getCreatedAt()->format('d/m/Y \à H:i:s') . ($this->getSwipe() ? ' pour la ' . $this->getSwipe() : 'd\'un widget sur un Swipe');
     }
 
     public function __construct()
     {
         $this->widgetData = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?Uuid
@@ -77,6 +85,26 @@ class WidgetSwipe
                 $widgetData->setWidgetSwipe(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Swipe|null
+     */
+    public function getSwipe(): ?Swipe
+    {
+        return $this->swipe;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

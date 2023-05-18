@@ -68,7 +68,7 @@ class SwipeUp
 
     public function __toString(): string
     {
-        return $this->title . ' @' . $this->slug;
+        return $this->title . ' (@' . $this->slug . ')';
     }
 
     public function __construct()
