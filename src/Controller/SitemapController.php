@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\SwipeRepository;
+use App\Repository\SwipeUpRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,13 +14,13 @@ class SitemapController extends AbstractController
     /**
      * @Route("sitemap.xml", name="sitemap", defaults={"_format"="xml"})
      * @param Request $request
-     * @param SwipeRepository $swipeRepository
+     * @param SwipeUpRepository $swipeUpRepository
      * @param UploaderHelper $uploaderHelper
      * @return Response
      */
     public function sitemap(
         Request         $request,
-        SwipeRepository $swipeRepository,
+        SwipeUpRepository $swipeUpRepository,
         UploaderHelper  $uploaderHelper,
     ): Response
     {
@@ -41,15 +41,15 @@ class SitemapController extends AbstractController
             'priority' => 0.9
         ];
 
-        foreach ($swipeRepository->findBy(['status' => 'public']) as $swipe) {
+        foreach ($swipeUpRepository->findBy(['status' => 'public']) as $swipeup) {
             $urls[] = [
-                'loc' => $this->generateUrl('app_swipe_single', ['slug' => $swipe->getSlug()]),
-                'lastmod' => $swipe->getUpdatedAt()->format('c'),
+                'loc' => $this->generateUrl('app_swipeup_single', ['slug' => $swipeup->getSlug()]),
+                'lastmod' => $swipeup->getUpdatedAt()->format('c'),
                 'changefreq' => 'daily',
                 'priority' => 0.8,
                 'image' => [
-                    'loc' => $uploaderHelper->asset($swipe, 'logoFile'),
-                    'title' => $swipe->getTitle()
+                    'loc' => $uploaderHelper->asset($swipeup, 'logoFile'),
+                    'title' => $swipeup->getTitle()
                 ]
             ];
         }
