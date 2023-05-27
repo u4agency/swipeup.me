@@ -59,16 +59,23 @@
         <div class="md:w-2/4 xl:w-1/4 mx-auto md:mx-0 h-full">
             <div
                     class="h-full w-full mySwiper swiper-container"
-                    {{ stimulus_controller('swiper') }}
+                    {{ stimulus_controller('swiper', {
+                        isFeaturedSwipeUp: swipeup.isFeaturedSwipeUp,
+                    }) }}
             >
                 <div class="swiper-wrapper">
                     {% for key, swipe in swipeup.swipes %}
                         <div class="swiper-slide">
                             {% if swipeup.isFeaturedSwipeUp and key == 1 %}
-                                <div class="bg-white rounded-t-xl p-4 pb-24 z-10 absolute w-full bottom-0 hidden space-y-3"
-                                     id="newsletter-popup">
+                                <div
+                                        class="bg-white rounded-t-xl p-4 pb-24 z-10 absolute w-full bottom-0 hidden space-y-3"
+                                        {{ stimulus_target('swiper', 'newsletterPopup') }}
+                                >
                                     <div class="flex items-end justify-end">
-                                        <button class="relative inline-flex" onclick="closePopup('newsletter-popup')">
+                                        <button
+                                                class="relative inline-flex"
+                                                {{ stimulus_action('swiper', 'closeNewsletterPopup') }}
+                                        >
                                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
                                                  viewBox="0 0 20 20"
                                                  xmlns="http://www.w3.org/2000/svg">

@@ -4,9 +4,14 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 export default class extends Controller {
-    static targets = ['pagination'];
+    static targets = ['pagination', 'newsletterPopup'];
+    static values = {
+        isFeaturedSwipeUp: Boolean
+    };
 
     connect() {
+        this.isNewsletterPopup = true;
+
         this.swiper = new Swiper(this.element, {
             modules: [Pagination, Mousewheel],
             direction: "vertical",
@@ -17,7 +22,25 @@ export default class extends Controller {
                 el: this.paginationTarget,
                 clickable: true,
             },
+            on: {
+                slideChange: (event) => {
+                    if (event.activeIndex === 1 && this.isFeaturedSwipeUpValue && this.isNewsletterPopup) {
+                        this.openNewsletterPopup(event);
+                    }
+                },
+            }
         });
+    }
+
+    openNewsletterPopup(slider) {
+        this.isNewsletterPopup = false;
+        this.newsletterPopupTarget.classList.remove("hidden")
+        slider.disable()
+    }
+
+    closeNewsletterPopup() {
+        this.newsletterPopupTarget.classList.add("hidden")
+        this.swiper.enable()
     }
 
     nextSlide() {
