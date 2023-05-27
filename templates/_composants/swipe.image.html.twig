@@ -23,8 +23,9 @@
                 }) }}
             {% else %}
                 <div class="block">
-                    <div class="down-arrow cursor-pointer"
-                         data-action="click->swiper#nextSlide"
+                    <div
+                            class="down-arrow cursor-pointer"
+                            {{ stimulus_action('swiper', 'nextSlide', 'click') }}
                     ></div>
                 </div>
             {% endif %}
