@@ -19,10 +19,10 @@ when@prod:
       #                type: service
       #                id: Sentry\Monolog\Handler
 
-    services:
-      sentry.callback.traces_sampler:
-        class: 'App\Service\Sentry'
-        factory: [ '@App\Service\Sentry', 'getTracesSampler' ]
+  services:
+    sentry.callback.traces_sampler:
+      class: 'App\Service\Sentry'
+      factory: [ '@App\Service\Sentry', 'getTracesSampler' ]
 #    services:
 #        Sentry\Monolog\Handler:
 #            arguments:
