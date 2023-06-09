@@ -26,14 +26,22 @@ class FileTypeExtension extends AbstractExtension
         ];
     }
 
-    public function getType($obj, $name): string
+    public function getType($obj, $name): ?string
     {
-        (string)$mime = mime_content_type($this->parameterBag->get('kernel.project_dir') . '/public' . $this->uploaderHelper->asset($obj, $name));
-        return explode('/', $mime)[0];
+        if ($obj !== null) {
+            (string)$mime = mime_content_type($this->parameterBag->get('kernel.project_dir') . '/public' . $this->uploaderHelper->asset($obj, $name));
+            return explode('/', $mime)[0];
+        } else {
+            return null;
+        }
     }
 
-    public function getMime($obj, $name): string
+    public function getMime($obj, $name): ?string
     {
-        return (string)mime_content_type($this->parameterBag->get('kernel.project_dir') . '/public' . $this->uploaderHelper->asset($obj, $name));
+        if ($obj !== null) {
+            return (string)mime_content_type($this->parameterBag->get('kernel.project_dir') . '/public' . $this->uploaderHelper->asset($obj, $name));
+        } else {
+            return null;
+        }
     }
 }
