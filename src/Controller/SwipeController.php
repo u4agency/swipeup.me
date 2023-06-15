@@ -11,8 +11,10 @@ use App\Form\SwipeBackgroundType;
 use App\Form\SwipeSectionType;
 use App\Form\SwipeUpType;
 use App\Repository\SwipeRepository;
+use App\Repository\SwipeUpRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -101,6 +103,16 @@ class SwipeController extends AbstractController
         return $this->render('swipe/create.html.twig', [
             'form' => $form->createView(),
             'formImage' => $formImage->createView(),
+        ]);
+    }
+
+    #[Route('/random', name: 'app_swipe_randomswipeup')]
+    public function randomSwipeUp(
+        SwipeUpRepository $swipeupRepository,
+    ): RedirectResponse
+    {
+        return $this->redirectToRoute('app_swipeup_single', [
+            'slug' => $swipeupRepository->randomRow()[0]['slug']
         ]);
     }
 

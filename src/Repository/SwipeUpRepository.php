@@ -39,6 +39,19 @@ class SwipeUpRepository extends ServiceEntityRepository
         }
     }
 
+    public function randomRow(): array|float|int|string
+    {
+        return $this->createQueryBuilder('a')
+            ->addSelect('a')
+            ->select('a.slug')
+//            ->where('a.featuredSwipeUp = :homepage')
+//            ->setParameter('homepage', true)
+            ->orderBy('RAND()')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
 //    /**
 //     * @return SwipeUp[] Returns an array of SwipeUp objects
 //     */
