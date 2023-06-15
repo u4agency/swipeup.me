@@ -59,7 +59,13 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppCustomAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(
+        Request                     $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        UserAuthenticatorInterface  $userAuthenticator,
+        AppCustomAuthenticator      $authenticator,
+        EntityManagerInterface      $entityManager,
+    ): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('app_homepage');
@@ -87,7 +93,6 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             $this->sendVerifyEmail($user);
-            // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
                 $user,
