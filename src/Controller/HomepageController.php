@@ -21,7 +21,8 @@ class HomepageController extends AbstractController
         SwipeUpRepository      $swipeUpRepository,
         EntityManagerInterface $entityManager,
         Request                $request,
-        MaintenanceMode        $maintenanceMode
+        MaintenanceMode        $maintenanceMode,
+        NewsletterRepository   $newsletterRepository,
     ): Response
     {
         if ($maintenanceMode->isMaintenanceMode() && !$this->isGranted('ROLE_ADMIN')) {
@@ -38,8 +39,11 @@ class HomepageController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $newsletter->setSource($request->attributes->get('_route'));
+                $referral = $newsletterRepository->findOneBy(['code' => $request->query->get('code')]);
+                $referral?->setPoints($referral->getPoints() + 100);
                 try {
                     $entityManager->persist($newsletter);
+                    $entityManager->persist($referral);
                     $entityManager->flush();
 
                     return $this->redirectToRoute('app_newsletter', ['code' => $newsletter->getCode()]);
