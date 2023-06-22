@@ -42,7 +42,7 @@ class HomepageController extends AbstractController
                     $entityManager->persist($newsletter);
                     $entityManager->flush();
 
-                    $this->addFlash('success', "Vous êtes bien inscrit à la file d'attente !");
+                    return $this->redirectToRoute('app_newsletter', ['code' => $newsletter->getCode()]);
                 } catch (\Exception $exception) {
                     $this->addFlash('danger', "Vous êtes déjà en file d'attente !");
                 }
@@ -71,6 +71,7 @@ class HomepageController extends AbstractController
 
         $allNewsletter = $newsletterRepository->findBy([], ['points' => 'DESC']);
         $position = array_search($newsletter, $allNewsletter) + 1;
+
         return $this->render('pages/newsletter.html.twig', [
             'controller_name' => 'HomepageController',
             'newsletter' => $newsletter,
