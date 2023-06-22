@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Newsletter;
 use App\Form\NewsletterType;
+use App\Repository\NewsletterRepository;
 use App\Repository\SwipeUpRepository;
 use App\Utils\MaintenanceMode;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,4 +55,27 @@ class HomepageController extends AbstractController
             'newsletterForm' => $form->createView(),
         ]);
     }
+
+    #[Route('/waiting/{code}', name: 'app_newsletter')]
+    public function newsletter(
+        NewsletterRepository $newsletterRepository,
+                             $code,
+    ): Response
+    {
+        $newsletter = $newsletterRepository->findOneBy(['code' => $code]);
+
+        if (!$newsletter) {
+            $this->addFlash('danger', "Vous n'êtes pas en file d'attente !");
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        $allNewsletter = $newsletterRepository->findBy([], ['points' => 'DESC']);
+        $position = array_search($newsletter, $allNewsletter) + 1;
+        return $this->render('pages/newsletter.html.twig', [
+            'controller_name' => 'HomepageController',
+            'newsletter' => $newsletter,
+            'position' => $position,
+        ]);
+    }
+
 }

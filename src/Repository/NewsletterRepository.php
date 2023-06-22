@@ -38,7 +38,6 @@ class NewsletterRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
 //    /**
 //     * @return Newsletter[] Returns an array of Newsletter objects
 //     */
