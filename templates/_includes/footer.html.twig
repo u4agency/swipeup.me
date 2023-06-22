@@ -1,7 +1,40 @@
 <div class="text-left h-1/6 px-4 py-4 md:px-12 md:py-12 w-full">
     <div class="footer-1 py-8 sm:py-4">
         <div class="container mx-auto">
-            <hr class="mb-5 opacity-25">
+            <div class="md:flex md:justify-between">
+                <div class="mb-6 md:mb-0 space-y-4 text-white max-w-md">
+                    <a href="{{ path('app_homepage') }}" class="flex items-center">
+                        <img src="{{ asset('swipeup.png') }}" class="h-8 mr-3" alt="Logo de SwipeUp"/>
+                        <span class="sr-only">SwipeUp</span>
+                    </a>
+                    <p class="text-3xl">Créer votre SwipeUp gratuitement</p>
+                    <p class="text-lg">SwipeUp, votre atout pour une présence en ligne puissante et optimisée à l'ère du mobile.</p>
+                    <div class="flex flex-col gap-4 md:flex-row">
+                        <a href="#newsletter"
+                           class="text-center inline-flex text-white bg-gradient-to-tr from-swipe-900 to-swipe-400 border-0 py-2 px-6 focus:outline-none rounded text-lg">
+                            SwipeUp Gratuit
+                        </a>
+                        <a href="{{ path('app_swipe_randomswipeup') }}"
+                           class="text-center md:ml-4 inline-flex text-gray-300 border-0 p-2 md:px-6 focus:outline-none rounded text-lg">
+                               <span class="flex items-center space-x-3">
+                                   <svg class="flex-shrink-0 w-5 h-5"
+                                        fill="currentColor"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                       <path d="M512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM176 168V344C176 352.7 180.7 360.7 188.3 364.9C195.8 369.2 205.1 369 212.5 364.5L356.5 276.5C363.6 272.1 368 264.4 368 256C368 247.6 363.6 239.9 356.5 235.5L212.5 147.5C205.1 142.1 195.8 142.8 188.3 147.1C180.7 151.3 176 159.3 176 168V168z"></path>
+                                   </svg>
+                                   <span>Voir une démo</span>
+                               </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <hr class="my-5 opacity-25">
             <div class="flex flex-col"><p class="font-light text-center text-gray-500"> © {{ "now"|date('Y') }} SwipeUp
                     est un nom de marque appartenant à
                     <a href="https://omnip.fr/" target="_blank" class="text-swipe-500 hover:text-swipe-600">OMNIP</a>.
@@ -25,7 +58,7 @@
                             <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
                         </svg>
                     </a>
-                    <a href="https://youtube.com/@swipeup.me"
+                    <a href="https://youtube.com/@swipeup-me"
                        target="_blank">
                         <svg class="w-6 h-6 text-gray-500 hover:text-swipe-600 duration-200"
                              fill="currentColor"
