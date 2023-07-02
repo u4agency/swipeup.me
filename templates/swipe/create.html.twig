@@ -5,99 +5,41 @@
 {% endblock %}
 
 {% block body %}
-    <main class="font-light body-font py-24 max-w-7xl mx-auto space-y-8 lg:space-y-12 px-4">
-        <div class="mx-auto max-w-screen-md text-center">
-            <h1 class="mb-4 text-5xl tracking-tight font-extrabold text-white">Créez votre SwipeUp</h1>
-            <p class="mb-5 font-light sm:text-xl text-gray-400">Cette page incroyable va vous permettre de créer
-                vous-même votre SwipeUp. <br>Puissant non ?</p>
-        </div>
-        <div class="grid md:grid-cols-2 gap-8 relative">
-            <div
-                    class="space-y-8"
-                    {{ stimulus_controller('swipe-section', {
-                        sectionUrl: fragment_uri(controller('App\\Controller\\SwipeController::_sectionCreate')),
-                    }) }}
-            >
-                <button
-                        class="bg-swipe-500 hover:bg-swipe-600 cursor-pointer w-full rounded-xl p-3 text-white text-xl"
-                        {{ stimulus_action('swipe-section', 'addSection') }}
-                >
-                    Ajouter une section
-                </button>
-                <div
-                        class="space-y-4"
-                        {{ stimulus_target('swipe-section', 'mainSection') }}
-                >
-                </div>
-            </div>
-            <div class="space-y-4 h-min top-24 sticky">
-                <h2 class="mb-4 text-3xl md:text-4xl tracking-tight font-bold text-white text-center">
-                    Informations générales
-                </h2>
-                <hr>
-                <div class="text-lg">
-                    {{ form_start(form, {
-                        'attr': {
-                            'class': 'space-y-8 lg:space-y-12'
-                        }
-                    }) }}
-                    <div class="space-y-4">
-                        <div class="space-y-2">
-                            <p class="text-white">{{ form_label(form.slug) }}</p>
-                            <div
-                                    class="bg-white flex md:max-w-xs relative py-4 px-3 rounded-xl"
-                                    {{ stimulus_controller('search-preview', {
-                                        url: path('_api_checkname')
-                                    }) }}
-                            >
-                                <p class="text-gray-700">
-                                    swipeup.me/@
-                                </p>
-                                <p class="text-gray-600">
-                                    {{ form_widget(form.slug, {
-                                        'attr': {
-                                            'data-search-preview-target': 'input'
-                                        }
-                                    }) }}
-                                </p>
-                                <p {{ stimulus_target('search-preview', 'result') }}></p>
-                            </div>
-                            <div class="text-red-600">{{ form_errors(form.slug) }}</div>
+    <section class="container mx-auto font-light sm:text-xl text-white body-font">
+        <div class="mx-auto px-5 py-24 md:py-36">
+            <div class="w-full space-y-16 max-w-4xl mx-auto">
+                <h1 class="mx-auto text-4xl sm:text-5xl font-semibold lg:text-6xl text-center">
+                    Créer votre propre SwipeUp en 2 clics !
+                </h1>
+                <div class="space-y-16 w-full md:w-4/5 mx-auto">
+                    {{ form_start(form) }}
+                    <div class="space-y-2">
+                        <p class="sr-only">{{ form_label(form.slug) }}</p>
+                        <div class="bg-white flex w-full relative py-4 px-3 rounded-xl">
+                            <p class="text-gray-700">
+                                swipeup.me/@
+                            </p>
+                            <p class="text-gray-600 w-full">
+                                {{ form_widget(form.slug) }}
+                            </p>
                         </div>
-
-                        <div class="space-y-2">
-                            <p class="text-white">{{ form_label(form.title) }}</p>
-                            {{ form_widget(form.title) }}
-                            <div class="text-red-600">{{ form_errors(form.title) }}</div>
-                        </div>
-                        <div class="space-y-2">
-                            <p class="text-white">{{ form_label(form.description) }}</p>
-                            {{ form_widget(form.description) }}
-                            <div class="text-red-600">{{ form_errors(form.description) }}</div>
-                        </div>
-                        <div class="space-y-2">
-                            <p class="text-white">{{ form_label(form.status) }}</p>
-                            {{ form_widget(form.status) }}
-                            <div class="text-red-600">{{ form_errors(form.status) }}</div>
-                        </div>
-                        <div class="space-y-2">
-                            <p class="text-white">{{ form_label(form.logoFile) }}</p>
-                            {{ form_widget(form.logoFile) }}
-                            <div class="text-red-600">{{ form_errors(form.logoFile) }}</div>
-                        </div>
+                        <div class="text-red-600">{{ form_errors(form.slug) }}</div>
+                    </div>
+                    <div class="w-full flex justify-center">
+                        <button class="rounded-xl text-white bg-swipe-600 hover:bg-swipe-700 py-4 px-8 text-xl w-full">
+                            Créer mon SwipeUp
+                        </button>
                     </div>
                     {{ form_end(form) }}
                 </div>
             </div>
+            <turbo-frame
+                    id="swipeup-exemples"
+                    src="{{ path('app_homepage') }}"
+            >
+                Chargement...
+            </turbo-frame>
         </div>
-        <div class="w-full flex justify-center">
-            <button class="rounded-xl text-white bg-swipe-500 hover:bg-swipe-600 py-4 px-8 text-xl">
-                Créer mon SwipeUp
-            </button>
-        </div>
-    </main>
+    </section>
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-{% endblock %}

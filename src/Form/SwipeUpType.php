@@ -23,41 +23,11 @@ class SwipeUpType extends AbstractType
         $classes = "bg-white flex relative py-4 px-3 rounded-xl text-lg w-full overflow-x-hidden outline-none border-none";
 
         $builder
-            ->add('title', TextType::class, [
-                'label' => 'Titre du SwipeUp',
-                'attr' => [
-                    'class' => $classes,
-                ],
-            ])
             ->add('slug', TextType::class, [
                 'label' => 'Lien du SwipeUp',
                 'attr' => [
                     'class' => 'text-lg w-full overflow-x-hidden outline-none mr-2 border-none p-0',
                     'placeholder' => 'votrenom',
-                ],
-            ])
-            ->add('description', TextareaType::class, [
-                'label' => 'Description du SwipeUp',
-                'attr' => [
-                    'class' => $classes,
-                    'rows' => 4
-                ],
-            ])
-            ->add('status', ChoiceType::class, [
-                'label' => 'Status du SwipeUp',
-                'attr' => [
-                    'class' => $classes,
-                ],
-                'choices' => [
-                    'Public' => 'public',
-                    'Non-répertorié' => 'unlisted',
-                    'Privé' => 'private',
-                ],
-            ])
-            ->add('logoFile', VichImageType::class, [
-                'label' => 'Logo du SwipeUp',
-                'attr' => [
-                    'class' => 'text-white',
                 ],
             ])
         ;

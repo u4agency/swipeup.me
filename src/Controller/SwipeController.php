@@ -82,19 +82,13 @@ class SwipeController extends AbstractController
         $form = $this->createForm(SwipeUpType::class, $swipeup);
         $form->handleRequest($request);
 
-        $swipeImage = new SwipeImage();
-        $formImage = $this->createForm(SwipeBackgroundType::class, $swipeImage);
-
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $swipeup->setFeaturedSwipeUp(false);
+            $swipeup->setTitle("SwipeUp de " . $this->getUser());
+            $swipeup->setDescription("Ceci est le SwipeUP de " . $this->getUser() . " !");
+            $swipeup->setStatus("public");
             $swipeup->setAuthor($this->getUser());
             $entityManager->persist($swipeup);
             $entityManager->flush();
-
-            if ($request->isXmlHttpRequest()) {
-                return new Response(null, 204);
-            }
 
             return $this->redirectToRoute('app_swipeup_single', ['slug' => $swipeup->getSlug()], Response::HTTP_SEE_OTHER);
         }
@@ -102,7 +96,6 @@ class SwipeController extends AbstractController
 
         return $this->render('swipe/create.html.twig', [
             'form' => $form->createView(),
-            'formImage' => $formImage->createView(),
         ]);
     }
 

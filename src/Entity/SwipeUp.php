@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Uid\Uuid;
@@ -51,7 +52,7 @@ class SwipeUp
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $font = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $logoName;
 
     #[Vich\UploadableField(mapping: "swipeup_logo", fileNameProperty: "logoName")]
@@ -71,11 +72,24 @@ class SwipeUp
         return $this->title . ' (@' . $this->slug . ')';
     }
 
+    /**
+     * @throws Exception
+     */
     public function __construct()
     {
         $this->swipes = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+
+        $this->featuredSwipeUp = false;
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function generateRandomImage(): string
+    {
+        return "defaultLogo-" . random_int(1, 3) . ".webp";
     }
 
     public function getId(): ?Uuid
@@ -160,7 +174,7 @@ class SwipeUp
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus(string $status = "public" | "unlisted" | "private"): self
     {
         $this->status = $status;
 
@@ -193,10 +207,11 @@ class SwipeUp
 
     /**
      * @return mixed
+     * @throws Exception
      */
     public function getLogoName()
     {
-        return $this->logoName;
+        return $this->logoName ?? $this->generateRandomImage();
     }
 
     /**
