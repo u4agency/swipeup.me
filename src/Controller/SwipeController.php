@@ -99,7 +99,7 @@ class SwipeController extends AbstractController
         ]);
     }
 
-    #[Route('/random', name: 'app_swipe_randomswipeup')]
+    #[Route('random', name: 'app_swipe_randomswipeup')]
     public function randomSwipeUp(
         SwipeUpRepository $swipeupRepository,
     ): RedirectResponse
