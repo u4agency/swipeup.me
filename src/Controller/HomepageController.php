@@ -43,7 +43,7 @@ class HomepageController extends AbstractController
                 $referral?->setPoints($referral->getPoints() + 100);
                 try {
                     $entityManager->persist($newsletter);
-                    $entityManager->persist($referral);
+                    if ($referral) $entityManager->persist($referral);
                     $entityManager->flush();
 
                     return $this->redirectToRoute('app_newsletter', ['code' => $newsletter->getCode()]);
