@@ -9,7 +9,8 @@ use App\Entity\SwipeUp;
 use App\Form\NewsletterType;
 use App\Form\SwipeBackgroundType;
 use App\Form\SwipeSectionType;
-use App\Form\SwipeUpType;
+use App\Form\SwipeUpCreateType;
+use App\Form\SwipeUpEditType;
 use App\Repository\SwipeRepository;
 use App\Repository\SwipeUpRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,7 +30,6 @@ class SwipeController extends AbstractController
     ): Response
     {
         return $this->render('swipe/index.html.twig', [
-            'controller_name' => 'SwipeUpController',
             'swipes' => $swipeRepository->findAll()
         ]);
     }
@@ -61,9 +61,48 @@ class SwipeController extends AbstractController
         }
 
         return $this->render('swipe/single.html.twig', [
-            'controller_name' => 'SwipeController',
             'swipeup' => $swipeup,
             'newsletterForm' => $form
+        ]);
+    }
+
+    #[Route('@{slug}/admin', name: 'app_swipeup_edit', priority: -1)]
+    public function editSwipeUp(
+        SwipeUp                $swipeup,
+        EntityManagerInterface $entityManager,
+        Request                $request
+    ): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($swipeup->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('danger', "Vous n'êtes pas l'auteur de ce SwipeUp !");
+            return $this->redirectToRoute('app_swipeup_single', [
+                'slug' => $swipeup->getSlug()
+            ]);
+        }
+
+        $form = $this->createForm(SwipeUpEditType::class, $swipeup);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $entityManager->persist($swipeup);
+                $entityManager->flush();
+            } catch (\Exception $exception) {
+                $this->addFlash('danger', "Une erreur est survenue lors de la modification du SwipeUp !");
+            }
+
+            return $this->redirectToRoute('app_swipeup_edit', [
+                'slug' => $swipeup->getSlug()
+            ]);
+        }
+
+        return $this->render('swipe/edit.html.twig', [
+            'swipeup' => $swipeup,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -74,12 +113,12 @@ class SwipeController extends AbstractController
         UploaderHelper         $uploaderHelper
     ): Response
     {
-        if (!$this->getUser()) {
+        if (!$this->getUser() && !$this->isGranted('ROLE_FIRST')) {
             return $this->redirectToRoute('app_login');
         }
 
         $swipeup = new SwipeUp();
-        $form = $this->createForm(SwipeUpType::class, $swipeup);
+        $form = $this->createForm(SwipeUpCreateType::class, $swipeup);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -90,7 +129,7 @@ class SwipeController extends AbstractController
             $entityManager->persist($swipeup);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_swipeup_single', ['slug' => $swipeup->getSlug()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_swipeup_edit', ['slug' => $swipeup->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
 

@@ -214,6 +214,11 @@ class SwipeUp
         return $this->logoName ?? $this->generateRandomImage();
     }
 
+    public function getRealLogoName()
+    {
+        return $this->logoName;
+    }
+
     /**
      * @param mixed $logoName
      */
