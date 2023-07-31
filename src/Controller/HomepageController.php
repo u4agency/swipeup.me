@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomepageController extends AbstractController
@@ -83,4 +84,21 @@ class HomepageController extends AbstractController
         ]);
     }
 
+    #[Route('/changelog', name: 'app_changelog')]
+    public function changelog(
+        KernelInterface $appKernel
+    ): Response
+    {
+        $file = $appKernel->getProjectDir() . '/CHANGELOG.md';
+
+        if (file_exists($file)) {
+            $changelogContent = file_get_contents($file);
+        } else {
+            $changelogContent = 'Le fichier CHANGELOG.md est introuvable.';
+        }
+
+        return $this->render('pages/changelog.html.twig', [
+            'changeLogContent' => $changelogContent,
+        ]);
+    }
 }
