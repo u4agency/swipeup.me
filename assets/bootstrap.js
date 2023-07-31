@@ -11,3 +11,4 @@ export const app = startStimulusApp(require.context(
 // app.register('some_controller_name', SomeImportedController);
 
 import "./services/pixel";
+import "./services/ga";
