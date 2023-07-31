@@ -42,7 +42,7 @@
 </head>
 <body class="bg-black font-swipe overflow-x-hidden">
 <div class="overflow-hidden inset-0 -z-[4] fixed blur-[100px] select-none pointer-events-none">
-    <div id="cursor-follower"
+    <div id="cursorFollower"
          class="w-[300px] h-[300px] -z-[4] bg-swipe-100 absolute rounded-full opacity-40"
          style="display:none;">
     </div>
@@ -53,8 +53,6 @@
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
     <script>
-        let cursorFollower = document.querySelector("#cursor-follower");
-
         document.addEventListener("mousemove", e => {
             cursorFollower.style.cssText = `display: block; transform: translate3d(${e.clientX - 150}px, ${e.clientY - 150}px, 0);`
         });
