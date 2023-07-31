@@ -74,28 +74,6 @@
                 SwipeUp</p>
         </div>
     {% endif %}
-    {% for type, messages in app.flashes %}
-        {% for message in messages %}
-
-            {% if type == 'danger' %}
-                {% set type = 'red' %}
-            {% elseif type == 'notice' %}
-                {% set type = 'orange' %}
-            {% else %}
-                {% set type = 'teal' %}
-            {% endif %}
-
-            {# Created div to deploy classes for webpack #}
-            <div class="hidden border-red-600 bg-red-600/20 text-red-500"></div>
-            <div class="border-orange-600 bg-orange-600/20 text-orange-500"></div>
-            <div class="border-teal-600 bg-teal-600/20 text-teal-500"></div>
-
-
-            <div class="backdrop-blur-[10px] mx-auto container rounded-full border border-{{ type }}-600 bg-{{ type }}-600/20 text-{{ type }}-500 text-center px-6 py-2 mt-4">
-                <p>{{ message }}</p>
-            </div>
-        {% endfor %}
-    {% endfor %}
     <!-- ALERT -->
 </nav>
 <!-- NAVBAR -->
