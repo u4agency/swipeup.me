@@ -1,3 +1,5 @@
+{% set flashes = app.flashes %}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -41,8 +43,8 @@
     {% endblock %}
 </head>
 <body
-        {{ stimulus_controller('notyf', {
-            flashes: app.flashes|json_encode
+        {{ flashes ? stimulus_controller('notyf', {
+            flashes: flashes|json_encode
         }) }}
         class="bg-black font-swipe overflow-x-hidden"
 >
