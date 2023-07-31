@@ -48,7 +48,7 @@ class HomepageController extends AbstractController
 
                     return $this->redirectToRoute('app_newsletter', ['code' => $newsletter->getCode()]);
                 } catch (\Exception $exception) {
-                    $this->addFlash('danger', "Vous êtes déjà en file d'attente !");
+                    $this->addFlash('error', "Vous êtes déjà en file d'attente !");
                 }
             }
         }
@@ -69,7 +69,7 @@ class HomepageController extends AbstractController
         $newsletter = $newsletterRepository->findOneBy(['code' => $code]);
 
         if (!$newsletter) {
-            $this->addFlash('danger', "Vous n'êtes pas en file d'attente !");
+            $this->addFlash('error', "Vous n'êtes pas en file d'attente !");
             return $this->redirectToRoute('app_homepage');
         }
 

@@ -130,7 +130,7 @@ class RegistrationController extends AbstractController
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
         } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('danger', 'Le lien pour vérifier votre compte est invalide');
+            $this->addFlash('error', 'Le lien pour vérifier votre compte est invalide');
 
             return $this->redirectToRoute('app_register');
         }

@@ -54,7 +54,7 @@ class SwipeController extends AbstractController
 
                         $this->addFlash('success', "Vous êtes bien inscrit à la file d'attente !");
                     } catch (\Exception $exception) {
-                        $this->addFlash('danger', "Vous êtes déjà en file d'attente !");
+                        $this->addFlash('error', "Vous êtes déjà en file d'attente !");
                     }
                 }
             }
@@ -78,7 +78,7 @@ class SwipeController extends AbstractController
         }
 
         if ($swipeup->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('danger', "Vous n'êtes pas l'auteur de ce SwipeUp !");
+            $this->addFlash('error', "Vous n'êtes pas l'auteur de ce SwipeUp !");
             return $this->redirectToRoute('app_swipeup_single', [
                 'slug' => $swipeup->getSlug()
             ]);
@@ -92,7 +92,7 @@ class SwipeController extends AbstractController
                 $entityManager->persist($swipeup);
                 $entityManager->flush();
             } catch (\Exception $exception) {
-                $this->addFlash('danger', "Une erreur est survenue lors de la modification du SwipeUp !");
+                $this->addFlash('error', "Une erreur est survenue lors de la modification du SwipeUp !");
             }
 
             return $this->redirectToRoute('app_swipeup_edit', [
