@@ -2,12 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Swipe;
 use App\Entity\SwipeImage;
+use App\Entity\WidgetData;
+use App\Entity\WidgetSwipe;
 use App\Form\SwipeBackgroundType;
+use App\Form\SwipeSectionType;
 use App\Repository\SwipeRepository;
 use App\Repository\SwipeUpRepository;
+use App\Repository\WidgetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -116,6 +122,100 @@ class ApiController extends AbstractController
 
         return $this->json([
             "error" => "Bad request",
+        ]);
+    }
+
+    #[Route('create_swipe', name: '_api_swipe_create')]
+    public function swipeCreate(
+        Request                $request,
+        EntityManagerInterface $entityManager,
+        WidgetRepository       $widgetRepository,
+        SwipeUpRepository      $swipeUpRepository,
+    ): Response
+    {
+        $section = $this->createForm(SwipeSectionType::class)
+            ->add('swipeup', HiddenType::class, [
+                'mapped' => false,
+                'data' => $request->query->get('swipeup')
+            ]);
+        $section->handleRequest($request);
+
+        if ($section->isSubmitted() && $section->isValid()) {
+            $swipeup = $swipeUpRepository->findOneBy(['slug' => $section->get('swipeup')->getData()]);
+
+            if (!$swipeup || !$this->getUser() || $swipeup->getAuthor() !== $this->getUser()) {
+                throw new BadRequestHttpException();
+            }
+
+            $swipe = new Swipe();
+
+            $background = new SwipeImage();
+            $background->setBackgroundFile($section->get('background')->getData());
+            $background->setBackgroundName($section->get('background')->getData());
+            $background->setAuthor($this->getUser());
+            $background->setAlt('A Swipe background');
+            $background->setIsPublic(true);
+            $entityManager->persist($background);
+
+            $widgetText = $widgetRepository->findOneBy(['name' => 'text']);
+            $widgetButton = $widgetRepository->findOneBy(['name' => 'button']);
+
+            if (!empty($section->get('title')->getData())) {
+                $widgetBody = new WidgetSwipe();
+                $widgetBody->setWidget($widgetText);
+
+                $widgetBodyData = new WidgetData();
+                $widgetBodyData->setWidget($widgetText);
+                $widgetBodyData->setWidgetSwipe($widgetBody);
+                $widgetBodyData->setDataName('text');
+                $widgetBodyData->setDataValue($section->get('title')->getData());
+                $entityManager->persist($widgetBodyData);
+
+                $swipe->setWidgetBody($widgetBody);
+                $entityManager->persist($widgetBody);
+            }
+
+            if (!empty($section->get('buttonText')->getData())) {
+                $widgetFooter = new WidgetSwipe();
+                $widgetFooter->setWidget($widgetButton);
+
+                $widgetFooterTextData = new WidgetData();
+                $widgetFooterTextData->setWidget($widgetButton);
+                $widgetFooterTextData->setWidgetSwipe($widgetFooter);
+                $widgetFooterTextData->setDataName('text');
+                $widgetFooterTextData->setDataValue($section->get('buttonText')->getData());
+                $entityManager->persist($widgetFooterTextData);
+
+                if (!empty($section->get('buttonHref')->getData())) {
+                    $widgetFooterHrefData = new WidgetData();
+                    $widgetFooterHrefData->setWidget($widgetButton);
+                    $widgetFooterHrefData->setWidgetSwipe($widgetFooter);
+                    $widgetFooterHrefData->setDataName('href');
+                    $widgetFooterHrefData->setDataValue($section->get('buttonHref')->getData());
+                    $entityManager->persist($widgetFooterHrefData);
+                }
+
+                $swipe->setWidgetFooter($widgetFooter);
+                $entityManager->persist($widgetFooter);
+            }
+
+            $swipe->setSwipeup($swipeup);
+            $swipe->setBackground($background);
+            try {
+                $entityManager->persist($swipe);
+                $entityManager->flush();
+                $this->addFlash('success', "Le Swipe a bien été créé !");
+            } catch (\Exception $exception) {
+                $this->addFlash('error', "Une erreur est survenue lors de la modification du SwipeUp !");
+            }
+
+            return $this->redirectToRoute('app_swipeup_edit', [
+                'slug' => $swipeup->getSlug()
+            ]);
+        }
+
+        return $this->render('_components/create/form_create.html.twig', [
+            'form' => $section->createView(),
         ]);
     }
 }

@@ -6,6 +6,8 @@ use App\Entity\Newsletter;
 use App\Entity\Swipe;
 use App\Entity\SwipeImage;
 use App\Entity\SwipeUp;
+use App\Entity\WidgetData;
+use App\Entity\WidgetSwipe;
 use App\Form\NewsletterType;
 use App\Form\SwipeBackgroundType;
 use App\Form\SwipeSectionType;
@@ -13,6 +15,7 @@ use App\Form\SwipeUpCreateType;
 use App\Form\SwipeUpEditType;
 use App\Repository\SwipeRepository;
 use App\Repository\SwipeUpRepository;
+use App\Repository\WidgetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -70,7 +73,7 @@ class SwipeController extends AbstractController
     public function editSwipeUp(
         SwipeUp                $swipeup,
         EntityManagerInterface $entityManager,
-        Request                $request
+        Request                $request,
     ): Response
     {
         if (!$this->getUser()) {
