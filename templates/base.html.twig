@@ -35,7 +35,7 @@
 
     <link rel="icon"
           href="{{ app.request.schemeAndHttpHost }}{{ asset('favicon.ico') }}">
-    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -58,18 +58,6 @@
         document.addEventListener("mousemove", e => {
             cursorFollower.style.cssText = `display: block; transform: translate3d(${e.clientX - 150}px, ${e.clientY - 150}px, 0);`
         });
-    </script>
-
-    <!-- Hotjar Tracking Code for SwipeUp -->
-    <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:3362111,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
 {% endblock %}
 </body>
