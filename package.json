@@ -9,6 +9,7 @@
         "autoprefixer": "^10.4.8",
         "core-js": "^3.23.0",
         "ga-gtag": "^1.1.7",
+        "notyf": "^3.10.0",
         "postcss": "^8.4.16",
         "postcss-loader": "^7.0.1",
         "regenerator-runtime": "^0.13.9",
