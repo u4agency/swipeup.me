@@ -57,15 +57,6 @@
                         }
                     }) }}
                 </label>
-                <img
-                        {{ stimulus_target('image4label', 'imagePreviewSecond') }}
-                        src=""
-                        alt=""
-                >
-                <button
-                        {{ stimulus_action('image4label', 'saveCropped') }}
-                >Save cropped
-                </button>
                 <div class="text-red-600">{{ form_errors(form.logoFile) }}</div>
             </div>
 
