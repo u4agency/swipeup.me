@@ -18,4 +18,5 @@ return [
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     Sentry\SentryBundle\SentryBundle::class => ['prod' => true],
     Symfony\UX\Turbo\TurboBundle::class => ['all' => true],
+    MarcW\Heroicons\MarcWHeroiconsBundle::class => ['all' => true],
 ];
