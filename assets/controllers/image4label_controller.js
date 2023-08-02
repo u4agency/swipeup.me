@@ -1,4 +1,5 @@
 import {Controller} from '@hotwired/stimulus';
+import {getContent} from "../utils/modal/crop_image";
 
 export default class extends Controller {
     static targets = ['fileInput', 'imagePreview'];
@@ -20,7 +21,17 @@ export default class extends Controller {
         let [file] = this.fileInputTarget.files;
 
         if (file) {
-            this.imagePreviewTarget.src = URL.createObjectURL(file);
+            let content = getContent(file);
+
+            this.dispatch('modal:open', {detail: {content}});
         }
+    }
+
+    updateInput(event) {
+        this.fileInputTarget.files = event.detail.file;
+
+        let [file] = event.detail.file;
+
+        this.imagePreviewTarget.src = URL.createObjectURL(file);
     }
 }

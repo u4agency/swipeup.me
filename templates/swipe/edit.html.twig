@@ -6,6 +6,10 @@
 
 {% block body %}
     <main class="font-light body-font py-24 max-w-7xl mx-auto space-y-8 lg:space-y-12 px-4">
+        {{ include('_includes/modal.html.twig', {
+            dispatches: ["image4label:modal:open"],
+        }) }}
+
         {{ form_start(form, {
             'attr': {
                 'data-turbo':"false"
@@ -35,10 +39,11 @@
                 <div class="text-red-600">{{ form_errors(form.status) }}</div>
             </div>
 
-            <div class="space-y-2">
-                <label
-                        {{ stimulus_controller('image4label') }}
-                >
+            <div
+                    {{ stimulus_controller('image4label') }}
+                    class="space-y-2"
+            >
+                <label>
                     <img
                             class="border-4 border-dashed border-swipe-500/50 rounded-full w-48 h-48 object-contain bg-black cursor-pointer"
                             src=""
@@ -48,10 +53,19 @@
                     {{ form_widget(form.logoFile, {
                         attr: {
                             'data-image4label-target': 'fileInput',
-                            'data-action': 'change->image4label#updateLabel',
+                            'data-action': 'change->image4label#updateLabel cropper:crop:save@window->image4label#updateInput',
                         }
                     }) }}
                 </label>
+                <img
+                        {{ stimulus_target('image4label', 'imagePreviewSecond') }}
+                        src=""
+                        alt=""
+                >
+                <button
+                        {{ stimulus_action('image4label', 'saveCropped') }}
+                >Save cropped
+                </button>
                 <div class="text-red-600">{{ form_errors(form.logoFile) }}</div>
             </div>
 
@@ -90,12 +104,9 @@
                     {% for swipe in swipeup.swipes %}
                         <div class="bg-white rounded-xl flex">
                             <div class="flex items-center justify-center w-8 h-auto">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                     class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                          d="M3 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 5.25zm0 4.5A.75.75 0 013.75 9h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 9.75zm0 4.5a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zm0 4.5a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-                                          clip-rule="evenodd"/>
-                                </svg>
+                                {{ heroicon('bars-4', 'solid', {
+                                    'class': "fill-current w-4 h-4",
+                                }) }}
                             </div>
                             <div class="flex-1 py-6 px-4 relative flex flex-col gap-y-4 divide-y divide-gray-700">
                                 <div>
