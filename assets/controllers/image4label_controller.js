@@ -1,5 +1,6 @@
 import {Controller} from '@hotwired/stimulus';
 import {getContent} from "../utils/modal/crop_image";
+import notyf from "../utils/notyf";
 
 export default class extends Controller {
     static targets = ['fileInput', 'imagePreview'];
@@ -9,6 +10,8 @@ export default class extends Controller {
     }
 
     windowsLoaded() {
+        this.supportedImageTypes = this.fileInputTarget.accept.split(", ");
+
         const aTarget = this.element.getElementsByTagName('a')[0];
         if (aTarget) {
             const imgTarget = aTarget.getElementsByTagName('img')[0];
@@ -19,6 +22,11 @@ export default class extends Controller {
 
     updateLabel() {
         let [file] = this.fileInputTarget.files;
+
+        if (file && !this.supportedImageTypes.includes(file.type)) {
+            notyf("error", "Le fichier envoyé n'est pas une image valide.");
+            return;
+        }
 
         if (file) {
             let content = getContent(file);

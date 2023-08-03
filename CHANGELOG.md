@@ -4,6 +4,7 @@ CHANGELOG
 0.4-BETA
 ---
 
+* 🔒️ Fixed ``logo input`` accept only images
 * ✨ Added ability to crop your logo while editing your ``SwipeUp``
 * ✨ Added `Swipe` creation page
 * ✨ Added `CHANGELOG` page

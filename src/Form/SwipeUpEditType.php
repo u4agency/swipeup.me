@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class SwipeUpEditType extends AbstractType
@@ -16,6 +17,10 @@ class SwipeUpEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $classes = "bg-white flex relative py-4 px-3 rounded-xl text-lg w-full overflow-x-hidden outline-none border-none focus:ring-0 focus:outline-none";
+        $acceptedMimeTypes = [
+            'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+        ];
+
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre du SwipeUp',
@@ -41,13 +46,20 @@ class SwipeUpEditType extends AbstractType
                 'label' => 'Logo du SwipeUp',
                 'attr' => [
                     'class' => 'hidden',
+                    'accept' => implode(", ", $acceptedMimeTypes),
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => $acceptedMimeTypes,
+                        'mimeTypesMessage' => "Le fichier envoyé n'est pas une image valide",
+                    ])
                 ],
                 'allow_delete' => false,
                 'image_uri' => $options['data']->getLogoName() === $options['data']->getRealLogoName(),
                 'download_uri' => false,
                 'required' => false,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
