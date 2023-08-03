@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Image;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class SwipeUpEditType extends AbstractType
@@ -49,10 +50,14 @@ class SwipeUpEditType extends AbstractType
                     'accept' => implode(", ", $acceptedMimeTypes),
                 ],
                 'constraints' => [
-                    new File([
+                    new Image([
                         'maxSize' => '1024k',
                         'mimeTypes' => ['image/webp'],
-                        'mimeTypesMessage' => "Le fichier envoyé n'est pas une image valide",
+                        'mimeTypesMessage' => "Le fichier envoyé n'est pas valide",
+                        'maxHeight' => 320,
+                        'maxWidth' => 320,
+                        'minRatio' => 1,
+                        'maxRatio' => 1,
                     ])
                 ],
                 'allow_delete' => false,
