@@ -51,7 +51,7 @@ class SwipeUpEditType extends AbstractType
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
-                        'mimeTypes' => $acceptedMimeTypes,
+                        'mimeTypes' => ['image/webp'],
                         'mimeTypesMessage' => "Le fichier envoyé n'est pas une image valide",
                     ])
                 ],

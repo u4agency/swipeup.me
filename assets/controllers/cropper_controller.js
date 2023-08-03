@@ -7,10 +7,10 @@ export default class extends Controller {
 
     connect() {
         this.cropper = new Cropper(this.imageTarget, {
-            aspectRatio: 1, // Pour un recadrage 1:1
-            viewMode: 1, // Afficher seulement la zone de recadrage
-            guides: false, // Désactiver les lignes de guide
-            background: false // Désactiver l'arrière-plan en pointillé
+            aspectRatio: 1,
+            viewMode: 1,
+            guides: false,
+            background: false,
         });
     }
 
@@ -25,11 +25,12 @@ export default class extends Controller {
         this.imageTarget.src = canvas.toDataURL();
 
         canvas.toBlob(blob => {
-            const newFile = new File([blob], "cropped_image.png", {type: "image/png"});
+            const newFile = new File([blob], "cropped_image.webp", {type: "image/webp"});
             const dataTransfer = new DataTransfer();
+            console.log(blob, newFile, dataTransfer);
             dataTransfer.items.add(newFile);
 
             this.dispatch('crop:save', {detail: {file: dataTransfer.files}});
-        }, 'image/png');
+        }, 'image/webp');
     }
 }
