@@ -21,6 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
@@ -125,6 +126,11 @@ class SwipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$this->getUser()->getSwipeUps()->count() <= 1 && !$this->isGranted('ROLE_ADMIN')) {
+                $this->addFlash('error', 'Vous avez atteint la limite de création de SwipeUp !');
+                return $this->redirectToRoute('app_homepage');
+            }
+
             $swipeup->setTitle("SwipeUp de " . $this->getUser());
             $swipeup->setDescription("Ceci est le SwipeUP de " . $this->getUser() . " !");
             $swipeup->setStatus("public");
