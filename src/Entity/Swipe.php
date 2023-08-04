@@ -19,7 +19,7 @@ class Swipe
     #[ORM\JoinColumn(nullable: false)]
     private ?SwipeUp $swipeup = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?SwipeImage $background = null;
 

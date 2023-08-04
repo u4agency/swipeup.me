@@ -40,7 +40,7 @@ class SwipeImage
 
     public function __toString(): string
     {
-        return $this->backgroundName . ' (' . $this->id->toRfc4122() . ')';
+        return $this->backgroundName;
     }
 
     public function __construct()

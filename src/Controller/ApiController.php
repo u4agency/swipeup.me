@@ -133,29 +133,28 @@ class ApiController extends AbstractController
         SwipeUpRepository      $swipeUpRepository,
     ): Response
     {
-        $section = $this->createForm(SwipeSectionType::class)
+        $swipe = new Swipe();
+
+        $section = $this->createForm(SwipeSectionType::class, $swipe)
             ->add('swipeup', HiddenType::class, [
                 'mapped' => false,
                 'data' => $request->query->get('swipeup')
             ]);
         $section->handleRequest($request);
 
-        if ($section->isSubmitted() && $section->isValid()) {
+        if ($section->isSubmitted()) {
             $swipeup = $swipeUpRepository->findOneBy(['slug' => $section->get('swipeup')->getData()]);
 
             if (!$swipeup || !$this->getUser() || $swipeup->getAuthor() !== $this->getUser()) {
                 throw new BadRequestHttpException();
             }
 
-            $swipe = new Swipe();
-
-            $background = new SwipeImage();
-            $background->setBackgroundFile($section->get('background')->getData());
-            $background->setBackgroundName($section->get('background')->getData());
-            $background->setAuthor($this->getUser());
-            $background->setAlt('A Swipe background');
-            $background->setIsPublic(true);
-            $entityManager->persist($background);
+            if (!$section->isValid()) {
+                $this->addFlash('error', "Il y a eu une erreur lors de la création du Swipe");
+                return $this->redirectToRoute('app_swipeup_edit', [
+                    'slug' => $swipeup->getSlug()
+                ]);
+            }
 
             $widgetText = $widgetRepository->findOneBy(['name' => 'text']);
             $widgetButton = $widgetRepository->findOneBy(['name' => 'button']);
@@ -200,7 +199,6 @@ class ApiController extends AbstractController
             }
 
             $swipe->setSwipeup($swipeup);
-            $swipe->setBackground($background);
             try {
                 $entityManager->persist($swipe);
                 $entityManager->flush();
