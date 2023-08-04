@@ -133,6 +133,10 @@ class ApiController extends AbstractController
         SwipeUpRepository      $swipeUpRepository,
     ): Response
     {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser()->getSwipeUps()->count() < 1) {
+            throw new BadRequestHttpException();
+        }
+
         $swipe = new Swipe();
 
         $section = $this->createForm(SwipeSectionType::class, $swipe)
