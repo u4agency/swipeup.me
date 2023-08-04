@@ -1595,16 +1595,16 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v4.7.0",
+            "version": "v4.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "17562010c5c7d160a5059c7f70b2c7e03f149d40"
+                "reference": "4eb0e95bb9a18b3b9c901ad4b031ecb1f9d02f21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/17562010c5c7d160a5059c7f70b2c7e03f149d40",
-                "reference": "17562010c5c7d160a5059c7f70b2c7e03f149d40",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/4eb0e95bb9a18b3b9c901ad4b031ecb1f9d02f21",
+                "reference": "4eb0e95bb9a18b3b9c901ad4b031ecb1f9d02f21",
                 "shasum": ""
             },
             "require": {
@@ -1677,7 +1677,7 @@
             ],
             "support": {
                 "issues": "https://github.com/EasyCorp/EasyAdminBundle/issues",
-                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.7.0"
+                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.7.1"
             },
             "funding": [
                 {
@@ -1685,7 +1685,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-26T18:40:07+00:00"
+            "time": "2023-08-03T18:09:13+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1838,16 +1838,16 @@
         },
         {
             "name": "gumbraise/twig-heroicons",
-            "version": "2.0.18.1",
+            "version": "2.0.18.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gumbraise/twig-heroicons.git",
-                "reference": "99cca24f0cc4cfe65cd52feac1c8ffe6ed45a762"
+                "reference": "71b5577be09037a2b17bdd8db317f766929f9614"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gumbraise/twig-heroicons/zipball/99cca24f0cc4cfe65cd52feac1c8ffe6ed45a762",
-                "reference": "99cca24f0cc4cfe65cd52feac1c8ffe6ed45a762",
+                "url": "https://api.github.com/repos/Gumbraise/twig-heroicons/zipball/71b5577be09037a2b17bdd8db317f766929f9614",
+                "reference": "71b5577be09037a2b17bdd8db317f766929f9614",
                 "shasum": ""
             },
             "require": {
@@ -1884,22 +1884,22 @@
             "description": "Unofficial Twig integration for Heroicons",
             "homepage": "https://github.com/Gumbraise/twig-heroicons",
             "support": {
-                "source": "https://github.com/Gumbraise/twig-heroicons/tree/2.0.18.1"
+                "source": "https://github.com/Gumbraise/twig-heroicons/tree/2.0.18.2"
             },
-            "time": "2023-08-02T14:40:52+00:00"
+            "time": "2023-08-03T22:38:44+00:00"
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "3a494dc7dc1d7d12e511890177ae2d0e6c107da6"
+                "reference": "111166291a0f8130081195ac4556a5587d7f1b5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/3a494dc7dc1d7d12e511890177ae2d0e6c107da6",
-                "reference": "3a494dc7dc1d7d12e511890177ae2d0e6c107da6",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/111166291a0f8130081195ac4556a5587d7f1b5d",
+                "reference": "111166291a0f8130081195ac4556a5587d7f1b5d",
                 "shasum": ""
             },
             "require": {
@@ -1953,7 +1953,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/2.0.0"
+                "source": "https://github.com/guzzle/promises/tree/2.0.1"
             },
             "funding": [
                 {
@@ -1969,20 +1969,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-21T13:50:22+00:00"
+            "time": "2023-08-03T15:11:55+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.5.0",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "b635f279edd83fc275f822a1188157ffea568ff6"
+                "reference": "8bd7c33a0734ae1c5d074360512beb716bef3f77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/b635f279edd83fc275f822a1188157ffea568ff6",
-                "reference": "b635f279edd83fc275f822a1188157ffea568ff6",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/8bd7c33a0734ae1c5d074360512beb716bef3f77",
+                "reference": "8bd7c33a0734ae1c5d074360512beb716bef3f77",
                 "shasum": ""
             },
             "require": {
@@ -2069,7 +2069,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.5.0"
+                "source": "https://github.com/guzzle/psr7/tree/2.6.0"
             },
             "funding": [
                 {
@@ -2085,7 +2085,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-17T16:11:26+00:00"
+            "time": "2023-08-03T15:06:02+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
@@ -3324,16 +3324,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.23.0",
+            "version": "1.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "a2b24135c35852b348894320d47b3902a94bc494"
+                "reference": "846ae76eef31c6d7790fac9bc399ecee45160b26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/a2b24135c35852b348894320d47b3902a94bc494",
-                "reference": "a2b24135c35852b348894320d47b3902a94bc494",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/846ae76eef31c6d7790fac9bc399ecee45160b26",
+                "reference": "846ae76eef31c6d7790fac9bc399ecee45160b26",
                 "shasum": ""
             },
             "require": {
@@ -3365,9 +3365,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.23.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.23.1"
             },
-            "time": "2023-07-23T22:17:56+00:00"
+            "time": "2023-08-03T16:32:59+00:00"
         },
         {
             "name": "psr/cache",
