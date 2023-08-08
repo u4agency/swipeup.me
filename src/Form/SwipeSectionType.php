@@ -184,5 +184,10 @@ class SwipeSectionType extends AbstractType
 
         $widgetValue = $form->get($widgetType)->getData() ?? $option;
 
+        if ($widgetValue === 'text') {
+            $form->add($widgetType . 'Data', TextWidgetType::class, [
+                'mapped' => false,
+            ]);
+        }
     }
 }
