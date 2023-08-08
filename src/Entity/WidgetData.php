@@ -20,7 +20,7 @@ class WidgetData
     #[ORM\JoinColumn(nullable: false)]
     private ?Widget $widget = null;
 
-    #[ORM\ManyToOne(inversedBy: 'widgetData')]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'widgetData')]
     #[ORM\JoinColumn(nullable: false)]
     private ?WidgetSwipe $widgetSwipe = null;
 

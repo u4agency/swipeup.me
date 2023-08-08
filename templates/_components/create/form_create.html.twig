@@ -11,10 +11,59 @@
         }) }}
     </div>
     <div class="flex-1 py-6 px-4 relative flex flex-col gap-y-4">
-        {{ form_widget(form.title) }}
-        {{ form_widget(form.background) }}
-        {{ form_widget(form.buttonText) }}
-        {{ form_widget(form.buttonHref) }}
+        <div
+                {{ stimulus_controller('cropper', {
+                    ratio: 9/16,
+                    width: 1080,
+                    height: 1920,
+                }) }}
+        >
+            {{ form_widget(form.background, {
+                attr: {
+                    'data-cropper-target': 'input',
+                    'data-action': 'change->cropper#loadAndCropImage',
+                }
+            }) }}
+
+            {{ form_help(form.background) }}
+            <img
+                    {{ stimulus_target('cropper', 'image') }}
+                    src=""
+            >
+        </div>
+        <div
+                {{ stimulus_controller('swipe-radio', {
+                    classActive: 'text-swipe-800',
+                    specificWidgetUrl: path('_api_widget_select'),
+                    widgetType: 'widgetBody',
+                }) }}
+        >
+            {{ form_widget(form.widgetBody) }}
+            <div
+                    {{ stimulus_target('swipe-radio', 'specificWidget') }}
+            >
+                {% if form.widgetBodyData is defined %}
+                    {{ form_row(form.widgetBodyData) }}
+                {% endif %}
+            </div>
+        </div>
+        <div
+                {{ stimulus_controller('swipe-radio', {
+                    classActive: 'text-swipe-800',
+                    specificWidgetUrl: path('_api_widget_select'),
+                    widgetType: 'widgetFooter',
+                }) }}
+        >
+            {{ form_widget(form.widgetFooter) }}
+
+            <div
+                    {{ stimulus_target('swipe-radio', 'specificWidget') }}
+            >
+                {% if form.widgetFooterData is defined %}
+                    {{ form_row(form.widgetFooter) }}
+                {% endif %}
+            </div>
+        </div>
         <button class="bg-swipe-500 hover:bg-swipe-600 cursor-pointer w-full rounded-xl p-3 text-white text-xl">
             Ajouter un Swipe
         </button>

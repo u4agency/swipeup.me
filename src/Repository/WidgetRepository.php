@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Widget;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,20 @@ class WidgetRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Used to find widgets by their display
+     * @param string $display
+     * @return Widget[]
+     */
+    public function findByDisplay(string $display): array
+    {
+        return $this->createQueryBuilder('w')
+            ->andWhere("w.display LIKE :display")
+            ->setParameter('display', "%$display%")
+            ->getQuery()
+            ->execute();
     }
 
 //    /**

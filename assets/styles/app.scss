@@ -130,3 +130,21 @@
 .fade-enter-to, .fade-leave-from {
   opacity: 1;
 }
+
+.specific-widget {
+  label {
+    @apply hidden;
+  }
+
+  input {
+    @apply w-full rounded-lg shadow-md;
+
+    &:focus {
+      @apply ring-0 outline-none;
+    }
+  }
+
+  div {
+    @apply space-y-2;
+  }
+}

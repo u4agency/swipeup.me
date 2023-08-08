@@ -6,73 +6,27 @@
 
 {% block body %}
     <main class="font-light body-font py-24 max-w-7xl mx-auto space-y-8 lg:space-y-12 px-4">
+        <h1 class="sr-only">{{ swipeup.title }}</h1>
+
         {{ include('_includes/modal.html.twig', {
             dispatches: ["image4label:modal:open"],
         }) }}
 
-        {{ form_start(form, {
-            'attr': {
-                'data-turbo':"false"
-            }
-        }) }}
-        <div class="mx-auto max-w-screen-md text-center">
-            <h1 class="sr-only">{{ swipeup.title }}</h1>
-            <p class="sr-only">{{ form_label(form.title) }}</p>
-            {{ form_widget(form.title, {
-                attr: {
-                    class: 'w-full mb-4 text-5xl tracking-tight font-extrabold text-white bg-transparent border-0 focus:outline-none border-l-2 focus:border-swipe-600 border-white focus:ring-0 text-center',
-                }
-            }) }}
-            <div class="text-red-600 text-center">{{ form_errors(form.title) }}</div>
-
-            <p class="sr-only">{{ form_label(form.description) }}</p>
-            {{ form_widget(form.description, {
-                attr: {
-                    class: 'w-full mb-5 font-light sm:text-xl text-gray-400 bg-transparent border-0 focus:outline-none border-l-2 focus:border-swipe-600 border-white focus:ring-0 text-center',
-                }
-            }) }}
-            <div class="text-red-600 text-center">{{ form_errors(form.description) }}</div>
-
-            <div class="space-y-2">
-                <p class="text-white">{{ form_label(form.status) }}</p>
-                {{ form_widget(form.status) }}
-                <div class="text-red-600">{{ form_errors(form.status) }}</div>
-            </div>
-
-            <div
-                    {{ stimulus_controller('image4label') }}
-                    class="space-y-2"
+        <div class="w-full flex justify-end">
+            <a
+                    href="{{ path('app_swipeup_single', {slug: swipeup.slug}) }}"
+                    class="text-right text-swipe-500 hover:text-swipe-600 text-xl flex gap-2 items-baseline"
             >
-                <label>
-                    <img
-                            class="border-4 border-dashed border-swipe-500/50 rounded-full w-48 h-48 object-contain bg-black cursor-pointer"
-                            src=""
-                            alt=""
-                            {{ stimulus_target('image4label', 'imagePreview') }}
-                    >
-                    {{ form_widget(form.logoFile, {
-                        attr: {
-                            'data-image4label-target': 'fileInput',
-                            'data-action': 'change->image4label#updateLabel cropper:crop:save@window->image4label#updateInput',
-                        }
-                    }) }}
-                </label>
-                <div class="text-red-600">{{ form_errors(form) }}</div>
-            </div>
-
-            <div class="w-full flex justify-center gap-4 md:flex-row flex-col">
-                <button class="rounded-xl text-white bg-swipe-500 hover:bg-swipe-600 py-4 px-8 text-xl">
-                    Modifier mon SwipeUp
-                </button>
-                <a
-                        href="{{ path('app_swipeup_single', {slug: swipeup.slug}) }}"
-                        class="text-swipe-500 hover:text-swipe-600 py-4 px-8 text-xl"
-                >
-                    Aller voir mon SwipeUp
-                </a>
-            </div>
+                    <span class="self-center">
+                        {{ heroicon('link', 'outline', {
+                            'class': 'fill-transparent stroke-current w-6 h-6',
+                            'stroke-width': 2.5,
+                        }) }}
+                    </span>
+                {{ url('app_swipeup_single', {slug: swipeup.slug}) }}
+            </a>
         </div>
-        {{ form_end(form) }}
+
         <div class="grid md:grid-cols-2 gap-8 relative">
             <div
                     class="space-y-8"
@@ -115,12 +69,68 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="space-y-4 h-min top-24 sticky">
-                <div class="text-lg space-y-8 lg:space-y-12">
-                    <div class="space-y-4">
-
+            <div class="h-min">
+                {{ form_start(form, {
+                    'attr': {
+                        'data-turbo':"false"
+                    }
+                }) }}
+                <div class="space-y-4">
+                    <div class="space-y-2">
+                        <p class="text-white">{{ form_label(form.title) }}</p>
+                        {{ form_widget(form.title, {
+                            attr: {
+                                class: 'w-full mb-4 text-5xl tracking-tight font-extrabold text-white bg-transparent border-0 focus:outline-none border-l-2 focus:border-swipe-600 border-white focus:ring-0 text-center',
+                            }
+                        }) }}
+                        <div class="text-red-600 text-center">{{ form_errors(form.title) }}</div>
                     </div>
+
+                    <div class="space-y-2">
+                        <p class="text-white">{{ form_label(form.description) }}</p>
+                        {{ form_widget(form.description, {
+                            attr: {
+                                class: 'w-full mb-5 font-light sm:text-xl text-gray-400 bg-transparent border-0 focus:outline-none border-l-2 focus:border-swipe-600 border-white focus:ring-0 text-center',
+                            }
+                        }) }}
+                        <div class="text-red-600 text-center">{{ form_errors(form.description) }}</div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <p class="text-white">{{ form_label(form.status) }}</p>
+                        {{ form_widget(form.status, {
+                            attr: {
+                                class: 'w-full mb-5 font-light sm:text-xl text-white bg-transparent border-0 focus:outline-none border-l-2 focus:border-swipe-600 border-white focus:ring-0 text-center',
+                            }
+                        }) }}
+                        <div class="text-red-600">{{ form_errors(form.status) }}</div>
+                    </div>
+
+                    <div
+                            {{ stimulus_controller('image4label') }}
+                            class="space-y-2"
+                    >
+                        <label>
+                            <img
+                                    class="border-4 border-dashed border-swipe-500/50 rounded-full w-36 h-36 object-contain bg-black cursor-pointer"
+                                    src=""
+                                    alt=""
+                                    {{ stimulus_target('image4label', 'imagePreview') }}
+                            >
+                            {{ form_widget(form.logoFile, {
+                                attr: {
+                                    'data-image4label-target': 'fileInput',
+                                    'data-action': 'change->image4label#updateLabel cropper:crop:save@window->image4label#updateInput',
+                                }
+                            }) }}
+                        </label>
+                        <div class="text-red-600">{{ form_errors(form) }}</div>
+                    </div>
+                    <button class="rounded-xl text-white bg-swipe-500 hover:bg-swipe-600 py-4 px-8 text-xl">
+                        Modifier mon SwipeUp
+                    </button>
                 </div>
+                {{ form_end(form) }}
             </div>
         </div>
     </main>

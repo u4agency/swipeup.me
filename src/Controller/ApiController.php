@@ -160,48 +160,6 @@ class ApiController extends AbstractController
                 ]);
             }
 
-            $widgetText = $widgetRepository->findOneBy(['name' => 'text']);
-            $widgetButton = $widgetRepository->findOneBy(['name' => 'button']);
-
-            if (!empty($section->get('title')->getData())) {
-                $widgetBody = new WidgetSwipe();
-                $widgetBody->setWidget($widgetText);
-
-                $widgetBodyData = new WidgetData();
-                $widgetBodyData->setWidget($widgetText);
-                $widgetBodyData->setWidgetSwipe($widgetBody);
-                $widgetBodyData->setDataName('text');
-                $widgetBodyData->setDataValue($section->get('title')->getData());
-                $entityManager->persist($widgetBodyData);
-
-                $swipe->setWidgetBody($widgetBody);
-                $entityManager->persist($widgetBody);
-            }
-
-            if (!empty($section->get('buttonText')->getData())) {
-                $widgetFooter = new WidgetSwipe();
-                $widgetFooter->setWidget($widgetButton);
-
-                $widgetFooterTextData = new WidgetData();
-                $widgetFooterTextData->setWidget($widgetButton);
-                $widgetFooterTextData->setWidgetSwipe($widgetFooter);
-                $widgetFooterTextData->setDataName('text');
-                $widgetFooterTextData->setDataValue($section->get('buttonText')->getData());
-                $entityManager->persist($widgetFooterTextData);
-
-                if (!empty($section->get('buttonHref')->getData())) {
-                    $widgetFooterHrefData = new WidgetData();
-                    $widgetFooterHrefData->setWidget($widgetButton);
-                    $widgetFooterHrefData->setWidgetSwipe($widgetFooter);
-                    $widgetFooterHrefData->setDataName('href');
-                    $widgetFooterHrefData->setDataValue($section->get('buttonHref')->getData());
-                    $entityManager->persist($widgetFooterHrefData);
-                }
-
-                $swipe->setWidgetFooter($widgetFooter);
-                $entityManager->persist($widgetFooter);
-            }
-
             $swipe->setSwipeup($swipeup);
             try {
                 $entityManager->persist($swipe);
@@ -218,6 +176,32 @@ class ApiController extends AbstractController
 
         return $this->render('_components/create/form_create.html.twig', [
             'form' => $section->createView(),
+        ]);
+    }
+
+    #[Route('widget_select', name: '_api_widget_select')]
+    public function getSpecificWidgetSelect(
+        Request          $request,
+        WidgetRepository $widgetRepository,
+    ): Response
+    {
+        $widget = $widgetRepository->findOneBy(['id' => $request->query->get('widgetName')]);
+
+        if (!$widget) {
+            return new Response();
+        }
+
+        $swipe = new Swipe();
+
+        $form = $this->createForm(SwipeSectionType::class, $swipe, [
+            $request->query->get('widget') . 'Value' => $widget->getName(),
+        ]);
+        $form->get($request->query->get('widget'))->setData($widget);
+
+
+        return $this->render('create/_specific_widget.html.twig', [
+            'form' => $form->createView(),
+            'widget' => $request->query->get('widget'),
         ]);
     }
 }

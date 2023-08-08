@@ -22,7 +22,7 @@ class WidgetSwipe
     #[ORM\JoinColumn(nullable: false)]
     private ?Widget $widget = null;
 
-    #[ORM\OneToMany(mappedBy: 'widgetSwipe', targetEntity: WidgetData::class)]
+    #[ORM\OneToMany(mappedBy: 'widgetSwipe', targetEntity: WidgetData::class, cascade: ['persist', 'remove'])]
     private Collection $widgetData;
 
     #[ORM\OneToOne(mappedBy: 'widgetBody', cascade: ['persist', 'remove'])]
