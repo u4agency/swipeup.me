@@ -188,6 +188,10 @@ class SwipeSectionType extends AbstractType
             $form->add($widgetType . 'Data', TextWidgetType::class, [
                 'mapped' => false,
             ]);
+        } elseif ($widgetValue === 'button') {
+            $form->add($widgetType . 'Data', ButtonWidgetType::class, [
+                'mapped' => false,
+            ]);
         }
     }
 }
