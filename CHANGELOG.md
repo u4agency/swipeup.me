@@ -1,12 +1,20 @@
 CHANGELOG
 =========
 
+0.5-BETA
+---
+
+* ⚡️ Improved `cropper` data
+* ✨ Added `button` widget
+* ✨ Added `text` widget
+* ✨ Added ability to create `Swipe`
+
 0.4-BETA
 ---
 
 * 🔒️ Fixed ``logo input`` accept only images
 * ✨ Added ability to crop your logo while editing your ``SwipeUp``
-* ✨ Added `Swipe` creation page
+* ✨ Added `Swipe` creation section
 * ✨ Added `CHANGELOG` page
 * 💄 Improved `notifications` design
 * ⚡️ Improved `Cursor Follow` performances
