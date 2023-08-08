@@ -3,11 +3,27 @@ import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
 
 export default class extends Controller {
-    static targets = ['image'];
+    static targets = ['image', 'input'];
+    static values = {
+        ratio: {
+            type: Number,
+            default: 1,
+        },
+        width: {
+            type: Number,
+            default: 320,
+        },
+        height: {
+            type: Number,
+            default: 320,
+        },
+    }
 
     connect() {
+        Cropper.noConflict();
+
         this.cropper = new Cropper(this.imageTarget, {
-            aspectRatio: 1,
+            aspectRatio: this.ratioValue,
             viewMode: 1,
             guides: false,
             background: false,
@@ -18,8 +34,8 @@ export default class extends Controller {
         event.preventDefault();
 
         const canvas = this.cropper.getCroppedCanvas({
-            width: 320,
-            height: 320,
+            width: this.widthValue,
+            height: this.heightValue,
         });
 
         this.imageTarget.src = canvas.toDataURL();
@@ -27,7 +43,7 @@ export default class extends Controller {
         canvas.toBlob(blob => {
             const newFile = new File([blob], "cropped_image.webp", {type: "image/webp"});
             const dataTransfer = new DataTransfer();
-            console.log(blob, newFile, dataTransfer);
+
             dataTransfer.items.add(newFile);
 
             this.dispatch('crop:save', {detail: {file: dataTransfer.files}});
