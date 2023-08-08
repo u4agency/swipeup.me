@@ -29,7 +29,7 @@ class SwipeUpEditType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'Description du SwipeUp',
                 'attr' => [
-                    'rows' => 1
+                    'rows' => 3
                 ],
             ])
             ->add('status', ChoiceType::class, [
