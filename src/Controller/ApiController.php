@@ -154,24 +154,18 @@ class ApiController extends AbstractController
             }
 
             if (!$section->isValid()) {
-                $this->addFlash('error', "Il y a eu une erreur lors de la création du Swipe");
-                return $this->redirectToRoute('app_swipeup_edit', [
-                    'slug' => $swipeup->getSlug()
-                ]);
+                return new Response("Le formulaire n'est pas valide.", 400);
             }
 
             $swipe->setSwipeup($swipeup);
             try {
                 $entityManager->persist($swipe);
                 $entityManager->flush();
-                $this->addFlash('success', "Le Swipe a bien été créé !");
             } catch (\Exception $exception) {
-                $this->addFlash('error', "Une erreur est survenue lors de la modification du SwipeUp !");
+                return new Response('Une erreur est survenue.', 500);
             }
 
-            return $this->redirectToRoute('app_swipeup_edit', [
-                'slug' => $swipeup->getSlug()
-            ]);
+            return new Response('Le Swipe a bien été créé !');
         }
 
         return $this->render('_components/create/form_create.html.twig', [

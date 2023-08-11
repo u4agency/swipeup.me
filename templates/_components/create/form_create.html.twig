@@ -2,6 +2,8 @@
     'attr': {
         'action': path('_api_swipe_create'),
         'data-turbo':"false",
+        ...stimulus_controller('swipe--form-action').toArray(),
+        ...stimulus_action('swipe--form-action', 'submitForm', 'submit').toArray(),
     }
 }) }}
 <div class="bg-white rounded-xl flex">
@@ -64,7 +66,10 @@
                 {% endif %}
             </div>
         </div>
-        <button class="bg-swipe-500 hover:bg-swipe-600 cursor-pointer w-full rounded-xl p-3 text-white text-xl">
+        <button
+                {{ stimulus_target('swipe--form-action', 'button') }}
+                class="bg-swipe-500 hover:bg-swipe-600 cursor-pointer w-full rounded-xl p-3 text-white text-xl"
+        >
             Ajouter un Swipe
         </button>
     </div>
