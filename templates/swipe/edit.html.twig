@@ -44,29 +44,15 @@
                     </button>
                 </div>
                 <div
-                        class="space-y-4"
+                        class="space-y-4 text-white"
+                        {{ stimulus_controller('swipe--swipes', {
+                            url: fragment_uri(controller('App\\Controller\\ApiController::getSwipes', {slug: swipeup.slug})),
+                        }) }}
+                        {{ stimulus_action('swipe--swipes', 'getSwipes', 'swipe--form-action:async:submitted@window') | stimulus_action('swipe--swipes', 'getSwipes', 'confirm-submit:async:submitted@window') }}
                 >
-                    {% for swipe in swipeup.swipes %}
-                        <div class="bg-white rounded-xl flex">
-                            <div class="flex items-center justify-center w-8 h-auto">
-                                {{ heroicon('bars-4', 'solid', {
-                                    'class': "fill-current w-4 h-4",
-                                }) }}
-                            </div>
-                            <div class="flex-1 py-6 px-4 relative flex flex-col gap-y-4">
-                                <div>
-                                    {% if swipe.widgetBody %}
-                                        {{ include('_components/create/widgets.html.twig', {widget: swipe.widgetBody, widgetType: "Body"}) }}
-                                    {% endif %}
-                                </div>
-                                <div>
-                                    {% if swipe.widgetFooter %}
-                                        {{ include('_components/create/widgets.html.twig', {widget: swipe.widgetFooter, widgetType: "Footer"}) }}
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+                    {{ include('_components/create/_swipes.html.twig', {
+                        swipes: swipeup.swipes
+                    }) }}
                 </div>
             </div>
             <div class="h-min">

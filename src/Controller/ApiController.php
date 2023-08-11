@@ -198,4 +198,20 @@ class ApiController extends AbstractController
             'widget' => $request->query->get('widget'),
         ]);
     }
+
+    public function getSwipes(
+        Request           $request,
+        SwipeUpRepository $swipeUpRepository,
+    ): Response
+    {
+        $swipeup = $swipeUpRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
+
+        if (!$swipeup || $swipeup->getAuthor() !== $this->getUser()) {
+            return new Response('', Response::HTTP_UNAUTHORIZED);
+        }
+
+        return $this->render('_components/create/_swipes.html.twig', [
+            'swipes' => $swipeup->getSwipes(),
+        ]);
+    }
 }
