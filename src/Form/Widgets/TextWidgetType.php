@@ -22,9 +22,10 @@ class TextWidgetType extends AbstractType
             ])
             ->add('color', ColorType::class, [
                 'required' => false,
+                'label' => "La couleur du texte de votre section",
                 'attr' => [
                     "value" => "#ffffff",
-                    "placeholder" => "Le couleur du texte de votre section",
+                    "placeholder" => "La couleur du texte de votre section",
                 ],
             ])
         ;
