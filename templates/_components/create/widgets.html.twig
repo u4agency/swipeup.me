@@ -1,0 +1,5 @@
+{% if widget.widget == 'text' %}
+    {{ include('_components/create/widgets/text.html.twig', {widgetData: widget.widgetData}) }}
+{% elseif widget.widget == 'button' %}
+    {{ include('_components/create/widgets/button.html.twig', {widgetData: widget.widgetData}) }}
+{% endif %}
