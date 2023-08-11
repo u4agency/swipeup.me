@@ -54,6 +54,11 @@ export default class extends Controller {
 
         const response = await fetch(`${this.specificWidgetUrlValue}?widgetName=${event.target.value}&widget=${this.widgetTypeValue}`);
 
+        if (response.status !== 200) {
+            this.specificWidgetTarget.innerHTML = "Une erreur est survenue."
+            return;
+        }
+
         this.specificWidgetTarget.innerHTML = await response.text()
     }
 }
