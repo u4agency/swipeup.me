@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+0.6-BETA
+---
+
+* 🥅🐛 Display error message on widget fetch error
+* ⚡️ Improved performances by remove fetch no widget
+* 💬 Updated ``labels`` on ``TextWidget``
+* ✨🎨 Added gradient color on ``ButtonWidget``
+
+
 0.5-BETA
 ---
 
