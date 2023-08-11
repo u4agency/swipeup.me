@@ -26,7 +26,7 @@
                         submitAsync: true,
                     }) }}
                     {{ stimulus_action('confirm-submit', 'onSubmit') }}
-                    action="{{ path('app_swipe_c_r_u_d_delete', {id: swipe.id}) }}"
+                    action="{{ path('_api_swipe_delete', {id: swipe.id}) }}"
                     method="post"
             >
                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ swipe.id) }}">
