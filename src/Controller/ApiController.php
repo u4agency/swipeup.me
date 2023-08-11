@@ -199,7 +199,7 @@ class ApiController extends AbstractController
         $form->get($request->query->get('widget'))->setData($widget);
 
 
-        return $this->render('create/_specific_widget.html.twig', [
+        return $this->render('_components/create/form/' . $widget->getName() . '.html.twig', [
             'form' => $form->createView(),
             'widget' => $request->query->get('widget'),
         ]);

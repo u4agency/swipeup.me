@@ -1,0 +1,22 @@
+{# templates/_components/create/form/button.html.twig #}
+
+<div
+        {{ stimulus_controller('swipe--widgets--button', {
+            radios: form[widget ~ 'Data'].colorType.vars.full_name,
+        }) }}
+        class="specific-widget space-y-2 py-4"
+>
+    {{ form_widget(form[widget ~ 'Data'].text) }}
+    {{ form_widget(form[widget ~ 'Data'].href) }}
+    {{ form_row(form[widget ~ 'Data'].textColor) }}
+
+    {{ form_widget(form[widget ~ 'Data'].colorType, {
+        attr: stimulus_action('swipe--widgets--button', 'dropdown', 'change').toArray()
+    }) }}
+    {{ form_row(form[widget ~ 'Data'].primaryColor) }}
+    <div
+            {{ stimulus_target('swipe--widgets--button', 'content') }}
+    >
+        {{ form_row(form[widget ~ 'Data'].secondaryColor) }}
+    </div>
+</div>
