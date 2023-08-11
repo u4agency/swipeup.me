@@ -170,6 +170,7 @@ class ApiController extends AbstractController
 
         return $this->render('_components/create/form_create.html.twig', [
             'form' => $section->createView(),
+            'action' => $this->generateUrl('_api_swipe_create'),
         ]);
     }
 
