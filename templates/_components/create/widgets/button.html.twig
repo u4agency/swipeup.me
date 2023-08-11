@@ -1,34 +1,23 @@
-{% set text = "Loading..." %}
-{% set href = "#" %}
-{% set colorType = "simple" %}
-{% set primaryColor = "#ffffff" %}
-{% set secondaryColor = "#ffffff" %}
-{% set textColor = "#ffffff" %}
+{% set text = "" %}
+{% set href = "" %}
 
 {% for data in widgetData %}
     {% if data.dataName == "text" %}
         {% set text = data.dataValue %}
     {% elseif data.dataName == "href" %}
         {% set href = data.dataValue %}
-    {% elseif data.dataName == "colorType" %}
-        {% set colorType = data.dataValue %}
-    {% elseif data.dataName == "primaryColor" %}
-        {% set primaryColor = data.dataValue %}
-    {% elseif data.dataName == "secondaryColor" %}
-        {% set secondaryColor = data.dataValue %}
-    {% elseif data.dataName == "textColor" %}
-        {% set textColor = data.dataValue %}
     {% endif %}
 {% endfor %}
 
-<p class="text-xl font-bold text-gray-800">{{ text }}</p>
-<p class="text-gray-500">{{ href }}</p>
-{% if colorType == "simple" %}
-<input type="color" value="{{ primaryColor }}" class="w-full h-10 mt-2 border-none" />
-{% elseif colorType == "gradient" %}
-<div class="flex gap-2">
-    <input type="color" value="{{ primaryColor }}" class="w-full h-10 mt-2 border-none" />
-    <input type="color" value="{{ secondaryColor }}" class="w-full h-10 mt-2 border-none" />
+<div class="space-y-2">
+    <p class="text-xs text-gray-600">{{ widgetType }} : Widget Bouton</p>
+    <div class="text-xl text-gray-800">
+        <p><span class="font-bold">Titre : </span>{{ text }}</p>
+        <p><span class="font-bold">Lien : </span><a
+                    href="{{ href }}"
+                    target="_blank"
+                    class="text-swipe-500 hover:text-swipe-600"
+            >{{ href }}</a>
+        </p>
+    </div>
 </div>
-{% endif %}
-<input type="color" value="{{ textColor }}" class="w-full h-10 mt-2 border-none" />

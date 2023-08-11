@@ -1,13 +1,14 @@
 {% set text = '' %}
-{% set color = '#ffffff' %}
 
 {% for data in widgetData %}
     {% if data.dataName == "text" %}
         {% set text = data.dataValue %}
-    {% elseif data.dataName == "color" %}
-        {% set color = data.dataValue %}
     {% endif %}
 {% endfor %}
 
-<p class="text-xl font-bold text-gray-800">{{ text }}</p>
-<input type="color" value="{{ color }}" class="w-full h-10 mt-2 border-none" />
+<div class="space-y-2">
+    <p class="text-xs text-gray-600">{{ widgetType }} : Widget Texte</p>
+    <div class="text-xl text-gray-800">
+        <p class="font-bold">{{ text }}</p>
+    </div>
+</div>
