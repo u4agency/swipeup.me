@@ -41,6 +41,11 @@ export default class extends Controller {
                 .classList.add(this.classActiveValue);
         }
 
+        if (event.target.value === "") {
+            this.specificWidgetTarget.innerHTML = "";
+            return;
+        }
+
         this.getSpecificWidget(event);
     }
 
