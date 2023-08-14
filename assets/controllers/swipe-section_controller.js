@@ -6,6 +6,7 @@ export default class extends Controller {
     };
 
     connect() {
+        this.previousHTML = this.element.innerHTML;
         this.response = null;
 
         this.fetchForm();
@@ -21,7 +22,11 @@ export default class extends Controller {
         event.preventDefault();
 
         if (this.response) {
+            this.dispatch('swipe:create');
             this.element.innerHTML = this.response;
         }
+    }
+    revert() {
+        this.element.innerHTML = this.previousHTML;
     }
 }

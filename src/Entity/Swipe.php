@@ -15,7 +15,7 @@ class Swipe
     #[ORM\Column(type: 'uuid', unique: true)]
     private ?Uuid $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'swipes')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'swipes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?SwipeUp $swipeup = null;
 

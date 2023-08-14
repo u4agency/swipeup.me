@@ -1,8 +1,7 @@
-<div class="bg-white rounded-xl flex">
-    <div class="flex items-center justify-center w-8 h-auto">
-        {{ heroicon('bars-4', 'solid', {
-            'class': "fill-black w-4 h-4",
-        }) }}
-    </div>
-    {{ include('_components/create/form/_form.html.twig') }}
+<div class="bg-white rounded-xl pl-6">
+    {{ include('_components/create/form/_form.html.twig', {
+        stimulus_controller_name: 'swipe-section',
+        stimulus_action_name: 'revert',
+        cancelText: "Annuler la création",
+    }) }}
 </div>

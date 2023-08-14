@@ -28,11 +28,11 @@ class SwipeCRUDController extends AbstractController
             throw new BadRequestHttpException();
         }
 
-        $section = $this->createForm(SwipeSectionType::class, $swipe)
-            ->add('swipeup', HiddenType::class, [
-                'mapped' => false,
-                'data' => $request->query->get('swipeup')
-            ]);
+        $section = $this->createForm(SwipeSectionType::class, $swipe, [
+            'widgetBodyValue' => $swipe->getWidgetBody()?->getWidget()->getName(),
+            'widgetFooterValue' => $swipe->getWidgetFooter()?->getWidget()->getName(),
+        ]);
+
         $section->handleRequest($request);
 
         if ($section->isSubmitted()) {
@@ -57,9 +57,11 @@ class SwipeCRUDController extends AbstractController
             return new Response('Le Swipe a bien été créé !');
         }
 
-        return $this->render('_components/create/form/_form.html.twig', [
+        return $this->render('_components/create/form_edit.html.twig', [
             'form' => $section->createView(),
             'action' => $this->generateUrl('_api_swipe_edit', ['id' => $swipe->getId()]),
+            'widgetBodyValue' => $swipe->getWidgetBody()?->getWidget()->getName(),
+            'widgetFooterValue' => $swipe->getWidgetFooter()?->getWidget()->getName(),
             'buttonText' => "Modifier le Swipe",
         ]);
     }

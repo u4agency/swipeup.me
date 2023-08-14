@@ -35,6 +35,10 @@ class SwipeSectionType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var Swipe|null $swipe */
+        $swipe = $options['data'] ?? null;
+        $isEdit = $swipe && $swipe->getId();
+
         $acceptedMimeTypes = [
             'image/*', 'video/webm'
         ];
@@ -43,7 +47,7 @@ class SwipeSectionType extends AbstractType
             ->add('background', FileType::class, [
                 'mapped' => false,
                 'label' => "Fond de la section",
-                'required' => true,
+                'required' => !$isEdit,
                 'attr' => [
                     'accept' => implode(", ", $acceptedMimeTypes),
                 ],
@@ -68,6 +72,7 @@ class SwipeSectionType extends AbstractType
                 'label_html' => true,
                 'choice_label' => fn(Widget $widget) => $this->getIcon($widget->getIcon()),
                 'choices' => $this->widgetRepository->findByDisplay("widgetBody"),
+                'data' => $isEdit && $swipe->getWidgetBody() ? $swipe->getWidgetBody()->getWidget() : null,
                 'attr' => [
                     'class' => "flex flex-row gap-y-4",
                 ],
@@ -81,26 +86,37 @@ class SwipeSectionType extends AbstractType
                 'label_html' => true,
                 'choice_label' => fn(Widget $widget) => $this->getIcon($widget->getIcon()),
                 'choices' => $this->widgetRepository->findByDisplay("widgetFooter"),
+                'data' => $isEdit && $swipe->getWidgetFooter() ? $swipe->getWidgetFooter()->getWidget() : null,
                 'attr' => [
                     'class' => "flex flex-row gap-y-4",
                 ],
             ]);
 
 
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $data = $event->getData();
+        $builder
+            ->addEventListener(
+                FormEvents::POST_SET_DATA,
+                function (FormEvent $event) {
+                    $form = $event->getForm();
+                    $data = $event->getData();
 
-                if (!$data) {
-                    return;
-                }
+                    if (!$data) {
+                        return;
+                    }
 
-                foreach ($this->widgetFields as $widgetType) {
-                    $this->setupSpecificWidgetField($form, $widgetType, $form->getConfig()->getOption($widgetType . 'Value'));
-                }
-            })
+                    foreach ($this->widgetFields as $widgetType) {
+                        $widgetData = [];
+
+                        if ($form->getConfig()->getOption('data') && $form->getConfig()->getOption('data')->getId()) {
+                            $getter = 'get' . ucfirst($widgetType);
+                            foreach ($form->getConfig()->getOption('data')->$getter()->getWidgetData() as $dataValue) {
+                                $widgetData[$dataValue->getDataName()] = $dataValue->getDataValue();
+                            }
+                        }
+
+                        $this->setupSpecificWidgetField($form, $widgetType, $form->getConfig()->getOption($widgetType . 'Value'), $widgetData);
+                    }
+                })
             ->addEventListener(
                 FormEvents::PRE_SUBMIT,
                 function (FormEvent $event) {
@@ -127,6 +143,7 @@ class SwipeSectionType extends AbstractType
                         $event->setData($data);
                     }
 
+
                     foreach ($this->widgetFields as $widgetType) {
                         $this->setupSpecificWidgetField($form, $widgetType, $form->getConfig()->getOption($widgetType . 'Value'));
                     }
@@ -144,8 +161,11 @@ class SwipeSectionType extends AbstractType
                             $widgetSwipe = new WidgetSwipe();
                             $widgetSwipe->setWidget($widgetType);
 
-                            foreach ($form->getExtraData()[$field . 'Data'] as $dataName => $dataValue) {
+                            $widgetsData = $form->getExtraData()[$field . 'Data'] ?? $form->get($field . 'Data')->getData();
+
+                            foreach ($widgetsData as $dataName => $dataValue) {
                                 $widgetData = new WidgetData();
+
                                 $widgetData->setWidget($widgetType);
                                 $widgetData->setDataName($dataName);
                                 $widgetData->setDataValue($dataValue);
@@ -176,21 +196,23 @@ class SwipeSectionType extends AbstractType
         ]);
     }
 
-    private function setupSpecificWidgetField(FormInterface $form, ?string $widgetType, ?string $option)
+    private function setupSpecificWidgetField(FormInterface $form, ?string $widgetType, ?string $option, ?array $autocomplete_data = null)
     {
         if ($widgetType === null) {
             return;
         }
 
-        $widgetValue = $form->get($widgetType)->getData() ?? $option;
+        $widgetValue = $form->get($widgetType)->getData()?->getName() ?? $option;
 
         if ($widgetValue === 'text') {
             $form->add($widgetType . 'Data', TextWidgetType::class, [
                 'mapped' => false,
+                'autocomplete_data' => $autocomplete_data ?? [],
             ]);
         } elseif ($widgetValue === 'button') {
             $form->add($widgetType . 'Data', ButtonWidgetType::class, [
                 'mapped' => false,
+                'autocomplete_data' => $autocomplete_data ?? [],
             ]);
         }
     }

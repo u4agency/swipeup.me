@@ -2,13 +2,15 @@
     <div class="bg-white rounded-xl flex">
         <div class="flex items-center justify-center w-8 h-auto text-black">
             {{ heroicon('bars-4', 'solid', {
-                'class': "fill-current w-4 h-4",
+                'class': "fill-current w-5 h-5",
             }) }}
         </div>
         <div
                 {{ stimulus_controller('swipe--edit', {
                     url: path('_api_swipe_edit', {id: swipe.id}),
                 }) }}
+                {{ stimulus_action('swipe--edit', 'revert', 'swipe--edit:swipe:edit@window') |
+                stimulus_action('swipe--edit', 'revert', 'swipe-section:swipe:create@window') }}
                 class="w-full"
         >
             <div class="flex-1 py-6 px-4 relative flex flex-col gap-y-4">
@@ -26,6 +28,7 @@
             <div class="flex gap-2 justify-end px-6 pb-3">
                 <button
                         {{ stimulus_action('swipe--edit', 'getEditForm', 'click') }}
+                        class="text-black"
                 >
                     {{ heroicon('pencil', 'outline', {
                         class: "fill-transparent stroke-swipe-500 hover:stoke-swipe-700",

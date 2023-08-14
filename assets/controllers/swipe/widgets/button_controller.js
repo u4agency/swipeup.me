@@ -20,7 +20,7 @@ export default class extends Controller {
             hiddenClass: 'hidden',
             transitioned: false,
         });
-
+        console.log(this.radiosValue);
         this.dropdown();
     }
 

@@ -4,6 +4,15 @@ CHANGELOG
 0.6-BETA
 ---
 
+* ⚡️ Improved `Swipe` editing
+* ✨ Added ability to edit `Swipe`
+* 🐛 Fixed delete `Swipe` route
+* 💄 Fixed `Swipe` card position icon color
+* ✨ Added ability to `remove Swipe`
+* ♿️ Reloaded `Swipes` by AJAX
+* 🎨 Improved `Swipe` edit cards style
+* 🚚⚡️ Improved performance (`AIO widget`)
+* ♿️ Improved accessibility
 * 🥅🐛 Display error message on widget fetch error
 * ⚡️ Improved performances by remove fetch no widget
 * 💬 Updated ``labels`` on ``TextWidget``

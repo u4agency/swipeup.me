@@ -19,20 +19,22 @@ class TextWidgetType extends AbstractType
                 'attr' => [
                     "placeholder" => "Le titre de votre section",
                 ],
+                'data' => $options['autocomplete_data']['text'] ?? null,
             ])
             ->add('color', ColorType::class, [
                 'required' => false,
                 'label' => "La couleur du texte de votre section",
                 'attr' => [
-                    "value" => "#ffffff",
                     "placeholder" => "La couleur du texte de votre section",
                 ],
-            ])
-        ;
+                'data' => $options['autocomplete_data']['color'] ?? null,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults([
+            'autocomplete_data' => [],
+        ]);
     }
 }

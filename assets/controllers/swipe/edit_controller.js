@@ -7,14 +7,28 @@ export default class extends Controller {
     };
 
     connect() {
-        console.log("Edit connected!");
+        this.previousHTML = this.element.innerHTML;
     }
 
     async getEditForm(event) {
         event.preventDefault();
 
+        event.currentTarget.disabled = true;
+        const buttonHTML = event.currentTarget.innerHTML;
+        event.currentTarget.innerHTML = loading;
+
         const response = await fetch(this.urlValue);
 
-        this.element.innerHTML = await response.text();
+        if (response.status === 200) {
+            this.dispatch('swipe:edit');
+            this.element.innerHTML = await response.text();
+        } else {
+            event.currentTarget.innerHTML = buttonHTML;
+            event.currentTarget.disabled = false;
+        }
+    }
+
+    revert() {
+        this.element.innerHTML = this.previousHTML;
     }
 }

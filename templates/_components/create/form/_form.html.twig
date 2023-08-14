@@ -1,13 +1,24 @@
-{{ form_start(form, {
-    'attr': {
-        'class': "text-black w-full",
-        action,
-        'data-turbo':"false",
-        ...stimulus_controller('swipe--form-action').toArray(),
-        ...stimulus_action('swipe--form-action', 'submitForm', 'submit').toArray(),
-    }
-}) }}
 <div class="flex-1 py-6 px-4 relative flex flex-col gap-y-4">
+    <div class="flex justify-end">
+        <button
+                {{ stimulus_action(stimulus_controller_name, stimulus_action_name ?? 'revert') }}
+                class="inline-flex items-center gap-x text-sm font-medium text-gray-500 hover:text-gray-700"
+        >
+            {{ cancelText ?? "Annuler" }}
+            {{ heroicon('x-mark', 'solid', {
+                'class': 'w-6 h-6 fill-current cursor-pointer',
+            }) }}
+        </button>
+    </div>
+    {{ form_start(form, {
+        'attr': {
+            'class': "text-black w-full flex flex-col gap-y-4",
+            action,
+            'data-turbo':"false",
+            ...stimulus_controller('swipe--form-action').toArray(),
+            ...stimulus_action('swipe--form-action', 'submitForm', 'submit') | stimulus_action('swipe-section', 'revert', 'swipe--form-action:async:submitted@window').toArray(),
+        }
+    }) }}
     <div
             {{ stimulus_controller('cropper', {
                 ratio: 9/16,
@@ -28,37 +39,56 @@
                 src=""
         >
     </div>
-    <div
-            {{ stimulus_controller('swipe-radio', {
-                classActive: 'text-swipe-800',
-                specificWidgetUrl: path('_api_widget_select'),
-                widgetType: 'widgetBody',
-            }) }}
-    >
-        {{ form_widget(form.widgetBody) }}
+    <div class="space-y-2">
+        <p class="text-xs text-gray-600">Widget Body :</p>
         <div
-                {{ stimulus_target('swipe-radio', 'specificWidget') }}
+                {{ stimulus_controller('swipe-radio', {
+                    classActive: 'text-swipe-800',
+                    specificWidgetUrl: path('_api_widget_select'),
+                    widgetType: 'widgetBody',
+                }) }}
         >
-            {% if form.widgetBodyData is defined %}
-                {{ form_row(form.widgetBodyData) }}
-            {% endif %}
+            <div
+                    {{ stimulus_target('swipe-radio', 'radio') }}
+            >
+                {{ form_widget(form.widgetBody) }}
+            </div>
+            <div
+                    {{ stimulus_target('swipe-radio', 'specificWidget') }}
+            >
+                {% if form.widgetBodyData is defined %}
+                    {{ include('_components/create/form/'~widgetBodyValue~'.html.twig', {
+                        form,
+                        widget: "widgetBody",
+                    }) }}
+                {% endif %}
+            </div>
         </div>
     </div>
-    <div
-            {{ stimulus_controller('swipe-radio', {
-                classActive: 'text-swipe-800',
-                specificWidgetUrl: path('_api_widget_select'),
-                widgetType: 'widgetFooter',
-            }) }}
-    >
-        {{ form_widget(form.widgetFooter) }}
-
+    <div class="space-y-2">
+        <p class="text-xs text-gray-600">Widget Footer :</p>
         <div
-                {{ stimulus_target('swipe-radio', 'specificWidget') }}
+                {{ stimulus_controller('swipe-radio', {
+                    classActive: 'text-swipe-800',
+                    specificWidgetUrl: path('_api_widget_select'),
+                    widgetType: 'widgetFooter',
+                }) }}
         >
-            {% if form.widgetFooterData is defined %}
-                {{ form_row(form.widgetFooter) }}
-            {% endif %}
+            <div
+                    {{ stimulus_target('swipe-radio', 'radio') }}
+            >
+                {{ form_widget(form.widgetFooter) }}
+            </div>
+            <div
+                    {{ stimulus_target('swipe-radio', 'specificWidget') }}
+            >
+                {% if form.widgetFooterData is defined %}
+                    {{ include('_components/create/form/'~widgetFooterValue~'.html.twig', {
+                        form,
+                        widget: "widgetFooter",
+                    }) }}
+                {% endif %}
+            </div>
         </div>
     </div>
     <button
@@ -67,5 +97,5 @@
     >
         {{ buttonText ?? "Ajouter un Swipe" }}
     </button>
+    {{ form_end(form) }}
 </div>
-{{ form_end(form) }}

@@ -21,12 +21,14 @@ class ButtonWidgetType extends AbstractType
                 'attr' => [
                     "placeholder" => "Le texte de votre bouton",
                 ],
+                'data' => $options['autocomplete_data']['text'] ?? null,
             ])
             ->add('href', UrlType::class, [
                 'required' => true,
                 'attr' => [
                     "placeholder" => "Le lien de votre bouton",
                 ],
+                'data' => $options['autocomplete_data']['href'] ?? null,
             ])
             ->add('textColor', ColorType::class, [
                 'required' => false,
@@ -34,6 +36,7 @@ class ButtonWidgetType extends AbstractType
                 'attr' => [
                     "placeholder" => "La couleur du texte de votre bouton",
                 ],
+                'data' => $options['autocomplete_data']['textColor'] ?? null,
             ])
             ->add('colorType', ChoiceType::class, [
                 'required' => true,
@@ -43,7 +46,7 @@ class ButtonWidgetType extends AbstractType
                     'Simple' => 'simple',
                     'Dégradé' => 'gradient',
                 ],
-                'data' => 'simple',
+                'data' => $options['autocomplete_data']['colorType'] ?? 'simple',
                 'attr' => [
                     "value" => true,
                 ],
@@ -52,9 +55,9 @@ class ButtonWidgetType extends AbstractType
                 'required' => true,
                 'label' => "La couleur primaire de votre bouton",
                 'attr' => [
-                    "value" => "#ffffff",
                     "placeholder" => "La couleur primaire de votre bouton",
                 ],
+                'data' => $options['autocomplete_data']['primaryColor'] ?? "#ffffff",
             ])
             ->add('secondaryColor', ColorType::class, [
                 'required' => false,
@@ -62,11 +65,14 @@ class ButtonWidgetType extends AbstractType
                 'attr' => [
                     "placeholder" => "La couleur secondaire de votre bouton",
                 ],
+                'data' => $options['autocomplete_data']['secondaryColor'] ?? null,
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults([
+            'autocomplete_data' => [],
+        ]);
     }
 }
