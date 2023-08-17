@@ -41,6 +41,15 @@
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        <script>
+            document.addEventListener("mousemove", e => {
+                cursorFollower.style.cssText = `display: block; transform: translate3d(${e.clientX - 150}px, ${e.clientY - 150}px, 0);`
+            });
+        </script>
+    {% endblock %}
 </head>
 <body
         {{ flashes ? stimulus_controller('notyf', {
@@ -57,13 +66,6 @@
 {% include '_includes/navbar.html.twig' %}
 {% block body %}{% endblock %}
 {% include '_includes/footer.html.twig' %}
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-    <script>
-        document.addEventListener("mousemove", e => {
-            cursorFollower.style.cssText = `display: block; transform: translate3d(${e.clientX - 150}px, ${e.clientY - 150}px, 0);`
-        });
-    </script>
-{% endblock %}
+
 </body>
 </html>

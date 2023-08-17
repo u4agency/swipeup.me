@@ -1,84 +1,176 @@
-<!-- NAVBAR -->
-<nav class="backdrop-blur-[10px] bg-gradient-to-b from-swipe-500/20 to-swipe-500/0 px-2 sm:px-4 py-2.5 fixed w-full top-0 z-50">
-    <div class="container flex flex-wrap justify-between items-center mx-auto">
-        <a href="{{ path('app_homepage') }}" class="flex items-center">
-            <img src="{{ asset('swipeup.png') }}" class="mr-3 h-6 sm:h-9" alt="Logo de SwipeUp">
-            <span class="sr-only">SwipeUp</span>
-        </a>
-        <button data-collapse-toggle="navbar-default" type="button"
-                class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                aria-controls="navbar-default" aria-expanded="false"
-                onclick="dropdown('navbar-default')">
-            <span class="sr-only">Open main menu</span>
-            {{ heroicon('bars-3', 'outline', {
-                'class': "w-6 h-6 stroke-current",
-                'stroke-width': 2.5,
-            }) }}
-        </button>
-        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul class="flex flex-col p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
-                <li>
-                    <a href="{{ path('app_homepage') }}"
-                       class="block py-2 pr-4 pl-3 text-white bg-white/50 rounded md:bg-transparent md:p-0"
-                       aria-current="page">Accueil</a>
-                </li>
-                <li>
-                    <a href="{{ path('app_homepage') }}#presentation"
-                       class="block py-2 pr-4 pl-3 text-gray-300 md:p-0">
-                        Présentation de la solution</a>
-                </li>
-                <li>
-                    <a href="{{ path('app_homepage') }}#offres"
-                       class="block py-2 pr-4 pl-3 text-gray-300 md:p-0">
-                        Nos offres</a>
-                </li>
-                {% if app.user %}
-                    {#                    <li> #}
-                    {#                        <a href="{{ path('app_login') }}" #}
-                    {#                           class="block py-2 pr-4 pl-3 text-swipe-300 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-swipe-400 md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"> #}
-                    {#                            Mon profil</a> #}
-                    {#                    </li> #}
-                    <li>
-                        <a href="{{ path('app_logout') }}"
-                           class="block py-2 pr-4 pl-3 text-swipe-300 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-swipe-400 md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            Se déconnecter</a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{{ path('app_login') }}"
-                           class="block py-2 pr-4 pl-3 text-swipe-300 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-swipe-400 md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            Se connecter</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_register') }}"
-                           class="block py-2 pr-4 pl-3 text-swipe-300 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-swipe-400 md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            S'inscrire</a>
-                    </li>
+<header
+        {{ stimulus_controller('dropdown', {
+            hiddenClass: 'hidden',
+        }) }}
+        id="mobile-menu"
+        class="backdrop-blur-[10px] bg-transparent px-2 sm:px-4 py-2.5 fixed w-full top-0 z-50"
+>
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <div class="flex lg:flex-1">
+            <a href="{{ path('app_homepage') }}" class="-m-1.5 p-1.5">
+                <span class="sr-only">SwipeUp</span>
+                <img class="h-8 w-auto" src="{{ asset('swipeup.png') }}" alt="SwipeUp">
+            </a>
+        </div>
+        <div class="flex lg:hidden">
+            <button
+                    {{ stimulus_action('dropdown', 'dropdown') }}
+                    type="button"
+                    class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
+            >
+                <span class="sr-only">Ouvrir le menu</span>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                     aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="hidden lg:flex lg:gap-x-12">
+            <a href="{{ path('app_homepage') }}" class="text-sm font-semibold leading-6 text-white">Accueil</a>
+            <a href="{{ path('app_homepage') }}#presentation" class="text-sm font-semibold leading-6 text-white">Présentation</a>
+            <a href="{{ path('app_homepage') }}#offres" class="text-sm font-semibold leading-6 text-white">Nos
+                offres</a>
+        </div>
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-2">
+            {% if app.user %}
+                <div
+                        {{ stimulus_controller('dropdown', {
+                            hiddenClass: 'lg:hidden',
+                        }) }}
+                        id="user-menu"
+                        class="relative"
+                >
+                    <button
+                            {{ stimulus_action('dropdown', 'dropdown') }}
+                            class="flex items-center text-sm font-medium rounded-full md:mr-0 text-white"
+                            type="button"
+                    >
+                        <span class="sr-only">Ouvrir le menu de l'utilisateur</span>
+                        <img class="w-8 h-8 mr-2 rounded-full" src="{{ asset('assets/images/default_avatar.jpg') }}"
+                             alt="{{ app.user.username }}">
+                        {{ app.user.username }}
+                        <svg
+                                {{ stimulus_target('dropdown', 'icon') }}
+                                class="w-2.5 h-2.5 ml-2.5 transform transition duration-300"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 10 6"
+                        >
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
 
-                {% endif %}
-                {#                <li> #}
-                {#                    <a href="#" #}
-                {#                       class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"> #}
-                {#                        Blog</a> #}
-                {#                </li> #}
-            </ul>
+                    <!-- Dropdown menu -->
+                    <div
+                            {{ stimulus_target('dropdown', 'dropdown') }}
+                            class="hidden lg:block lg:hidden absolute top-full overflow-hidden z-10 mt-3 bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
+                            data-transition-enter-active="transition ease-out duration-300"
+                            data-transition-enter-from="transform opacity-0 scale-95"
+                            data-transition-enter-to="transform opacity-100 scale-100"
+                            data-transition-leave-active="transition ease-in duration-300"
+                            data-transition-leave-from="transform opacity-100 scale-100"
+                            data-transition-leave-to="transform opacity-0 scale-95"
+                    >
+                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                            <div class="font-medium">{{ app.user.username }}</div>
+                            <div class="truncate">{{ app.user.email }}</div>
+                        </div>
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                            <li>
+                                {% if is_granted('ROLE_FIRST') %}
+                                    <a href="{{ path('app_swipe_create') }}"
+                                       class="block px-4 py-2 hover:bg-gray-100">Créer
+                                        un SwipeUp</a>
+                                {% endif %}
+                                <a href="{{ path('app_user_swipeup_list') }}"
+                                   class="block px-4 py-2 hover:bg-gray-100">Mes SwipeUps</a>
+                            </li>
+                        </ul>
+                        <div class="py-2">
+                            <a href="{{ path('app_logout') }}"
+                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Se déconnecter</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ path('app_login') }}"
+                   class="self-center text-sm font-semibold leading-6 text-white rounded-lg border-2 border-swipe-500 hover:border-swipe-600 px-6 py-3">Se
+                    connecter</a>
+                <a href="{{ path('app_register') }}"
+                   class="self-center text-sm font-semibold leading-6 text-white rounded-lg bg-swipe-500 hover:bg-swipe-600 px-6 py-3">Créer
+                    mon SwipeUp <span aria-hidden="true">&rarr;</span></a>
+            {% endif %}
+        </div>
+    </nav>
+    <div
+            {{ stimulus_target('dropdown', 'dropdown') }}
+            id="mobile-menu"
+            class="hidden lg:hidden"
+            role="dialog"
+            aria-modal="true"
+    >
+        <div class="fixed inset-0 z-10"></div>
+        <div class="fixed inset-y-0 right-0 z-10 w-full h-[100dvh] overflow-y-auto bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+            <div class="flex items-center justify-between">
+                <a href="{{ path('app_homepage') }}" class="-m-1.5 p-1.5">
+                    <span class="sr-only">SwipeUp</span>
+                    <img class="h-8 w-auto" src="{{ asset('swipeup.png') }}" alt="SwipeUp">
+                </a>
+                <button
+                        {{ stimulus_action('dropdown', 'dropdown') }}
+                        type="button"
+                        class="-m-2.5 rounded-md p-2.5 text-gray-200">
+                    <span class="sr-only">Fermer le menu</span>
+                    <svg
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="mt-6 flow-root">
+                <div class="-my-6 divide-y divide-gray-500/10">
+                    <div class="space-y-2 py-6">
+                        <a href="{{ path('app_homepage') }}"
+                           class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50">Accueil</a>
+                        <a href="{{ path('app_homepage') }}#presentation"
+                           class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50">Présentation</a>
+                        <a href="{{ path('app_homepage') }}#offres"
+                           class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50">Nos
+                            offres</a>
+                    </div>
+                    <div class="py-6">
+                        {% if app.user %}
+                            {% if is_granted('ROLE_FIRST') %}
+                                <a href="{{ path('app_swipe_create') }}"
+                                   class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Créer
+                                    un SwipeUp</a>
+                            {% endif %}
+                            <a href="{{ path('app_user_swipeup_list') }}"
+                               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Mes
+                                SwipeUp</a>
+                            <a href="{{ path('app_logout') }}"
+                               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Se
+                                déconnecter</a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}"
+                               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Se
+                                connecter</a>
+                            <a href="{{ path('app_register') }}"
+                               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Créer
+                                mon SwipeUp <span aria-hidden="true">&rarr;</span></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- ALERT -->
-    {% if app.user and app.user.isVerified == false %}
-        <div class="backdrop-blur-[10px] mx-auto container rounded-full border border-red-600 bg-red-600/20 text-red-500 text-center px-6 py-2 mt-4">
-            <p>Vous n'avez pas vérifié votre adresse mail, vous n'avez pas accès à toutes les fonctionnalités de
-                SwipeUp</p>
-        </div>
-    {% endif %}
-    <!-- ALERT -->
-</nav>
-<!-- NAVBAR -->
-
-<script>
-    function dropdown(id) {
-        const dropdown = document.getElementById(id);
-        dropdown.classList.toggle('hidden');
-    }
-</script>
+</header>
