@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
-    #[Route('/admin', name: 'admin')]
+    #[Route('/omnip', name: 'admin')]
     public function index(): Response
     {
         // Option 1. You can make your dashboard redirect to some common page of your backend
