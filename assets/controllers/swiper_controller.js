@@ -2,14 +2,16 @@ import {Controller} from "stimulus";
 import Swiper, {Pagination, Mousewheel} from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import analytics from "../services/analytics";
 
 export default class extends Controller {
     static targets = ['pagination', 'newsletterPopup'];
     static values = {
-        isFeaturedSwipeUp: Boolean
+        isFeaturedSwipeUp: Boolean, analyticsUrl: String,
     };
 
     connect() {
+        this.lastAnalyticsSwipeId = null;
         this.isNewsletterPopup = true;
 
         this.swiper = new Swiper(this.element, {
@@ -19,17 +21,27 @@ export default class extends Controller {
             spaceBetween: 0,
             mousewheel: true,
             pagination: {
-                el: this.paginationTarget,
-                clickable: true,
+                el: this.paginationTarget, clickable: true,
             },
             on: {
-                slideChange: (event) => {
+                init: (event) => {
+                    this.swipeAnalytics(event.slides[event.activeIndex].dataset.swipe, event.slides[event.activeIndex].dataset.analyticsCsrf)
+                }, slideChange: (event) => {
+                    this.swipeAnalytics(event.slides[event.activeIndex].dataset.swipe, event.slides[event.activeIndex].dataset.analyticsCsrf, this.lastAnalyticsSwipeId,)
+
                     if (event.activeIndex === 1 && this.isFeaturedSwipeUpValue && this.isNewsletterPopup) {
                         this.openNewsletterPopup(event);
                     }
                 },
             }
         });
+    }
+
+    swipeAnalytics(id, token, exited = null) {
+        analytics(this.analyticsUrlValue, id, token, exited)
+            .then(response => {
+                this.lastAnalyticsSwipeId = response.id || null;
+            });
     }
 
     openNewsletterPopup(slider) {

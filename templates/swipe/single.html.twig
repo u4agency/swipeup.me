@@ -61,11 +61,16 @@
                     class="h-full w-full mySwiper swiper-container"
                     {{ stimulus_controller('swiper', {
                         isFeaturedSwipeUp: swipeup.isFeaturedSwipeUp,
+                        analyticsUrl: path('_api_analytics_swipe_visit'),
                     }) }}
             >
                 <div class="swiper-wrapper">
                     {% for key, swipe in swipeup.swipes %}
-                        <div class="swiper-slide">
+                        <div
+                                class="swiper-slide"
+                                data-swipe="{{ swipe.id }}"
+                                data-analytics-csrf="{{ csrf_token('analytics' ~ swipe.id) }}"
+                        >
                             {% if swipeup.isFeaturedSwipeUp and key == 1 %}
                                 <div
                                         class="bg-white rounded-t-xl p-4 pb-24 z-10 absolute w-full bottom-0 hidden space-y-3"

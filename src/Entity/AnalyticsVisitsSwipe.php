@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\AnalyticsVisitsSwipeUpRepository;
+use App\Repository\AnalyticsVisitsSwipeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: AnalyticsVisitsSwipeUpRepository::class)]
-class AnalyticsVisitsSwipeUp
+#[ORM\Entity(repositoryClass: AnalyticsVisitsSwipeRepository::class)]
+class AnalyticsVisitsSwipe
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
@@ -21,7 +21,7 @@ class AnalyticsVisitsSwipeUp
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?SwipeUp $swipeup = null;
+    private ?Swipe $swipe = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $userAgent = null;
@@ -29,11 +29,11 @@ class AnalyticsVisitsSwipeUp
     #[ORM\Column(length: 255)]
     private ?string $userIp = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $siteReferer = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $visitedAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $exitedAt = null;
 
     public function __construct()
     {
@@ -57,14 +57,14 @@ class AnalyticsVisitsSwipeUp
         return $this;
     }
 
-    public function getSwipeup(): ?SwipeUp
+    public function getSwipe(): ?Swipe
     {
-        return $this->swipeup;
+        return $this->swipe;
     }
 
-    public function setSwipeup(?SwipeUp $swipeup): static
+    public function setSwipe(?Swipe $swipe): static
     {
-        $this->swipeup = $swipeup;
+        $this->swipe = $swipe;
 
         return $this;
     }
@@ -93,18 +93,6 @@ class AnalyticsVisitsSwipeUp
         return $this;
     }
 
-    public function getSiteReferer(): ?string
-    {
-        return $this->siteReferer;
-    }
-
-    public function setSiteReferer(?string $siteReferer): static
-    {
-        $this->siteReferer = $siteReferer;
-
-        return $this;
-    }
-
     public function getVisitedAt(): ?\DateTimeImmutable
     {
         return $this->visitedAt;
@@ -113,6 +101,18 @@ class AnalyticsVisitsSwipeUp
     public function setVisitedAt(\DateTimeImmutable $visitedAt): static
     {
         $this->visitedAt = $visitedAt;
+
+        return $this;
+    }
+
+    public function getExitedAt(): ?\DateTimeImmutable
+    {
+        return $this->exitedAt;
+    }
+
+    public function setExitedAt(?\DateTimeImmutable $exitedAt): static
+    {
+        $this->exitedAt = $exitedAt;
 
         return $this;
     }
