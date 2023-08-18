@@ -145,15 +145,14 @@
                                         {% for key, swipeup in swipeups %}
                                             {% if swipeup.swipes[0].background|get_mime_type('backgroundFile') == 'image' %}
                                                 <div data-aos="fade-up"
-                                                     data-aos-delay="{{ 200*(key+1) }}"
-                                                     class="w-[200px]">
+                                                     data-aos-delay="{{ 200*(key+1) }}">
                                                     <a href="{{ path('app_swipeup_single', {slug:swipeup.slug}) }}"
                                                        target="_blank"
                                                        class="relative group"
                                                        tabindex="-1">
                                                         <img src="{{ vich_uploader_asset(swipeup.swipes[0].background, 'backgroundFile') }}"
                                                              alt="{{ swipeup.title }}"
-                                                             class="px-0 rounded-lg h-[300px] w-full object-center object-cover"/>
+                                                             class="px-0 rounded-lg min-w-[180px] h-[320px] w-full object-center object-cover"/>
                                                         <div class="px-4 py-3 text-center w-full">
                                                             <h3 class="truncate font-semibold text-indigo-700 group-hover:text-indigo-800 duration-100">
                                                                 {{ swipeup.title }}
