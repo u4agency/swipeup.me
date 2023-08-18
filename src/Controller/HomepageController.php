@@ -39,6 +39,13 @@ class HomepageController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
+                $email = $newsletterRepository->findOneBy(['email' => $form->get('email')->getData()]);
+
+                if ($email) {
+                    $this->addFlash('error', "Vous êtes déjà en file d'attente !");
+                    return $this->redirectToRoute('app_newsletter', ['code' => $email->getCode()]);
+                }
+
                 $newsletter->setSource($request->attributes->get('_route'));
                 $referral = $newsletterRepository->findOneBy(['code' => $request->query->get('code')]);
                 $referral?->setPoints($referral->getPoints() + 100);
@@ -46,11 +53,11 @@ class HomepageController extends AbstractController
                     $entityManager->persist($newsletter);
                     if ($referral) $entityManager->persist($referral);
                     $entityManager->flush();
-
-                    return $this->redirectToRoute('app_newsletter', ['code' => $newsletter->getCode()]);
                 } catch (\Exception $exception) {
-                    $this->addFlash('error', "Vous êtes déjà en file d'attente !");
+                    $this->addFlash('error', "Une erreur est survenue.");
                 }
+
+                return $this->redirectToRoute('app_newsletter', ['code' => $newsletter->getCode()]);
             }
         }
 
