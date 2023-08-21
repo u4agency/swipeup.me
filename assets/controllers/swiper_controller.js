@@ -14,11 +14,9 @@ export default class extends Controller {
         this.lastAnalyticsSwipeId = null;
         this.isNewsletterPopup = true;
 
-        window.addEventListener('beforeunload', (event) => {
-            event.preventDefault();
-
+        window.addEventListener('beforeunload', function (event) {
             this.swipeAnalytics(null, null, this.lastAnalyticsSwipeId)
-        });
+        }.bind(this));
 
         this.swiper = new Swiper(this.element, {
             modules: [Pagination, Mousewheel],
