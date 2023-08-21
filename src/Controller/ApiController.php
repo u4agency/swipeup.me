@@ -26,7 +26,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('/api/')]
-#[IsGranted('IS_AUTHENTICATED_FULLY')]
 class ApiController extends AbstractController
 {
     #[Route('/v1/swipe/visit', name: '_api_analytics_swipe_visit', methods: ['POST'])]
@@ -147,6 +146,10 @@ class ApiController extends AbstractController
         WidgetRepository $widgetRepository,
     ): Response
     {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser()->getSwipeUps()->count() < 1) {
+            throw new BadRequestHttpException();
+        }
+
         $widget = $widgetRepository->findOneBy(['id' => $request->query->get('widgetName')]);
 
         if (!$widget) {
@@ -172,6 +175,10 @@ class ApiController extends AbstractController
         SwipeUpRepository $swipeUpRepository,
     ): Response
     {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser()->getSwipeUps()->count() < 1) {
+            throw new BadRequestHttpException();
+        }
+
         $swipeup = $swipeUpRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
 
         if (!$swipeup || $swipeup->getAuthor() !== $this->getUser()) {
