@@ -91,6 +91,11 @@
                             </li>
                         </ul>
                         <div class="py-2">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('admin') }}"
+                                   data-turbo="false"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Administration du site</a>
+                            {% endif %}
                             <a href="{{ path('app_logout') }}"
                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Se déconnecter</a>
                         </div>
@@ -157,6 +162,11 @@
                             <a href="{{ path('app_user_swipeup_list') }}"
                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Mes
                                 SwipeUp</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('admin') }}"
+                                   data-turbo="false"
+                                   class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Administration du site</a>
+                            {% endif %}
                             <a href="{{ path('app_logout') }}"
                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Se
                                 déconnecter</a>
