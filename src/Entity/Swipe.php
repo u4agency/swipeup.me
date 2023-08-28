@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SwipeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
@@ -35,13 +37,17 @@ class Swipe
     #[ORM\OneToOne(inversedBy: 'swipe', cascade: ['persist', 'remove'])]
     private ?WidgetSwipe $widgetFooter = null;
 
+    #[ORM\OneToMany(mappedBy: 'swipe', targetEntity: AnalyticsVisitsSwipe::class, cascade: ['remove'])]
+    private Collection $analyticsVisitsSwipe;
+
     public function __toString(): string
     {
-        return "Section de @".$this->swipeup->getSlug()." créée le ". $this->getCreatedAt()->format('d/m/Y \à H:i:s');
+        return "Section de @" . $this->swipeup->getSlug() . " créée le " . $this->getCreatedAt()->format('d/m/Y \à H:i:s');
     }
 
     public function __construct()
     {
+        $this->analyticsVisitsSwipe = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
     }
