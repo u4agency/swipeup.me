@@ -54,6 +54,7 @@ class SwipeSectionType extends AbstractType
                     'class' => 'hidden',
                     'accept' => implode(", ", $acceptedMimeTypes),
                 ],
+                'data' => $isEdit ? $swipe->getBackground()->getBackgroundFile() : null,
                 'constraints' => [
                     new Image([
                         'maxSize' => '1024k',
