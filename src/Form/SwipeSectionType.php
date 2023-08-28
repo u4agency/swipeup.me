@@ -22,6 +22,8 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class SwipeSectionType extends AbstractType
 {
@@ -40,7 +42,7 @@ class SwipeSectionType extends AbstractType
         $isEdit = $swipe && $swipe->getId();
 
         $acceptedMimeTypes = [
-            'image/*', 'video/webm'
+            'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/webm'
         ];
 
         $builder
@@ -49,19 +51,20 @@ class SwipeSectionType extends AbstractType
                 'label' => "Fond de la section",
                 'required' => !$isEdit,
                 'attr' => [
+                    'class' => 'hidden',
                     'accept' => implode(", ", $acceptedMimeTypes),
                 ],
-//                'constraints' => [
-//                    new Image([
-//                        'maxSize' => '1024k',
-//                        'mimeTypes' => ['image/webp'],
-//                        'mimeTypesMessage' => "Le fichier envoyé n'est pas valide",
-//                        'maxHeight' => 1920,
-//                        'maxWidth' => 1080,
-//                        'minRatio' => 9 / 16,
-//                        'maxRatio' => 9 / 16,
-//                    ])
-//                ],
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => ['image/webp'],
+                        'mimeTypesMessage' => "Le fichier envoyé n'est pas valide",
+                        'maxHeight' => 1920,
+                        'maxWidth' => 1080,
+                        'minRatio' => 9 / 16,
+                        'maxRatio' => 9 / 16,
+                    ])
+                ],
             ])
             ->add('widgetBody', EntityType::class, [
                 'required' => false,

@@ -4,6 +4,20 @@ import notyf from "../utils/notyf";
 
 export default class extends Controller {
     static targets = ['fileInput', 'imagePreview'];
+    static values = {
+        ratio: {
+            type: Number,
+            default: 1,
+        },
+        width: {
+            type: Number,
+            default: 320,
+        },
+        height: {
+            type: Number,
+            default: 320,
+        },
+    }
 
     connect() {
         this.windowsLoaded();
@@ -29,7 +43,7 @@ export default class extends Controller {
         }
 
         if (file) {
-            let content = getContent(file);
+            let content = getContent(file, {height: this.heightValue, width: this.widthValue, ratio: this.ratioValue});
 
             this.dispatch('modal:open', {detail: {content}});
         }
