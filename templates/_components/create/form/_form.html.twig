@@ -37,7 +37,8 @@
             {{ form_widget(form.background, {
                 attr: {
                     'data-image4label-target': 'fileInput',
-                    'data-action': 'change->image4label#updateLabel cropper:crop:save@window->image4label#updateInput',
+                    'data-action': 'change->image4label#updateLabel cropper:crop:save:swipeBackground@window->image4label#updateInput:swipeBackground',
+                    'data-image4label-type-param': 'swipeBackground',
                 }
             }) }}
         </label>

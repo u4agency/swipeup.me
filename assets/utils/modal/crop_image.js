@@ -5,6 +5,7 @@ export function getContent(file, options) {
         data-cropper-ratio-value="${options.ratio}"
         data-cropper-width-value="${options.width}"
         data-cropper-height-value="${options.height}"
+        data-cropper-type-value="${options.type}"
     >
         <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
             <div class="mt-3 text-center sm:mt-0 sm:text-left">

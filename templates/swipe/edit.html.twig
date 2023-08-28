@@ -107,7 +107,8 @@
                             {{ form_widget(form.logoFile, {
                                 attr: {
                                     'data-image4label-target': 'fileInput',
-                                    'data-action': 'change->image4label#updateLabel cropper:crop:save@window->image4label#updateInput',
+                                    'data-action': 'change->image4label#updateLabel cropper:crop:save:swipeupLogo@window->image4label#updateInput',
+                                    'data-image4label-type-param': 'swipeupLogo',
                                 }
                             }) }}
                         </label>

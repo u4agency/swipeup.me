@@ -34,7 +34,7 @@ export default class extends Controller {
         }
     }
 
-    updateLabel() {
+    updateLabel(event) {
         let [file] = this.fileInputTarget.files;
 
         if (file && !this.supportedImageTypes.includes(file.type)) {
@@ -43,7 +43,12 @@ export default class extends Controller {
         }
 
         if (file) {
-            let content = getContent(file, {height: this.heightValue, width: this.widthValue, ratio: this.ratioValue});
+            let content = getContent(file, {
+                height: this.heightValue,
+                width: this.widthValue,
+                ratio: this.ratioValue,
+                type: event.params.type,
+            });
 
             this.dispatch('modal:open', {detail: {content}});
         }

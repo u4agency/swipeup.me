@@ -17,6 +17,7 @@ export default class extends Controller {
             type: Number,
             default: 320,
         },
+        type: String,
     }
 
     connect() {
@@ -46,7 +47,7 @@ export default class extends Controller {
 
             dataTransfer.items.add(newFile);
 
-            this.dispatch('crop:save', {detail: {file: dataTransfer.files}});
+            this.dispatch(`crop:save:${this.typeValue}`, {detail: {file: dataTransfer.files}});
         }, 'image/webp');
     }
 }
