@@ -16,6 +16,7 @@
         "easycorp/easyadmin-bundle": "^4.5",
         "gumbraise/twig-heroicons": "^2.0",
         "league/commonmark": "^2.4",
+        "liip/imagine-bundle": "^2.11",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.6",
         "sensio/framework-extra-bundle": "^6.2",

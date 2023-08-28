@@ -20,4 +20,5 @@ return [
     Symfony\UX\Turbo\TurboBundle::class => ['all' => true],
     MarcW\Heroicons\MarcWHeroiconsBundle::class => ['all' => true],
     Symfony\UX\StimulusBundle\StimulusBundle::class => ['all' => true],
+    Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
 ];
