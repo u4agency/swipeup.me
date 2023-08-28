@@ -112,8 +112,10 @@ class SwipeSectionType extends AbstractType
 
                         if ($form->getConfig()->getOption('data') && $form->getConfig()->getOption('data')->getId()) {
                             $getter = 'get' . ucfirst($widgetType);
-                            foreach ($form->getConfig()->getOption('data')->$getter()->getWidgetData() as $dataValue) {
-                                $widgetData[$dataValue->getDataName()] = $dataValue->getDataValue();
+                            if ($form->getConfig()->getOption('data')->$getter()) {
+                                foreach ($form->getConfig()->getOption('data')->$getter()->getWidgetData() as $dataValue) {
+                                    $widgetData[$dataValue->getDataName()] = $dataValue->getDataValue();
+                                }
                             }
                         }
 
