@@ -70,46 +70,6 @@ class SwipeController extends AbstractController
         ]);
     }
 
-    #[Route('@{slug}/admin', name: 'app_swipeup_edit', priority: -1)]
-    public function editSwipeUp(
-        SwipeUp                $swipeup,
-        EntityManagerInterface $entityManager,
-        Request                $request,
-    ): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-
-        if ($swipeup->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('error', "Vous n'êtes pas l'auteur de ce SwipeUp !");
-            return $this->redirectToRoute('app_swipeup_single', [
-                'slug' => $swipeup->getSlug()
-            ]);
-        }
-
-        $form = $this->createForm(SwipeUpEditType::class, $swipeup);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            try {
-                $entityManager->persist($swipeup);
-                $entityManager->flush();
-            } catch (\Exception $exception) {
-                $this->addFlash('error', "Une erreur est survenue lors de la modification du SwipeUp !");
-            }
-
-            return $this->redirectToRoute('app_swipeup_edit', [
-                'slug' => $swipeup->getSlug()
-            ]);
-        }
-
-        return $this->render('swipe/edit.html.twig', [
-            'swipeup' => $swipeup,
-            'form' => $form->createView(),
-        ]);
-    }
-
     #[Route('create', name: 'app_swipe_create')]
     public function createSwipe(
         Request                $request,
@@ -138,7 +98,7 @@ class SwipeController extends AbstractController
             $entityManager->persist($swipeup);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_swipeup_edit', ['slug' => $swipeup->getSlug()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_swipeup_edit', ['slug' => $swipeup->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
 
