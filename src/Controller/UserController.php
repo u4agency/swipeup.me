@@ -10,12 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin', name: 'app_user_')]
 class UserController extends AbstractController
 {
-    #[Route('/mine', name: 'swipeup_list')]
-    public function swipeupList(
+    #[Route('/mine', name: 'admin_list')]
+    public function adminList(
         SwipeUpRepository $swipeUpRepository,
     ): Response
     {
-        return $this->render('user/swipeupList.html.twig', [
+        return $this->render('user/admin/list.html.twig', [
             'swipeups' => $swipeUpRepository->findBy(['author' => $this->getUser()]),
         ]);
     }

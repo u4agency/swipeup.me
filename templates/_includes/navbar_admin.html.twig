@@ -1,0 +1,132 @@
+<div
+        id="admin-navbar-aside"
+        {{ stimulus_controller('dropdown', {
+            'hiddenClass': '-translate-x-full',
+        }) }}
+>
+    <nav class="fixed top-0 z-50 w-full bg-black border-b border-neutral-900">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center justify-start">
+                    <button
+                            {{ stimulus_action('dropdown', 'dropdown') }}
+                            data-drawer-target="logo-sidebar"
+                            data-drawer-toggle="logo-sidebar"
+                            aria-controls="logo-sidebar"
+                            type="button"
+                            class="inline-flex items-center p-2 text-sm rounded-lg sm:hidden focus:outline-none focus:ring-2 text-gray-400 hover:bg-gray-700 focus:ring-gray-600">
+                        <span class="sr-only">Open sidebar</span>
+                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                  d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+                        </svg>
+                    </button>
+                    <a href="{{ path('app_homepage') }}" class="flex ml-2 md:mr-24">
+                        <span class="sr-only">SwipeUp</span>
+                        <img class="h-8 w-auto mr-3" src="{{ asset('swipeup.png') }}"
+                             alt="SwipeUp, votre atout pour une présence en ligne puissante et optimisée à l'ère du mobile">
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex items-center ml-3">
+                        <div
+                                {{ stimulus_controller('dropdown') }}
+                                id="user-menu"
+                                class="relative"
+                        >
+                            <button
+                                    {{ stimulus_action('dropdown', 'dropdown') }}
+                                    class="flex text-sm rounded-full"
+                                    type="button"
+                            >
+                                <span class="sr-only">Ouvrir le menu de l'utilisateur</span>
+                                <img class="w-8 h-8 mr-2 rounded-full"
+                                     src="{{ asset('assets/images/default_avatar.jpg') }}"
+                                     alt="{{ app.user.username }}">
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div
+                                    {{ stimulus_target('dropdown', 'dropdown') }}
+                                    class="hidden absolute top-full overflow-hidden z-10 mt-3 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 right-0"
+                                    data-transition-enter-active="transition ease-out duration-300"
+                                    data-transition-enter-from="transform opacity-0 scale-95"
+                                    data-transition-enter-to="transform opacity-100 scale-100"
+                                    data-transition-leave-active="transition ease-in duration-300"
+                                    data-transition-leave-from="transform opacity-100 scale-100"
+                                    data-transition-leave-to="transform opacity-0 scale-95"
+                            >
+                                <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                                    <div class="font-medium">{{ app.user.username }}</div>
+                                    <div class="truncate">{{ app.user.email }}</div>
+                                </div>
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                                    <li>
+                                        {% if is_granted('ROLE_FIRST') %}
+                                            <a href="{{ path('app_swipe_create') }}"
+                                               class="block px-4 py-2 hover:bg-gray-100">Créer
+                                                un SwipeUp</a>
+                                        {% endif %}
+                                        <a href="{{ path('app_user_admin_list') }}"
+                                           class="block px-4 py-2 hover:bg-gray-100">Mes SwipeUps</a>
+                                    </li>
+                                </ul>
+                                <div class="py-2">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('admin') }}"
+                                           data-turbo="false"
+                                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Administration
+                                            du
+                                            site</a>
+                                    {% endif %}
+                                    <a href="{{ path('app_logout') }}"
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Se
+                                        déconnecter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <aside
+            {{ stimulus_target('dropdown', 'dropdown') }}
+            data-transition-enter-active="transition ease-out duration-300"
+            data-transition-enter-from="transform opacity-0 -translate-x-full"
+            data-transition-enter-to="transform opacity-100 translate-x-0"
+            data-transition-leave-active="transition ease-in duration-300"
+            data-transition-leave-from="transform opacity-100 translate-x-0"
+            data-transition-leave-to="transform opacity-0 -translate-x-full"
+            id="logo-sidebar"
+            class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform bg-black border-r border-neutral-900 sm:translate-x-0"
+            aria-label="Sidebar">
+        <div class="h-full px-3 pb-4 overflow-y-auto bg-black">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="{{ path('app_user_admin_list') }}"
+                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group">
+                        {{ heroicon('device-phone-mobile', 'solid', {
+                            'class': 'w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white fill-current'
+                        }) }}
+                        <span class="ml-3">Mes SwipesUps</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-neutral-700">
+                <li>
+                    <a href="#"
+                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group">
+                        {{ heroicon('device-phone-mobile', 'solid', {
+                            'class': 'w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white fill-current'
+                        }) }}
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+</div>

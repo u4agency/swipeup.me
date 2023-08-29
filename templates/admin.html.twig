@@ -1,0 +1,38 @@
+{% set flashes = app.flashes %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SwipeUp | Tout ce dont vous avez besoin en un swipe !{% endblock %} • Administration SwipeUp</title>
+    <link rel="icon"
+          href="{{ app.request.schemeAndHttpHost }}{{ asset('favicon.ico') }}">
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        <script>
+            document.addEventListener("mousemove", e => {
+                cursorFollower.style.cssText = `display: block; transform: translate3d(${e.clientX - 150}px, ${e.clientY - 150}px, 0);`
+            });
+        </script>
+    {% endblock %}
+</head>
+<body
+        {{ flashes ? stimulus_controller('notyf', {
+            flashes: flashes|json_encode
+        }) }}
+        class="bg-black font-swipe overflow-x-hidden"
+>
+{% include '_includes/navbar_admin.html.twig' %}
+<div class="p-4 sm:ml-64">
+    {% block body %}{% endblock %}
+    {% include '_includes/footer.html.twig' %}
+</div>
+</body>
+</html>

@@ -10,7 +10,7 @@ export default class extends Controller {
     connect() {
         useTransition(this, {
             element: this.dropdownTarget,
-            hiddenClass: this.hiddenClassValue ?? 'hidden',
+            hiddenClass: this.hasHiddenClassValue ? this.hiddenClassValue : 'hidden',
             transitioned: false,
         });
     }

@@ -86,7 +86,7 @@
                                        class="block px-4 py-2 hover:bg-gray-100">Créer
                                         un SwipeUp</a>
                                 {% endif %}
-                                <a href="{{ path('app_user_swipeup_list') }}"
+                                <a href="{{ path('app_user_admin_list') }}"
                                    class="block px-4 py-2 hover:bg-gray-100">Mes SwipeUps</a>
                             </li>
                         </ul>
@@ -159,7 +159,7 @@
                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Créer
                                     un SwipeUp</a>
                             {% endif %}
-                            <a href="{{ path('app_user_swipeup_list') }}"
+                            <a href="{{ path('app_user_admin_list') }}"
                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Mes
                                 SwipeUp</a>
                             {% if is_granted('ROLE_ADMIN') %}
