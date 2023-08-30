@@ -19,7 +19,7 @@ class AnalyticsVisitsSwipeUp
     #[ORM\Column(length: 255)]
     private ?string $userId = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'analyticsVisitsSwipeUps')]
     #[ORM\JoinColumn(nullable: false)]
     private ?SwipeUp $swipeup = null;
 

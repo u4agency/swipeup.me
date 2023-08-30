@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\AnalyticsVisitsSwipeUp;
+use App\Entity\SwipeUp;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +21,31 @@ class AnalyticsVisitsSwipeUpRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, AnalyticsVisitsSwipeUp::class);
+    }
+
+    public function findByDateBetween(SwipeUp $swipeUp, $startDate, $endDate): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.visitedAt BETWEEN :startDate AND :endDate')
+            ->andWhere('s.swipeup = :swipeup')
+            ->setParameter('swipeup', $swipeUp->getId()->toBinary())
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByUser(User $user, $startDate, $endDate): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.visitedAt BETWEEN :startDate AND :endDate')
+            ->leftJoin('s.swipeup', 'i1')
+            ->andWhere('i1.author = :user')
+            ->setParameter('user', $user)
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

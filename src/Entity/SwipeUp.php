@@ -67,17 +67,18 @@ class SwipeUp
     #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: Swipe::class, orphanRemoval: true)]
     private Collection $swipes;
 
+    #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: AnalyticsVisitsSwipeUp::class)]
+    private Collection $analyticsVisitsSwipeUp;
+
     public function __toString(): string
     {
         return $this->title . ' (@' . $this->slug . ')';
     }
 
-    /**
-     * @throws Exception
-     */
     public function __construct()
     {
         $this->swipes = new ArrayCollection();
+        $this->analyticsVisitsSwipeUp = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
 
