@@ -25,7 +25,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-#[Route('/api/')]
+#[Route('/api')]
 class ApiController extends AbstractController
 {
     #[Route('/v1/swipe/visit', name: '_api_analytics_swipe_visit', methods: ['POST'])]
@@ -91,7 +91,7 @@ class ApiController extends AbstractController
     }
 
 
-    #[Route('create_swipe', name: '_api_swipe_create')]
+    #[Route('/create_swipe', name: '_api_swipe_create')]
     public function swipeCreate(
         Request                $request,
         EntityManagerInterface $entityManager,
@@ -140,7 +140,7 @@ class ApiController extends AbstractController
         ]);
     }
 
-    #[Route('widget_select', name: '_api_widget_select')]
+    #[Route('/widget_select', name: '_api_widget_select')]
     public function getSpecificWidgetSelect(
         Request          $request,
         WidgetRepository $widgetRepository,

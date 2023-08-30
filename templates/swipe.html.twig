@@ -37,52 +37,12 @@
     {% block stylesheets %}
         {{ encore_entry_link_tags('swipe') }}
     {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('swipe') }}
+    {% endblock %}
 </head>
 <body class="bg-black font-swipe h-screen overflow-hidden">
-<div class="bg-black h-full w-full absolute z-50 flex items-center justify-center"
-     id="waitingScreen">
-    <img src="{{ asset('swipeup.png') }}" class="mr-3 h-12 sm:h-16" alt="Logo de SwipeUp">
-    <div class="opacity-75 absolute inset-0 -z-[1] overflow-hidden blur-[100px] select-none pointer-events-none">
-        <div class="top-2/5 left-3/5 w-[700px] h-[700px] -z-[2] bg-swipe-100 absolute rounded-full opacity-60 ease-gradient animate-gradient-1"></div>
-        <div class="top-3/5 left-2/5 w-[600px] h-[600px] -z-[1] bg-swipe-500 absolute rounded-full opacity-60 ease-gradient animate-gradient-2"></div>
-        <div class="top-1/2 left-1/2 w-[500px] h-[500px] -z-[3] bg-swipe-900 absolute rounded-full opacity-60 ease-gradient animate-gradient-3"></div>
-    </div>
-</div>
 {% block body %}{% endblock %}
-{% block javascripts %}
-    {{ encore_entry_script_tags('swipe') }}
-
-    <script>
-
-        window.addEventListener('load', function () {
-            waitingScreen.classList.add("animate-fade-out");
-
-            setTimeout(() => {
-                waitingScreen.classList.add("hidden");
-            }, 1500)
-        });
-
-        var customViewportCorrectionVariable = 'vh';
-
-        function setViewportProperty(doc) {
-            var prevClientHeight;
-            var customVar = '--' + (customViewportCorrectionVariable || 'vh');
-
-            function handleResize() {
-                var clientHeight = doc.clientHeight;
-                if (clientHeight === prevClientHeight) return;
-                requestAnimationFrame(function updateViewportHeight() {
-                    doc.style.setProperty(customVar, (clientHeight * 0.01) + 'px');
-                    prevClientHeight = clientHeight;
-                });
-            }
-
-            handleResize();
-            return handleResize;
-        }
-
-        window.addEventListener('resize', setViewportProperty(document.documentElement));
-    </script>
-{% endblock %}
 </body>
 </html>
