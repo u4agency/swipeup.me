@@ -33,6 +33,8 @@ class AnalyticsVisitsSwipeUpSubscriber implements EventSubscriberInterface
 
         $swipeup = $this->swipeUpRepository->findOneBy(['slug' => $params['slug']]);
 
+        if (!$swipeup) return;
+
         $analyticsVisitsSwipeUp
             ->setUserId($request->getSession()->getId())
             ->setSwipeup($swipeup)
