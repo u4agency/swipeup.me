@@ -144,3 +144,56 @@
     @apply space-y-1;
   }
 }
+
+
+.article {
+  * {
+    @apply leading-normal;
+  }
+
+  a {
+    @apply font-bold decoration-0 relative z-10 text-swipe-500;
+  }
+
+  p {
+    @apply mt-4;
+  }
+
+  h2, h3, h4, h5, h6 {
+    @apply mt-8 font-bold tracking-tight text-gray-200;
+  }
+
+  h2 {
+    @apply text-4xl sm:text-5xl;
+  }
+
+  h3 {
+    @apply text-3xl sm:text-4xl;
+  }
+
+  h4 {
+    @apply text-2xl sm:text-3xl;
+  }
+
+  h5 {
+    @apply text-xl sm:text-2xl;
+  }
+
+  h6 {
+    @apply text-lg sm:text-xl;
+  }
+}
+
+.article {
+  menu, ol, ul {
+    @apply pl-10 my-4;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+}

@@ -113,7 +113,7 @@
 {% block body %}
     <div class="py-32 container px-4 mx-auto">
         <div class="antialiased text-summary text-gray-200">
-            <div class="max-w-8xl mx-auto">
+            <div class="max-w-screen-xl mx-auto">
                 <div class="w-full mx-auto space-y-8" id="content">
                     <h1 class="py-16 text-center text-black capitalize w-full text-4xl md:text-7xl font-bold leading-tight relative z-10 text-transparent bg-clip-text bg-gradient-to-br from-swipe-700 to-swipe-100">
                         {{ article.title }}
@@ -142,7 +142,7 @@
                             {% endif %}
                         </p>
                     </div>
-                    <div class="md:text-justify text-left text-lg md:text-xl article">
+                    <div class="text-left text-xl md:text-2xl article rounded-3xl bg-black p-8">
                         {{ article.content|raw }}
                     </div>
                 </div>
