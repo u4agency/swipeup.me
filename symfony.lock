@@ -47,6 +47,9 @@
     "gumbraise/twig-heroicons": {
         "version": "2.0.18"
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.2.0"
+    },
     "liip/imagine-bundle": {
         "version": "2.11",
         "recipe": {
