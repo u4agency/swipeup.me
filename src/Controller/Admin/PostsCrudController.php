@@ -37,6 +37,7 @@ class PostsCrudController extends AbstractCrudController
         $fields = [
             TextField::new('title', 'Titre de l\'article'),
             TextEditorField::new('content', 'Contenu de l\'article')
+                ->setFormType(CKEditorType::class)
                 ->hideOnIndex(),
             AssociationField::new('authors', 'Auteurs')
                 ->hideOnIndex(),
