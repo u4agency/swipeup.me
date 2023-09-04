@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block subTitle %}Blog | {% endblock %}
+
+{% block schema %}
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Blog",
+                "url": "{{ url('app_blog') }}",
+                "name": "SwipeUp",
+                "headline": "Apprenez-en plus sur le web grâce à nos articles de blog",
+                "description": "",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "SwipeUp",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "{{ app.request.schemeAndHttpHost }}{{ asset('swipeup.png') }}"
+                    }
+                },
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "{{ url('app_blog') }}"
+                  }
+            }
+        </script>
+{% endblock %}
+
+{% block body %}
+    <div class="py-24 sm:py-32 lg:py-40">
+        <div class="mx-auto max-w-screen-2xl px-6 lg:px-8">
+            <div class="sm:text-center">
+                <h1 class="text-lg font-semibold leading-8 text-swipe-500">Explorer<span
+                            class="sr-only"> notre blog</span>
+                </h1>
+                <p class="mt-2 text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
+                    Apprenez-en plus sur le web grâce à nos articles de blog
+                </p>
+                <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-300">
+                    Exploration approfondie des concepts clés et des tendances actuelles du monde numérique
+                </p>
+            </div>
+
+            <div class="mt-20">
+                {% if news|length > 0 %}
+                    <div class="relative space-y-8">
+                        <div class="flex flex-wrap -m-4 justify-center">
+                            {% for article in news %}
+                                {{ include('_includes/article_modal.html.twig', {hasToBe: 'h2'}) }}
+                            {% endfor %}
+                        </div>
+
+                        <nav aria-label="Pagination" class="flex justify-center">
+                            {{ knp_pagination_render(news) }}
+                        </nav>
+
+                    </div>
+                {% else %}
+                    <p class="text-lg text-gray-200 font-medium title-font mb-4 text-center">Il n'y a
+                        pas d'article de disponible pour le moment</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

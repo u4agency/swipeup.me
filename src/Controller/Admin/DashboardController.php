@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
 use App\Entity\Newsletter;
+use App\Entity\Posts;
 use App\Entity\Swipe;
 use App\Entity\SwipeImage;
 use App\Entity\SwipeUp;
@@ -58,5 +60,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Achats des widgets', 'fas fa-list', WidgetUser::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
         yield MenuItem::linkToCrud('Newsletter', 'fas fa-clipboard', Newsletter::class);
+        yield MenuItem::linkToCrud('Articles', 'fas fa-clipboard', Posts::class);
+        yield MenuItem::linkToCrud('Catégories', 'fas fa-clipboard', Category::class);
     }
 }

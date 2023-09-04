@@ -1,0 +1,24 @@
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "WebPage",
+        "name": "{{ subTitle|slice(0, -3) }}",
+        "description": "{{ description ?? 'La SEULE solution de création et de référencement de site web adapté à notre temps. Vous comprendre ne prendra que très peu de temps avec SwipeUp.' }}",
+        "url": "{{ app.request.schemeAndHttpHost }}{{ app.request.requestUri }}",
+        "inLanguage": "fr-FR",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "SwipeUp",
+            "url": "{{ url('app_homepage') }}",
+            "publisher": {
+                "@type": "Organization",
+                "name": "SwipeUp",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{ app.request.schemeAndHttpHost }}{{ asset('swipeup.png') }}"
+                }
+            }
+        }
+    }
+</script>
