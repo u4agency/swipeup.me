@@ -47,14 +47,14 @@
 
         {% block schema %}
             {{ include('_seo/_schema.html.twig', {
-                subTitle: block('subTitle'),
+                subTitle: block('title'),
                 description: block('description'),
             }) }}
         {% endblock %}
 
         {% block breadcrumb %}
             {{ include('_seo/_breadcrumb.html.twig', {
-                subTitle: block('subTitle'),
+                subTitle: block('title'),
             }) }}
         {% endblock %}
 
