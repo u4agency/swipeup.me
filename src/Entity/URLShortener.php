@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\URLShortenerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: URLShortenerRepository::class)]
@@ -26,9 +28,13 @@ class URLShortener
     #[ORM\JoinColumn(nullable: false)]
     private ?User $createdBy = null;
 
+    #[ORM\OneToMany(mappedBy: 'URLShortener', targetEntity: AnalyticsVisitsURLShortener::class)]
+    private Collection $analyticsVisitsURLShortener;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->analyticsVisitsURLShortener = new ArrayCollection();
     }
 
     public function getId(): ?int
