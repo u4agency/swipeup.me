@@ -8,6 +8,7 @@ use App\Entity\Posts;
 use App\Entity\Swipe;
 use App\Entity\SwipeImage;
 use App\Entity\SwipeUp;
+use App\Entity\URLShortener;
 use App\Entity\User;
 use App\Entity\Widget;
 use App\Entity\WidgetData;
@@ -62,5 +63,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Newsletter', 'fas fa-clipboard', Newsletter::class);
         yield MenuItem::linkToCrud('Articles', 'fas fa-clipboard', Posts::class);
         yield MenuItem::linkToCrud('Catégories', 'fas fa-clipboard', Category::class);
+        yield MenuItem::linkToCrud('URLShortener', 'fas fa-clipboard', URLShortener::class);
     }
 }
