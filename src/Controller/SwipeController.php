@@ -45,6 +45,11 @@ class SwipeController extends AbstractController
         Request                $request
     ): Response
     {
+        if ($swipeup->getStatus() === 'private' && $this->getUser() !== $swipeup->getAuthor()) {
+            $this->addFlash('error', 'Le SwipeUp demandé est innaccessible');
+            return $this->redirectToRoute('app_login');
+        }
+
         $newsletter = new Newsletter();
         $form = $this->createForm(NewsletterType::class, $newsletter);
         if ($swipeup->isFeaturedSwipeUp()) {
