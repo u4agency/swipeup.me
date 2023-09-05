@@ -47,7 +47,7 @@
 
     <div id="app" class="md:flex h-full">
         <div class="md:w-3/4 w-2/4 hidden md:block bg-slate-900">
-            <div class="grid place-items-center h-screen">
+            <div class="grid place-items-center h-[100dvh]">
                 <div class="max-w-xs w-full h-auto">
                     <img src="{{ vich_uploader_asset(swipeup, 'logoFile') }}"
                          alt="Logo de {{ swipeup.title }}"
@@ -131,7 +131,7 @@
                         </div>
                     {% endfor %}
                     <div class="swiper-slide">
-                        <div class="h-screen w-full relative text-center text-lg bg-slate-900 pt-8 space-y-4">
+                        <div class="h-[100dvh] w-full relative text-center text-lg bg-slate-900 pt-8 space-y-4">
                             <div class="space-y-2">
                                 {{ include('_components/_swipe.logo.html.twig') }}
                                 <h2 class="text-white font-black text-xl">@{{ swipeup.slug }}</h2>
