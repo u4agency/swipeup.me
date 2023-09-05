@@ -9,7 +9,21 @@ export default class extends Controller {
             modules: [Autoplay],
             loop: true,
             loopAdditionalSlides: 5,
-            slidesPerView: 5,
+            slidesPerView: 1,
+            breakpoints: {
+                414: {
+                    slidesPerView: 2,
+                },
+                768: {
+                    slidesPerView: 3,
+                },
+                1024: {
+                    slidesPerView: 4,
+                },
+                1280: {
+                    slidesPerView: 5,
+                },
+            },
             spaceBetween: 0,
             effect: 'slide',
             autoplay: {
