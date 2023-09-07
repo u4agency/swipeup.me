@@ -40,6 +40,10 @@ class SitemapController extends AbstractController
             'loc' => $this->generateUrl('app_register'),
             'priority' => 0.9
         ];
+        $urls[] = [
+            'loc' => $this->generateUrl('app_about'),
+            'priority' => 0.9
+        ];
 
         foreach ($swipeUpRepository->findBy(['status' => 'public']) as $swipeup) {
             $urls[] = [
