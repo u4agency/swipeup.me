@@ -5,7 +5,6 @@
                 <div class="mb-6 md:mb-0 space-y-4 text-white max-w-md">
                     <a href="{{ path('app_homepage') }}" class="flex items-center">
                         <img src="{{ asset('swipeup.png') }}" class="h-8 mr-3" alt="Logo de SwipeUp"/>
-                        <span class="sr-only">SwipeUp</span>
                     </a>
                     <p class="text-3xl">Créer votre SwipeUp gratuitement</p>
                     <p class="text-lg">SwipeUp, votre atout pour une présence en ligne puissante et optimisée à l'ère du mobile.</p>
@@ -26,9 +25,46 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div>
+                        <h2 class="mb-6 text-sm font-semibold uppercase text-white">Pages</h2>
+                        <ul class="text-gray-300">
+                            <li class="mb-4">
+                                <a href="{{ path('app_blog') }}" class="hover:underline">Blog</a>
+                            </li>
+                            <li class="mb-4">
+                                <a href="{{ path('app_about') }}" class="hover:underline">A propos</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="mb-6 text-sm font-semibold uppercase text-white">Retrouvez-nous</h2>
+                        <ul class="text-gray-300">
+                            <li class="mb-4">
+                                <a href="https://instagram.com/swipeup.me" target="_blank" class="hover:underline">Instagram</a>
+                            </li>
+                            <li class="mb-4">
+                                <a href="https://tiktok.com/@swipeup.me" target="_blank" class="hover:underline">TikTok</a>
+                            </li>
+                            <li class="mb-4">
+                                <a href="https://www.youtube.com/@swipeup-me" target="_blank" class="hover:underline">YouTube</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+{#                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Autre</h2>#}
+{#                        <ul class="text-gray-600 dark:text-gray-400">#}
+{#                            <li class="mb-4">#}
+{#                                <a href="{{ path('app_contact') }}" class="hover:underline">Contactez-nous</a>#}
+{#                            </li>#}
+{#                            <li class="mb-4">#}
+{#                                <a href="{{ path('app_page', {slug: 'mentions-legales'}) }}" class="hover:underline">Mentions#}
+{#                                    légales</a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="{{ path('app_page', {slug: 'cgu'}) }}" class="hover:underline">CGU</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+                    </div>
                 </div>
             </div>
             <hr class="my-5 opacity-25">
