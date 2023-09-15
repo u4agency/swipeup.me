@@ -58,7 +58,7 @@ class SwipeController extends AbstractController
         UploaderHelper         $uploaderHelper
     ): Response
     {
-        if (!$this->getUser() && !$this->isGranted('ROLE_FIRST')) {
+        if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 

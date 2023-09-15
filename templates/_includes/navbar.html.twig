@@ -9,7 +9,8 @@
         <div class="flex lg:flex-1">
             <a href="{{ path('app_homepage') }}" class="-m-1.5 p-1.5">
                 <span class="sr-only">SwipeUp</span>
-                <img class="h-8 w-auto" src="{{ asset('swipeup.png') }}" alt="SwipeUp, votre atout pour une présence en ligne puissante et optimisée à l'ère du mobile">
+                <img class="h-8 w-auto" src="{{ asset('swipeup.png') }}"
+                     alt="SwipeUp, votre atout pour une présence en ligne puissante et optimisée à l'ère du mobile">
             </a>
         </div>
         <div class="flex lg:hidden">
@@ -81,11 +82,9 @@
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                             aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                             <li>
-                                {% if is_granted('ROLE_FIRST') %}
-                                    <a href="{{ path('app_swipe_create') }}"
-                                       class="block px-4 py-2 hover:bg-gray-100">Créer
-                                        un SwipeUp</a>
-                                {% endif %}
+                                <a href="{{ path('app_swipe_create') }}"
+                                   class="block px-4 py-2 hover:bg-gray-100">Créer
+                                    un SwipeUp</a>
                                 <a href="{{ path('app_user_admin_list') }}"
                                    class="block px-4 py-2 hover:bg-gray-100">Mes SwipeUps</a>
                             </li>
@@ -94,7 +93,8 @@
                             {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('admin') }}"
                                    data-turbo="false"
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Administration du site</a>
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Administration du
+                                    site</a>
                             {% endif %}
                             <a href="{{ path('app_logout') }}"
                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Se déconnecter</a>
@@ -123,7 +123,8 @@
             <div class="flex items-center justify-between">
                 <a href="{{ path('app_homepage') }}" class="-m-1.5 p-1.5">
                     <span class="sr-only">SwipeUp</span>
-                    <img class="h-8 w-auto" src="{{ asset('swipeup.png') }}" alt="SwipeUp, votre atout pour une présence en ligne puissante et optimisée à l'ère du mobile">
+                    <img class="h-8 w-auto" src="{{ asset('swipeup.png') }}"
+                         alt="SwipeUp, votre atout pour une présence en ligne puissante et optimisée à l'ère du mobile">
                 </a>
                 <button
                         {{ stimulus_action('dropdown', 'dropdown') }}
@@ -154,18 +155,17 @@
                     </div>
                     <div class="py-6">
                         {% if app.user %}
-                            {% if is_granted('ROLE_FIRST') %}
-                                <a href="{{ path('app_swipe_create') }}"
-                                   class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Créer
-                                    un SwipeUp</a>
-                            {% endif %}
+                            <a href="{{ path('app_swipe_create') }}"
+                               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Créer
+                                un SwipeUp</a>
                             <a href="{{ path('app_user_admin_list') }}"
                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Mes
                                 SwipeUp</a>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('admin') }}"
                                    data-turbo="false"
-                                   class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Administration du site</a>
+                                   class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Administration
+                                    du site</a>
                             {% endif %}
                             <a href="{{ path('app_logout') }}"
                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Se

@@ -64,11 +64,9 @@
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                     aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                                     <li>
-                                        {% if is_granted('ROLE_FIRST') %}
-                                            <a href="{{ path('app_swipe_create') }}"
-                                               class="block px-4 py-2 hover:bg-gray-100">Créer
-                                                un SwipeUp</a>
-                                        {% endif %}
+                                        <a href="{{ path('app_swipe_create') }}"
+                                           class="block px-4 py-2 hover:bg-gray-100">Créer
+                                            un SwipeUp</a>
                                         <a href="{{ path('app_user_admin_list') }}"
                                            class="block px-4 py-2 hover:bg-gray-100">Mes SwipeUps</a>
                                     </li>
