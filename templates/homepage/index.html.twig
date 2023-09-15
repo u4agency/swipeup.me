@@ -93,48 +93,6 @@
             </div>
         </div>
     </section>
-    <section data-aos="fade-right"
-             class="py-16 px-4 mx-auto max-w-screen-xl lg:py-32 lg:px-6 text-gray-400"
-             id="newsletter">
-        <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">
-                Participez à la révolution SwipeUp !
-            </h2>
-            <div class="space-y-2">
-                <p class="font-light sm:text-xl">
-                    Pour créer votre propre SwipeUp, inscrivez-vous dès maintenant à la liste d'attente
-                </p>
-                <div class="relative inline-flex">
-                    <div>
-                        <p class="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider uppercase rounded-full text-white bg-gradient-to-tr from-swipe-900 to-swipe-400">
-                            Les places sont limitées et le temps file !
-                            <span class="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{ form_start(newsletterForm, {
-            attr: {
-                'data-turbo':"false"
-            }
-        }) }}
-        <div class="bg-white rounded-full flex w-full max-w-2xl mx-auto gap-2 shadow-md group">
-            <div class="sr-only">{{ form_label(newsletterForm.email) }}</div>
-            {{ form_widget(newsletterForm.email, {
-                attr: {
-                    class:"focus:outline-none bg-transparent text-black rounded-l-full py-3 px-5 w-full md:w-3/5 border-none"
-                }
-            }) }}
-            <button class="rounded-full bg-gradient-to-br from-swipe-400 to-swipe-900 py-3 px-2 text-white w-full md:w-2/5 border-none border-swipe-500 group-focus:border-2">
-                Rejoindre la liste d'attente
-            </button>
-        </div>
-        {{ form_end(newsletterForm) }}
-    </section>
     <turbo-frame id="swipeup-exemples">
         {% if swipeups|length > 0 %}
             <section data-aos="fade-right"
@@ -455,5 +413,36 @@
                 <p class="font-bold">Sections</p>
             </div>
         </div>
+    </section>
+    <section data-aos="fade-left"
+             class="py-16 px-4 mx-auto max-w-screen-xl lg:py-32 lg:px-6 text-gray-400"
+             id="newsletter">
+        <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">
+                Suivez la révolution SwipeUp !
+            </h2>
+            <div class="space-y-2">
+                <p class="font-light sm:text-xl">
+                    Pour suivre l'aventure SwipeUp, inscrivez-vous dès maintenant à la newsletter
+                </p>
+            </div>
+        </div>
+        {{ form_start(newsletterForm, {
+            attr: {
+                'data-turbo':"false"
+            }
+        }) }}
+        <div class="bg-white rounded-full flex w-full max-w-2xl mx-auto gap-2 shadow-md group">
+            <div class="sr-only">{{ form_label(newsletterForm.email) }}</div>
+            {{ form_widget(newsletterForm.email, {
+                attr: {
+                    class:"focus:outline-none bg-transparent text-black rounded-l-full py-3 px-5 w-full md:w-3/5 border-none"
+                }
+            }) }}
+            <button class="rounded-full bg-gradient-to-br from-swipe-400 to-swipe-900 py-3 px-2 text-white w-full md:w-2/5 border-none border-swipe-500 group-focus:border-2">
+                Continuer
+            </button>
+        </div>
+        {{ form_end(newsletterForm) }}
     </section>
 {% endblock %}

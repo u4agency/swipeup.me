@@ -43,21 +43,21 @@ class HomepageController extends AbstractController
 
                 if ($email) {
                     $this->addFlash('error', "Vous êtes déjà en file d'attente !");
-                    return $this->redirectToRoute('app_newsletter', ['code' => $email->getCode()]);
+
+                    return $this->redirectToRoute('app_homepage');
                 }
 
                 $newsletter->setSource($request->attributes->get('_route'));
-                $referral = $newsletterRepository->findOneBy(['code' => $request->query->get('code')]);
-                $referral?->setPoints($referral->getPoints() + 100);
                 try {
                     $entityManager->persist($newsletter);
-                    if ($referral) $entityManager->persist($referral);
                     $entityManager->flush();
+
+                    $this->addFlash('success', "Vous êtes inscrit à la newsletter !");
                 } catch (\Exception $exception) {
                     $this->addFlash('error', "Une erreur est survenue.");
                 }
 
-                return $this->redirectToRoute('app_newsletter', ['code' => $newsletter->getCode()]);
+                return $this->redirectToRoute('app_homepage');
             }
         }
 
@@ -65,29 +65,6 @@ class HomepageController extends AbstractController
             'controller_name' => 'HomepageController',
             'swipeups' => $swipeUpRepository->findBy(['featuredSwipeUp' => true]),
             'newsletterForm' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/waiting/{code}', name: 'app_newsletter')]
-    public function newsletter(
-        NewsletterRepository $newsletterRepository,
-                             $code,
-    ): Response
-    {
-        $newsletter = $newsletterRepository->findOneBy(['code' => $code]);
-
-        if (!$newsletter) {
-            $this->addFlash('error', "Vous n'êtes pas en file d'attente !");
-            return $this->redirectToRoute('app_homepage');
-        }
-
-        $allNewsletter = $newsletterRepository->findBy([], ['points' => 'DESC']);
-        $position = array_search($newsletter, $allNewsletter) + 1;
-
-        return $this->render('pages/newsletter.html.twig', [
-            'controller_name' => 'HomepageController',
-            'newsletter' => $newsletter,
-            'position' => $position,
         ]);
     }
 

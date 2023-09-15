@@ -39,39 +39,15 @@ class SwipeController extends AbstractController
     }
 
     #[Route('@{slug}', name: 'app_swipeup_single', priority: -1)]
-    public function singleSwipeUp(
-        SwipeUp                $swipeup,
-        EntityManagerInterface $entityManager,
-        Request                $request
-    ): Response
+    public function singleSwipeUp(SwipeUp $swipeup): Response
     {
         if ($swipeup->getStatus() === 'private' && $this->getUser() !== $swipeup->getAuthor()) {
             $this->addFlash('error', 'Le SwipeUp demandé est innaccessible');
             return $this->redirectToRoute('app_login');
         }
 
-        $newsletter = new Newsletter();
-        $form = $this->createForm(NewsletterType::class, $newsletter);
-        if ($swipeup->isFeaturedSwipeUp()) {
-            $form->handleRequest($request);
-            if ($form->isSubmitted()) {
-                if ($form->isValid()) {
-                    $newsletter->setSource($request->attributes->get('_route') . " (" . $swipeup->getSlug() . ")");
-                    try {
-                        $entityManager->persist($newsletter);
-                        $entityManager->flush();
-
-                        $this->addFlash('success', "Vous êtes bien inscrit à la file d'attente !");
-                    } catch (\Exception $exception) {
-                        $this->addFlash('error', "Vous êtes déjà en file d'attente !");
-                    }
-                }
-            }
-        }
-
         return $this->render('swipe/single.html.twig', [
             'swipeup' => $swipeup,
-            'newsletterForm' => $form
         ]);
     }
 
