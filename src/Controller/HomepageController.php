@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Newsletter;
 use App\Form\NewsletterType;
 use App\Repository\NewsletterRepository;
+use App\Repository\PagesRepository;
 use App\Repository\SwipeUpRepository;
 use App\Utils\MaintenanceMode;
 use Doctrine\ORM\EntityManagerInterface;
@@ -83,6 +84,20 @@ class HomepageController extends AbstractController
 
         return $this->render('pages/changelog.html.twig', [
             'changeLogContent' => $changelogContent,
+        ]);
+    }
+
+    #[Route('/{slug}', name: 'app_page', priority: -2)]
+    public function page(PagesRepository $pagesRepository, $slug): Response
+    {
+        $page = $pagesRepository->findOneBy(['slug' => $slug]);
+
+        if (!$page) {
+            throw $this->createNotFoundException("Cette page n'existe pas");
+        }
+
+        return $this->render('pages/index.html.twig', [
+            'page' => $page,
         ]);
     }
 }

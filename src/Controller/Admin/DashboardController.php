@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\Newsletter;
+use App\Entity\Pages;
 use App\Entity\Posts;
 use App\Entity\Swipe;
 use App\Entity\SwipeImage;
@@ -64,5 +65,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Articles', 'fas fa-clipboard', Posts::class);
         yield MenuItem::linkToCrud('Catégories', 'fas fa-clipboard', Category::class);
         yield MenuItem::linkToCrud('URLShortener', 'fas fa-clipboard', URLShortener::class);
+        yield MenuItem::linkToCrud('Pages', 'fas fa-clipboard', Pages::class);
     }
 }
