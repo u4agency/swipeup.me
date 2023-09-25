@@ -67,7 +67,7 @@ class SwipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!$this->getUser()->getSwipeUps()->count() <= 1 && !$this->isGranted('ROLE_ADMIN')) {
+            if ($this->getUser()->getSwipeUps()->count() >= 1 && !$this->isGranted('ROLE_ADMIN')) {
                 $this->addFlash('error', 'Vous avez atteint la limite de création de SwipeUp !');
                 return $this->redirectToRoute('app_homepage');
             }
