@@ -1,6 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ["./assets/**/*.js", 'templates/**/*.html.twig', 'templates/*.html.twig', 'src/**/*.php', "./node_modules/flowbite/**/*.js"],
+    content: [
+        "./assets/**/*.js",
+        'templates/**/*.html.twig',
+        'templates/*.html.twig',
+        'src/**/*.php',
+        "./node_modules/flowbite/**/*.js"
+    ],
     theme: {
         extend: {
             inset: {
@@ -11,6 +17,9 @@ module.exports = {
             },
             maxHeight: {
                 'fhd': '1920px',
+            },
+            maxWidth: {
+                '64': '16rem',
             },
             fontFamily: {
                 'swipe': ['"Reem Kufi"', 'sans-serif'],
@@ -74,10 +83,9 @@ module.exports = {
             },
         },
     },
-    plugins:
-        [
-            require('@tailwindcss/forms'),
-            require('@tailwindcss/typography'),
-            require('flowbite/plugin'),
-        ],
+    plugins: [
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),
+        require('flowbite/plugin'),
+    ],
 }
