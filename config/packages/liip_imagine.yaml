@@ -4,6 +4,9 @@ liip_imagine:
   driver: "gd"
   filter_sets:
     swipeup_thumbnail:
-      quality: 50
+      quality: 100
       filters:
-        thumbnail: { size: [ 180, 320 ], mode: outbound }
+        thumbnail: {
+          size: [ 180, 320 ],
+          mode: outbound
+        }
