@@ -20,8 +20,10 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
+    public const VERIFY_ROUTE = 'app_verify';
+    public const DASHBOARD_ROUTE = 'app_user_admin_list';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
     }
 
@@ -42,11 +44,14 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
-        }
+        $targetPath = $this->getTargetPath($request->getSession(), $firewallName);
 
-        return new RedirectResponse($this->urlGenerator->generate('app_verify'));
+        return new RedirectResponse(
+            $token->getUser()->isVerified()
+                ? new RedirectResponse($targetPath)
+                ?? $this->urlGenerator->generate(self::DASHBOARD_ROUTE)
+                : $this->urlGenerator->generate(self::VERIFY_ROUTE)
+        );
     }
 
     protected function getLoginUrl(Request $request): string

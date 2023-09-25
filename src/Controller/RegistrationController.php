@@ -10,21 +10,22 @@ use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    private EmailVerifier $emailVerifier;
+    use TargetPathTrait;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(private readonly EmailVerifier $emailVerifier)
     {
-        $this->emailVerifier = $emailVerifier;
     }
 
     public function sendVerifyEmail(User $user)
@@ -40,7 +41,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verify/sendEmail', name: 'app_verify_send_email')]
-    public function verifySendEmail(): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function verifySendEmail(): RedirectResponse
     {
         if (
             !$this->getUser() ||
@@ -71,12 +72,15 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_homepage');
         }
 
+        if ($request->query->has('swipeup_create')) {
+            $this->saveTargetPath($request->getSession(), 'main', $this->generateUrl('app_swipe_create', ['slug' => $request->query->get('swipeup_create')]));
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -126,17 +130,16 @@ class RegistrationController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        // validate email confirmation link, sets User::isVerified=true and persists
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('error', 'Le lien pour vérifier votre compte est invalide');
-
             return $this->redirectToRoute('app_register');
         }
 
+        $targetPath = $this->getTargetPath($request->getSession(), 'main');
         $this->addFlash('success', 'Votre compte SwipeUp a été validé !');
 
-        return $this->redirectToRoute('app_homepage');
+        return $targetPath !== null ? $this->redirect($targetPath) : $this->redirectToRoute('app_homepage');
     }
 }

@@ -55,7 +55,6 @@ class SwipeController extends AbstractController
     public function createSwipe(
         Request                $request,
         EntityManagerInterface $entityManager,
-        UploaderHelper         $uploaderHelper
     ): Response
     {
         if (!$this->getUser()) {
@@ -66,7 +65,11 @@ class SwipeController extends AbstractController
         $form = $this->createForm(SwipeUpCreateType::class, $swipeup);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($request->query->has('slug')) {
+            $swipeup->setSlug($request->query->get('slug'));
+        }
+
+        if (($form->isSubmitted() && $form->isValid()) || $request->query->has('slug')) {
             if ($this->getUser()->getSwipeUps()->count() >= 1 && !$this->isGranted('ROLE_ADMIN')) {
                 $this->addFlash('error', 'Vous avez atteint la limite de création de SwipeUp !');
                 return $this->redirectToRoute('app_homepage');
@@ -76,12 +79,18 @@ class SwipeController extends AbstractController
             $swipeup->setDescription("Ceci est le SwipeUP de " . $this->getUser() . " !");
             $swipeup->setStatus("public");
             $swipeup->setAuthor($this->getUser());
+
             $entityManager->persist($swipeup);
-            $entityManager->flush();
+
+            try {
+                $entityManager->flush();
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Le nom de SwipeUp est déjà utilisé !');
+                return $this->redirectToRoute('app_swipe_create');
+            }
 
             return $this->redirectToRoute('app_user_swipeup_edit', ['slug' => $swipeup->getSlug()], Response::HTTP_SEE_OTHER);
         }
-
 
         return $this->render('swipe/create.html.twig', [
             'form' => $form->createView(),
