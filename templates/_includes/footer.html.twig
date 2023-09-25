@@ -16,12 +16,12 @@
                         </a>
                         <a data-turbo="false" href="{{ path('app_swipe_randomswipeup') }}"
                            class="text-center md:ml-4 inline-flex text-gray-300 border-0 p-2 md:px-6 focus:outline-none rounded text-lg">
-                               <span class="flex items-center space-x-3">
-                                   {{ heroicon('play-circle', 'solid', {
-                                       'class': "flex-shrink-0 w-6 h-6 fill-current",
-                                   }) }}
-                                   <span>Voir une démo</span>
-                               </span>
+                           <span class="flex items-center space-x-3">
+                               {{ heroicon('play-circle', 'solid', {
+                                   'class': "flex-shrink-0 w-6 h-6 fill-current",
+                               }) }}
+                               <span>Voir une démo</span>
+                           </span>
                         </a>
                     </div>
                 </div>
@@ -34,6 +34,11 @@
                             </li>
                             <li class="mb-4">
                                 <a href="{{ path('app_about') }}" class="hover:underline">A propos</a>
+                            </li>
+                            <li class="mb-4">
+                                <p>
+                                    <a href="{{ path('app_login') }}" class="hover:underline">Se connecter</a> / <a href="{{ path('app_register') }}" class="hover:underline">Créer mon SwipeUp</a>
+                                </p>
                             </li>
                         </ul>
                     </div>
