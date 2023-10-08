@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use App\Security\LoginAuthenticator;
+use App\Service\EmailVerifierService;
 use App\Service\MailAddress;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -51,7 +52,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(EmailVerifierService $verifierService, Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         if ($request->query->has('swipeup_create')) $this->saveTargetPath($request->getSession(), 'main', $this->generateUrl('app_swipe_create', ['slug' => $request->query->get('swipeup_create')]));
         if ($this->getUser()) return $this->redirectToRoute('app_user_admin_list');
@@ -72,14 +73,7 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(MailAddress::minerband())
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('security/confirmation_email.html.twig')
-            );
+            $verifierService->verify($user);
 
             return $userAuthenticator->authenticateUser(
                 $user,
@@ -91,6 +85,22 @@ class SecurityController extends AbstractController
         return $this->render('security/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    #[Route('/reverify/email', name: 'app_reverify_email')]
+    public function reverifyUserEmail(Request $request, EmailVerifierService $verifierService): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        try {
+            $verifierService->verify($this->getUser());
+            $this->addFlash('success', 'Un mail de vérification vous a été envoyé.');
+        } catch (\Exception $e) {
+            $this->addFlash('danger', 'Une erreur est survenue lors de l\'envoi du mail de vérification.');
+        }
+
+        return $this->redirect($request->query->get('referer') ?? $this->generateUrl('app_user_admin_list'));
+
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]

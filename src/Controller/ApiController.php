@@ -112,9 +112,9 @@ class ApiController extends AbstractController
             ]);
         $section->handleRequest($request);
 
-        if ($section->isSubmitted()) {
-            $swipeup = $swipeUpRepository->findOneBy(['slug' => $section->get('swipeup')->getData()]);
+        $swipeup = $swipeUpRepository->findOneBy(['slug' => $section->get('swipeup')->getData()]);
 
+        if ($section->isSubmitted()) {
             if (!$swipeup || !$this->getUser() || $swipeup->getAuthor() !== $this->getUser()) {
                 throw new BadRequestHttpException();
             }
@@ -137,6 +137,8 @@ class ApiController extends AbstractController
         return $this->render('_components/create/form_create.html.twig', [
             'form' => $section->createView(),
             'action' => $this->generateUrl('_api_swipe_create'),
+            'verified' => $this->getUser()->isVerified() || $swipeup->getSwipes()->count() < 1,
+            'swipeup' => $swipeup,
         ]);
     }
 

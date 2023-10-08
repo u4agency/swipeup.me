@@ -7,7 +7,6 @@ export default class extends Controller {
 
     connect() {
         this.previousHTML = this.element.innerHTML;
-        this.response = null;
 
         this.fetchForm();
     }
@@ -15,17 +14,20 @@ export default class extends Controller {
     async fetchForm() {
         const response = await fetch(this.formUrlValue);
 
-        this.response = await response.text()
+        return await response.text()
     }
 
-    addSwipe(event) {
+    async addSwipe(event) {
         event.preventDefault();
 
-        if (this.response) {
+        const response = await this.fetchForm();
+
+        if (response) {
             this.dispatch('swipe:create');
-            this.element.innerHTML = this.response;
+            this.element.innerHTML = response;
         }
     }
+
     revert() {
         this.element.innerHTML = this.previousHTML;
     }
