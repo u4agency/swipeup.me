@@ -31,20 +31,16 @@
                         {% endfor %}
                         <div class="-space-y-px rounded-md shadow-sm">
                             <div>
-                                <div class="sr-only">{{ form_label(registrationForm.username) }}</div>
-                                {{ form_widget(registrationForm.username, {'attr': {'class': 'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm'} }) }}
-                            </div>
-                            <div>
                                 <div class="sr-only">{{ form_label(registrationForm.email) }}</div>
-                                {{ form_widget(registrationForm.email, {'attr': {'class': 'relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm'} }) }}
+                                {{ form_widget(registrationForm.email, {'attr': {'class': 'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm'} }) }}
                             </div>
                             <div>
-                                <div class="sr-only">{{ form_label(registrationForm.password.first) }}</div>
-                                {{ form_widget(registrationForm.password.first, {'attr': {'class': "relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"} }) }}
+                                <div class="sr-only">{{ form_label(registrationForm.plainPassword.first) }}</div>
+                                {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': "relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"} }) }}
                             </div>
                             <div>
-                                <div class="sr-only">{{ form_label(registrationForm.password.second) }}</div>
-                                {{ form_widget(registrationForm.password.second, {'attr': {'class': "relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"} }) }}
+                                <div class="sr-only">{{ form_label(registrationForm.plainPassword.second) }}</div>
+                                {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': "relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"} }) }}
                             </div>
                         </div>
 

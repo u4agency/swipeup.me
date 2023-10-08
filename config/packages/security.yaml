@@ -16,23 +16,34 @@ security:
     main:
       lazy: true
       provider: app_user_provider
-      custom_authenticator: App\Security\AppCustomAuthenticator
-      logout:
-        path: app_logout
-        target: app_homepage
-      remember_me:
-        secret: '%kernel.secret%'       # required
-        lifetime: 604800                # 1 week in seconds
+      custom_authenticator: App\Security\LoginAuthenticator
 
-        # by default, the feature is enabled by checking a
-        # checkbox in the login form (see below), uncomment the
-        # following line to always enable it.
-        # always_remember_me: true
+      form_login:
+        # "app_login" is the name of the route created previously
+        login_path: app_login
+        check_path: app_login
+
+        enable_csrf: true
         # activate different ways to authenticate
         # https://symfony.com/doc/current/security.html#the-firewall
 
-      # activate different ways to authenticate
-      # https://symfony.com/doc/current/security.html#the-firewall
+        # configure the maximum login attempts
+      login_throttling:
+        max_attempts: 3          # per minute ...
+
+      entry_point: 'form_login'
+
+      logout:
+        path: app_logout
+        # where to redirect after logout
+        # target: app_any_route
+
+      remember_me:
+        secret: '%kernel.secret%'
+        lifetime: 604800
+        path: /
+        always_remember_me: true
+        # interval: '15 minutes' # ... or in a custom period
 
       # https://symfony.com/doc/current/security/impersonating_user.html
       # switch_user: true
