@@ -57,17 +57,18 @@ class SwipeController extends AbstractController
         EntityManagerInterface $entityManager,
     ): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-
         $swipeup = new SwipeUp();
-        $form = $this->createForm(SwipeUpCreateType::class, $swipeup);
-        $form->handleRequest($request);
 
         if ($request->query->has('slug')) {
+            if (!$this->getUser()) return $this->redirectToRoute('app_register', ['swipeup_create' => $request->query->get('slug')]);
+
             $swipeup->setSlug($request->query->get('slug'));
         }
+
+        if (!$this->getUser()) return $this->redirectToRoute('app_login');
+
+        $form = $this->createForm(SwipeUpCreateType::class, $swipeup);
+        $form->handleRequest($request);
 
         if (($form->isSubmitted() && $form->isValid()) || $request->query->has('slug')) {
             if ($this->getUser()->getSwipeUps()->count() >= 1 && !$this->isGranted('ROLE_ADMIN')) {
