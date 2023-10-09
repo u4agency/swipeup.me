@@ -75,20 +75,15 @@
                         </form>
                     </div>
                     <div class="flex justify-center mt-10 z-10">
-                        <video
-                                {{ stimulus_controller('lazy-video') }}
-                                data-aos="fade-up"
-                                data-aos-duration="750"
-                                data-aos-delay="400"
-                                class="w-full rounded-xl lg:w-4/5 aspect-video"
-                                controls
-                                autoplay
-                                playsinline
-                        >
-                            <source
-                                    data-src="{{ asset('assets/videos/swipeup_presentation.webm') }}"
-                                    type="video/webm"
-                            >
+                        <video data-aos="fade-up"
+                               data-aos-duration="750"
+                               data-aos-delay="400"
+                               class="w-full rounded-xl lg:w-4/5 aspect-video"
+                               controls
+                               playsinline
+                               preload="none">
+                            <source src="{{ asset('assets/videos/swipeup_presentation.webm') }}"
+                                    type="video/webm">
                         </video>
                     </div>
                 </div>
