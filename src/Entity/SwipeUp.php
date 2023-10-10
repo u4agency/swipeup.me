@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SwipeUpRepository;
+use App\Service\Status;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -81,6 +82,8 @@ class SwipeUp
         $this->analyticsVisitsSwipeUp = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+
+        $this->status = Status::PENDING;
 
         $this->featuredSwipeUp = false;
     }
@@ -310,5 +313,15 @@ class SwipeUp
         }
 
         return $this;
+    }
+
+    public function getAnalyticsVisitsSwipeUp(): Collection
+    {
+        return $this->analyticsVisitsSwipeUp;
+    }
+
+    public function setAnalyticsVisitsSwipeUp(Collection $analyticsVisitsSwipeUp): void
+    {
+        $this->analyticsVisitsSwipeUp = $analyticsVisitsSwipeUp;
     }
 }
