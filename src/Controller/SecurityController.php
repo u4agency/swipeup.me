@@ -52,7 +52,13 @@ class SecurityController extends AbstractController
     public function register(EmailVerifierService $verifierService, Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         if ($request->query->has('swipeup_create')) $this->saveTargetPath($request->getSession(), 'main', $this->generateUrl('app_swipe_create', ['slug' => $request->query->get('swipeup_create')]));
-        if ($this->getUser()) return $this->redirectToRoute('app_user_admin_list');
+        if ($this->getUser()) {
+            if ($request->query->has('swipeup_create')) {
+                return $this->redirect($this->getTargetPath($request->getSession(), 'main'));
+            } else {
+                return $this->redirectToRoute('app_user_admin_list');
+            }
+        }
 
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
