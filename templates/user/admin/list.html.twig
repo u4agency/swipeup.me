@@ -14,32 +14,57 @@
                     <h1 class="mx-auto text-4xl sm:text-5xl font-semibold lg:text-6xl text-center">
                         Mes SwipeUp
                     </h1>
-                    <div class="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-8">
-                        {% for swipeup in swipeups %}
-                            <div>
-                                <a href="{{ path('app_swipeup_single', {slug:swipeup.slug}) }}"
-                                   class="relative group">
-                                    <img src="{{ swipeup.swipes|length > 0 ? vich_uploader_asset(swipeup.swipes[0].background, 'backgroundFile') }}"
-                                         alt="{{ swipeup.title }}"
-                                         class="px-0 rounded-lg h-[320px] max-w-[180px] w-full object-center object-cover mx-auto"/>
-                                    <div class="px-4 py-3 text-center w-full">
-                                        <h2 class="truncate font-semibold group-hover:text-gray-200 duration-100">
-                                            {{ swipeup.title }}
-                                        </h2>
-                                        <div class="pt-4 space-y-2">
-                                            <a href="{{ path('app_user_swipeup_edit', {slug:swipeup.slug}) }}"
-                                               class="block rounded-xl text-white bg-swipe-600 hover:bg-swipe-700 py-4 px-8 text-xl w-full">
-                                                Modifier {{ swipeup.title }}
-                                            </a>
-                                            <a href="{{ path('app_swipeup_single', {slug:swipeup.slug}) }}"
-                                               class="block rounded-xl text-white border-2 border-swipe-600 hover:border-swipe-700 py-4 px-8 text-xl w-full">
-                                                Aller voir {{ swipeup.title }}
-                                            </a>
-                                        </div>
+                    <div class="w-full mx-auto">
+                        {% if swipeups|length > 0 %}
+                            {% for swipeup in swipeups %}
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-8">
+                                    <div>
+                                        <a href="{{ path('app_swipeup_single', {slug:swipeup.slug}) }}"
+                                           class="relative group">
+                                            <img src="{{ swipeup.swipes|length > 0 ? vich_uploader_asset(swipeup.swipes[0].background, 'backgroundFile') }}"
+                                                 alt="{{ swipeup.title }}"
+                                                 class="px-0 rounded-lg h-[320px] max-w-[180px] w-full object-center object-cover mx-auto"/>
+                                            <div class="px-4 py-3 text-center w-full">
+                                                <h2 class="truncate font-semibold group-hover:text-gray-200 duration-100">
+                                                    {{ swipeup.title }}
+                                                </h2>
+                                                <div class="pt-4 space-y-2">
+                                                    <a href="{{ path('app_user_swipeup_edit', {slug:swipeup.slug}) }}"
+                                                       class="block rounded-xl text-white bg-swipe-600 hover:bg-swipe-700 py-4 px-8 text-xl w-full">
+                                                        Modifier {{ swipeup.title }}
+                                                    </a>
+                                                    <a href="{{ path('app_swipeup_single', {slug:swipeup.slug}) }}"
+                                                       class="block rounded-xl text-white border-2 border-swipe-600 hover:border-swipe-700 py-4 px-8 text-xl w-full">
+                                                        Aller voir {{ swipeup.title }}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="space-y-4">
+                                <p class="text-center">Vous n'avez pas encore créé de SwipeUp...</p>
+                                <form method="get"
+                                      action="{{ path('app_register') }}"
+                                      class="flex flex-wrap gap-2 items-center justify-center">
+                                    <div class="bg-white flex max-w-64 relative py-4 px-3 rounded-lg text-lg text-gray-600">
+                                        <p>swipeup.me/@</p>
+                                        <label>
+                                            <input type="text"
+                                                   name="swipeup_create"
+                                                   placeholder="gumbraise"
+                                                   class="text-lg border-none focus:ring-0 focus:outline-none w-full overflow-x-hidden p-0 m-0 mr-2">
+                                        </label>
+                                    </div>
+
+                                    <button class="w-64 sm:w-auto text-center inline-flex justify-center text-white bg-gradient-to-tr from-swipe-900 to-swipe-400 hover:to-swipe-500 focus:to-swipe-600 border-0 py-4 px-6 focus:outline-none rounded-lg text-lg">
+                                        Créer mon SwipeUp
+                                    </button>
+                                </form>
                             </div>
-                        {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
