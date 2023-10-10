@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CategoryRepository;
 use App\Repository\PostsRepository;
+use App\Service\Status;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,9 +24,9 @@ class CategoryController extends AbstractController
     ): Response
     {
         if ($this->getUser() && $this->isGranted("ROLE_ADMIN")) {
-            $status = ['published', 'pending'];
+            $status = [Status::PUBLIC, Status::PENDING];
         } else {
-            $status = ['published'];
+            $status = [Status::PUBLIC];
         }
 
         $category = $categoryRepository->findOneBy(['slug' => $slug]);

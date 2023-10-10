@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\SwipeUp;
 use App\Form\JsonCodeEditorType;
+use App\Service\Status;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -45,9 +46,12 @@ class SwipeUpCrudController extends AbstractCrudController
                 ->hideOnForm(),
             ChoiceField::new('status', 'Status')
                 ->setChoices([
-                    'Public' => 'public',
-                    'Unlisted' => 'unlisted',
-                    'Private' => 'private',
+                    'Public' => Status::PUBLIC,
+                    'Unlisted' => Status::PENDING,
+                    'Private' => Status::PRIVATE,
+
+                    'Delete' => Status::DELETED,
+
                 ])
                 ->renderExpanded(),
             BooleanField::new('featuredSwipeUp', 'Display on homepage'),

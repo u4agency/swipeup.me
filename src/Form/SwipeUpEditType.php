@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\SwipeUp;
+use App\Service\Status;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -38,9 +39,9 @@ class SwipeUpEditType extends AbstractType
                     'class' => $classes,
                 ],
                 'choices' => [
-                    'Public' => 'public',
-                    'Non-répertorié' => 'unlisted',
-                    'Privé' => 'private',
+                    'Public' => Status::PUBLIC,
+                    'Unlisted' => Status::PENDING,
+                    'Private' => Status::PRIVATE,
                 ],
             ])
             ->add('logoFile', VichImageType::class, [

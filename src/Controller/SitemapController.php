@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\SwipeUpRepository;
+use App\Service\Status;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +46,7 @@ class SitemapController extends AbstractController
             'priority' => 0.9
         ];
 
-        foreach ($swipeUpRepository->findBy(['status' => 'public']) as $swipeup) {
+        foreach ($swipeUpRepository->findBy(['status' => Status::PUBLIC]) as $swipeup) {
             $urls[] = [
                 'loc' => $this->generateUrl('app_swipeup_single', ['slug' => $swipeup->getSlug()]),
                 'lastmod' => $swipeup->getUpdatedAt()->format('c'),
