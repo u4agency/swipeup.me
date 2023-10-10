@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 #[Route('/')]
 class SwipeController extends AbstractController
@@ -71,6 +72,8 @@ class SwipeController extends AbstractController
                 return $this->redirectToRoute('app_homepage');
             }
 
+            $slugger = new AsciiSlugger();
+            $swipeup->setSlug($slugger->slug($swipeup->getSlug()));
             $swipeup->setTitle("SwipeUp de " . $this->getUser());
             $swipeup->setDescription("Ceci est le SwipeUP de " . $this->getUser() . " !");
             $swipeup->setStatus("public");
