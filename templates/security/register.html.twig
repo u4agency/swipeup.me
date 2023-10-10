@@ -25,29 +25,54 @@
                         </h1>
                     </div>
                     <div class="mt-8 space-y-6">
-                        {% for flash_error in app.flashes('verify_email_error') %}
-                            <div class="text-red-600 text-center"
-                                 role="alert">{{ flash_error }}</div>
-                        {% endfor %}
+                        {{ form_errors(registrationForm.plainPassword) }}
+                        {#                        {% for flash_error in errors %} #}
+                        {#                            <div class="text-red-600 text-center" #}
+                        {#                                 role="alert">{{ flash_error }}</div> #}
+                        {#                        {% endfor %} #}
                         <div class="-space-y-px rounded-md shadow-sm">
                             <div>
-                                <div class="sr-only">{{ form_label(registrationForm.email) }}</div>
-                                {{ form_widget(registrationForm.email, {'attr': {'class': 'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm'} }) }}
+                                {{ form_row(registrationForm.email, {
+                                    'label_attr': {
+                                        'class': 'sr-only'
+                                    },
+                                    'attr': {
+                                        'class': 'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm'
+                                    }
+                                }) }}
                             </div>
                             <div>
-                                <div class="sr-only">{{ form_label(registrationForm.plainPassword.first) }}</div>
-                                {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': "relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"} }) }}
+                                {{ form_row(registrationForm.plainPassword.first, {
+                                    'label_attr': {
+                                        'class': 'sr-only'
+                                    },
+                                    'attr': {
+                                        'class': 'relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm'
+                                    }
+                                }) }}
                             </div>
                             <div>
-                                <div class="sr-only">{{ form_label(registrationForm.plainPassword.second) }}</div>
-                                {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': "relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm"} }) }}
+                                {{ form_row(registrationForm.plainPassword.second, {
+                                    'label_attr': {
+                                        'class': 'sr-only'
+                                    },
+                                    'attr': {
+                                        'class': 'relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-swipe-500 focus:outline-none focus:ring-swipe-500 sm:text-sm'
+                                    }
+                                }) }}
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': "h-4 w-4 rounded border-gray-300 text-swipe-600 focus:ring-swipe-500"} }) }}
-                                {{ form_label(registrationForm.agreeTerms) }}
+                                {{ form_row(registrationForm.agreeTerms, {
+                                    'label_attr': {
+                                        'class': 'text-sm'
+                                    },
+                                    'attr': {
+                                        'class': 'h-4 w-4 rounded border-gray-300 text-swipe-600 focus:ring-swipe-500'
+                                    }
+                                }) }}
                             </div>
                         </div>
 
@@ -55,9 +80,9 @@
                             <button type="submit"
                                     class="group relative flex w-full justify-center rounded-md border border-transparent bg-swipe-600 py-2 px-4 text-sm font-medium text-white hover:bg-swipe-700 focus:outline-none focus:ring-2 focus:ring-swipe-500 focus:ring-offset-2">
                                 <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    {{ heroicon('lock-closed', 'solid', {
-                                        'class': "fill-current h-5 w-5 text-swipe-500 group-hover:text-swipe-400",
-                                    }) }}
+                                {{ heroicon('lock-closed', 'solid', {
+                                    'class': "fill-current h-5 w-5 text-swipe-500 group-hover:text-swipe-400",
+                                }) }}
                                 </span>
                                 Suivant
                             </button>
