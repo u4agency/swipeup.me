@@ -6,6 +6,7 @@ use App\Entity\SwipeUp;
 use App\Form\SwipeUpEditType;
 use App\Repository\AnalyticsVisitsSwipeUpRepository;
 use App\Repository\SwipeUpRepository;
+use App\Service\Status;
 use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +25,7 @@ class UserController extends AbstractController
     ): Response
     {
         return $this->render('user/admin/list.html.twig', [
-            'swipeups' => $swipeUpRepository->findBy(['author' => $this->getUser()]),
+            'swipeups' => $swipeUpRepository->getAll($this->getUser(), $this->isGranted('ROLE_ADMIN')),
         ]);
     }
 
@@ -35,8 +36,9 @@ class UserController extends AbstractController
         Request                $request,
     ): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
+        if ($swipeup->getStatus() === Status::DELETED) {
+            $this->addFlash('error', "Ce SwipeUp n'existe pas !");
+            return $this->redirectToRoute('app_user_admin_list');
         }
 
         if ($swipeup->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
@@ -77,16 +79,12 @@ class UserController extends AbstractController
         ChartBuilderInterface $chartBuilder,
     ): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-
         $swipeup = null;
 
         if (!empty($slug)) {
             $swipeup = $swipeUpRepository->findOneBy(['slug' => $slug]);
 
-            if (!$swipeup) {
+            if (!$swipeup || $swipeup->getStatus() === Status::DELETED) {
                 $this->addFlash('error', "Ce SwipeUp n'existe pas !");
                 return $this->redirectToRoute('app_user_admin_list');
             }

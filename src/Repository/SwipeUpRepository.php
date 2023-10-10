@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\SwipeUp;
+use App\Service\Status;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -50,6 +51,23 @@ class SwipeUpRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getArrayResult();
+    }
+
+    public function getAll($author, $isAdmin = false): array|null
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->addSelect('a')
+            ->where('a.author = :author');
+
+
+        if (!$isAdmin) $qb
+            ->andWhere('a.status != :status')
+            ->setParameter('status', Status::DELETED);
+
+        return $qb
+            ->setParameter('author', $author)
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

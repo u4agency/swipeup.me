@@ -34,6 +34,8 @@ class SwipeController extends AbstractController
     #[Route('@{slug}', name: 'app_swipeup_single', priority: -1)]
     public function singleSwipeUp(SwipeUp $swipeup): Response
     {
+        if ($swipeup->getStatus() === Status::DELETED && !$this->isGranted('ROLE_ADMIN')) throw $this->createNotFoundException();
+
         if ($swipeup->getStatus() === Status::PRIVATE && $this->getUser() !== $swipeup->getAuthor() && !$this->isGranted('ROLE_ADMIN')) {
             $this->addFlash('error', 'Le SwipeUp demandé est innaccessible');
             return $this->redirectToRoute('app_login');
