@@ -2,28 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Newsletter;
 use App\Entity\Swipe;
 use App\Entity\SwipeImage;
 use App\Entity\SwipeUp;
-use App\Entity\WidgetData;
-use App\Entity\WidgetSwipe;
-use App\Form\NewsletterType;
 use App\Form\SwipeBackgroundType;
 use App\Form\SwipeSectionType;
 use App\Form\SwipeUpCreateType;
-use App\Form\SwipeUpEditType;
 use App\Repository\SwipeRepository;
 use App\Repository\SwipeUpRepository;
-use App\Repository\WidgetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('/')]
 class SwipeController extends AbstractController

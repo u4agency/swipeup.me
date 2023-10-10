@@ -3,11 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Posts;
-use App\Entity\PostsComment;
-use App\Form\PostsCommentType;
-use App\Repository\PostsCommentRepository;
 use App\Repository\PostsRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

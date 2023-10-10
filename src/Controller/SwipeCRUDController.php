@@ -4,11 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Swipe;
 use App\Form\SwipeSectionType;
-use App\Form\SwipeType;
-use App\Repository\SwipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

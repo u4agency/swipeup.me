@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Posts;
 use App\Repository\CategoryRepository;
 use App\Repository\PostsRepository;
-use App\Repository\ProjetsRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
