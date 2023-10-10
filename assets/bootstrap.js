@@ -12,4 +12,3 @@ export const app = startStimulusApp(require.context(
 
 import "./services/pixel";
 import "./services/ga";
-import "./services/hj";
