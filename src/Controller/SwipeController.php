@@ -10,6 +10,7 @@ use App\Form\SwipeSectionType;
 use App\Form\SwipeUpCreateType;
 use App\Repository\SwipeRepository;
 use App\Repository\SwipeUpRepository;
+use App\Service\Status;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -33,7 +34,7 @@ class SwipeController extends AbstractController
     #[Route('@{slug}', name: 'app_swipeup_single', priority: -1)]
     public function singleSwipeUp(SwipeUp $swipeup): Response
     {
-        if ($swipeup->getStatus() === 'private' && $this->getUser() !== $swipeup->getAuthor()) {
+        if ($swipeup->getStatus() === Status::PRIVATE && $this->getUser() !== $swipeup->getAuthor() && !$this->isGranted('ROLE_ADMIN')) {
             $this->addFlash('error', 'Le SwipeUp demandé est innaccessible');
             return $this->redirectToRoute('app_login');
         }
