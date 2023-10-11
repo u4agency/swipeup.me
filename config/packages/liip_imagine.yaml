@@ -10,3 +10,10 @@ liip_imagine:
           size: [ 180, 320 ],
           mode: outbound
         }
+    swipeup:
+      quality: 50
+      filters:
+        thumbnail: {
+          size: [ 20, 20 ],
+          mode: outbound
+        }

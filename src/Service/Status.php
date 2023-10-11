@@ -11,4 +11,12 @@ final class Status
 
     // ADMIN STATUS
     public const DELETED = 'deleted';
+
+
+    public const READABLE_STATUS = [
+        self::PUBLIC => 'Public',
+        self::PENDING => 'Non-répertorié',
+        self::PRIVATE => 'Privé',
+        self::DELETED => 'Supprimé',
+    ];
 }
