@@ -18,6 +18,7 @@
         "friendsofsymfony/ckeditor-bundle": "^2.4",
         "gumbraise/twig-heroicons": "^2.0",
         "knplabs/knp-paginator-bundle": "^6.2",
+        "knpuniversity/oauth2-client-bundle": "^2.15",
         "league/commonmark": "^2.4",
         "liip/imagine-bundle": "^2.11",
         "phpdocumentor/reflection-docblock": "^5.3",
