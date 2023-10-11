@@ -28,6 +28,9 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 /public/assets/uploaded/*
+!/public/assets/uploaded/swipeup_logo/.gitignore
+
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###
+
