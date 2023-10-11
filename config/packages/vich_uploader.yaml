@@ -15,7 +15,6 @@ vich_uploader:
       namer:
         service: Vich\UploaderBundle\Naming\HashNamer
         options: { algorithm: 'sha256', length: 50 }
-      delete_on_remove: true
     swipeup_icon:
       uri_prefix: /assets/uploaded/swipeup_icon
       upload_destination: '%kernel.project_dir%/public/assets/uploaded/swipeup_icon'

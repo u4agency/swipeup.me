@@ -83,6 +83,8 @@ class SwipeUp
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
 
+        $this->logoName = $this->generateRandomImage();
+
         $this->status = Status::PENDING;
 
         $this->featuredSwipeUp = false;
