@@ -57,6 +57,7 @@ class SwipeUpRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('a')
             ->addSelect('a')
+            ->orderBy('a.updatedAt', 'DESC')
             ->where('a.author = :author');
 
 
