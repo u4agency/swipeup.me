@@ -18,7 +18,7 @@ readonly class EmailVerifierService
     {
         $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
             (new TemplatedEmail())
-                ->from(MailAddress::minerband())
+                ->from(MailAddress::default())
                 ->to($user->getEmail())
                 ->subject('Please Confirm your Email')
                 ->htmlTemplate('security/confirmation_email.html.twig')

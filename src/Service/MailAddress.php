@@ -6,8 +6,8 @@ use Symfony\Component\Mime\Address;
 
 class MailAddress
 {
-    static public function minerband(): Address
+    static public function default(): Address
     {
-        return new Address('no-reply@minerband.com', 'minerband');
+        return new Address('no-reply@swipeup.me', 'SwipeUp');
     }
 }
