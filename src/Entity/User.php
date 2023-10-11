@@ -47,6 +47,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: WidgetUser::class, orphanRemoval: true)]
     private Collection $widgets;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $googleId;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $hostedDomain;
+
     public function __toString()
     {
         return $this->username ?? $this->email;
@@ -252,5 +258,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(?string $googleId): void
+    {
+        $this->googleId = $googleId;
+    }
+
+    public function getHostedDomain(): ?string
+    {
+        return $this->hostedDomain;
+    }
+
+    public function setHostedDomain(?string $hostedDomain): void
+    {
+        $this->hostedDomain = $hostedDomain;
     }
 }
