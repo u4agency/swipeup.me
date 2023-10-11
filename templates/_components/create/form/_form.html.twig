@@ -10,109 +10,100 @@
             }) }}
         </button>
     </div>
-    {% if verified %}
-        {{ form_start(form, {
-            'attr': {
-                'class': "text-black w-full flex flex-col gap-y-4",
-                action,
-                'data-turbo':"false",
-                ...stimulus_controller('swipe--form-action').toArray(),
-                ...stimulus_action('swipe--form-action', 'submitForm', 'submit') | stimulus_action('swipe-section', 'revert', 'swipe--form-action:async:submitted@window').toArray(),
-            }
-        }) }}
-        <div class="flex flex-row gap-x-4">
-            <div class="w-full space-y-4">
-                <div class="space-y-2">
-                    <p class="text-xs text-gray-600">Widget Body :</p>
+    {{ form_start(form, {
+        'attr': {
+            'class': "text-black w-full flex flex-col gap-y-4",
+            action,
+            'data-turbo':"false",
+            ...stimulus_controller('swipe--form-action').toArray(),
+            ...stimulus_action('swipe--form-action', 'submitForm', 'submit') | stimulus_action('swipe-section', 'revert', 'swipe--form-action:async:submitted@window').toArray(),
+        }
+    }) }}
+    <div class="flex flex-row gap-x-4">
+        <div class="w-full space-y-4">
+            <div class="space-y-2">
+                <p class="text-xs text-gray-600">Widget Body :</p>
+                <div
+                        {{ stimulus_controller('swipe-radio', {
+                            classActive: 'text-swipe-800',
+                            specificWidgetUrl: path('_api_widget_select'),
+                            widgetType: 'widgetBody',
+                        }) }}
+                >
                     <div
-                            {{ stimulus_controller('swipe-radio', {
-                                classActive: 'text-swipe-800',
-                                specificWidgetUrl: path('_api_widget_select'),
-                                widgetType: 'widgetBody',
-                            }) }}
+                            {{ stimulus_target('swipe-radio', 'radio') }}
                     >
-                        <div
-                                {{ stimulus_target('swipe-radio', 'radio') }}
-                        >
-                            {{ form_widget(form.widgetBody) }}
-                        </div>
-                        <div
-                                {{ stimulus_target('swipe-radio', 'specificWidget') }}
-                        >
-                            {% if form.widgetBodyData is defined %}
-                                {{ include('_components/create/form/'~widgetBodyValue~'.html.twig', {
-                                    form,
-                                    widget: "widgetBody",
-                                }) }}
-                            {% endif %}
-                        </div>
+                        {{ form_widget(form.widgetBody) }}
                     </div>
-                </div>
-                <div class="space-y-2">
-                    <p class="text-xs text-gray-600">Widget Footer :</p>
                     <div
-                            {{ stimulus_controller('swipe-radio', {
-                                classActive: 'text-swipe-800',
-                                specificWidgetUrl: path('_api_widget_select'),
-                                widgetType: 'widgetFooter',
-                            }) }}
+                            {{ stimulus_target('swipe-radio', 'specificWidget') }}
                     >
-                        <div
-                                {{ stimulus_target('swipe-radio', 'radio') }}
-                        >
-                            {{ form_widget(form.widgetFooter) }}
-                        </div>
-                        <div
-                                {{ stimulus_target('swipe-radio', 'specificWidget') }}
-                        >
-                            {% if form.widgetFooterData is defined %}
-                                {{ include('_components/create/form/'~widgetFooterValue~'.html.twig', {
-                                    form,
-                                    widget: "widgetFooter",
-                                }) }}
-                            {% endif %}
-                        </div>
+                        {% if form.widgetBodyData is defined %}
+                            {{ include('_components/create/form/'~widgetBodyValue~'.html.twig', {
+                                form,
+                                widget: "widgetBody",
+                            }) }}
+                        {% endif %}
                     </div>
                 </div>
             </div>
-            <div
-                    {{ stimulus_controller('image4label', {
-                        ratio: 9/16,
-                        width: 1080,
-                        height: 1920,
-                    }) }}
-                    class="space-y-2"
-            >
-                <label>
-                    <img
-                            class="bg-clip-border border-2 border-dashed border-swipe-500/50 rounded-xl w-20 h-28 object-cover cursor-pointer"
-                            src=""
-                            alt=""
-                            {{ stimulus_target('image4label', 'imagePreview') }}
+            <div class="space-y-2">
+                <p class="text-xs text-gray-600">Widget Footer :</p>
+                <div
+                        {{ stimulus_controller('swipe-radio', {
+                            classActive: 'text-swipe-800',
+                            specificWidgetUrl: path('_api_widget_select'),
+                            widgetType: 'widgetFooter',
+                        }) }}
+                >
+                    <div
+                            {{ stimulus_target('swipe-radio', 'radio') }}
                     >
-                    {{ form_widget(form.background, {
-                        attr: {
-                            'data-image4label-target': 'fileInput',
-                            'data-action': 'change->image4label#updateLabel cropper:crop:save:swipeBackground@window->image4label#updateInput:swipeBackground',
-                            'data-image4label-type-param': 'swipeBackground',
-                        }
-                    }) }}
-                </label>
+                        {{ form_widget(form.widgetFooter) }}
+                    </div>
+                    <div
+                            {{ stimulus_target('swipe-radio', 'specificWidget') }}
+                    >
+                        {% if form.widgetFooterData is defined %}
+                            {{ include('_components/create/form/'~widgetFooterValue~'.html.twig', {
+                                form,
+                                widget: "widgetFooter",
+                            }) }}
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
-        <button
-                {{ stimulus_target('swipe--form-action', 'button') }}
-                class="bg-swipe-500 hover:bg-swipe-600 cursor-pointer w-full rounded-xl p-3 text-white text-xl"
+        <div
+                {{ stimulus_controller('image4label', {
+                    ratio: 9/16,
+                    width: 1080,
+                    height: 1920,
+                }) }}
+                class="space-y-2"
         >
-            {{ buttonText ?? "Ajouter un Swipe" }}
-        </button>
-        {{ form_end(form) }}
-    {% else %}
-        <p>Vous devez vérifier votre compte pour pouvoir créer plus d'une section. Vous avez reçu un email à votre
-            inscription. Pensez à vérifier vos pourriels !</p>
-        <a href="{{ path('app_reverify_email', {'referer': path('app_user_swipeup_edit', {slug: swipeup.slug})}) }}"
-           class="bg-swipe-500 hover:bg-swipe-600 cursor-pointer w-full rounded-xl p-3 text-white text-center">
-            Renvoyer l'email de vérification
-        </a>
-    {% endif %}
+            <label>
+                <img
+                        class="bg-clip-border border-2 border-dashed border-swipe-500/50 rounded-xl w-20 h-28 object-cover cursor-pointer"
+                        src=""
+                        alt=""
+                        {{ stimulus_target('image4label', 'imagePreview') }}
+                >
+                {{ form_widget(form.background, {
+                    attr: {
+                        'data-image4label-target': 'fileInput',
+                        'data-action': 'change->image4label#updateLabel cropper:crop:save:swipeBackground@window->image4label#updateInput:swipeBackground',
+                        'data-image4label-type-param': 'swipeBackground',
+                    }
+                }) }}
+            </label>
+        </div>
+    </div>
+    <button
+            {{ stimulus_target('swipe--form-action', 'button') }}
+            class="bg-swipe-500 hover:bg-swipe-600 cursor-pointer w-full rounded-xl p-3 text-white text-xl"
+    >
+        {{ buttonText ?? "Ajouter un Swipe" }}
+    </button>
+    {{ form_end(form) }}
 </div>

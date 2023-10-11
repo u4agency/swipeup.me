@@ -130,7 +130,6 @@ class ApiController extends AbstractController
         return $this->render('_components/create/form_create.html.twig', [
             'form' => $section->createView(),
             'action' => $this->generateUrl('_api_swipe_create'),
-            'verified' => $this->getUser()->isVerified() || $swipeup->getSwipes()->count() < 1,
             'swipeup' => $swipeup,
         ]);
     }

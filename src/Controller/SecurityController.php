@@ -4,9 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Security\EmailVerifier;
 use App\Security\LoginAuthenticator;
-use App\Service\EmailVerifierService;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,12 +21,6 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 class SecurityController extends AbstractController
 {
     use TargetPathTrait;
-
-    public function __construct(
-        private readonly EmailVerifier $emailVerifier
-    )
-    {
-    }
 
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -50,7 +42,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(EmailVerifierService $verifierService, Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         if ($request->query->has('swipeup_create')) $this->saveTargetPath($request->getSession(), 'main', $this->generateUrl('app_swipe_create', ['slug' => $request->query->get('swipeup_create')]));
         if ($this->getUser()) {
@@ -77,8 +69,6 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $verifierService->verify($user);
-
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
@@ -90,42 +80,6 @@ class SecurityController extends AbstractController
             'registrationForm' => $form->createView(),
             'errors' => $form->getErrors(true),
         ]);
-    }
-
-    #[Route('/reverify/email', name: 'app_reverify_email')]
-    public function reverifyUserEmail(Request $request, EmailVerifierService $verifierService): Response
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        try {
-            $verifierService->verify($this->getUser());
-            $this->addFlash('success', 'Un mail de vérification vous a été envoyé.');
-        } catch (\Exception $e) {
-            $this->addFlash('danger', 'Une erreur est survenue lors de l\'envoi du mail de vérification.');
-        }
-
-        return $this->redirect($request->query->get('referer') ?? $this->generateUrl('app_user_admin_list'));
-
-    }
-
-    #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        // validate email confirmation link, sets User::isVerified=true and persists
-        try {
-            $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
-        } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
-
-            return $this->redirectToRoute('app_register');
-        }
-
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
-
-        return $this->redirectToRoute('app_register');
     }
 
 
