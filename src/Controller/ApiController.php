@@ -116,6 +116,7 @@ class ApiController extends AbstractController
             }
 
             $swipe->setSwipeup($swipeup);
+            $swipe->setSequence($swipeup->getSwipes()->count() + 1);
             try {
                 $entityManager->persist($swipe);
                 $entityManager->flush();

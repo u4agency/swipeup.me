@@ -1,12 +1,13 @@
 {% for swipe in swipes %}
-    <div class="bg-white rounded-xl relative before:content[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-white/80 before:rounded-xl"
+    <div data-swipe-id="{{ swipe.id }}"
+         class="bg-white rounded-xl relative before:content[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-white/80 before:rounded-xl"
          style="{{ swipe.background|get_mime_type('backgroundFile') == 'image' ? 'background-image: url('~vich_uploader_asset(swipe.background, 'backgroundFile')~');' }}
                  background-size: cover; background-position: center;"
     >
         <div class="z-10 relative flex">
             <div class="flex items-center justify-center w-8 h-auto text-black">
                 {{ heroicon('bars-4', 'solid', {
-                    'class': "fill-current w-5 h-5",
+                    'class': "fill-current w-5 h-5 handle",
                 }) }}
             </div>
             <div

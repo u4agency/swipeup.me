@@ -40,6 +40,9 @@ class Swipe
     #[ORM\OneToMany(mappedBy: 'swipe', targetEntity: AnalyticsVisitsSwipe::class, cascade: ['remove'])]
     private Collection $analyticsVisitsSwipe;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $sequence = null;
+
     public function __toString(): string
     {
         return "Section de @" . $this->swipeup->getSlug() . " créée le " . $this->getCreatedAt()->format('d/m/Y \à H:i:s');
@@ -125,6 +128,18 @@ class Swipe
     public function setWidgetFooter(?WidgetSwipe $widgetFooter): self
     {
         $this->widgetFooter = $widgetFooter;
+
+        return $this;
+    }
+
+    public function getSequence(): ?int
+    {
+        return $this->sequence;
+    }
+
+    public function setSequence(?int $sequence): static
+    {
+        $this->sequence = $sequence;
 
         return $this;
     }

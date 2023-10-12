@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Swipe;
+use App\Entity\SwipeUp;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,32 @@ class SwipeRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getAfterOrder(SwipeUp $swipeUp, int $oldOrder, int $newOrder): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.swipeup = :swipeup')
+            ->andWhere('s.sequence > :oldSequence')
+            ->andWhere('s.sequence <= :newSequence')
+            ->setParameter('swipeup', $swipeUp->getId()->toBinary())
+            ->setParameter('oldSequence', $oldOrder)
+            ->setParameter('newSequence', $newOrder)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getBeforeOrder(SwipeUp $swipeUp, int $oldOrder, int $newOrder): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.swipeup = :swipeup')
+            ->andWhere('s.sequence < :oldSequence')
+            ->andWhere('s.sequence >= :newSequence')
+            ->setParameter('swipeup', $swipeUp->getId()->toBinary())
+            ->setParameter('oldSequence', $oldOrder)
+            ->setParameter('newSequence', $newOrder)
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

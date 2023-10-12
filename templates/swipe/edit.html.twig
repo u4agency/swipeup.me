@@ -48,6 +48,10 @@
                         class="space-y-4 text-white"
                         {{ stimulus_controller('swipe--swipes', {
                             url: fragment_uri(controller('App\\Controller\\ApiController::getSwipes', {slug: swipeup.slug})),
+                        })|stimulus_controller('sortable', {
+                            'animation': 150,
+                            'handle': '.handle',
+                            'url': path('_api_swipe_sequence'),
                         }) }}
                         {{ stimulus_action('swipe--swipes', 'getSwipes', 'swipe--form-action:async:submitted@window') | stimulus_action('swipe--swipes', 'getSwipes', 'confirm-submit:async:submitted@window') }}
                 >

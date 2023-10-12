@@ -66,6 +66,7 @@ class SwipeUp
     private $iconFile;
 
     #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: Swipe::class, orphanRemoval: true)]
+    #[ORM\OrderBy(['sequence' => 'ASC'])]
     private Collection $swipes;
 
     #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: AnalyticsVisitsSwipeUp::class)]

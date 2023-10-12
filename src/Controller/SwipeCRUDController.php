@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Swipe;
 use App\Form\SwipeSectionType;
+use App\Repository\SwipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,6 +77,50 @@ class SwipeCRUDController extends AbstractController
             $entityManager->flush();
         } catch (\Exception $exception) {
             return new Response('Une erreur est survenue.', Response::HTTP_BAD_REQUEST);
+        }
+
+        return new Response();
+    }
+
+    #[Route('/s{id}_{newValue}', name: 'sequence', requirements: ['newValue' => '\d+'], defaults: ['newValue' => 0, 'id' => 0], methods: ['PATCH'])]
+    public function sequence(
+        Swipe                  $swipe,
+        SwipeRepository        $swipeRepository,
+        EntityManagerInterface $entityManager,
+        int                    $newValue,
+    ): Response
+    {
+        if (
+            (
+                !$this->getUser() ||
+                $swipe->getSwipeup()->getAuthor() !== $this->getUser() ||
+                $this->getUser()->getSwipeUps()->count() < 1
+            ) &&
+            !$this->isGranted('ROLE_ADMIN')
+        ) {
+            throw new BadRequestHttpException();
+        }
+
+
+        try {
+            // Réarranger les autres cases
+            $casesToRearrange = $swipe->getSequence() < $newValue ? $swipeRepository->getAfterOrder($swipe->getSwipeup(), $swipe->getSequence(), $newValue) : $swipeRepository->getBeforeOrder($swipe->getSwipeup(), $swipe->getSequence(), $newValue);
+
+            foreach ($casesToRearrange as $caseToRearrange) {
+                if ($swipe->getSequence() < $newValue) $caseToRearrange->setSequence($caseToRearrange->getSequence() - 1);
+                else $caseToRearrange->setSequence($caseToRearrange->getSequence() + 1);
+
+                $entityManager->persist($caseToRearrange);
+            }
+
+            // Mettre à jour la case déplacée
+            $swipe->setSequence($newValue);
+
+            $entityManager->persist($swipe);
+            $entityManager->flush();
+        } catch (Exception $e) {
+            $entityManager->rollback();
+            return new Response('Une erreur est survenue.', 500);
         }
 
         return new Response();
