@@ -78,7 +78,7 @@
                                     <th scope="row" class="px-6 py-4 font-medium text-white">
                                         <span class="inline-flex items-baseline gap-2">
                                             <img src="{{ vich_uploader_asset(swipeup, 'logoFile')|imagine_filter('swipeup') }}"
-                                                 alt=""
+                                                 alt="{{ swipeup.title }}"
                                                  class="self-center w-5 h-5 rounded-full mx-1"/>
                                             <span>{{ swipeup.title }}</span>
                                         </span>
@@ -95,6 +95,7 @@
                                     <td class="px-6 py-4 text-right flex gap-4 justify-end">
                                         <a href="{{ path('app_user_swipeup_edit', {'slug': swipeup.slug}) }}"
                                            class="font-medium text-blue-500 hover:underline">Modifier</a>
+                                        <a href="#" class="font-medium text-red-500 hover:underline">Supprimer</a>
                                     </td>
                                 </tr>
                             {% else %}

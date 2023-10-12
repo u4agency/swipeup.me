@@ -21,7 +21,7 @@ class SwipeCRUDController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
-        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') || $swipe->getSwipeup()->getAuthor() !== $this->getUser() || $this->getUser()->getSwipeUps()->count() < 1) {
+        if ((!$this->getUser() || $swipe->getSwipeup()->getAuthor() !== $this->getUser() || $this->getUser()->getSwipeUps()->count() < 1) && !$this->isGranted('ROLE_ADMIN')) {
             throw new BadRequestHttpException();
         }
 
@@ -35,7 +35,7 @@ class SwipeCRUDController extends AbstractController
         if ($section->isSubmitted()) {
             $swipeup = $swipe->getSwipeup();
 
-            if (!$swipeup || !$this->getUser() || $swipeup->getAuthor() !== $this->getUser()) {
+            if ((!$swipeup || !$this->getUser() || $swipeup->getAuthor() !== $this->getUser()) && !$this->isGranted('ROLE_ADMIN')) {
                 throw new BadRequestHttpException();
             }
 

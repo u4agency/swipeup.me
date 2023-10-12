@@ -28,9 +28,13 @@ class FileTypeExtension extends AbstractExtension
 
     public function getType($obj, $name): ?string
     {
-        if ($obj !== null) {
-            (string)$mime = mime_content_type($this->parameterBag->get('kernel.project_dir') . '/public' . $this->uploaderHelper->asset($obj, $name));
-            return explode('/', $mime)[0];
+        if ($obj->getBackgroundName() !== null && $this->uploaderHelper->asset($obj, $name)) {
+            try {
+                (string)$mime = mime_content_type($this->parameterBag->get('kernel.project_dir') . '/public' . $this->uploaderHelper->asset($obj, $name));
+                return explode('/', $mime)[0];
+            } catch (\Exception $e) {
+                return null;
+            }
         } else {
             return null;
         }
@@ -38,8 +42,12 @@ class FileTypeExtension extends AbstractExtension
 
     public function getMime($obj, $name): ?string
     {
-        if ($obj !== null) {
-            return (string)mime_content_type($this->parameterBag->get('kernel.project_dir') . '/public' . $this->uploaderHelper->asset($obj, $name));
+        if ($obj->getBackgroundName() !== null && $this->uploaderHelper->asset($obj, $name)) {
+            try {
+                return (string)mime_content_type($this->parameterBag->get('kernel.project_dir') . '/public' . $this->uploaderHelper->asset($obj, $name));
+            } catch (\Exception $e) {
+                return null;
+            }
         } else {
             return null;
         }

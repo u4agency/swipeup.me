@@ -88,11 +88,10 @@ class ApiController extends AbstractController
     public function swipeCreate(
         Request                $request,
         EntityManagerInterface $entityManager,
-        WidgetRepository       $widgetRepository,
         SwipeUpRepository      $swipeUpRepository,
     ): Response
     {
-        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser()->getSwipeUps()->count() < 1) {
+        if (!$this->getUser() || $this->getUser()->getSwipeUps()->count() < 1) {
             throw new BadRequestHttpException();
         }
 
@@ -140,7 +139,7 @@ class ApiController extends AbstractController
         WidgetRepository $widgetRepository,
     ): Response
     {
-        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser()->getSwipeUps()->count() < 1) {
+        if (!$this->getUser() || $this->getUser()->getSwipeUps()->count() < 1) {
             throw new BadRequestHttpException();
         }
 
@@ -169,7 +168,7 @@ class ApiController extends AbstractController
         SwipeUpRepository $swipeUpRepository,
     ): Response
     {
-        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser()->getSwipeUps()->count() < 1) {
+        if (!$this->getUser() || $this->getUser()->getSwipeUps()->count() < 1) {
             throw new BadRequestHttpException();
         }
 
