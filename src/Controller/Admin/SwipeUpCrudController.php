@@ -33,8 +33,7 @@ class SwipeUpCrudController extends AbstractCrudController
             ->setFormType(VichImageType::class)
             ->setLabel('Thumbnail');
         $imageName = ImageField::new('logoName', 'Image')
-            ->setBasePath('/assets/uploaded/swipe_logo');
-        $imagePath = TextField::new('logoName', 'Image Path');
+            ->setBasePath('/assets/uploaded/swipeup_logo');
 
         $fields = [
             TextField::new('title', 'Title'),
@@ -57,15 +56,11 @@ class SwipeUpCrudController extends AbstractCrudController
                 ])
                 ->renderExpanded(),
             BooleanField::new('featuredSwipeUp', 'Display on homepage'),
-            TextField::new('font', 'Font (from Google Fonts)'),
+            TextField::new('font', 'Font (from Google Fonts)')
+                ->hideOnIndex()
         ];
 
-        if ($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL) {
-            $fields[] = $imageName;
-            $fields[] = $imagePath;
-        } else {
-            $fields[] = $imageFile;
-        }
+        $pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL ? $fields[] = $imageName : $fields[] = $imageFile;
 
         return $fields;
     }
@@ -76,7 +71,10 @@ class SwipeUpCrudController extends AbstractCrudController
             ->addBatchAction(Action::new('setDeletedStatus', 'Supprimer')
                 ->linkToCrudAction('setDeletedStatus')
                 ->addCssClass('btn btn-danger'))
-            ->remove(Crud::PAGE_INDEX, Action::DELETE);
+            ->update(Crud::PAGE_INDEX, Action::BATCH_DELETE, fn(Action $action) => $action
+                ->setLabel("Supprimer définitivement")
+                ->setIcon('fa fa-trash')
+            );
     }
 
     public function setDeletedStatus(BatchActionDto $batchActionDto): RedirectResponse

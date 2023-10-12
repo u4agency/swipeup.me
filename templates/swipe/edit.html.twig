@@ -97,9 +97,15 @@
                             {{ stimulus_controller('image4label') }}
                             class="space-y-2"
                     >
-                        <label>
+                        <p class="text-white">Logo du SwipeUp</p>
+                        <label class="block w-36 h-36 relative group cursor-pointer">
+                            <div class="absolute w-full h-full flex justify-center items-center group-hover:bg-swipe-500/50 duration-200 rounded-full">
+                                {{ heroicon('camera', 'solid', {
+                                    'class': 'fill-swipe-400/75 group-hover:fill-swipe-500 w-12 h-12 duration-200',
+                                }) }}
+                            </div>
                             <img
-                                    class="border-4 border-dashed border-swipe-500/50 rounded-full w-36 h-36 object-contain bg-black cursor-pointer"
+                                    class="rounded-full border-4 border-dashed border-swipe-500/50 object-contain hover:bg-swipe-500/50"
                                     src=""
                                     alt=""
                                     {{ stimulus_target('image4label', 'imagePreview') }}
@@ -112,7 +118,7 @@
                                 }
                             }) }}
                         </label>
-                        <div class="text-red-600">{{ form_errors(form) }}</div>
+                        <div class="text-red-600">{{ form_errors(form.logoFile) }}</div>
                     </div>
                     <button class="rounded-xl text-white bg-swipe-500 hover:bg-swipe-600 py-4 px-8 text-xl">
                         Modifier mon SwipeUp
