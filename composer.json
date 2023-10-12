@@ -21,6 +21,7 @@
         "knplabs/knp-paginator-bundle": "^6.2",
         "knpuniversity/oauth2-client-bundle": "^2.15",
         "league/commonmark": "^2.4",
+        "league/oauth2-facebook": "^2.2",
         "league/oauth2-google": "^4.0",
         "liip/imagine-bundle": "^2.11",
         "nesbot/carbon": "^2.71",
