@@ -48,6 +48,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $googleId;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $facebookId;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $hostedDomain;
 
     public function __toString()
@@ -263,5 +266,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setHostedDomain(?string $hostedDomain): void
     {
         $this->hostedDomain = $hostedDomain;
+    }
+
+    public function getFacebookId(): ?string
+    {
+        return $this->facebookId;
+    }
+
+    public function setFacebookId(?string $facebookId): void
+    {
+        $this->facebookId = $facebookId;
     }
 }

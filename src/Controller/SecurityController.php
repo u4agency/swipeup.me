@@ -84,7 +84,7 @@ class SecurityController extends AbstractController
 
 
     #[Route('/connect/google', name: 'connect_google')]
-    public function connectAction(ClientRegistry $clientRegistry)
+    public function connectGoogleAction(ClientRegistry $clientRegistry)
     {
         //Redirect to google
         return $clientRegistry->getClient('google')->redirect([], []);
@@ -96,7 +96,26 @@ class SecurityController extends AbstractController
      * in config/packages/knpu_oauth2_client.yaml
      */
     #[Route('/connect/google/check', name: 'connect_google_check')]
-    public function connectCheckAction(Request $request)
+    public function connectGoogleCheckAction(Request $request)
+    {
+        // ** if you want to *authenticate* the user, then
+        // leave this method blank and create a Guard authenticator
+    }
+
+    #[Route('/connect/facebook', name: 'connect_facebook')]
+    public function connectFacebookAction(ClientRegistry $clientRegistry)
+    {
+        //Redirect to google
+        return $clientRegistry->getClient('facebook')->redirect([], []);
+    }
+
+    /**
+     * After going to Google, you're redirected back here
+     * because this is the "redirect_route" you configured
+     * in config/packages/knpu_oauth2_client.yaml
+     */
+    #[Route('/connect/facebook/check', name: 'connect_facebook_check')]
+    public function connectFacebookCheckAction(Request $request)
     {
         // ** if you want to *authenticate* the user, then
         // leave this method blank and create a Guard authenticator
