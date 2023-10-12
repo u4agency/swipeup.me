@@ -1022,6 +1022,11 @@
   resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.7.tgz"
   integrity sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==
 
+"@rails/request.js@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@rails/request.js/-/request.js-0.0.9.tgz#89e2a575405dc07eb8a9b3d2fe04289e1f057cd0"
+  integrity sha512-VleYUyrA3rwKMvYnz7MI9Ada85Vekjb/WVz7NuGgDO24Y3Zy9FFSpDMQW+ea/tlftD+CdX/W/sUosRA9/HkDOQ==
+
 "@symfony/stimulus-bridge@^3.2.0":
   version "3.2.1"
   resolved "https://registry.npmjs.org/@symfony/stimulus-bridge/-/stimulus-bridge-3.2.1.tgz"
@@ -4752,6 +4757,11 @@ sockjs@^0.3.24:
     uuid "^8.3.2"
     websocket-driver "^0.7.4"
 
+sortablejs@^1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.15.0.tgz#53230b8aa3502bb77a29e2005808ffdb4a5f7e2a"
+  integrity sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==
+
 "source-map-js@>=0.6.2 <2.0.0", source-map-js@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/source-map-js/-/source-map-js-1.0.2.tgz"
@@ -4839,6 +4849,11 @@ stimulus-carousel@^5.0.1:
   integrity sha512-j37fjoUc/4hkroxuEK6OuhYMd7d9sZN/5pKB5Y+PJzM9Wy5KvAfsURW4c7zMo58BQAlVrrz45XJrHc/XleEU3Q==
   dependencies:
     swiper "^8.4.5"
+
+stimulus-sortable@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/stimulus-sortable/-/stimulus-sortable-4.1.1.tgz#aa34e0f1ac53112cf568bc46e6b20acbf603c521"
+  integrity sha512-UDpgzIIklvBL+X+KB4GuTQOnIvK3k2Zocwm946myA48xBS1vMPomkUhNLEAXpg1PWYDaQ3pyaS0mbKo2mLrTbQ==
 
 stimulus-use@^0.52.0:
   version "0.52.0"

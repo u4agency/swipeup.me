@@ -34,6 +34,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@rails/request.js": "^0.0.9",
         "@tailwindcss/forms": "^0.5.3",
         "animate.css": "^4.1.1",
         "aos": "^3.0.0-beta.6",
@@ -45,8 +46,10 @@
         "image-pixels": "^2.2.2",
         "postcss-100vh-fix": "^1.0.2",
         "postcss-viewport-height-correction": "^1.1.1",
+        "sortablejs": "^1.15.0",
         "stimulus": "^3.2.1",
         "stimulus-carousel": "^5.0.1",
+        "stimulus-sortable": "^4.1.1",
         "stimulus-use": "^0.52.0",
         "sweetalert2": "^11.7.22",
         "swiper": "^8.4.7",
