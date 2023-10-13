@@ -51,6 +51,7 @@ class SwipeController extends AbstractController
     public function createSwipe(
         Request                $request,
         EntityManagerInterface $entityManager,
+        SwipeUpRepository      $swipeUpRepository,
     ): Response
     {
         $swipeup = new SwipeUp();
@@ -67,9 +68,9 @@ class SwipeController extends AbstractController
         $form->handleRequest($request);
 
         if (($form->isSubmitted() && $form->isValid()) || $request->query->has('slug')) {
-            if ($this->getUser()->getSwipeUps()->count() >= 1 && !$this->isGranted('ROLE_ADMIN')) {
+            if ($swipeUpRepository->countAllExceptDeleted($this->getUser()) >= 1 && !$this->isGranted('ROLE_ADMIN')) {
                 $this->addFlash('error', 'Vous avez atteint la limite de création de SwipeUp !');
-                return $this->redirectToRoute('app_homepage');
+                return $this->redirectToRoute('app_user_admin_list');
             }
 
             $slugger = new AsciiSlugger();

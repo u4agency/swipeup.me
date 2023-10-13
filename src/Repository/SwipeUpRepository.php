@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\SwipeUp;
 use App\Service\Status;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -69,6 +71,22 @@ class SwipeUpRepository extends ServiceEntityRepository
             ->setParameter('author', $author)
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function countAllExceptDeleted($author): int
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->where('a.author = :author')
+            ->andWhere('a.status != :deletedStatus')
+            ->setParameter('author', $author)
+            ->setParameter('deletedStatus', Status::DELETED)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 //    /**
