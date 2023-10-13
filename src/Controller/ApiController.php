@@ -131,6 +131,7 @@ class ApiController extends AbstractController
             'form' => $section->createView(),
             'action' => $this->generateUrl('_api_swipe_create'),
             'swipeup' => $swipeup,
+            'background' => $swipe->getBackground(),
         ]);
     }
 
