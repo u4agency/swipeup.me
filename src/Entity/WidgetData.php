@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: WidgetDataRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class WidgetData
 {
     #[ORM\Id]
@@ -38,7 +39,7 @@ class WidgetData
 
     public function __toString(): string
     {
-        return "Données de " . $this->widget->getName(). " sur ".$this->widgetSwipe->getSwipe();
+        return "Données de " . $this->widget->getName() . " sur " . $this->widgetSwipe->getSwipe();
     }
 
     public function __construct()
@@ -91,6 +92,14 @@ class WidgetData
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    #[ORM\PrePersist]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable('now');
+        $this->widgetSwipe->getSwipe()->setUpdatedAtValue();
+        $this->widgetSwipe->getSwipe()->getSwipeup()->setUpdatedAtValue();
     }
 
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self

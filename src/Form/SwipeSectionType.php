@@ -166,6 +166,7 @@ class SwipeSectionType extends AbstractType
                         if ($widgetType instanceof Widget) {
                             $widgetSwipe = new WidgetSwipe();
                             $widgetSwipe->setWidget($widgetType);
+                            $widgetSwipe->setSwipe($data);
 
                             $widgetsData = $form->getExtraData()[$field . 'Data'] ?? $form->get($field . 'Data')->getData();
 

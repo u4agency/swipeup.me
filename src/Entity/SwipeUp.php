@@ -17,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\Entity(repositoryClass: SwipeUpRepository::class)]
 #[UniqueEntity(fields: ['slug'], message: "Le lien de ce SwipeUp n'est pas disponible")]
 #[Vich\Uploadable]
+#[ORM\HasLifecycleCallbacks]
 class SwipeUp
 {
     #[ORM\Id]
@@ -167,6 +168,12 @@ class SwipeUp
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable('now');
     }
 
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self

@@ -25,7 +25,7 @@ class WidgetSwipe
     #[ORM\OneToMany(mappedBy: 'widgetSwipe', targetEntity: WidgetData::class, cascade: ['persist', 'remove'])]
     private Collection $widgetData;
 
-    #[ORM\OneToOne(mappedBy: 'widgetBody', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'widgetBody', targetEntity: Swipe::class, cascade: ['persist', 'remove'])]
     private ?Swipe $swipe = null;
 
     #[ORM\Column]
@@ -95,6 +95,13 @@ class WidgetSwipe
     public function getSwipe(): ?Swipe
     {
         return $this->swipe;
+    }
+
+    public function setSwipe(?Swipe $swipe): self
+    {
+        $this->swipe = $swipe;
+
+        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable

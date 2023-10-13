@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: SwipeRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Swipe
 {
     #[ORM\Id]
@@ -99,6 +100,14 @@ class Swipe
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    #[ORM\PreUpdate]
+    #[ORM\PrePersist]
+    public function setUpdatedAtValue(): void
+    {
+        $this->swipeup->setUpdatedAt(new \DateTimeImmutable('now'));
+        $this->updatedAt = new \DateTimeImmutable('now');
     }
 
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
