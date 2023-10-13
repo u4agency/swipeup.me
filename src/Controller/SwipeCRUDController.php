@@ -59,6 +59,7 @@ class SwipeCRUDController extends AbstractController
         return $this->render('_components/create/form_edit.html.twig', [
             'form' => $section->createView(),
             'action' => $this->generateUrl('_api_swipe_edit', ['id' => $swipe->getId()]),
+            'background' => $swipe->getBackground(),
             'widgetBodyValue' => $swipe->getWidgetBody()?->getWidget()->getName(),
             'widgetFooterValue' => $swipe->getWidgetFooter()?->getWidget()->getName(),
             'buttonText' => "Modifier le Swipe",

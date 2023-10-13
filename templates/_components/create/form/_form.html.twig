@@ -85,7 +85,7 @@
             <label>
                 <img
                         class="bg-clip-border border-2 border-dashed border-swipe-500/50 rounded-xl w-20 h-28 object-cover cursor-pointer"
-                        src=""
+                        src="{{ background|get_mime_type('backgroundFile') == 'image' ? vich_uploader_asset(background, 'backgroundFile') }}"
                         alt=""
                         {{ stimulus_target('image4label', 'imagePreview') }}
                 >
