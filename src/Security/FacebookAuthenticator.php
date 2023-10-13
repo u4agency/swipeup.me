@@ -44,7 +44,7 @@ class FacebookAuthenticator extends OAuth2Authenticator
                 $facebookUser = $client->fetchUserFromToken($accessToken);
 
                 // have they logged in with Facebook before? Easy!
-                $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['facebookId' => $facebookUser->getId()]);
+                $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $facebookUser->getEmail()]);
 
                 //User doesnt exist, we create it !
                 if (!$existingUser) {
@@ -54,6 +54,13 @@ class FacebookAuthenticator extends OAuth2Authenticator
                     $existingUser->setFacebookId($facebookUser->getId());
                     $this->entityManager->persist($existingUser);
                 }
+
+                if (!$existingUser->getFacebookId()) {
+                    $existingUser->setFacebookId($facebookUser->getId());
+
+                    $this->entityManager->persist($existingUser);
+                }
+
                 $this->entityManager->flush();
 
                 return $existingUser;
