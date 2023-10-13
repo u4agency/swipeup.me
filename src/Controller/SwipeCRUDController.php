@@ -24,7 +24,7 @@ class SwipeCRUDController extends AbstractController
     ): Response
     {
         if ((!$this->getUser() || $swipe->getSwipeup()->getAuthor() !== $this->getUser() || $this->getUser()->getSwipeUps()->count() < 1) && !$this->isGranted('ROLE_ADMIN')) {
-            throw new BadRequestHttpException();
+            return $this->redirectToRoute('app_login');
         }
 
         $section = $this->createForm(SwipeSectionType::class, $swipe, [
@@ -38,7 +38,7 @@ class SwipeCRUDController extends AbstractController
             $swipeup = $swipe->getSwipeup();
 
             if ((!$swipeup || !$this->getUser() || $swipeup->getAuthor() !== $this->getUser()) && !$this->isGranted('ROLE_ADMIN')) {
-                throw new BadRequestHttpException();
+                return $this->redirectToRoute('app_login');
             }
 
             if (!$section->isValid()) {
@@ -99,7 +99,7 @@ class SwipeCRUDController extends AbstractController
             ) &&
             !$this->isGranted('ROLE_ADMIN')
         ) {
-            throw new BadRequestHttpException();
+            return $this->redirectToRoute('app_login');
         }
 
 

@@ -92,7 +92,7 @@ class ApiController extends AbstractController
     ): Response
     {
         if (!$this->getUser() || $this->getUser()->getSwipeUps()->count() < 1) {
-            throw new BadRequestHttpException();
+            return $this->redirectToRoute('app_login');
         }
 
         $swipe = new Swipe();
@@ -108,7 +108,7 @@ class ApiController extends AbstractController
 
         if ($section->isSubmitted()) {
             if (!$swipeup || !$this->getUser() || $swipeup->getAuthor() !== $this->getUser()) {
-                throw new BadRequestHttpException();
+                return $this->redirectToRoute('app_login');
             }
 
             if (!$section->isValid()) {
@@ -142,7 +142,7 @@ class ApiController extends AbstractController
     ): Response
     {
         if (!$this->getUser() || $this->getUser()->getSwipeUps()->count() < 1) {
-            throw new BadRequestHttpException();
+            return $this->redirectToRoute('app_login');
         }
 
         $widget = $widgetRepository->findOneBy(['id' => $request->query->get('widgetName')]);
@@ -171,7 +171,7 @@ class ApiController extends AbstractController
     ): Response
     {
         if (!$this->getUser() || $this->getUser()->getSwipeUps()->count() < 1) {
-            throw new BadRequestHttpException();
+            return $this->redirectToRoute('app_login');
         }
 
         $swipeup = $swipeUpRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
