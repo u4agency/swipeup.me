@@ -26,6 +26,10 @@ module.exports = {
             },
             colors: {
                 'swipe': {
+                    '0': "#edfffe",
+                    '25': "#c0ffff",
+                    '50': "#a3fcfe",
+                    '75': "#64f7fc",
                     '100': "#05fefc",
                     '200': "#08e8f8",
                     '300': "#0bd2f3",
@@ -35,6 +39,9 @@ module.exports = {
                     '700': "#177ae1",
                     '800': "#1a64dd",
                     '900': "#1d4ed8",
+                    '950': "#1e44af",
+                    '1000': "#1e3a8a",
+                    '1100': "#172754",
                 }
             },
             transitionTimingFunction: {
