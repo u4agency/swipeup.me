@@ -100,12 +100,19 @@
                             <span class="text-xs text-center uppercase text-gray-400 bg-swipe-blue-950 px-2">ou</span>
                             <span class="w-full border-b border-swipe-700"></span>
                         </div>
-                        <div class="space-y-4 text-base">
+                        <div class="space-y-2 text-base">
                             <a href="{{ path('connect_google') }}"
                                class="block rounded-md shadow-sm border border-swipe-700 hover:border-swipe-500 bg-transparent hover:bg-swipe-500/50 active:bg-swipe-500/75 py-3 px-6">
                                 <span class="flex items-center justify-center gap-2">
-                                    <span class="block pr-xs"><img src="{{ asset('assets/images/Google_G_Logo.svg') }}" alt="Google"></span>
+                                    <span class="block pr-xs"><img src="{{ asset('assets/images/Google_G_Logo.svg') }}" alt="Google" class="w-7 h-7"></span>
                                     <span class="block font-semibold text-md">S'inscrire avec Google</span>
+                                </span>
+                            </a>
+                            <a href="{{ path('connect_facebook') }}"
+                               class="block rounded-md shadow-sm border border-swipe-700 hover:border-swipe-500 bg-transparent hover:bg-swipe-500/50 active:bg-swipe-500/75 py-3 px-6">
+                                <span class="flex items-center justify-center gap-2">
+                                    <span class="block pr-xs"><img src="{{ asset('assets/images/2021_Facebook_icon.svg') }}" alt="Facebook" class="w-7 h-7"></span>
+                                    <span class="block font-semibold text-md">S'inscrire avec Facebook</span>
                                 </span>
                             </a>
                         </div>
