@@ -170,11 +170,28 @@
                 <div class="text-red-600">{{ form_errors(form.slug) }}</div>
             </div>
 
-            <button class="rounded-xl text-white bg-swipe-500 hover:bg-swipe-600 py-4 px-8 text-xl w-full">
+            <button class="block rounded-xl text-white bg-swipe-500 hover:bg-swipe-600 py-4 px-8 text-xl w-full">
                 Modifier mon SwipeUp
             </button>
+            {{ form_end(form) }}
         </div>
-        {{ form_end(form) }}
+        <form
+                {{ stimulus_controller('confirm-submit',  {
+                    title: "Supprimer le SwipeUp @"~swipeup.slug~" ?",
+                    icon: "warning",
+                    confirmationButtonText: "Oui, le supprimer",
+                    submitAsync: false,
+                }) }}
+                {{ stimulus_action('confirm-submit', 'onSubmit') }}
+                action="{{ path('_api_swipeup_delete', {id: swipeup.id}) }}"
+                method="post"
+        >
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ swipeup.id) }}">
+            <button type="submit"
+                    class="block rounded-xl text-red-600 hover:text-red-700 py-4 px-8 text-xl mx-auto">
+                Supprimer mon SwipeUp
+            </button>
+        </form>
     </main>
 {% endblock %}
 

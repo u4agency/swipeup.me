@@ -95,7 +95,24 @@
                                     <td class="px-6 py-4 text-right flex gap-4 justify-end">
                                         <a href="{{ path('app_user_swipeup_edit', {'slug': swipeup.slug}) }}"
                                            class="font-medium text-blue-500 hover:underline">Modifier</a>
-                                        <a href="#" class="font-medium text-red-500 hover:underline">Supprimer</a>
+                                        <form
+                                                {{ stimulus_controller('confirm-submit',  {
+                                                    title: "Supprimer le SwipeUp @"~swipeup.slug~" ?",
+                                                    icon: "warning",
+                                                    confirmationButtonText: "Oui, le supprimer",
+                                                    submitAsync: false,
+                                                }) }}
+                                                {{ stimulus_action('confirm-submit', 'onSubmit') }}
+                                                action="{{ path('_api_swipeup_delete', {id: swipeup.id}) }}"
+                                                method="post"
+                                        >
+                                            <input type="hidden" name="_token"
+                                                   value="{{ csrf_token('delete' ~ swipeup.id) }}">
+                                            <button type="submit"
+                                                    class="font-medium text-red-500 hover:underline">
+                                                Supprimer
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             {% else %}
@@ -106,7 +123,8 @@
                                 </tr>
                                 <tr>
                                     <td colspan="5" class="px-6 py-4 text-center text-white">
-                                        <a href="{{ path('app_swipe_create') }}" class="font-medium text-swipe-50 hover:underline">En créer un ?</a>
+                                        <a href="{{ path('app_swipe_create') }}"
+                                           class="font-medium text-swipe-50 hover:underline">En créer un ?</a>
                                     </td>
                                 </tr>
                             {% endfor %}
