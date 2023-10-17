@@ -4,12 +4,17 @@ import loading from "../utils/loading";
 export default class extends Controller {
     static values = {
         formUrl: String,
+        handle: Boolean,
     };
 
     connect() {
         this.previousHTML = this.element.innerHTML;
 
         this.fetchForm();
+
+        if (this.handleValue) {
+            this.addSwipe();
+        }
     }
 
     async fetchForm() {
@@ -18,8 +23,12 @@ export default class extends Controller {
         return await response.text()
     }
 
-    async addSwipe(event) {
+    buttonClick(event) {
         event.preventDefault();
+        this.addSwipe();
+    }
+
+    async addSwipe() {
         this.element.getElementsByTagName('button')[0].disabled = true;
         this.element.getElementsByTagName('button')[0].innerHTML += loading;
 
@@ -30,6 +39,7 @@ export default class extends Controller {
             this.element.innerHTML = response;
         }
     }
+
 
     revert() {
         this.element.innerHTML = this.previousHTML;

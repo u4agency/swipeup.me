@@ -34,6 +34,7 @@
                 <div
                         {{ stimulus_controller('swipe-section', {
                             formUrl: path('_api_swipe_create', {swipeup: swipeup.slug}),
+                            handle: swipeup.swipes|length == 0,
                         }) }}
                         {{ stimulus_action('swipe-section', 'revert', 'swipe--edit:swipe:edit@window') }}
                 >
