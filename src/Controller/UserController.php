@@ -30,7 +30,27 @@ class UserController extends AbstractController
     }
 
     #[Route('/swipeup/@{slug}', name: 'swipeup_edit')]
-    public function editSwipeUp(
+    public function editSwipeUp(SwipeUp $swipeup): Response
+    {
+        if ($swipeup->getStatus() === Status::DELETED && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', "Ce SwipeUp n'existe pas !");
+            return $this->redirectToRoute('app_user_admin_list');
+        }
+
+        if ($swipeup->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', "Vous n'êtes pas l'auteur de ce SwipeUp !");
+            return $this->redirectToRoute('app_swipeup_single', [
+                'slug' => $swipeup->getSlug()
+            ]);
+        }
+
+        return $this->render('swipe/edit.html.twig', [
+            'swipeup' => $swipeup,
+        ]);
+    }
+
+    #[Route('/swipeup/@{slug}/settings', name: 'swipeup_settings')]
+    public function settingsSwipeUp(
         SwipeUp                $swipeup,
         EntityManagerInterface $entityManager,
         Request                $request,
@@ -64,7 +84,7 @@ class UserController extends AbstractController
             ]);
         }
 
-        return $this->render('swipe/edit.html.twig', [
+        return $this->render('swipe/settings.html.twig', [
             'swipeup' => $swipeup,
             'form' => $form->createView(),
         ]);

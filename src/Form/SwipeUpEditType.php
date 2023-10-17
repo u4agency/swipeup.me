@@ -39,6 +39,7 @@ class SwipeUpEditType extends AbstractType
                     'class' => $classes,
                 ],
                 'choices' => array_flip(Status::STATUS),
+                'expanded' => true,
             ])
             ->add('logoFile', VichImageType::class, [
                 'label' => 'Logo du SwipeUp',

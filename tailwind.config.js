@@ -20,6 +20,7 @@ module.exports = {
             },
             maxWidth: {
                 '64': '16rem',
+                '1/2': '50%',
             },
             fontFamily: {
                 'swipe': ['"Reem Kufi"', 'sans-serif'],
