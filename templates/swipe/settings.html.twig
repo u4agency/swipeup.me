@@ -46,7 +46,19 @@
                         {{ stimulus_controller('image4label') }}
                         class="space-y-2 text-center lg:text-left mx-auto lg:mx-0"
                 >
-                    <p class="text-white">Logo du SwipeUp</p>
+                    <p class="text-white flex gap-2 items-baseline">
+                        Logo du SwipeUp
+                        <span
+                                {{ stimulus_controller('tippy', {
+                                    text: "Le logo du SwipeUp est l'image qui sera affichée en haut de votre SwipeUp."
+                                }) }}
+                                class="self-center"
+                        >
+                            {{ heroicon('information-circle', 'solid', {
+                                'class': 'fill-white w-5 h-5 duration-200',
+                            }) }}
+                        </span>
+                    </p>
                     <label class="block w-36 h-36 relative group cursor-pointer">
                         <div class="absolute w-full h-full flex justify-center items-center group-hover:bg-swipe-500/50 duration-200 rounded-full">
                             {{ heroicon('camera', 'solid', {
@@ -70,7 +82,19 @@
                     <div class="text-red-600">{{ form_errors(form.logoFile) }}</div>
                 </div>
                 <div class="space-y-2">
-                    <p class="text-white">{{ form_label(form.title) }}</p>
+                    <div class="text-white flex gap-2 items-baseline">
+                        {{ form_label(form.title) }}
+                        <span
+                            {{ stimulus_controller('tippy', {
+                                text: "Le titre du SwipeUp est le texte qui sera affiché dans l'onglet et sur Google."
+                            }) }}
+                            class="self-center"
+                        >
+                            {{ heroicon('information-circle', 'solid', {
+                                'class': 'fill-white w-5 h-5 duration-200',
+                            }) }}
+                        </span>
+                    </div>
                     {{ form_widget(form.title, {
                         attr: {
                             class: 'w-full mb-4 text-2xl sm:text-5xl tracking-tight font-extrabold text-white bg-transparent border-0 focus:outline-none border-l-2 focus:border-swipe-600 border-white focus:ring-0 text-center',
@@ -81,7 +105,19 @@
             </div>
 
             <div class="space-y-2">
-                <p class="text-white">{{ form_label(form.description) }}</p>
+                <div class="text-white flex gap-2 items-baseline">
+                    {{ form_label(form.description) }}
+                    <span
+                            {{ stimulus_controller('tippy', {
+                                text: "La description du SwipeUp est le texte qui sera affiché sur Google et à la dernière section."
+                            }) }}
+                            class="self-center"
+                    >
+                            {{ heroicon('information-circle', 'solid', {
+                                'class': 'fill-white w-5 h-5 duration-200',
+                            }) }}
+                        </span>
+                </div>
                 {{ form_widget(form.description, {
                     attr: {
                         class: 'w-full mb-5 font-light sm:text-xl text-gray-400 bg-transparent border-0 focus:outline-none border-l-2 focus:border-swipe-600 border-white focus:ring-0 text-center',
@@ -91,7 +127,19 @@
             </div>
 
             <div class="space-y-2">
-                <p class="text-white">{{ form_label(form.status) }}</p>
+                <div class="text-white flex gap-2 items-baseline">
+                    {{ form_label(form.status) }}
+                    <span
+                            {{ stimulus_controller('tippy', {
+                                text: "Le status permet de protéger le SwipeUp. S'il est \"Public\", tout le monde pourra le voir et il sera référencé sur les moteurs de recherche. S'il est \"Non-répertiorié\", seuls les utilisateurs possédant le lien pourront y avoir accès. S'il est \"Privé\", seul vous pourra le voir."
+                            }) }}
+                            class="self-center"
+                    >
+                            {{ heroicon('information-circle', 'solid', {
+                                'class': 'fill-white w-5 h-5 duration-200',
+                            }) }}
+                        </span>
+                </div>
                 {{ form_widget(form.status, {
                     attr: {
                         class: 'flex flex-col lg:flex-row gap-x-8 justify-center w-full mb-5 font-light sm:text-xl text-white bg-transparent border-0 focus:outline-none border-l-2 focus:border-swipe-600 border-white focus:ring-0 text-center',
