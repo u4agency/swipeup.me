@@ -1,4 +1,5 @@
 import {Controller} from "stimulus";
+import loading from "../utils/loading";
 
 export default class extends Controller {
     static values = {
@@ -19,6 +20,8 @@ export default class extends Controller {
 
     async addSwipe(event) {
         event.preventDefault();
+        this.element.getElementsByTagName('button')[0].disabled = true;
+        this.element.getElementsByTagName('button')[0].innerHTML += loading;
 
         const response = await this.fetchForm();
 
