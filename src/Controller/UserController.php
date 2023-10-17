@@ -84,7 +84,7 @@ class UserController extends AbstractController
         if (!empty($slug)) {
             $swipeup = $swipeUpRepository->findOneBy(['slug' => $slug]);
 
-            if (!$swipeup || $swipeup->getStatus() === Status::DELETED) {
+            if ($swipeup->getStatus() === Status::DELETED && !$this->isGranted('ROLE_ADMIN')) {
                 $this->addFlash('error', "Ce SwipeUp n'existe pas !");
                 return $this->redirectToRoute('app_user_admin_list');
             }
