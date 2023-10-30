@@ -115,25 +115,20 @@
                                         </form>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td colspan="5" class="px-6 py-4 text-center text-white">
-                                        <a href="{{ path('app_swipe_create') }}"
-                                           class="font-medium text-swipe-50 hover:underline">En créer un nouveau ?</a>
-                                    </td>
-                                </tr>
                             {% else %}
                                 <tr>
                                     <td colspan="5" class="px-6 py-4 text-center text-white">
                                         Aucun SwipeUp
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td colspan="5" class="px-6 py-4 text-center text-white">
-                                        <a href="{{ path('app_swipe_create') }}"
-                                           class="font-medium text-swipe-50 hover:underline">En créer un ?</a>
-                                    </td>
-                                </tr>
+
                             {% endfor %}
+                            <tr>
+                                <td colspan="5" class="px-6 py-4 text-center text-white">
+                                    <a href="{{ path('app_swipe_create') }}"
+                                       class="font-medium text-swipe-50 hover:underline">En créer un nouveau ?</a>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
