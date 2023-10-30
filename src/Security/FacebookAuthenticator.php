@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Service\NewNewsletter;
 use League\OAuth2\Client\Provider\FacebookUser;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
@@ -22,7 +23,7 @@ class FacebookAuthenticator extends OAuth2Authenticator
     public function __construct(
         private readonly ClientRegistry         $clientRegistry,
         private readonly EntityManagerInterface $entityManager,
-        private readonly RouterInterface        $router
+        private readonly RouterInterface        $router,
     )
     {
     }
@@ -52,6 +53,9 @@ class FacebookAuthenticator extends OAuth2Authenticator
                     $existingUser->setUsername($facebookUser->getName());
                     $existingUser->setEmail($facebookUser->getEmail());
                     $existingUser->setFacebookId($facebookUser->getId());
+
+                    new NewNewsletter($existingUser->getEmail(), "app_register (Facebook OAuth2)", $this->entityManager);
+
                     $this->entityManager->persist($existingUser);
                 }
 

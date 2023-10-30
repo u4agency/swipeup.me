@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Service\NewNewsletter;
 use League\OAuth2\Client\Provider\GoogleUser;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
@@ -52,6 +53,8 @@ class GoogleAuthenticator extends OAuth2Authenticator
                     $existingUser->setUsername($googleUser->getName());
                     $existingUser->setEmail($googleUser->getEmail());
                     $existingUser->setGoogleId($googleUser->getId());
+
+                    new NewNewsletter($existingUser->getEmail(), "app_register (Google OAuth2)", $this->entityManager);
 
                     $this->entityManager->persist($existingUser);
                 }
