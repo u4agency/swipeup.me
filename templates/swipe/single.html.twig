@@ -45,18 +45,9 @@
         </style>
     {% endif %}
 
-    <div id="app" class="md:flex h-full">
-        <div class="md:w-3/4 w-2/4 hidden md:block bg-slate-900">
-            <div class="grid place-items-center h-[100dvh]">
-                <div class="max-w-xs w-full h-auto">
-                    <img src="{{ vich_uploader_asset(swipeup, 'logoFile') }}"
-                         alt="Logo de {{ swipeup.title }}"
-                         class="h-auto w-auto">
-                </div>
-            </div>
-            <div class="fixed left-0 right-0 spotlight opacity-25"></div>
-        </div>
-        <div class="md:w-2/4 xl:w-1/4 mx-auto md:mx-0 h-full">
+    <div id="app" class="h-full bg-slate-900">
+        <div class="fixed left-0 right-0 spotlight opacity-25"></div>
+        <div class="sm:aspect-[9/16] mx-auto h-full relative">
             <div
                     class="h-full w-full mySwiper swiper-container"
                     {{ stimulus_controller('swiper', {
