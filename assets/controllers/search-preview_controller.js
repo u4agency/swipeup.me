@@ -1,6 +1,4 @@
 import {Controller} from "stimulus";
-import axios from "axios";
-import slugify from "slugify";
 
 export default class extends Controller {
     static targets = ['input', 'result'];
@@ -18,17 +16,13 @@ export default class extends Controller {
     }
 
     onSearchInput(event) {
-        this.inputTarget.value = slugify(this.inputTarget.value, {
-            replacement: '-',
-            lower: true,
-            remove: /[*+~()'"!:@]/g,
-        });
+        this.resultTarget.classList.replace("border-red-500", "border-transparent");
+        this.resultTarget.classList.replace("border-green-500", "border-transparent");
 
         let eventValue = event.currentTarget.value;
 
         if (this.lastInput !== this.inputTarget.value && this.inputTarget.value !== '') {
             this.lastInput = this.inputTarget.value
-            this.resultTarget.innerHTML = "🔄";
 
             if (this.searchTimeout) {
                 clearTimeout(this.searchTimeout);
@@ -36,7 +30,7 @@ export default class extends Controller {
 
             this.searchTimeout = setTimeout(function () {
                 this.search(eventValue).then(function (r) {
-                    this.resultTarget.innerHTML = r ? "✅" : "❌";
+                    this.resultTarget.classList.replace("border-transparent", r !== "0" ? "border-red-500" : "border-green-500");
                 }.bind(this));
             }.bind(this), 200);
         }
@@ -44,11 +38,14 @@ export default class extends Controller {
 
     async search(query) {
         const params = new URLSearchParams({
-            q: query
+            swipeup: query
         });
 
-        const response = await axios.get(`${this.urlValue}?${params.toString()}`);
+        const response = await fetch(this.urlValue, {
+            method: 'POST',
+            body: params,
+        });
 
-        return await response.data.response;
+        return await response.text();
     }
 }

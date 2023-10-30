@@ -165,6 +165,15 @@ class ApiController extends AbstractController
         ]);
     }
 
+    #[Route('/swipeup', name: '_api_swipeup-name_search')]
+    public function getSwipeUpExisting(
+        Request           $request,
+        SwipeUpRepository $swipeUpRepository,
+    ): Response
+    {
+        return new Response((int)(bool)$swipeUpRepository->findOneBy(['slug' => $request->request->get('swipeup')]));
+    }
+
     public function getSwipes(
         Request           $request,
         SwipeUpRepository $swipeUpRepository,
