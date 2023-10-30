@@ -45,7 +45,6 @@ class SwipeCRUDController extends AbstractController
                 return new Response("Le formulaire n'est pas valide.", 400);
             }
 
-            $swipe->setSwipeup($swipeup);
             try {
                 $entityManager->persist($swipe);
                 $entityManager->flush();
@@ -53,7 +52,7 @@ class SwipeCRUDController extends AbstractController
                 return new Response('Une erreur est survenue.', 500);
             }
 
-            return new Response('Le Swipe a bien été créé !');
+            return new Response('Le Swipe a bien été modifié !');
         }
 
         return $this->render('_components/create/form_edit.html.twig', [

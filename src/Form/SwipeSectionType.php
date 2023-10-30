@@ -126,6 +126,7 @@ class SwipeSectionType extends AbstractType
                 function (FormEvent $event) {
                     $data = $event->getData();
                     $form = $event->getForm();
+                    $formData = $form->getData();
 
                     if (!$data) {
                         return;
@@ -134,8 +135,8 @@ class SwipeSectionType extends AbstractType
                     /**
                      * Background
                      */
-                    if (isset($data['background']) && !empty($data['background'])) {
-                        $swipeImage = new SwipeImage();
+                    if (!empty($data['background'])) {
+                        $swipeImage = $formData->getBackground() ?? new SwipeImage();
                         $swipeImage->setAuthor($this->security->getUser());
                         $swipeImage->setBackgroundName($data['background']);
                         $swipeImage->setBackgroundFile($data['background']);
@@ -157,19 +158,21 @@ class SwipeSectionType extends AbstractType
                 function (FormEvent $event) {
                     $data = $event->getData();
                     $form = $event->getForm();
+                    $formData = $form->getData();
 
                     foreach ($this->widgetFields as $field) {
+                        $wsGetter = 'get' . ucfirst($field);
                         $widgetType = $form->get($field)->getData();
 
                         if ($widgetType instanceof Widget) {
-                            $widgetSwipe = new WidgetSwipe();
+                            $widgetSwipe = $formData->$wsGetter() ?? new WidgetSwipe();
                             $widgetSwipe->setWidget($widgetType);
                             $widgetSwipe->setSwipe($data);
 
                             $widgetsData = $form->getExtraData()[$field . 'Data'] ?? $form->get($field . 'Data')->getData();
 
                             foreach ($widgetsData as $dataName => $dataValue) {
-                                $widgetData = new WidgetData();
+                                $widgetData = $formData->$wsGetter()?->getSingleWidgetData($dataName) ?? new WidgetData();
 
                                 $widgetData->setWidget($widgetType);
                                 $widgetData->setDataName($dataName);

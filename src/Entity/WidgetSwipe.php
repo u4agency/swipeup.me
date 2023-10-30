@@ -67,6 +67,11 @@ class WidgetSwipe
         return $this->widgetData;
     }
 
+    public function getSingleWidgetData(string $slug)
+    {
+        return $this->widgetData->filter(fn (WidgetData $widgetData) => $widgetData->getDataName() === $slug)->first();
+    }
+
     public function addWidgetData(WidgetData $widgetData): self
     {
         if (!$this->widgetData->contains($widgetData)) {
