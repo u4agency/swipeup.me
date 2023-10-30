@@ -8,6 +8,7 @@ use League\OAuth2\Client\Provider\GoogleUser;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,8 @@ class GoogleAuthenticator extends OAuth2Authenticator
     public function __construct(
         private readonly ClientRegistry         $clientRegistry,
         private readonly EntityManagerInterface $entityManager,
-        private readonly RouterInterface        $router
+        private readonly RouterInterface        $router,
+        private readonly Security               $security,
     )
     {
     }
@@ -45,24 +47,32 @@ class GoogleAuthenticator extends OAuth2Authenticator
                 $googleUser = $client->fetchUserFromToken($accessToken);
 
                 // have they logged in with Google before? Easy!
-                $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $googleUser->getEmail()]);
+                $withEmail = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $googleUser->getEmail()]);
+                $withId = $this->entityManager->getRepository(User::class)->findOneBy(['googleId' => $googleUser->getId()]);
+                $existingUser = $withId ?? $withEmail;
 
-                //User doesnt exist, we create it !
-                if (!$existingUser) {
-                    $existingUser = new User();
-                    $existingUser->setUsername($googleUser->getName());
-                    $existingUser->setEmail($googleUser->getEmail());
-                    $existingUser->setGoogleId($googleUser->getId());
-
-                    new NewNewsletter($existingUser->getEmail(), "app_register (Google OAuth2)", $this->entityManager);
-
-                    $this->entityManager->persist($existingUser);
-                }
-
-                if (!$existingUser->getGoogleId()) {
+                //If user right now connected with email, we add facebookId
+                if ($this->security->getUser()) {
+                    $existingUser = $this->security->getUser();
                     $existingUser->setGoogleId($googleUser->getId());
 
                     $this->entityManager->persist($existingUser);
+                } else {
+                    //User doesnt exist, we create it !
+                    if (!$existingUser) {
+                        $existingUser = new User();
+                        $existingUser->setUsername($googleUser->getName());
+                        $existingUser->setEmail($googleUser->getEmail());
+                        $existingUser->setGoogleId($googleUser->getId());
+
+                        $this->entityManager->persist($existingUser);
+                    }
+
+                    if (!$existingUser->getGoogleId()) {
+                        $existingUser->setGoogleId($googleUser->getId());
+
+                        $this->entityManager->persist($existingUser);
+                    }
                 }
 
                 $this->entityManager->flush();

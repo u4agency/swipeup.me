@@ -8,6 +8,7 @@ use League\OAuth2\Client\Provider\FacebookUser;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +25,7 @@ class FacebookAuthenticator extends OAuth2Authenticator
         private readonly ClientRegistry         $clientRegistry,
         private readonly EntityManagerInterface $entityManager,
         private readonly RouterInterface        $router,
+        private readonly Security               $security,
     )
     {
     }
@@ -45,24 +47,33 @@ class FacebookAuthenticator extends OAuth2Authenticator
                 $facebookUser = $client->fetchUserFromToken($accessToken);
 
                 // have they logged in with Facebook before? Easy!
-                $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $facebookUser->getEmail()]);
+                $withEmail = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $facebookUser->getEmail()]);
+                $withId = $this->entityManager->getRepository(User::class)->findOneBy(['facebookId' => $facebookUser->getId()]);
+                $existingUser = $withId ?? $withEmail;
 
-                //User doesnt exist, we create it !
-                if (!$existingUser) {
-                    $existingUser = new User();
-                    $existingUser->setUsername($facebookUser->getName());
-                    $existingUser->setEmail($facebookUser->getEmail());
-                    $existingUser->setFacebookId($facebookUser->getId());
-
-                    new NewNewsletter($existingUser->getEmail(), "app_register (Facebook OAuth2)", $this->entityManager);
-
-                    $this->entityManager->persist($existingUser);
-                }
-
-                if (!$existingUser->getFacebookId()) {
+                if ($this->security->getUser()) {
+                    $existingUser = $this->security->getUser();
                     $existingUser->setFacebookId($facebookUser->getId());
 
                     $this->entityManager->persist($existingUser);
+                } else {
+                    //User doesnt exist, we create it !
+                    if (!$existingUser) {
+                        $existingUser = new User();
+                        $existingUser->setUsername($facebookUser->getName());
+                        $existingUser->setEmail($facebookUser->getEmail());
+                        $existingUser->setFacebookId($facebookUser->getId());
+
+                        new NewNewsletter($existingUser->getEmail(), "app_register (Facebook OAuth2)", $this->entityManager);
+
+                        $this->entityManager->persist($existingUser);
+                    }
+
+                    if (!$existingUser->getFacebookId()) {
+                        $existingUser->setFacebookId($facebookUser->getId());
+
+                        $this->entityManager->persist($existingUser);
+                    }
                 }
 
                 $this->entityManager->flush();
