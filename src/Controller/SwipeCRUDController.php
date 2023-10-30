@@ -105,7 +105,7 @@ class SwipeCRUDController extends AbstractController
 
         try {
             // Réarranger les autres cases
-            $casesToRearrange = $swipe->getSequence() < $newValue ? $swipeRepository->getAfterOrder($swipe->getSwipeup(), $swipe->getSequence(), $newValue) : $swipeRepository->getBeforeOrder($swipe->getSwipeup(), $swipe->getSequence(), $newValue);
+            $casesToRearrange = $swipe->getSequence() < $newValue ? $swipeRepository->getAfterOrder($swipe->getSwipeup(), (int)$swipe->getSequence(), $newValue) : $swipeRepository->getBeforeOrder($swipe->getSwipeup(), (int)$swipe->getSequence(), $newValue);
 
             foreach ($casesToRearrange as $caseToRearrange) {
                 if ($swipe->getSequence() < $newValue) $caseToRearrange->setSequence($caseToRearrange->getSequence() - 1);
