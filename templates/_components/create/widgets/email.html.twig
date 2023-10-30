@@ -1,0 +1,23 @@
+{% set text = "" %}
+{% set href = "" %}
+
+{% for data in widgetData %}
+    {% if data.dataName == "text" %}
+        {% set text = data.dataValue %}
+    {% elseif data.dataName == "href" %}
+        {% set href = data.dataValue %}
+    {% endif %}
+{% endfor %}
+
+<div class="space-y-2">
+    <p class="text-xs text-gray-600">{{ widgetType }} : Widget Email</p>
+    <div class="text-xl text-gray-800">
+        <p><span class="font-bold">Titre : </span>{{ text }}</p>
+        <p><span class="font-bold">Email : </span><a
+                    href="mailto:{{ href }}"
+                    target="_blank"
+                    class="text-swipe-500 hover:text-swipe-600"
+            >{{ href }}</a>
+        </p>
+    </div>
+</div>

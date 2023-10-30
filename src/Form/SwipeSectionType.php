@@ -8,6 +8,7 @@ use App\Entity\Widget;
 use App\Entity\WidgetData;
 use App\Entity\WidgetSwipe;
 use App\Form\Widgets\ButtonWidgetType;
+use App\Form\Widgets\EmailWidgetType;
 use App\Form\Widgets\TextWidgetType;
 use App\Repository\WidgetRepository;
 use MarcW\Heroicons\Heroicons;
@@ -15,15 +16,12 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
-use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class SwipeSectionType extends AbstractType
 {
@@ -203,7 +201,7 @@ class SwipeSectionType extends AbstractType
         ]);
     }
 
-    private function setupSpecificWidgetField(FormInterface $form, ?string $widgetType, ?string $option, ?array $autocomplete_data = null)
+    private function setupSpecificWidgetField(FormInterface $form, ?string $widgetType, ?string $option, ?array $autocomplete_data = null): void
     {
         if ($widgetType === null) {
             return;
@@ -218,6 +216,11 @@ class SwipeSectionType extends AbstractType
             ]);
         } elseif ($widgetValue === 'button') {
             $form->add($widgetType . 'Data', ButtonWidgetType::class, [
+                'mapped' => false,
+                'autocomplete_data' => $autocomplete_data ?? [],
+            ]);
+        } elseif ($widgetValue === 'email') {
+            $form->add($widgetType . 'Data', EmailWidgetType::class, [
                 'mapped' => false,
                 'autocomplete_data' => $autocomplete_data ?? [],
             ]);

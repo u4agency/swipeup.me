@@ -2,4 +2,8 @@
     {{ include('_components/widgets/_widget.button.html.twig', {
         data: data,
     }) }}
+{% elseif widget.name == "email" %}
+    {{ include('_components/widgets/_widget.email.html.twig', {
+        data: data,
+    }) }}
 {% endif %}

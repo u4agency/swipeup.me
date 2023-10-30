@@ -1,0 +1,37 @@
+{% set text = "Loading..." %}
+{% set href = "#" %}
+{% set colorType = "simple" %}
+{% set primaryColor = "#ffffff" %}
+{% set secondaryColor = "#ffffff" %}
+{% set textColor = "#ffffff" %}
+
+{% for widgetData in data %}
+    {% if widgetData.dataName == "text" %}
+        {% set text = widgetData.dataValue %}
+    {% elseif widgetData.dataName == "href" %}
+        {% set href = widgetData.dataValue %}
+    {% elseif widgetData.dataName == "colorType" %}
+        {% set colorType = widgetData.dataValue %}
+    {% elseif widgetData.dataName == "primaryColor" %}
+        {% set primaryColor = widgetData.dataValue %}
+    {% elseif widgetData.dataName == "secondaryColor" %}
+        {% set secondaryColor = widgetData.dataValue %}
+    {% elseif widgetData.dataName == "textColor" %}
+        {% set textColor = widgetData.dataValue %}
+    {% endif %}
+{% endfor %}
+
+<a href="mailto:{{ href }}"
+   class="rounded-full bg-swipe-500 bottom-8 py-4 px-8 shadow-lg shadow-swipe-500/50 {{ sc|default('max-w-xs') }}"
+   style="--tw-shadow-color: {{ colorType == "simple" ?
+   primaryColor :
+   primaryColor }}AA;
+           background:{% if colorType == "simple" %}
+           {{ primaryColor }}AA
+       {% elseif colorType == "gradient" %}
+               linear-gradient(to bottom right, {{ primaryColor }}AA, {{ secondaryColor }}AA);
+   {% endif %};
+           color:{{ textColor }}
+           ">
+    {{ text }}
+</a>
