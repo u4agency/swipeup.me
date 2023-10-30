@@ -48,7 +48,7 @@ jobs:
           node-version: '16.x'
 
       - name: Install npm dependencies
-        run: npm install
+        run: npm install --force
 
       - name: Copy .env.test.local
         run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
