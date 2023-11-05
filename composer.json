@@ -20,6 +20,7 @@
         "karser/karser-recaptcha3-bundle": "^0.1.24",
         "knplabs/knp-paginator-bundle": "^6.2",
         "knpuniversity/oauth2-client-bundle": "^2.15",
+        "league/color-extractor": "^0.4.0",
         "league/commonmark": "^2.4",
         "league/oauth2-facebook": "^2.2",
         "league/oauth2-google": "^4.0",
