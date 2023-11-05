@@ -34,19 +34,29 @@
           content="{{ app.request.schemeAndHttpHost }}{{ vich_uploader_asset(swipeup, 'logoFile') }}">
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        {% if swipeup.font is not null %}
+        @import url('https://fonts.googleapis.com/css2?family={{swipeup.font}}&display=swap');
+
+        .mySwiper {
+            font-family: '{{swipeup.font}}', 'Reem Kufi', sans-serif;
+        }
+
+        {% endif %}
+
+        :root {
+            --swiper-theme-color: {{ colors[3] }};
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    {% if swipeup.font is not null %}
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family={{swipeup.font}}&display=swap');
-
-            .mySwiper {
-                font-family: '{{swipeup.font}}', 'Reem Kufi', sans-serif;
-            }
-        </style>
-    {% endif %}
-
-    <div id="app" class="h-full bg-slate-900">
-        <div class="fixed left-0 right-0 spotlight opacity-25"></div>
+    <div id="app" class="h-full" style="background-color: {{ colors[0] }}">
+        <div class="fixed left-0 right-0 spotlight opacity-25"
+             style="background: linear-gradient(45deg, {{ colors[1] }}, {{ colors[3] }} 50%, {{ colors[2] }});"></div>
         <div class="sm:aspect-[9/16] mx-auto h-full relative">
             <div
                     class="h-full w-full mySwiper swiper-container"
@@ -116,11 +126,11 @@
                         </div>
                     {% endfor %}
                     <div class="swiper-slide">
-                        <div class="h-[100dvh] w-full relative text-center text-lg bg-slate-900 pt-8 space-y-4">
+                        <div class="h-[100dvh] w-full relative text-center text-lg pt-8 space-y-4 {{ lightText ? 'text-white' : 'text-black' }}">
                             <div class="space-y-2">
                                 {{ include('_components/_swipe.logo.html.twig') }}
-                                <h2 class="text-white font-black text-xl">@{{ swipeup.slug }}</h2>
-                                <p class="text-gray-300 font-semibold text-base">{{ swipeup.description }}</p>
+                                <h2 class="font-black text-xl">@{{ swipeup.slug }}</h2>
+                                <p class="{{ lightText ? 'text-gray-300' : 'text-gray-700' }} font-semibold text-base">{{ swipeup.description }}</p>
                             </div>
                             <div class="block space-y-4 w-full p-4">
                                 {% for key, swipe in swipeup.swipes %}
@@ -145,8 +155,8 @@
                                     {% endif %}
                                 {% endfor %}
                             </div>
-                            <div class="absolute bottom-0 left-0 w-full p-8 inline-flex gap-x-2 justify-center items-center">
-                                <p class="self-center text-white font-black text-lg">Créé avec</p>
+                            <div class="absolute bottom-0 left-0 w-full p-8 inline-flex gap-x-2 justify-center items-center bg-gradient-to-b from-transparent {{ not lightText ? 'via-black/20 to-black/20' }}">
+                                <p class="self-center font-black text-lg">Créé avec</p>
                                 <a href="{{ path('app_homepage') }}" class="flex items-center">
                                     <img src="{{ asset('swipeup.png') }}" class="mr-3 h-6" alt="Logo de SwipeUp">
                                     <span class="sr-only">SwipeUp</span>

@@ -10,14 +10,20 @@ use App\Form\SwipeSectionType;
 use App\Form\SwipeUpCreateType;
 use App\Repository\SwipeRepository;
 use App\Repository\SwipeUpRepository;
+use App\Service\ColorContrast;
 use App\Service\Status;
 use Doctrine\ORM\EntityManagerInterface;
+use League\ColorExtractor\Color;
+use League\ColorExtractor\ColorExtractor;
+use League\ColorExtractor\Palette;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('/')]
 class SwipeController extends AbstractController
@@ -33,7 +39,11 @@ class SwipeController extends AbstractController
     }
 
     #[Route('@{slug}', name: 'app_swipeup_single', priority: -1)]
-    public function singleSwipeUp(SwipeUp $swipeup): Response
+    public function singleSwipeUp(
+        SwipeUp         $swipeup,
+        UploaderHelper  $uploaderHelper,
+        KernelInterface $appKernel,
+    ): Response
     {
         if ($swipeup->getStatus() === Status::DELETED && !$this->isGranted('ROLE_ADMIN')) throw $this->createNotFoundException();
 
@@ -42,8 +52,15 @@ class SwipeController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $colors = [];
+        $colorsNumber = 4;
+        $extractedColors = (new ColorExtractor(Palette::fromFilename($appKernel->getProjectDir() . '/public/' . $uploaderHelper->asset($swipeup, 'logoFile'))))->extract($colorsNumber);
+        for ($i = 0; $i < $colorsNumber; $i++) $colors[] = Color::fromIntToHex($extractedColors[$i] ?? 0);
+
         return $this->render('swipe/single.html.twig', [
             'swipeup' => $swipeup,
+            'colors' => $colors,
+            'lightText' => ColorContrast::getBool($colors[0]),
         ]);
     }
 
