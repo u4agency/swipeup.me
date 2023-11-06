@@ -21,6 +21,14 @@ class AnalyticsVisitsSwipeRepository extends ServiceEntityRepository
         parent::__construct($registry, AnalyticsVisitsSwipe::class);
     }
 
+    public function countAll(): float|bool|int|string|null
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return AnalyticsVisitsSwipe[] Returns an array of AnalyticsVisitsSwipe objects
 //     */

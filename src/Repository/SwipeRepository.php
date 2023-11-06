@@ -66,6 +66,14 @@ class SwipeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function countAll(): float|bool|int|string|null
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Swipe[] Returns an array of Swipe objects
 //     */

@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Newsletter;
 use App\Form\NewsletterType;
+use App\Repository\AnalyticsVisitsSwipeRepository;
 use App\Repository\NewsletterRepository;
 use App\Repository\PagesRepository;
+use App\Repository\SwipeRepository;
 use App\Repository\SwipeUpRepository;
 use App\Utils\MaintenanceMode;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,11 +22,13 @@ class HomepageController extends AbstractController
     #[Route('/', name: 'app_homepage')]
     #[Route('/', name: 'maintenance')]
     public function index(
-        SwipeUpRepository      $swipeUpRepository,
-        EntityManagerInterface $entityManager,
-        Request                $request,
-        MaintenanceMode        $maintenanceMode,
-        NewsletterRepository   $newsletterRepository,
+        SwipeUpRepository              $swipeUpRepository,
+        AnalyticsVisitsSwipeRepository $analyticsVisitsSwipe,
+        SwipeRepository                $swipeRepository,
+        EntityManagerInterface         $entityManager,
+        Request                        $request,
+        MaintenanceMode                $maintenanceMode,
+        NewsletterRepository           $newsletterRepository,
     ): Response
     {
         if ($maintenanceMode->isMaintenanceMode() && !$this->isGranted('ROLE_ADMIN')) {
@@ -66,6 +70,11 @@ class HomepageController extends AbstractController
             'controller_name' => 'HomepageController',
             'swipeups' => $swipeUpRepository->findBy(['featuredSwipeUp' => true]),
             'newsletterForm' => $form->createView(),
+            'numbers' => [
+                'swipes' => $analyticsVisitsSwipe->countAll(),
+                'swipeups' => $swipeUpRepository->countAll(),
+                'sections' => $swipeRepository->countAll(),
+            ],
         ]);
     }
 

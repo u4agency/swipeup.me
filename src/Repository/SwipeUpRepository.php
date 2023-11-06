@@ -91,6 +91,14 @@ class SwipeUpRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function countAll(): float|bool|int|string|null
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return SwipeUp[] Returns an array of SwipeUp objects
 //     */
