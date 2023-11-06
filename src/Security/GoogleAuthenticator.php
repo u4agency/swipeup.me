@@ -67,6 +67,8 @@ class GoogleAuthenticator extends OAuth2Authenticator
                         $existingUser->setEmail($googleUser->getEmail());
                         $existingUser->setGoogleId($googleUser->getId());
 
+                        new NewNewsletter($existingUser->getEmail(), "app_register (Google OAuth2)", $this->entityManager);
+
                         if ($this->entityManager->isOpen()) {
                             $this->entityManager->persist($existingUser);
                         }
