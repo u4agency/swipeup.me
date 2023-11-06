@@ -94,7 +94,6 @@ class SwipeController extends AbstractController
             $swipeup->setSlug($slugger->slug($swipeup->getSlug()));
             $swipeup->setTitle("SwipeUp de " . $this->getUser());
             $swipeup->setDescription("Ceci est le SwipeUP de " . $this->getUser() . " !");
-            $swipeup->setStatus("public");
             $swipeup->setAuthor($this->getUser());
 
             $entityManager->persist($swipeup);
