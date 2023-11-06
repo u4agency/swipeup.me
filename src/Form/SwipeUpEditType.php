@@ -67,6 +67,19 @@ class SwipeUpEditType extends AbstractType
                 'download_uri' => false,
                 'required' => false,
             ])
+            ->add('gaId', TextType::class, [
+                'label' => 'Identifiant Google Analytics',
+                'required' => false,
+                'attr' => [
+                    'class' => $classes,
+                ],
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^G-[A-Za-z0-9]{10}$/',
+                        'message' => "Le code Google Analytics n'est pas valide",
+                    ])
+                ],
+            ])
             ->add('fbId', TextType::class, [
                 'label' => 'Identifiant Facebook Pixel',
                 'required' => false,

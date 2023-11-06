@@ -74,6 +74,9 @@ class SwipeUp
     private Collection $analyticsVisitsSwipeUp;
 
     #[ORM\Column(length: 255, nullable: true)]
+    private ?string $gaId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $fbId = null;
 
     public function __toString(): string
@@ -336,6 +339,18 @@ class SwipeUp
     public function setAnalyticsVisitsSwipeUp(Collection $analyticsVisitsSwipeUp): void
     {
         $this->analyticsVisitsSwipeUp = $analyticsVisitsSwipeUp;
+    }
+
+    public function getGaId(): ?string
+    {
+        return $this->gaId;
+    }
+
+    public function setGaId(?string $gaId): static
+    {
+        $this->gaId = $gaId;
+
+        return $this;
     }
 
     public function getFbId(): ?string

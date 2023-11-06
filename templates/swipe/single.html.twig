@@ -56,6 +56,7 @@
 {% block body %}
     <div
             {{ stimulus_controller('analytics', {
+                ga: swipeup.gaId,
                 fb: swipeup.fbId,
             }) }}
             id="app"

@@ -10,5 +10,8 @@ export const app = startStimulusApp(require.context(
 // register any custom, 3rd party controllers here
 // app.register('some_controller_name', SomeImportedController);
 
-import "./services/ga";import fb from "./services/pixel";
+import fb from "./services/pixel";
 import ga from "./services/ga";
+
+ga("G-TMBTV6N0QS");
+fb("1364768877584636");

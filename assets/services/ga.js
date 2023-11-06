@@ -1,6 +1,8 @@
 import { gtag, install } from 'ga-gtag';
 
-install('G-TMBTV6N0QS');
+export default function ga(id) {
+    install(id);
 
-gtag('js', new Date());
-gtag('config', "G-TMBTV6N0QS");
+    gtag('js', new Date());
+    gtag('config', id);
+}
