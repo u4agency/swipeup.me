@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SwipeImageRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -29,7 +30,7 @@ class SwipeImage
     private ?\DateTimeImmutable $uploadedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'swipeImages')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $author = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -37,6 +38,10 @@ class SwipeImage
 
     #[ORM\Column]
     private ?bool $isPublic = null;
+
+    #[ORM\OneToMany(mappedBy: 'background', targetEntity: Swipe::class, cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OrderBy(['sequence' => 'ASC'])]
+    private Collection $swipes;
 
     public function __toString(): string
     {
@@ -124,5 +129,15 @@ class SwipeImage
         $this->isPublic = $isPublic;
 
         return $this;
+    }
+
+    public function getSwipes(): Collection
+    {
+        return $this->swipes;
+    }
+
+    public function setSwipes(Collection $swipes): void
+    {
+        $this->swipes = $swipes;
     }
 }

@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\SwipeUp;
 use App\Form\SwipeUpEditType;
+use App\Form\UserEditFormType;
 use App\Repository\AnalyticsVisitsSwipeUpRepository;
+use App\Repository\NewsletterRepository;
 use App\Repository\SwipeUpRepository;
 use App\Service\Status;
 use App\Service\UserService;
@@ -13,11 +15,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 
 #[Route('/admin', name: 'app_user_')]
+#[IsGranted('IS_AUTHENTICATED')]
 class UserController extends AbstractController
 {
     #[Route('/mine', name: 'admin_list')]
@@ -270,6 +274,34 @@ class UserController extends AbstractController
             'visits' => $visits,
             'browsers' => $browserChart,
             'os' => $osChart,
+        ]);
+    }
+
+    #[Route('/profile/edit', name: 'profile_edit')]
+    public function profileEdit(
+        Request                $request,
+        EntityManagerInterface $entityManager,
+        NewsletterRepository   $newsletterRepository,
+    ): Response
+    {
+        $form = $this->createForm(UserEditFormType::class, $this->getUser(), [
+            'newsletter' => $newsletterRepository->findOneBy(['email' => $this->getUser()->getEmail()]),
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $entityManager->flush();
+                $this->addFlash('success', "Votre profil a bien été modifié !");
+            } catch (\Exception $exception) {
+                $this->addFlash('error', "Une erreur est survenue lors de la modification de votre profil !");
+            }
+
+            return $this->redirectToRoute('app_user_profile_edit');
+        }
+
+        return $this->render('user/profile/edit.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

@@ -66,11 +66,11 @@ class SwipeUp
     #[Vich\UploadableField(mapping: "swipeup_icon", fileNameProperty: "iconName")]
     private $iconFile;
 
-    #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: Swipe::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: Swipe::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['sequence' => 'ASC'])]
     private Collection $swipes;
 
-    #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: AnalyticsVisitsSwipeUp::class)]
+    #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: AnalyticsVisitsSwipeUp::class, cascade: ['persist', 'remove'])]
     private Collection $analyticsVisitsSwipeUp;
 
     public function __toString(): string

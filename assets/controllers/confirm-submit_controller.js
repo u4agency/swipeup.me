@@ -4,7 +4,12 @@ import Swal from "sweetalert2";
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
     static values = {
-        title: String, text: String, icon: String, confirmationButtonText: String, submitAsync: Boolean
+        title: String,
+        text: String,
+        icon: String,
+        confirmationButtonText: String,
+        submitAsync: Boolean,
+        url: String,
     }
 
     onSubmit(event) {
@@ -29,6 +34,12 @@ export default class extends Controller {
     async submitForm() {
         if (!this.submitAsyncValue) {
             this.element.submit();
+
+            return;
+        }
+
+        if (this.urlValue) {
+            window.location.replace(this.urlValue);
 
             return;
         }

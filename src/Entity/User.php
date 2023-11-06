@@ -36,13 +36,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $username = null;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: SwipeImage::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: SwipeImage::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $swipeImages;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: SwipeUp::class)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: SwipeUp::class, cascade: ['persist', 'remove'])]
     private Collection $swipeUps;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: WidgetUser::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: WidgetUser::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $widgets;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -152,7 +152,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username ?? $this->email;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 

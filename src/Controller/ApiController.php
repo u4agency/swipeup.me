@@ -6,17 +6,23 @@ use App\Entity\AnalyticsVisitsSwipe;
 use App\Entity\Swipe;
 use App\Form\SwipeSectionType;
 use App\Repository\AnalyticsVisitsSwipeRepository;
+use App\Repository\NewsletterRepository;
 use App\Repository\SwipeRepository;
 use App\Repository\SwipeUpRepository;
+use App\Repository\UserRepository;
 use App\Repository\WidgetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 #[Route('/api')]
 class ApiController extends AbstractController
@@ -192,5 +198,47 @@ class ApiController extends AbstractController
         return $this->render('_components/create/_swipes.html.twig', [
             'swipes' => $swipeup->getSwipes(),
         ]);
+    }
+
+    #[Route('/delete_data', name: '_api_delete_data')]
+    public function deleteData(
+        EntityManagerInterface $entityManager,
+        NewsletterRepository   $newsletterRepository,
+        RequestStack           $requestStack,
+    ): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        try {
+            foreach ($this->getUser()->getSwipeImages() as $swipeImage) {
+                $swipeImage->setAuthor(null);
+                $entityManager->persist($swipeImage);
+            }
+
+            foreach ($this->getUser()->getSwipeUps() as $swipeUp) {
+                foreach ($swipeUp->getSwipes() as $swipe) {
+                    $swipe->setBackground(null);
+                    $entityManager->persist($swipe);
+                }
+            }
+
+            $newsletter = $newsletterRepository->findOneBy(['email' => $this->getUser()->getEmail()]);
+            if ($newsletter) $entityManager->remove($newsletter);
+
+            $requestStack->getSession()->invalidate();
+            $entityManager->remove($this->getUser());
+            $this->container->get('security.token_storage')->setToken();
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre compte a bien été supprimé.');
+            return $this->redirectToRoute('app_logout');
+        } catch (\Exception $exception) {
+            $this->addFlash('error', 'Une erreur est survenue.');
+
+            return new Response($exception, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }
