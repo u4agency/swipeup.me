@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Posts;
+use App\Service\Status;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -44,11 +45,7 @@ class PostsCrudController extends AbstractCrudController
             AssociationField::new('categories', 'Catégories')
                 ->hideOnIndex(),
             ChoiceField::new('status', 'Status')
-                ->setChoices([
-                    'Publié' => 'published',
-                    'En attente' => 'pending',
-                    'Annulé' => 'cancelled',
-                ])
+                ->setChoices(array_flip(Status::STATUS))
                 ->renderExpanded(),
             SlugField::new('slug', 'Slug')
                 ->setTargetFieldName('title')

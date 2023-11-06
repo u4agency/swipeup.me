@@ -16,11 +16,11 @@ class SwipeCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('swipeup'),
-            AssociationField::new('background'),
-            AssociationField::new('widgetBody')
+            AssociationField::new('swipeup', 'SwipeUp'),
+            AssociationField::new('background', 'Image de fond'),
+            AssociationField::new('widgetBody', 'Widget Body')
                 ->setRequired(false),
-            AssociationField::new('widgetFooter')
+            AssociationField::new('widgetFooter', 'Widget Footer')
                 ->setRequired(false),
         ];
     }

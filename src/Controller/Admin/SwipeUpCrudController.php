@@ -29,40 +29,40 @@ class SwipeUpCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $imageFile = TextareaField::new('logoFile', 'Image')
+        $imageFile = TextareaField::new('logoFile', 'Logo')
             ->setFormType(VichImageType::class)
             ->setLabel('Thumbnail');
-        $imageName = ImageField::new('logoName', 'Image')
+        $imageName = ImageField::new('logoName', 'Lien du logo')
             ->setBasePath('/assets/uploaded/swipeup_logo');
 
         $fields = [
-            TextField::new('title', 'Title'),
+            TextField::new('title', 'Titre'),
             SlugField::new('slug', 'Slug')
                 ->setTargetFieldName("title"),
-            TextareaField::new('description', 'Description'),
-            AssociationField::new('author', 'Created by'),
-            DateTimeField::new('createdAt', 'Created at')
+            TextareaField::new('description', 'Description')
+                ->hideOnIndex(),
+            AssociationField::new('author', 'Créé par'),
+            DateTimeField::new('createdAt', 'Créé à')
                 ->hideOnForm(),
-            DateTimeField::new('updatedAt', 'Updated at')
+            DateTimeField::new('updatedAt', 'Mis à jour à')
                 ->hideOnForm(),
             ChoiceField::new('status', 'Status')
-                ->setChoices([
-                    'Public' => Status::PUBLIC,
-                    'Unlisted' => Status::PENDING,
-                    'Private' => Status::PRIVATE,
-
-                    'Delete' => Status::DELETED,
-
-                ])
+                ->setChoices(array_flip(Status::READABLE_STATUS))
                 ->renderExpanded(),
-            BooleanField::new('featuredSwipeUp', 'Display on homepage'),
-            TextField::new('font', 'Font (from Google Fonts)')
+            BooleanField::new('featuredSwipeUp', 'A la une'),
+            TextField::new('font', 'Police')
                 ->hideOnIndex()
         ];
 
         $pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL ? $fields[] = $imageName : $fields[] = $imageFile;
 
         return $fields;
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setDefaultSort(['createdAt' => 'DESC']);
     }
 
     public function configureActions(Actions $actions): Actions

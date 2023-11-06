@@ -53,18 +53,26 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('SwipeUp', 'fas fa-list', SwipeUp::class);
-        yield MenuItem::linkToCrud('Sections des SwipeUp', 'fas fa-list', Swipe::class);
-        yield MenuItem::linkToCrud('SwipeUp Images', 'fas fa-list', SwipeImage::class);
-        yield MenuItem::linkToCrud('Widgets', 'fas fa-list', Widget::class);
-        yield MenuItem::linkToCrud('Données des widgets', 'fas fa-list', WidgetData::class);
-        yield MenuItem::linkToCrud('Swipes des widgets', 'fas fa-list', WidgetSwipe::class);
-        yield MenuItem::linkToCrud('Achats des widgets', 'fas fa-list', WidgetUser::class);
+
+        yield MenuItem::subMenu('SwipeUp')->setSubItems([
+            MenuItem::linkToCrud('SwipeUp', 'fas fa-mobile-screen-button', SwipeUp::class),
+            MenuItem::linkToCrud('Swipes', 'fas fa-mobile-button', Swipe::class),
+            MenuItem::linkToCrud('Fond des Swipes', 'fas fa-image', SwipeImage::class),
+        ]);
+        yield MenuItem::subMenu('Widgets')->setSubItems([
+            MenuItem::linkToCrud('Widgets', 'fab fa-uncharted', Widget::class),
+            MenuItem::linkToCrud('Données des widgets', 'fas fa-database', WidgetData::class),
+            MenuItem::linkToCrud('Swipes des widgets', 'fas fa-mobile-button', WidgetSwipe::class),
+            MenuItem::linkToCrud('Achats des widgets', 'fas fa-credit-card', WidgetUser::class),
+        ]);
+        yield MenuItem::subMenu('Blog')->setSubItems([
+            MenuItem::linkToCrud('Articles', 'fas fa-newspaper', Posts::class),
+            MenuItem::linkToCrud('Catégories', 'fas fa-layer-group', Category::class),
+            MenuItem::linkToCrud('Pages', 'fas fa-file', Pages::class),
+        ]);
+
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
-        yield MenuItem::linkToCrud('Newsletter', 'fas fa-clipboard', Newsletter::class);
-        yield MenuItem::linkToCrud('Articles', 'fas fa-clipboard', Posts::class);
-        yield MenuItem::linkToCrud('Catégories', 'fas fa-clipboard', Category::class);
-        yield MenuItem::linkToCrud('URLShortener', 'fas fa-clipboard', URLShortener::class);
-        yield MenuItem::linkToCrud('Pages', 'fas fa-clipboard', Pages::class);
+        yield MenuItem::linkToCrud('Newsletter', 'fas fa-envelope', Newsletter::class);
+        yield MenuItem::linkToCrud('URLShortener', 'fas fa-link', URLShortener::class);
     }
 }

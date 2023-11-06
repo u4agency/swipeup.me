@@ -26,23 +26,15 @@ class SwipeImageCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $imageFile = TextareaField::new('backgroundFile', 'Image')
+        $imageFile = TextareaField::new('backgroundFile', 'Fond')
             ->setFormType(VichImageType::class)
             ->setLabel('Thumbnail');
-        $imageName = ImageField::new('backgroundName', 'Image')
+        $imageName = ImageField::new('backgroundName', 'Lien du fond')
             ->setBasePath('/assets/uploaded/swipe_images');
-        $imagePath = TextField::new('backgroundName', 'Image Path');
+        $imagePath = TextField::new('backgroundName', 'Lien du fond')
+            ->onlyOnDetail();
 
-        $fields = [
-            TextField::new('id', 'Id')
-                ->hideOnForm(),
-            TextareaField::new('alt', 'Alt')
-                ->hideOnForm(),
-            AssociationField::new('author', 'Uploaded by'),
-            BooleanField::new('isPublic', 'Public upload ?'),
-            DateTimeField::new('uploadedAt', 'Uploaded at')
-                ->hideOnForm(),
-        ];
+        $fields = [];
 
         if ($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL) {
             $fields[] = $imageName;
@@ -51,6 +43,23 @@ class SwipeImageCrudController extends AbstractCrudController
             $fields[] = $imageFile;
         }
 
+        $fields += [
+            TextField::new('id', 'Id')
+                ->onlyOnDetail(),
+            TextareaField::new('alt', "Alt de l'image")
+                ->hideOnForm(),
+            AssociationField::new('author', 'Upload par'),
+            BooleanField::new('isPublic', 'Public'),
+            DateTimeField::new('uploadedAt', 'Upload à')
+                ->hideOnForm(),
+        ];
+
         return $fields;
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setDefaultSort(['uploadedAt' => 'DESC']);
     }
 }
