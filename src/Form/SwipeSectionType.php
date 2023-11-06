@@ -70,9 +70,9 @@ class SwipeSectionType extends AbstractType
                 'mapped' => false,
                 'expanded' => true,
                 'class' => Widget::class,
-                'placeholder' => $this->getIcon('x-mark'),
+                'placeholder' => $this->getIcon('x-mark', "Supprimer le widget"),
                 'label_html' => true,
-                'choice_label' => fn(Widget $widget) => $this->getIcon($widget->getIcon()),
+                'choice_label' => fn(Widget $widget) => $this->getIcon($widget->getIcon(), $widget->getDescription()),
                 'choices' => $this->widgetRepository->findByDisplay("widgetBody"),
                 'data' => $isEdit && $swipe->getWidgetBody() ? $swipe->getWidgetBody()->getWidget() : null,
                 'attr' => [
@@ -84,9 +84,9 @@ class SwipeSectionType extends AbstractType
                 'mapped' => false,
                 'expanded' => true,
                 'class' => Widget::class,
-                'placeholder' => $this->getIcon('x-mark'),
+                'placeholder' => $this->getIcon('x-mark', "Supprimer le widget"),
                 'label_html' => true,
-                'choice_label' => fn(Widget $widget) => $this->getIcon($widget->getIcon()),
+                'choice_label' => fn(Widget $widget) => $this->getIcon($widget->getIcon(), $widget->getDescription()),
                 'choices' => $this->widgetRepository->findByDisplay("widgetFooter"),
                 'data' => $isEdit && $swipe->getWidgetFooter() ? $swipe->getWidgetFooter()->getWidget() : null,
                 'attr' => [
@@ -197,10 +197,12 @@ class SwipeSectionType extends AbstractType
         ]);
     }
 
-    private function getIcon($icon): false|array|string
+    private function getIcon($icon, $content): false|array|string
     {
         return Heroicons::get($icon, 'solid', [
             'class' => 'hover:text-swipe-800 w-6 h-6 fill-current cursor-pointer',
+            'data-controller' => 'tippy',
+            'data-tippy-text-value' => $content,
         ]);
     }
 
