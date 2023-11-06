@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Regex;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class SwipeUpEditType extends AbstractType
@@ -65,7 +66,21 @@ class SwipeUpEditType extends AbstractType
                 'image_uri' => $options['data']->getLogoName() === $options['data']->getRealLogoName(),
                 'download_uri' => false,
                 'required' => false,
+            ])
+            ->add('fbId', TextType::class, [
+                'label' => 'Identifiant Facebook Pixel',
+                'required' => false,
+                'attr' => [
+                    'class' => $classes,
+                ],
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^\d{15,16}$/',
+                        'message' => "Le code Facebook Pixel n'est pas valide",
+                    ])
+                ],
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

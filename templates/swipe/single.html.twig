@@ -54,7 +54,14 @@
 {% endblock %}
 
 {% block body %}
-    <div id="app" class="h-full" style="background-color: {{ colors[0] }}">
+    <div
+            {{ stimulus_controller('analytics', {
+                fb: swipeup.fbId,
+            }) }}
+            id="app"
+         class="h-full"
+         style="background-color: {{ colors[0] }}"
+    >
         <div class="fixed left-0 right-0 spotlight opacity-25"
              style="background: linear-gradient(45deg, {{ colors[1] }}, {{ colors[3] }} 50%, {{ colors[2] }});"></div>
         <div class="sm:aspect-[9/16] mx-auto h-full relative">

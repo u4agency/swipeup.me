@@ -170,6 +170,27 @@
                 <div class="text-red-600">{{ form_errors(form.slug) }}</div>
             </div>
 
+                <div class="space-y-2 w-full">
+                    <div class="text-white flex gap-2 items-baseline">
+                        {{ form_label(form.fbId) }}
+                        <span
+                            {{ stimulus_controller('tippy', {
+                                text: "Utilisez votre identifiant Facebook Pixel pour suivre les statistiques de votre SwipeUp."
+                            }) }}
+                            class="self-center"
+                        >
+                            {{ heroicon('information-circle', 'solid', {
+                                'class': 'fill-white w-5 h-5 duration-200',
+                            }) }}
+                        </span>
+                    </div>
+                    {{ form_widget(form.fbId, {
+                        attr: {
+                            class: 'w-full mb-5 font-light sm:text-xl text-gray-400 bg-transparent border-0 focus:outline-none border-l-2 focus:border-swipe-600 border-white focus:ring-0',
+                        }
+                    }) }}
+                    <div class="text-red-600 text-center">{{ form_errors(form.fbId) }}</div>
+                </div>
             <button class="block rounded-xl text-white bg-swipe-500 hover:bg-swipe-600 py-4 px-8 text-xl w-full">
                 Modifier mon SwipeUp
             </button>

@@ -73,6 +73,9 @@ class SwipeUp
     #[ORM\OneToMany(mappedBy: 'swipeup', targetEntity: AnalyticsVisitsSwipeUp::class, cascade: ['persist', 'remove'])]
     private Collection $analyticsVisitsSwipeUp;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $fbId = null;
+
     public function __toString(): string
     {
         return $this->title . ' (@' . $this->slug . ')';
@@ -333,5 +336,17 @@ class SwipeUp
     public function setAnalyticsVisitsSwipeUp(Collection $analyticsVisitsSwipeUp): void
     {
         $this->analyticsVisitsSwipeUp = $analyticsVisitsSwipeUp;
+    }
+
+    public function getFbId(): ?string
+    {
+        return $this->fbId;
+    }
+
+    public function setFbId(?string $fbId): static
+    {
+        $this->fbId = $fbId;
+
+        return $this;
     }
 }
