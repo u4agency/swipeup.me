@@ -18,9 +18,12 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class FacebookAuthenticator extends OAuth2Authenticator
 {
+    use TargetPathTrait;
+
     public function __construct(
         private readonly ClientRegistry         $clientRegistry,
         private readonly EntityManagerInterface $entityManager,
@@ -88,6 +91,9 @@ class FacebookAuthenticator extends OAuth2Authenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+            return new RedirectResponse($targetPath);
+        }
 
         // change "app_dashboard" to some route in your app
         return new RedirectResponse(
