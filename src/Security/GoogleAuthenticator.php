@@ -65,7 +65,9 @@ class GoogleAuthenticator extends OAuth2Authenticator
                         $existingUser->setEmail($googleUser->getEmail());
                         $existingUser->setGoogleId($googleUser->getId());
 
-                        $this->entityManager->persist($existingUser);
+                        if ($this->entityManager->isOpen()) {
+                            $this->entityManager->persist($existingUser);
+                        }
                     }
 
                     if (!$existingUser->getGoogleId()) {
@@ -76,6 +78,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
                 }
 
                 $this->entityManager->flush();
+                $this->entityManager->close();
 
                 return $existingUser;
             })

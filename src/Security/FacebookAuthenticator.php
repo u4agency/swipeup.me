@@ -66,7 +66,9 @@ class FacebookAuthenticator extends OAuth2Authenticator
 
                         new NewNewsletter($existingUser->getEmail(), "app_register (Facebook OAuth2)", $this->entityManager);
 
-                        $this->entityManager->persist($existingUser);
+                        if ($this->entityManager->isOpen()) {
+                            $this->entityManager->persist($existingUser);
+                        }
                     }
 
                     if (!$existingUser->getFacebookId()) {
@@ -77,6 +79,7 @@ class FacebookAuthenticator extends OAuth2Authenticator
                 }
 
                 $this->entityManager->flush();
+                $this->entityManager->close();
 
                 return $existingUser;
             })
