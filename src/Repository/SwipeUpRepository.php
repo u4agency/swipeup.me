@@ -47,6 +47,8 @@ class SwipeUpRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->addSelect('a')
             ->select('a.slug')
+            ->where('a.status = :status')
+            ->setParameter('status', Status::PUBLIC)
 //            ->where('a.featuredSwipeUp = :homepage')
 //            ->setParameter('homepage', true)
             ->orderBy('RAND()')
