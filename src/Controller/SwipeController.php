@@ -54,7 +54,7 @@ class SwipeController extends AbstractController
 
         $colors = [];
         $colorsNumber = 4;
-        $extractedColors = $swipeup->getLogoFile() ? (new ColorExtractor(Palette::fromFilename($appKernel->getProjectDir() . '/public/' . $uploaderHelper->asset($swipeup, 'logoFile'))))->extract($colorsNumber) : null;
+        $extractedColors = $swipeup->getLogoName() ? (new ColorExtractor(Palette::fromFilename($appKernel->getProjectDir() . '/public/' . $uploaderHelper->asset($swipeup, 'logoFile'))))->extract($colorsNumber) : null;
         for ($i = 0; $i < $colorsNumber; $i++) $colors[] = Color::fromIntToHex($extractedColors[$i] ?? 0);
 
         return $this->render('swipe/single.html.twig', [

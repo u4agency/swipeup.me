@@ -98,12 +98,13 @@ class SwipeUp
         $this->featuredSwipeUp = false;
     }
 
-    /**
-     * @throws Exception
-     */
-    private function generateRandomImage(): string
+    private function generateRandomImage(): ?string
     {
-        return "defaultLogo-" . random_int(1, 3) . ".webp";
+        try {
+            return "defaultLogo-" . random_int(1, 3) . ".webp";
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
     public function getId(): ?Uuid
@@ -225,10 +226,6 @@ class SwipeUp
         return $this;
     }
 
-    /**
-     * @return mixed
-     * @throws Exception
-     */
     public function getLogoName()
     {
         return $this->logoName ?? $this->generateRandomImage();
