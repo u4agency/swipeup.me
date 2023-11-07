@@ -44,26 +44,22 @@ class DashboardController extends AbstractDashboardController
         $startDate = (clone $endDate)->modify("-$days days");
 
         $stats = $this->analyticsVisitsSwipeRepository->findByDateBetween($startDate, $endDate);
+        $stats2 = $this->analyticsVisitsSwipeRepository->findAll();
 
-        $dailyCounts = $users = [];
+        $dailyCounts = [];
 
         foreach ($stats as $entity) {
             $day = $entity->getVisitedAt()->format('Y-m-d');
 
             if (!isset($dailyCounts[$day])) {
-                $dailyCounts[$day] = ['total' => 0, 'onceUser' => 0];
+                $dailyCounts[$day] = ['total' => 0];
             }
 
             $dailyCounts[$day]['total']++;
-
-            if (!in_array($entity->getUserId(), $users)) {
-                $dailyCounts[$day]['onceUser']++;
-                $users[] = $entity->getUserId();
-            }
         }
 
         $period = new \DatePeriod($startDate, new \DateInterval('P1D'), $endDate);
-        $completeDailyCounts = array_fill_keys(array_map(fn($day) => $day->format('Y-m-d'), iterator_to_array($period)), ['total' => 0, 'onceUser' => 0]);
+        $completeDailyCounts = array_fill_keys(array_map(fn($day) => $day->format('Y-m-d'), iterator_to_array($period)), ['total' => 0]);
 
         foreach ($dailyCounts as $day => $count) {
             $completeDailyCounts[$day] = $count;
@@ -71,13 +67,6 @@ class DashboardController extends AbstractDashboardController
 
         $labels = array_keys($completeDailyCounts);
         $dataSwipes = array_column(array_values($completeDailyCounts), 'total');
-
-        $sum = 0;
-        $dataSwipesTotal = [];
-        foreach ($dataSwipes as $key => $value) {
-            $sum += $value;
-            $dataSwipesTotal[$key] = $sum;
-        }
 
         $visits = $this->chartBuilder->createChart(Chart::TYPE_LINE);
 
@@ -108,6 +97,37 @@ class DashboardController extends AbstractDashboardController
             ],
         ]);
 
+        $dailyCountsAll = [];
+
+        foreach ($stats2 as $entity) {
+            $day = $entity->getVisitedAt()->format('Y-m-d');
+
+            if (!isset($dailyCountsAll[$day])) {
+                $dailyCountsAll[$day] = 0;
+            }
+
+            $dailyCountsAll[$day]++;
+        }
+
+        $period2 = new \DatePeriod(\DateTimeImmutable::createFromFormat('Y-m-d', array_keys($dailyCountsAll)[0]), new \DateInterval('P1D'), $endDate);
+        $completeDailyCountsAll = array_fill_keys(array_map(fn($day) => $day->format('Y-m-d'), iterator_to_array($period2)), 0);
+
+        foreach ($dailyCountsAll as $day => $count) {
+            $completeDailyCountsAll[$day] = $count;
+        }
+
+
+        $dataSwipesTotal = [];
+        $previousKey = 0;
+        foreach ($completeDailyCountsAll as $key => $value) {
+            $dataSwipesTotal[$key] = $value + $previousKey;
+
+            $previousKey = $dataSwipesTotal[$key];
+        }
+        
+        $monTableauDernieres30 = array_slice($dataSwipesTotal, -$days);
+        $labels = array_keys($monTableauDernieres30);
+
         $visitsTotal = $this->chartBuilder->createChart(Chart::TYPE_LINE);
 
         $visitsTotal->setData([
@@ -117,7 +137,7 @@ class DashboardController extends AbstractDashboardController
                     'label' => " ",
                     'borderColor' => '#11a6ea',
                     'borderWidth' => 4,
-                    'data' => $dataSwipesTotal,
+                    'data' => $monTableauDernieres30,
                     'tension' => .3,
                 ],
             ],
