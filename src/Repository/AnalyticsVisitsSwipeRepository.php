@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\AnalyticsVisitsSwipe;
+use App\Entity\SwipeUp;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -27,6 +28,16 @@ class AnalyticsVisitsSwipeRepository extends ServiceEntityRepository
             ->select('count(a.id)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function findByDateBetween($startDate, $endDate): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.visitedAt BETWEEN :startDate AND :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

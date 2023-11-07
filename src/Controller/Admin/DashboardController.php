@@ -15,34 +15,140 @@ use App\Entity\Widget;
 use App\Entity\WidgetData;
 use App\Entity\WidgetSwipe;
 use App\Entity\WidgetUser;
+use App\Repository\AnalyticsVisitsSwipeRepository;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 class DashboardController extends AbstractDashboardController
 {
+    public function __construct(
+        private readonly ChartBuilderInterface          $chartBuilder,
+        private readonly AnalyticsVisitsSwipeRepository $analyticsVisitsSwipeRepository,
+    )
+    {
+    }
+
     #[Route('/omnip', name: 'admin')]
     public function index(): Response
     {
-        // Option 1. You can make your dashboard redirect to some common page of your backend
-        //
-        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        return $this->redirect($adminUrlGenerator->setController(SwipeImageCrudController::class)->generateUrl());
+        $days = 30;
 
-        // Option 2. You can make your dashboard redirect to different pages depending on the user
-        //
-        // if ('jane' === $this->getUser()->getUsername()) {
-        //     return $this->redirect('...');
-        // }
+        $endDate = new \DateTimeImmutable();
+        $startDate = (clone $endDate)->modify("-$days days");
 
-        // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
-        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-        //
-        // return $this->render('some/path/my-dashboard.html.twig');
+        $stats = $this->analyticsVisitsSwipeRepository->findByDateBetween($startDate, $endDate);
+
+        $dailyCounts = $users = [];
+
+        foreach ($stats as $entity) {
+            $day = $entity->getVisitedAt()->format('Y-m-d');
+
+            if (!isset($dailyCounts[$day])) {
+                $dailyCounts[$day] = ['total' => 0, 'onceUser' => 0];
+            }
+
+            $dailyCounts[$day]['total']++;
+
+            if (!in_array($entity->getUserId(), $users)) {
+                $dailyCounts[$day]['onceUser']++;
+                $users[] = $entity->getUserId();
+            }
+        }
+
+        $period = new \DatePeriod($startDate, new \DateInterval('P1D'), $endDate);
+        $completeDailyCounts = array_fill_keys(array_map(fn($day) => $day->format('Y-m-d'), iterator_to_array($period)), ['total' => 0, 'onceUser' => 0]);
+
+        foreach ($dailyCounts as $day => $count) {
+            $completeDailyCounts[$day] = $count;
+        }
+
+        $labels = array_keys($completeDailyCounts);
+        $dataSwipes = array_column(array_values($completeDailyCounts), 'total');
+
+        $sum = 0;
+        $dataSwipesTotal = [];
+        foreach ($dataSwipes as $key => $value) {
+            $sum += $value;
+            $dataSwipesTotal[$key] = $sum;
+        }
+
+        $visits = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+
+        $visits->setData([
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => " ",
+                    'borderColor' => '#11a6ea',
+                    'borderWidth' => 4,
+                    'data' => $dataSwipes,
+                    'tension' => .3,
+                ],
+            ],
+        ]);
+
+        $visits->setOptions([
+            'responsive' => true,
+            'maintainAspectRatio' => false,
+            'plugins' => [
+                'legend' => [
+                    'display' => false,
+                ],
+                'title' => [
+                    'display' => true,
+                    'text' => "Swipes les $days derniers jours",
+                ],
+            ],
+        ]);
+
+        $visitsTotal = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+
+        $visitsTotal->setData([
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => " ",
+                    'borderColor' => '#11a6ea',
+                    'borderWidth' => 4,
+                    'data' => $dataSwipesTotal,
+                    'tension' => .3,
+                ],
+            ],
+        ]);
+
+        $visitsTotal->setOptions([
+            'responsive' => true,
+            'maintainAspectRatio' => false,
+            'plugins' => [
+                'legend' => [
+                    'display' => false,
+                ],
+                'title' => [
+                    'display' => true,
+                    'text' => "Total des swipes les $days derniers jours",
+                ],
+            ],
+        ]);
+
+        return $this->render('admin/my-dashboard.html.twig', [
+            'visits' => $visits,
+            'visitsTotal' => $visitsTotal,
+        ]);
     }
+
+    public function configureAssets(): Assets
+    {
+        return Assets::new()
+            ->addWebpackEncoreEntry('app');
+    }
+
 
     public function configureDashboard(): Dashboard
     {
