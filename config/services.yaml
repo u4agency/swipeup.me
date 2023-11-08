@@ -32,6 +32,7 @@ services:
           - EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException
           - Symfony\Component\Security\Core\Exception\AccessDeniedException
           - Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException
+          - Symfony\Component\Console\Exception\*
 
   App\Utils\MaintenanceMode:
     arguments:
