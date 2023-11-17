@@ -1,0 +1,14 @@
+{% set text = "" %}
+
+{% for data in widgetData %}
+    {% if data.dataName == "text" %}
+        {% set text = data.dataValue %}
+    {% endif %}
+{% endfor %}
+
+<div class="space-y-2">
+    <p class="text-xs text-gray-600">{{ widgetType }} : Widget Newsletter</p>
+    <div class="text-xl text-gray-800">
+        <p><span class="font-bold">Titre : </span>{{ text }}</p>
+    </div>
+</div>

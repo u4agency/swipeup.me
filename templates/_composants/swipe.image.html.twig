@@ -10,6 +10,7 @@
         <div class="relative py-8 flex justify-center items-center h-2/3">
             {% if swipe.widgetBody %}
                 {{ include('_components/_widget_body.html.twig', {
+                    widgetSwipe: swipe.widgetBody,
                     widget: swipe.widgetBody.widget,
                     data: swipe.widgetBody.widgetData,
                 }) }}
@@ -18,6 +19,7 @@
         <div class="h-1/6 flex items-start justify-center relative">
             {% if swipe.widgetFooter %}
                 {{ include('_components/_widget_footer.html.twig', {
+                    widgetSwipe: swipe.widgetFooter,
                     widget: swipe.widgetFooter.widget,
                     data: swipe.widgetFooter.widgetData,
                 }) }}

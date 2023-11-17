@@ -1,0 +1,21 @@
+{% set text = "Loading..." %}
+
+{% for widgetData in data %}
+    {% if widgetData.dataName == "text" %}
+        {% set text = widgetData.dataValue %}
+    {% endif %}
+{% endfor %}
+
+<div class="bg-white rounded-xl p-4 z-10 absolute w-full bottom-0 space-y-3 overflow-hidden">
+    <div class="p-2 space-y-4">
+        <p class="text-center space-y-2 font-bold">
+            {{ text }}
+        </p>
+
+        {{ render(controller('App\\Controller\\UserWidgetsController::newsletter',
+            {
+                widgetSwipe: widgetSwipe
+            }
+        )) }}
+    </div>
+</div>

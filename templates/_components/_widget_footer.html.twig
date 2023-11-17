@@ -6,4 +6,9 @@
     {{ include('_components/widgets/_widget.email.html.twig', {
         data: data,
     }) }}
+{% elseif widget.name == "newsletter" %}
+    {{ include('_components/widgets/_widget.newsletter.html.twig', {
+        data: data,
+        widgetSwipe: widgetSwipe,
+    }) }}
 {% endif %}

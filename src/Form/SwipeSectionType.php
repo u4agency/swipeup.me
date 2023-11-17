@@ -7,9 +7,10 @@ use App\Entity\SwipeImage;
 use App\Entity\Widget;
 use App\Entity\WidgetData;
 use App\Entity\WidgetSwipe;
-use App\Form\Widgets\ButtonWidgetType;
-use App\Form\Widgets\EmailWidgetType;
-use App\Form\Widgets\TextWidgetType;
+use App\Form\Widgets\Admin\ButtonWidgetType;
+use App\Form\Widgets\Admin\EmailWidgetType;
+use App\Form\Widgets\Admin\NewsletterWidgetType;
+use App\Form\Widgets\Admin\TextWidgetType;
 use App\Repository\WidgetRepository;
 use MarcW\Heroicons\Heroicons;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -213,19 +214,15 @@ class SwipeSectionType extends AbstractType
         }
 
         $widgetValue = $form->get($widgetType)->getData()?->getName() ?? $option;
+        $widgetTypes = [
+            'text' => TextWidgetType::class,
+            'button' => ButtonWidgetType::class,
+            'email' => EmailWidgetType::class,
+            'newsletter' => NewsletterWidgetType::class,
+        ];
 
-        if ($widgetValue === 'text') {
-            $form->add($widgetType . 'Data', TextWidgetType::class, [
-                'mapped' => false,
-                'autocomplete_data' => $autocomplete_data ?? [],
-            ]);
-        } elseif ($widgetValue === 'button') {
-            $form->add($widgetType . 'Data', ButtonWidgetType::class, [
-                'mapped' => false,
-                'autocomplete_data' => $autocomplete_data ?? [],
-            ]);
-        } elseif ($widgetValue === 'email') {
-            $form->add($widgetType . 'Data', EmailWidgetType::class, [
+        if (array_key_exists($widgetValue, $widgetTypes)) {
+            $form->add($widgetType . 'Data', $widgetTypes[$widgetValue], [
                 'mapped' => false,
                 'autocomplete_data' => $autocomplete_data ?? [],
             ]);
