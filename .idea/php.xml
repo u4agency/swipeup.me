@@ -217,6 +217,8 @@
       <path value="$PROJECT_DIR$/vendor/league/color-extractor" />
       <path value="$PROJECT_DIR$/vendor/davidgorges/color-contrast" />
       <path value="$PROJECT_DIR$/vendor/mischiefcollective/colorjizz" />
+      <path value="$PROJECT_DIR$/vendor/chillerlan/php-qrcode" />
+      <path value="$PROJECT_DIR$/vendor/chillerlan/php-settings-container" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
