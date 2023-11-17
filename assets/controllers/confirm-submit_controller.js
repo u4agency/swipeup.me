@@ -59,7 +59,7 @@ export default class extends Controller {
             body: new FormData(this.element)
         });
 
-        if (this.replacedContentTarget) {
+        if (this.hasReplacedContentTarget) {
             this.replacedContentTarget.innerHTML = await response.text();
         }
 
