@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -20,17 +21,20 @@ class SwipeUpCreateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $classes = "bg-white flex relative py-4 px-3 rounded-xl text-lg w-full overflow-x-hidden outline-none border-none";
-
         $builder
             ->add('slug', TextType::class, [
+                'required' => true,
                 'label' => 'Lien du SwipeUp',
                 'attr' => [
                     'class' => 'text-lg w-full overflow-x-hidden outline-none mr-2 border-none p-0',
                     'placeholder' => 'votrenom',
                 ],
-            ])
-        ;
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un lien',
+                    ]),
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

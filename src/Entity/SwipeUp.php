@@ -33,7 +33,7 @@ class SwipeUp
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 255, unique: true, nullable: false)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
