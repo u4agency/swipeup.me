@@ -60,8 +60,8 @@
                 fb: swipeup.fbId,
             }) }}
             id="app"
-         class="h-full"
-         style="background-color: {{ colors[0] }}"
+            class="h-full"
+            style="background-color: {{ colors[0] }}"
     >
         <div class="fixed left-0 right-0 spotlight opacity-25"
              style="background: linear-gradient(45deg, {{ colors[1] }}, {{ colors[3] }} 50%, {{ colors[2] }});"></div>
@@ -156,7 +156,7 @@
 
                                         <div class="h-1/6 flex items-start justify-center relative">
                                             <a href="{{ href }}"
-                                               class="rounded-full bg-white/5 border border-white bottom-8 py-4 px-8 w-full text-white shadow-lg shadow-white/10 hover:scale-105 duration-100">
+                                               class="{{ lightText ? 'bg-white/5 border-white text-white shadow-white/10' : 'bg-black/5 border-black text-black shadow-black/10' }} rounded-full border bottom-8 py-4 px-8 w-full shadow-lg hover:scale-105 duration-100">
                                                 {{ text }}
                                             </a>
                                         </div>
@@ -175,7 +175,7 @@
 
                                         <div class="h-1/6 flex items-start justify-center relative">
                                             <a href="mailto:{{ href }}"
-                                               class="rounded-full bg-white/5 border border-white bottom-8 py-4 px-8 w-full text-white shadow-lg shadow-white/10 hover:scale-105 duration-100">
+                                               class="{{ lightText ? 'bg-white/5 border-white text-white shadow-white/10' : 'bg-black/5 border-black text-black shadow-black/10' }} rounded-full border bottom-8 py-4 px-8 w-full shadow-lg hover:scale-105 duration-100">
                                                 {{ text }}
                                             </a>
                                         </div>
