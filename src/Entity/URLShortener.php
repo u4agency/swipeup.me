@@ -84,6 +84,16 @@ class URLShortener
         return $this->createdBy;
     }
 
+    /**
+     * @return User|null
+     * @deprecated
+     * @see getCreatedBy()
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->createdBy;
+    }
+
     public function setCreatedBy(?User $createdBy): static
     {
         $this->createdBy = $createdBy;

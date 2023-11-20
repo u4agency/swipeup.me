@@ -6,8 +6,10 @@ use App\Entity\SwipeUp;
 use App\Form\SwipeUpEditType;
 use App\Form\UserEditFormType;
 use App\Repository\AnalyticsVisitsSwipeUpRepository;
+use App\Repository\AnalyticsVisitsURLShortenerRepository;
 use App\Repository\NewsletterRepository;
 use App\Repository\SwipeUpRepository;
+use App\Repository\URLShortenerRepository;
 use App\Service\Status;
 use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -98,21 +100,29 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/analytics', name: 'swipeup_analytics', defaults: ['slug' => null])]
-    #[Route('/analytics/@{slug}', name: 'swipeup_analytics_single')]
+    #[Route('/analytics/{slug}', name: 'swipeup_analytics', requirements: ['slugs' => '[@~].*'], defaults: ['slug' => ''])]
     public function analyticsSwipeUp(
-        $slug,
-        SwipeUpRepository $swipeUpRepository,
-        AnalyticsVisitsSwipeUpRepository $analyticsVisitsSwipeUpRepository,
-        ChartBuilderInterface $chartBuilder,
+        string                                $slug,
+        SwipeUpRepository                     $swipeUpRepository,
+        URLShortenerRepository                $URLShortenerRepository,
+        AnalyticsVisitsSwipeUpRepository      $analyticsVisitsSwipeUpRepository,
+        AnalyticsVisitsURLShortenerRepository $analyticsVisitsURLShortenerRepository,
+        ChartBuilderInterface                 $chartBuilder,
     ): Response
     {
         $swipeup = null;
 
         if (!empty($slug)) {
-            $swipeup = $swipeUpRepository->findOneBy(['slug' => $slug]);
+            $firstLetter = substr($slug, 0, 1);
+            $slug = substr($slug, 1);
 
-            if ($swipeup->getStatus() === Status::DELETED && !$this->isGranted('ROLE_ADMIN')) {
+            $swipeup = match ($firstLetter) {
+                '@' => $swipeUpRepository->findOneBy(['slug' => $slug]),
+                '~' => $URLShortenerRepository->findOneBy(['slug' => $slug]),
+                default => null,
+            };
+
+            if (!$swipeup || ($firstLetter === '@' ? $swipeup->getStatus() === Status::DELETED : null && !$this->isGranted('ROLE_ADMIN'))) {
                 $this->addFlash('error', "Ce SwipeUp n'existe pas !");
                 return $this->redirectToRoute('app_user_admin_list');
             }
@@ -129,7 +139,11 @@ class UserController extends AbstractController
         $startDate = (clone $endDate)->modify('-1 week');
 
         if (!empty($slug)) {
-            $stats = $analyticsVisitsSwipeUpRepository->findByDateBetween($swipeup, $startDate, $endDate);
+            $stats = match ($firstLetter) {
+                '@' => $analyticsVisitsSwipeUpRepository->findByDateBetween($swipeup, $startDate, $endDate),
+                '~' => $analyticsVisitsURLShortenerRepository->findByDateBetween($swipeup, $startDate, $endDate),
+                default => [],
+            };
         } else {
             $stats = $analyticsVisitsSwipeUpRepository->findByUser($this->getUser(), $startDate, $endDate);
         }

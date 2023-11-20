@@ -140,11 +140,11 @@
                         <span class="ml-3">Statistiques</span>
                     </a>
                     {% if swipes|length > 0 %}
-                        <ul class="space-y-2 ml-4 font-medium {{ app.request.get('_route') == 'app_user_swipeup_analytics' or app.request.get('_route') == 'app_user_swipeup_analytics_single' ? 'block' : 'hidden' }}">
+                        <ul class="space-y-2 ml-4 font-medium {{ app.request.get('_route') == 'app_user_swipeup_analytics' ? 'block' : 'hidden' }}">
                             {% for swipe in swipes %}
                                 <li>
-                                    <a href="{{ path('app_user_swipeup_analytics_single', {slug: swipe.slug}) }}"
-                                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 {{ app.request.get('_route') == 'app_user_swipeup_analytics_single' and app.request.get('_route_params')['slug'] == swipe.slug ? 'bg-gray-700' }} group">
+                                    <a href="{{ path('app_user_swipeup_analytics', {slug: '@'~swipe.slug}) }}"
+                                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 {{ app.request.get('_route') == 'app_user_swipeup_analytics' and app.request.get('_route_params')['slug'] == swipe.slug ? 'bg-gray-700' }} group">
                                         <img src="{{ vich_uploader_asset(swipe, 'logoFile') }}" alt="{{ swipe.title }}"
                                              class="w-7 h-7 rounded-full">
                                         <span class="ml-3">{{ swipe.title }}</span>
