@@ -152,10 +152,29 @@
                                             {% elseif widgetData.dataName == "href" %}
                                                 {% set href = widgetData.dataValue %}
                                             {% endif %}
-                                        {% endfor %}-
+                                        {% endfor %}
 
                                         <div class="h-1/6 flex items-start justify-center relative">
                                             <a href="{{ href }}"
+                                               class="rounded-full bg-white/5 border border-white bottom-8 py-4 px-8 w-full text-white shadow-lg shadow-white/10 hover:scale-105 duration-100">
+                                                {{ text }}
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                    {% if swipe.widgetFooter and swipe.widgetFooter.widget.name == "email" %}
+                                        {% set text = "Loading..." %}
+                                        {% set href = "#" %}
+
+                                        {% for widgetData in swipe.widgetFooter.widgetData %}
+                                            {% if widgetData.dataName == "text" %}
+                                                {% set text = widgetData.dataValue %}
+                                            {% elseif widgetData.dataName == "href" %}
+                                                {% set href = widgetData.dataValue %}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        <div class="h-1/6 flex items-start justify-center relative">
+                                            <a href="mailto:{{ href }}"
                                                class="rounded-full bg-white/5 border border-white bottom-8 py-4 px-8 w-full text-white shadow-lg shadow-white/10 hover:scale-105 duration-100">
                                                 {{ text }}
                                             </a>
