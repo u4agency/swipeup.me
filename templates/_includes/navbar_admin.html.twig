@@ -1,4 +1,5 @@
 {% set swipes = personalSwipes(app.user, is_granted('ROLE_ADMIN')) %}
+{% set URLShorteners = personalURLShorteners(app.user) %}
 
 <div
         id="admin-navbar-aside"
@@ -106,7 +107,7 @@
             id="logo-sidebar"
             class="fixed top-0 left-0 z-40 w-64 h-[100dvh] pt-20 transition-transform bg-black border-r border-neutral-900 sm:translate-x-0"
             aria-label="Sidebar">
-        <div class="h-full px-3 pb-4 overflow-y-auto bg-black">
+        <div class="h-full px-3 pb-4 overflow-y-auto bg-black space-y-4 divide-y-2 divide-neutral-900">
             <ul class="space-y-2 font-medium">
                 <li class="space-y-2">
                     <a href="{{ path('app_user_admin_list') }}"
@@ -155,17 +156,29 @@
                     {% endif %}
                 </li>
             </ul>
-            {#            <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-neutral-700"> #}
-            {#                <li> #}
-            {#                    <a href="#" #}
-            {#                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"> #}
-            {#                        {{ heroicon('device-phone-mobile', 'solid', { #}
-            {#                            'class': 'w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white fill-current' #}
-            {#                        }) }} #}
-            {#                        <span class="ml-3">Dashboard</span> #}
-            {#                    </a> #}
-            {#                </li> #}
-            {#            </ul> #}
+            <ul class="space-y-2 font-medium">
+                <li class="space-y-2">
+                    <a href="{{ path('app_user_swipeup_analytics') }}"
+                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 {{ app.request.get('_route') == 'app_user_swipeup_analytics' ? 'bg-gray-700' }} group">
+                        {{ heroicon('chart-bar', 'solid', {
+                            'class': 'w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white fill-current'
+                        }) }}
+                        <span class="ml-3">Statistiques</span>
+                    </a>
+                    {% if URLShorteners|length > 0 %}
+                        <ul class="space-y-2 ml-4 font-medium block">
+                            {% for URLShortener in URLShorteners %}
+                                <li>
+                                    <a href="{{ path('app_user_swipeup_analytics', {slug: '~'~URLShortener.slug}) }}"
+                                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 {{ app.request.get('_route') == 'app_user_swipeup_analytics' and app.request.get('_route_params')['slug'] == URLShortener.slug ? 'bg-gray-700' }} group">
+                                        <span class="ml-3">~{{ URLShortener.slug }}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
     </aside>
 </div>
