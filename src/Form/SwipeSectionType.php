@@ -168,7 +168,11 @@ class SwipeSectionType extends AbstractType
                         if ($widgetType instanceof Widget) {
                             $widgetSwipe = $formData->$wsGetter() ?? new WidgetSwipe();
                             $widgetSwipe->setWidget($widgetType);
-                            $widgetSwipe->setSwipe($data);
+                            if ($field === 'widgetBody') {
+                                $widgetSwipe->setSwipeBody($data);
+                            } elseif ($field === 'widgetFooter') {
+                                $widgetSwipe->setSwipeFooter($data);
+                            }
 
                             $widgetsData = $form->getExtraData()[$field . 'Data'] ?? $form->get($field . 'Data')->getData();
 

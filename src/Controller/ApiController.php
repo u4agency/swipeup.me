@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\AnalyticsVisitsSwipe;
 use App\Entity\Swipe;
+use App\Entity\WidgetSwipe;
 use App\Form\SwipeSectionType;
 use App\Repository\AnalyticsVisitsSwipeRepository;
 use App\Repository\NewsletterRepository;
@@ -11,6 +12,7 @@ use App\Repository\SwipeRepository;
 use App\Repository\SwipeUpRepository;
 use App\Repository\UserRepository;
 use App\Repository\WidgetRepository;
+use App\Repository\WNewsletterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -240,5 +242,22 @@ class ApiController extends AbstractController
 
             return new Response($exception, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    #[Route('/v1/get_newsletter/{id}', name: '_api_newsletter_get')]
+    public function getNewsletter(
+        WidgetSwipe           $widgetSwipe,
+        WNewsletterRepository $WNewsletterRepository
+    ): Response
+    {
+        if ($this->getUser() && $widgetSwipe->getSwipe()->getSwipeup()->getAuthor() !== $this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $newsletters = $WNewsletterRepository->findBy(['widgetSwipe' => $widgetSwipe], ['createdAt' => 'DESC']);
+
+        return $this->render('_api/_wnewsletter.html.twig', [
+            'newsletters' => $newsletters,
+        ]);
     }
 }

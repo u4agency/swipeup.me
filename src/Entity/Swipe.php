@@ -32,10 +32,10 @@ class Swipe
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToOne(inversedBy: 'swipe', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'swipeBody', targetEntity: WidgetSwipe::class, cascade: ['persist', 'remove'])]
     private ?WidgetSwipe $widgetBody = null;
 
-    #[ORM\OneToOne(inversedBy: 'swipe', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'swipeFooter', targetEntity: WidgetSwipe::class, cascade: ['persist', 'remove'])]
     private ?WidgetSwipe $widgetFooter = null;
 
     #[ORM\OneToMany(mappedBy: 'swipe', targetEntity: AnalyticsVisitsSwipe::class, cascade: ['remove'])]

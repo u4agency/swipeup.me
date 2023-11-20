@@ -26,10 +26,16 @@ class WidgetSwipe
     private Collection $widgetData;
 
     #[ORM\OneToOne(mappedBy: 'widgetBody', targetEntity: Swipe::class, cascade: ['persist', 'remove'])]
-    private ?Swipe $swipe = null;
+    private ?Swipe $swipeBody = null;
+
+    #[ORM\OneToOne(mappedBy: 'widgetFooter', targetEntity: Swipe::class, cascade: ['persist', 'remove'])]
+    private ?Swipe $swipeFooter = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'widgetSwipe', targetEntity: WNewsletter::class, cascade: ['persist', 'remove'])]
+    private Collection $WNesletter;
 
     public function __toString(): string
     {
@@ -69,7 +75,7 @@ class WidgetSwipe
 
     public function getSingleWidgetData(string $slug)
     {
-        return $this->widgetData->filter(fn (WidgetData $widgetData) => $widgetData->getDataName() === $slug)->first();
+        return $this->widgetData->filter(fn(WidgetData $widgetData) => $widgetData->getDataName() === $slug)->first();
     }
 
     public function addWidgetData(WidgetData $widgetData): self
@@ -99,12 +105,19 @@ class WidgetSwipe
      */
     public function getSwipe(): ?Swipe
     {
-        return $this->swipe;
+        return $this->swipeBody ?? $this->swipeFooter;
     }
 
-    public function setSwipe(?Swipe $swipe): self
+    public function setSwipeBody(?Swipe $swipe): self
     {
-        $this->swipe = $swipe;
+        $this->swipeBody = $swipe;
+
+        return $this;
+    }
+
+    public function setSwipeFooter(?Swipe $swipe): self
+    {
+        $this->swipeFooter = $swipe;
 
         return $this;
     }

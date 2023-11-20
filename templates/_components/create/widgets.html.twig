@@ -5,5 +5,5 @@
 {% elseif widget.widget == 'email' %}
     {{ include('_components/create/widgets/email.html.twig', {widgetData: widget.widgetData, widgetType}) }}
 {% elseif widget.widget == 'newsletter' %}
-    {{ include('_components/create/widgets/newsletter.html.twig', {widgetData: widget.widgetData, widgetType}) }}
+    {{ include('_components/create/widgets/newsletter.html.twig', {widgetData: widget.widgetData, widgetType, widgetSwipe: widget}) }}
 {% endif %}

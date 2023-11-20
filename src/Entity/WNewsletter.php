@@ -19,8 +19,8 @@ class WNewsletter
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: WidgetSwipe::class, cascade: ['persist', 'remove'], inversedBy: 'WNesletter')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?WidgetSwipe $widgetSwipe = null;
 
     public function __toString()
