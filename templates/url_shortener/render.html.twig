@@ -1,0 +1,16 @@
+<div class="p-3 mb-2 bg-success text-white space-y-4">
+    <h2 class="text-white font-bold text-2xl">Votre lien a bien été raccourci !</h2>
+    <div class="space-y-2">
+        <p class="text-white">Votre lien court : <a href="{{ path('app_url_shortener', {slug: urlShortener.slug}) }}"
+                                                    class="text-swipe-500">{{ url('app_url_shortener', {slug: urlShortener.slug}) }}</a>
+        </p>
+        {% if not app.user %}
+            <p class="text-white">Vous n'êtes pas connecté, pour voir combien de personne ont cliqué sur votre lien,
+                cliquez
+                sur le lien suivant après vous êtes connecté : <a
+                        href="{{ path('app_urlshortener_claimurlshortener', {id: urlShortener.id}) }}"
+                        class="text-swipe-500">{{ url('app_urlshortener_claimurlshortener', {id: urlShortener.id}) }}</a>
+            </p>
+        {% endif %}
+    </div>
+</div>

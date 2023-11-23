@@ -19,7 +19,7 @@ export default class extends Controller {
 
     onSubmit(event) {
         event.preventDefault();
-        console.log()
+
         if (this.confirmValue) {
             Swal.fire({
                 title: this.titleValue || null,

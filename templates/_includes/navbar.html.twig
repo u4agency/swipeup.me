@@ -28,10 +28,15 @@
             </button>
         </div>
         <div class="hidden lg:flex lg:gap-x-12">
-            <a href="{{ path('app_homepage') }}" class="text-sm font-semibold leading-6 text-white">Accueil</a>
-            <a href="{{ path('app_homepage') }}#presentation" class="text-sm font-semibold leading-6 text-white">Présentation</a>
-            <a href="{{ path('app_homepage') }}#offres" class="text-sm font-semibold leading-6 text-white">Nos
-                offres</a>
+            <a href="{{ path('app_swipe_create') }}" class="text-sm font-semibold leading-6 text-white">
+                Link-in-bio (SwipeUp)
+            </a>
+            <a href="{{ path('app_urlshortener_createurlshortener') }}" class="text-sm font-semibold leading-6 text-white">
+                Réducteur de lien
+            </a>
+            <a href="{{ path('app_swipe_create') }}" class="text-sm font-semibold leading-6 text-white">
+                Générateur de QR Code
+            </a>
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-2">
             {% if app.user %}
@@ -103,11 +108,13 @@
                 </div>
             {% else %}
                 <a href="{{ path('app_login') }}"
-                   class="self-center text-sm font-semibold leading-6 text-white rounded-lg border-2 border-swipe-500 hover:border-swipe-600 px-6 py-3">Se
-                    connecter</a>
+                   class="self-center text-sm font-semibold leading-6 text-white rounded-lg border-2 border-swipe-500 hover:border-swipe-600 px-6 py-3">
+                    Se connecter
+                </a>
                 <a href="{{ path('app_register') }}"
-                   class="self-center text-sm font-semibold leading-6 text-black rounded-lg bg-swipe-500 hover:bg-swipe-600 px-6 py-3">Créer
-                    mon SwipeUp <span aria-hidden="true">&rarr;</span></a>
+                   class="self-center text-sm font-semibold leading-6 text-white rounded-lg bg-gradient-to-tr from-swipe-900 to-swipe-400 hover:to-swipe-500 focus:to-swipe-600 px-6 py-3">
+                    S'inscrire <span aria-hidden="true">&rarr;</span>
+                </a>
             {% endif %}
         </div>
     </nav>
@@ -145,13 +152,15 @@
             <div class="mt-6 flow-root">
                 <div class="-my-6 divide-y divide-gray-500/10">
                     <div class="space-y-2 py-6">
-                        <a href="{{ path('app_homepage') }}"
-                           class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50">Accueil</a>
-                        <a href="{{ path('app_homepage') }}#presentation"
-                           class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50">Présentation</a>
-                        <a href="{{ path('app_homepage') }}#offres"
-                           class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50">Nos
-                            offres</a>
+                        <a href="{{ path('app_swipe_create') }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50">
+                            Link-in-bio (SwipeUp)
+                        </a>
+                        <a href="{{ path('app_urlshortener_createurlshortener') }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50">
+                            Réducteur de lien
+                        </a>
+                        <a href="{{ path('app_swipe_create') }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50">
+                            Générateur de QR Code
+                        </a>
                     </div>
                     <div class="py-6">
                         {% if app.user %}
@@ -172,11 +181,13 @@
                                 déconnecter</a>
                         {% else %}
                             <a href="{{ path('app_login') }}"
-                               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Se
-                                connecter</a>
+                               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">
+                                Se connecter
+                            </a>
                             <a href="{{ path('app_register') }}"
-                               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">Créer
-                                mon SwipeUp <span aria-hidden="true">&rarr;</span></a>
+                               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-50">
+                                S'inscrire <span aria-hidden="true">&rarr;</span>
+                            </a>
                         {% endif %}
                     </div>
                 </div>

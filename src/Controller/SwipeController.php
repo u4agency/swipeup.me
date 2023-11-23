@@ -28,16 +28,6 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 #[Route('/')]
 class SwipeController extends AbstractController
 {
-    #[Route('swipeup', name: 'app_swipeup')]
-    public function allSwipeUps(
-        SwipeRepository $swipeRepository,
-    ): Response
-    {
-        return $this->render('swipe/index.html.twig', [
-            'swipes' => $swipeRepository->findAll()
-        ]);
-    }
-
     #[Route('@{slug}', name: 'app_swipeup_single', priority: -1)]
     public function singleSwipeUp(
         SwipeUp         $swipeup,
@@ -64,7 +54,7 @@ class SwipeController extends AbstractController
         ]);
     }
 
-    #[Route('create', name: 'app_swipe_create')]
+    #[Route('swipeup', name: 'app_swipe_create')]
     public function createSwipe(
         Request                $request,
         EntityManagerInterface $entityManager,
@@ -79,19 +69,21 @@ class SwipeController extends AbstractController
             $swipeup->setSlug($request->query->get('slug'));
         }
 
-        if (!$this->getUser()) return $this->redirectToRoute('app_login');
-
         $form = $this->createForm(SwipeUpCreateType::class, $swipeup);
         $form->handleRequest($request);
 
         if (($form->isSubmitted() && $form->isValid()) || $request->query->has('slug')) {
+            $slugger = new AsciiSlugger();
+            $slug = $slugger->slug($swipeup->getSlug());
+
+            if (!$this->getUser()) return $this->redirectToRoute('app_register', ['swipeup_create' => $slug]);
+
             if ($swipeUpRepository->countAllExceptDeleted($this->getUser()) >= 1 && !$this->isGranted('ROLE_ADMIN')) {
                 $this->addFlash('error', 'Vous avez atteint la limite de création de SwipeUp !');
                 return $this->redirectToRoute('app_user_admin_list');
             }
 
-            $slugger = new AsciiSlugger();
-            $swipeup->setSlug($slugger->slug($swipeup->getSlug()));
+            $swipeup->setSlug($slug);
             $swipeup->setTitle("SwipeUp de " . $this->getUser());
             $swipeup->setDescription("Ceci est le SwipeUP de " . $this->getUser() . " !");
             $swipeup->setAuthor($this->getUser());

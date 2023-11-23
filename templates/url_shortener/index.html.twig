@@ -1,20 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello URLShortenerController!{% endblock %}
+{% block title %}URL Shortener - Réduisez vos Liens Gratuitement{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/kelli/Github Desktop/swipeup-mockup/src/Controller/URLShortenerController.php'|file_link(0) }}">src/Controller/URLShortenerController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/kelli/Github Desktop/swipeup-mockup/templates/url_shortener/index.html.twig'|file_link(0) }}">templates/url_shortener/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <section class="container mx-auto font-light sm:text-xl text-white body-font">
+        <div class="mx-auto px-5 py-24 md:py-36">
+            <div class="w-full space-y-16 max-w-4xl mx-auto">
+                <h1 class="mx-auto text-4xl sm:text-5xl font-semibold lg:text-6xl text-center">
+                    Réduisez vos liens en un clic !
+                </h1>
+                <div class="space-y-8 w-full mx-auto">
+                    {{ form_start(form, {
+                        'attr': stimulus_controller('confirm-submit', {
+                            submitAsync: true,
+                            confirm: false,
+                        }).toArray()
+                        |merge(stimulus_action('confirm-submit', 'onSubmit', 'submit').toArray())
+                        |merge({
+                            'class': 'w-full space-y-8',
+                        })
+                    }) }}
+                    <div>
+                        <div class="space-y-2">
+                            <p class="font-bold text-lg">{{ form_label(form.link) }}</p>
+                            <div class="bg-white flex w-full relative py-4 px-3 rounded-xl">
+                                {{ form_widget(form.link, {
+                                    'attr': {
+                                        'class': 'focus:ring-0 focus:outline-none border-none w-full text-black text-lg',
+                                    }
+                                }) }}
+                            </div>
+                            <div class="text-red-600">{{ form_errors(form.link) }}</div>
+                        </div>
+                        <div class="w-full flex justify-center">
+                            <button class="rounded-xl text-white bg-gradient-to-tr from-swipe-900 to-swipe-400 hover:to-swipe-500 focus:to-swipe-600 py-4 px-8 text-xl w-full">
+                                Réduire mon lien !
+                            </button>
+                        </div>
+                    </div>
+                    <div
+                            {{ stimulus_target('confirm-submit', 'replacedContent') }}
+                    >
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
