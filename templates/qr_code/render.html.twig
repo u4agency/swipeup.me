@@ -1,0 +1,10 @@
+<img src="{{ qr|qr }}" alt="" class="w-full {{ blur ?? 'blur' }}">
+{% if not app.user and urlShortener is not null %}
+    <div class="space-y-2 p-8 pt-0">
+        <p class="text-black">Vous n'êtes pas connecté, pour voir combien de personne ont cliqué sur votre lien,
+            cliquez sur le lien suivant après vous êtes connecté : <a
+                    href="{{ path('app_urlshortener_claimurlshortener', {id: urlShortener.id}) }}"
+                    class="text-swipe-500">{{ url('app_urlshortener_claimurlshortener', {id: urlShortener.id}) }}</a>
+        </p>
+    </div>
+{% endif %}

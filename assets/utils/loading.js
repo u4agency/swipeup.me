@@ -1,5 +1,5 @@
 export default `
-<div class="h-full font-semibold leading-6 text-xl self-center">
+<div class="h-full font-semibold leading-6 text-xl self-center flex justify-center items-center">
     <svg class="animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
          viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

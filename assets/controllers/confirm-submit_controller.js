@@ -1,5 +1,6 @@
 import {Controller} from "@hotwired/stimulus";
 import Swal from "sweetalert2";
+import loading from "../utils/loading";
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
@@ -46,6 +47,10 @@ export default class extends Controller {
             this.element.submit();
 
             return;
+        }
+
+        if (this.hasReplacedContentTarget) {
+            this.replacedContentTarget.innerHTML = loading;
         }
 
         if (this.urlValue) {
