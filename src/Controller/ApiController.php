@@ -13,10 +13,15 @@ use App\Repository\SwipeUpRepository;
 use App\Repository\UserRepository;
 use App\Repository\WidgetRepository;
 use App\Repository\WNewsletterRepository;
+use App\Service\LamialeProcess;
 use Doctrine\ORM\EntityManagerInterface;
+use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -25,6 +30,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
+use ZipArchive;
 
 #[Route('/api')]
 class ApiController extends AbstractController
@@ -259,5 +265,39 @@ class ApiController extends AbstractController
         return $this->render('_api/_wnewsletter.html.twig', [
             'newsletters' => $newsletters,
         ]);
+    }
+
+    #[Route('/v1/send_video', name: '_api_video_send')]
+    public function sendVideo(
+        Request        $request,
+        LamialeProcess $lamialeProcess,
+    ): Response
+    {
+        $videoFile = $request->files->get('video');
+
+        if (!$videoFile) {
+            return new Response('Fichier vidéo non fourni', Response::HTTP_BAD_REQUEST);
+        }
+
+        $client = new Client();
+
+        $response = $client->request('POST', $lamialeProcess->getUrl() . $lamialeProcess->getPath(), [
+            'multipart' => [
+                [
+                    'name' => 'video',
+                    'contents' => fopen($videoFile->getRealPath(), 'r'),
+                    'filename' => $videoFile->getClientOriginalName()
+                ],
+            ],
+        ]);
+
+        if ($response->getStatusCode() !== 200) {
+            return new Response('Erreur lors du traitement de la vidéo', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        // Gestion du fichier ZIP reçu
+        $content = $response->getBody();
+
+        return new Response($content, Response::HTTP_OK);
     }
 }

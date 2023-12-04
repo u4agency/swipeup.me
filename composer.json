@@ -19,6 +19,7 @@
         "easycorp/easyadmin-bundle": "^4.5",
         "friendsofsymfony/ckeditor-bundle": "^2.4",
         "gumbraise/twig-heroicons": "^2.0",
+        "guzzlehttp/guzzle": "^7.8",
         "karser/karser-recaptcha3-bundle": "^0.1.24",
         "knplabs/knp-paginator-bundle": "^6.2",
         "knpuniversity/oauth2-client-bundle": "^2.15",
