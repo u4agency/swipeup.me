@@ -12,6 +12,7 @@
         "beberlei/doctrineextensions": "^v1.3",
         "chillerlan/php-qrcode": "^5.0",
         "davidgorges/color-contrast": "^1.0",
+        "dfridrich/php-mime-type": "^3.0",
         "doctrine/annotations": "^2.0",
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
