@@ -12,6 +12,9 @@ use App\Form\Widgets\Admin\EmailWidgetType;
 use App\Form\Widgets\Admin\NewsletterWidgetType;
 use App\Form\Widgets\Admin\TextWidgetType;
 use App\Repository\WidgetRepository;
+use App\Service\FileTypeService;
+use App\Service\LamialeProcess;
+use Defr\PhpMimeType\MimeType;
 use MarcW\Heroicons\Heroicons;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -22,13 +25,14 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\File;
 
 class SwipeSectionType extends AbstractType
 {
     public function __construct(
         private readonly WidgetRepository $widgetRepository,
         private readonly Security         $security,
+        private readonly LamialeProcess   $lamialeProcess,
         private readonly array            $widgetFields = ['widgetBody', 'widgetFooter'],
     )
     {
@@ -41,7 +45,8 @@ class SwipeSectionType extends AbstractType
         $isEdit = $swipe && $swipe->getId();
 
         $acceptedMimeTypes = [
-            'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/webm'
+            ...FileTypeService::$videoMimeTypes,
+            ...FileTypeService::$imageMimeTypes,
         ];
 
         $builder
@@ -55,14 +60,10 @@ class SwipeSectionType extends AbstractType
                 ],
                 'data' => $isEdit ? $swipe->getBackground()->getBackgroundFile() : null,
                 'constraints' => [
-                    new Image([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => ['image/webp'],
-                        'mimeTypesMessage' => "Le fichier envoyé n'est pas valide",
-                        'maxHeight' => 1920,
-                        'maxWidth' => 1080,
-                        'minRatio' => 9 / 16,
-                        'maxRatio' => 9 / 16,
+                    new File([
+                        'maxSize' => '1G',
+                        'mimeTypes' => $acceptedMimeTypes,
+                        'mimeTypesMessage' => "Le fichier envoyé est trop volumineux ou n'est pas un fichier vidéo ou image valide.",
                     ])
                 ],
             ])
@@ -125,32 +126,48 @@ class SwipeSectionType extends AbstractType
             ->addEventListener(
                 FormEvents::PRE_SUBMIT,
                 function (FormEvent $event) {
+                    // Récupération des données soumises et du formulaire
                     $data = $event->getData();
                     $form = $event->getForm();
                     $formData = $form->getData();
 
+                    // Si aucune donnée n'est soumise, on ne fait rien
                     if (!$data) {
                         return;
                     }
 
                     /**
-                     * Background
+                     * Traitement du champ 'background' (fond)
                      */
                     if (!empty($data['background'])) {
+                        // Récupération ou création de l'entité SwipeImage
                         $swipeImage = $formData->getBackground() ?? new SwipeImage();
-                        $swipeImage->setAuthor($this->security->getUser());
-                        $swipeImage->setBackgroundName($data['background']);
-                        $swipeImage->setBackgroundFile($data['background']);
-                        $swipeImage->setAlt("A Swipe background");
 
+                        // Traitement du fichier soumis
+                        if (in_array(MimeType::get($data['background']->getClientOriginalName()), FileTypeService::$imageMimeTypes)) {
+                            $swipeImage->setBackgroundName($data['background']); // Nom du fond
+                            $swipeImage->setBackgroundFile($data['background']);
+                        } else if (in_array(MimeType::get($data['background']->getClientOriginalName()), FileTypeService::$videoMimeTypes)) {
+                            $videoProcess = $this->lamialeProcess->get($data['background']);
+                            $swipeImage->setBackgroundName($videoProcess); // Nom du fond
+                        } else {
+                            return;
+                        }
+
+                        // Configuration de l'entité SwipeImage avec les données soumises
+                        $swipeImage->setAuthor($this->security->getUser()); // Définition de l'auteur
+                        $swipeImage->setAlt("A Swipe background"); // Texte alternatif pour l'image
+                        // Mise à jour de l'entité principale avec le SwipeImage modifié
                         $form->getData()->setBackground($swipeImage);
 
+                        // Mise à jour des données du formulaire avec le fichier modifié
                         $data['background'] = $swipeImage->getBackgroundFile();
                         $event->setData($data);
                     }
 
-
+                    // Boucle sur chaque champ de widget spécifique
                     foreach ($this->widgetFields as $widgetType) {
+                        // Configuration des champs de widget spécifiques
                         $this->setupSpecificWidgetField($form, $widgetType, $form->getConfig()->getOption($widgetType . 'Value'));
                     }
                 })

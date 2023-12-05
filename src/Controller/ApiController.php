@@ -266,38 +266,4 @@ class ApiController extends AbstractController
             'newsletters' => $newsletters,
         ]);
     }
-
-    #[Route('/v1/send_video', name: '_api_video_send')]
-    public function sendVideo(
-        Request        $request,
-        LamialeProcess $lamialeProcess,
-    ): Response
-    {
-        $videoFile = $request->files->get('video');
-
-        if (!$videoFile) {
-            return new Response('Fichier vidéo non fourni', Response::HTTP_BAD_REQUEST);
-        }
-
-        $client = new Client();
-
-        $response = $client->request('POST', $lamialeProcess->getUrl() . $lamialeProcess->getPath(), [
-            'multipart' => [
-                [
-                    'name' => 'video',
-                    'contents' => fopen($videoFile->getRealPath(), 'r'),
-                    'filename' => $videoFile->getClientOriginalName()
-                ],
-            ],
-        ]);
-
-        if ($response->getStatusCode() !== 200) {
-            return new Response('Erreur lors du traitement de la vidéo', Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-
-        // Gestion du fichier ZIP reçu
-        $content = $response->getBody();
-
-        return new Response($content, Response::HTTP_OK);
-    }
 }
