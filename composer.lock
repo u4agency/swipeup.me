@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc1c30a3d2b2f10d7585806582963446",
+    "content-hash": "0564f4c2651202ba40c9899147e6d68c",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1531,6 +1531,59 @@
                 "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.2"
             },
             "time": "2022-10-27T11:44:00+00:00"
+        },
+        {
+            "name": "dfridrich/php-mime-type",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dfridrich/PhpMimeType.git",
+                "reference": "8f4725db463b579067c564b067ad7f362e9f4cf4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dfridrich/PhpMimeType/zipball/8f4725db463b579067c564b067ad7f362e9f4cf4",
+                "reference": "8f4725db463b579067c564b067ad7f362e9f4cf4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9",
+                "symfony/http-foundation": "^4.4|^5.0|^6.0"
+            },
+            "suggest": {
+                "symfony/http-foundation": "Allows you to get prepared Symfony response."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Defr\\": "legacy/",
+                    "Defr\\PhpMimeType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dennis Fridrich",
+                    "email": "fridrich.dennis@gmail.com"
+                }
+            ],
+            "description": "Simple PHP class for guessing file mime type based on file extension with ability to use in Symfony project.",
+            "homepage": "https://github.com/dfridrich/PhpMimeType",
+            "keywords": [
+                "mimetype",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/dfridrich/PhpMimeType/issues",
+                "source": "https://github.com/dfridrich/PhpMimeType/tree/v3.0.0"
+            },
+            "time": "2022-06-21T22:18:48+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -6680,6 +6733,50 @@
                 "source": "https://github.com/ralouphie/getallheaders/tree/develop"
             },
             "time": "2019-03-08T08:55:37+00:00"
+        },
+        {
+            "name": "ralouphie/mimey",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ralouphie/mimey.git",
+                "reference": "2a0e997c733b7c2f9f8b61cafb006fd5fb9fa15a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ralouphie/mimey/zipball/2a0e997c733b7c2f9f8b61cafb006fd5fb9fa15a",
+                "reference": "2a0e997c733b7c2f9f8b61cafb006fd5fb9fa15a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7.0",
+                "satooshi/php-coveralls": ">=1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mimey\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ralph Khattar",
+                    "email": "ralph.khattar@gmail.com"
+                }
+            ],
+            "description": "PHP package for converting file extensions to MIME types and vice versa.",
+            "support": {
+                "issues": "https://github.com/ralouphie/mimey/issues",
+                "source": "https://github.com/ralouphie/mimey/tree/master"
+            },
+            "time": "2016-09-28T03:36:23+00:00"
         },
         {
             "name": "revolt/event-loop",
