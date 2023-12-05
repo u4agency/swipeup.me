@@ -152,9 +152,10 @@ class SwipeSectionType extends AbstractType
                         } else if (in_array(MimeType::get($data['background']->getClientOriginalName()), FileTypeService::$videoMimeTypes)) {
                             $videoProcess = $this->lamialeProcess->get($data['background']);
                             if ($videoProcess instanceof Exception || $videoProcess instanceof GuzzleException) {
-                                return;
+                                $swipeImage->setBackgroundName(null); // Nom du fond
+                            } else {
+                                $swipeImage->setBackgroundName($videoProcess); // Nom du fond
                             }
-                            $swipeImage->setBackgroundName($videoProcess); // Nom du fond
                         } else {
                             return;
                         }
