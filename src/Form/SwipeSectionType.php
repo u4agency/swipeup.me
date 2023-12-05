@@ -15,6 +15,8 @@ use App\Repository\WidgetRepository;
 use App\Service\FileTypeService;
 use App\Service\LamialeProcess;
 use Defr\PhpMimeType\MimeType;
+use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use MarcW\Heroicons\Heroicons;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -149,6 +151,9 @@ class SwipeSectionType extends AbstractType
                             $swipeImage->setBackgroundFile($data['background']);
                         } else if (in_array(MimeType::get($data['background']->getClientOriginalName()), FileTypeService::$videoMimeTypes)) {
                             $videoProcess = $this->lamialeProcess->get($data['background']);
+                            if ($videoProcess instanceof Exception || $videoProcess instanceof GuzzleException) {
+                                return;
+                            }
                             $swipeImage->setBackgroundName($videoProcess); // Nom du fond
                         } else {
                             return;

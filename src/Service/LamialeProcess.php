@@ -2,7 +2,9 @@
 
 namespace App\Service;
 
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\StreamInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -30,22 +32,26 @@ readonly class LamialeProcess
         return $this->path;
     }
 
-    public function get($videoFile): ?string
+    public function get($videoFile): Exception|string|GuzzleException|null
     {
         if (!$videoFile) {
             return null;
         }
 
         $client = new Client();
-        $response = $client->request('POST', $this->getUrl() . $this->getPath(), [
-            'multipart' => [
-                [
-                    'name' => 'video',
-                    'contents' => fopen($videoFile->getRealPath(), 'r'),
-                    'filename' => $videoFile->getClientOriginalName()
+        try {
+            $response = $client->request('POST', $this->getUrl() . $this->getPath(), [
+                'multipart' => [
+                    [
+                        'name' => 'video',
+                        'contents' => fopen($videoFile->getRealPath(), 'r'),
+                        'filename' => $videoFile->getClientOriginalName()
+                    ],
                 ],
-            ],
-        ]);
+            ]);
+        } catch (GuzzleException $e) {
+            return $e;
+        }
 
         if ($response->getStatusCode() !== 200) {
             return null;
