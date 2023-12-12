@@ -75,6 +75,8 @@ class FileTypeService
 
     static public function getType($obj, $name): ?string
     {
+        if ($obj === null) return null;
+
         if ($obj->getBackgroundName() !== null && self::$uploaderHelper->asset($obj, $name)) {
             try {
                 (string)$mime = mime_content_type(self::$parameterBag->get('kernel.project_dir') . '/public' . self::$uploaderHelper->asset($obj, $name));
@@ -89,6 +91,8 @@ class FileTypeService
 
     static public function getMime($obj, $name): ?string
     {
+        if ($obj === null) return null;
+
         if ($obj->getBackgroundName() !== null && self::$uploaderHelper->asset($obj, $name)) {
             try {
                 return (string)mime_content_type(self::$parameterBag->get('kernel.project_dir') . '/public' . self::$uploaderHelper->asset($obj, $name));
