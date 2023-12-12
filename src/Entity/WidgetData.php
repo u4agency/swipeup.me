@@ -94,6 +94,7 @@ class WidgetData
         return $this->updatedAt;
     }
 
+    #[ORM\PreUpdate]
     #[ORM\PrePersist]
     public function setUpdatedAtValue(): void
     {
