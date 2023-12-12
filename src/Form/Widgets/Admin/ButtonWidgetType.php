@@ -39,16 +39,12 @@ class ButtonWidgetType extends AbstractType
             ])
             ->add('colorType', ChoiceType::class, [
                 'required' => true,
-                'mapped' => false,
                 'expanded' => true,
                 'choices' => [
                     'Simple' => 'simple',
                     'Dégradé' => 'gradient',
                 ],
                 'data' => $options['autocomplete_data']['colorType'] ?? 'simple',
-                'attr' => [
-                    "value" => true,
-                ],
             ])
             ->add('primaryColor', ColorType::class, [
                 'required' => true,
