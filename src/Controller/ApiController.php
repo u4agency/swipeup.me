@@ -10,27 +10,16 @@ use App\Repository\AnalyticsVisitsSwipeRepository;
 use App\Repository\NewsletterRepository;
 use App\Repository\SwipeRepository;
 use App\Repository\SwipeUpRepository;
-use App\Repository\UserRepository;
 use App\Repository\WidgetRepository;
 use App\Repository\WNewsletterRepository;
-use App\Service\LamialeProcess;
 use Doctrine\ORM\EntityManagerInterface;
-use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
-use ZipArchive;
 
 #[Route('/api')]
 class ApiController extends AbstractController
@@ -96,7 +85,6 @@ class ApiController extends AbstractController
             return new JsonResponse(['error' => 'Mauvaise requête.'], Response::HTTP_BAD_REQUEST);
         }
     }
-
 
     #[Route('/create_swipe', name: '_api_swipe_create')]
     public function swipeCreate(
