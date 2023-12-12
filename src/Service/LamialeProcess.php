@@ -5,18 +5,19 @@ namespace App\Service;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Psr\Http\Message\StreamInterface;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Random\RandomException;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use function hash;
+use function microtime;
+use function random_int;
+use function sprintf;
+use function substr;
 
 readonly class LamialeProcess
 {
     public function __construct(
-        private string           $url,
-        private string           $path,
+        private string          $url,
+        private string          $path,
         private KernelInterface $appKernel,
     )
     {
@@ -32,11 +33,12 @@ readonly class LamialeProcess
         return $this->path;
     }
 
+    /**
+     * @throws RandomException
+     */
     public function get($videoFile): Exception|string|GuzzleException|null
     {
-        if (!$videoFile) {
-            return null;
-        }
+        if (!$videoFile) return null;
 
         $client = new Client();
         try {
@@ -53,17 +55,18 @@ readonly class LamialeProcess
             return $e;
         }
 
-        if ($response->getStatusCode() !== 200) {
-            return null;
-        }
+        if ($response->getStatusCode() !== 200) return null;
 
-        $filename = tempnam($this->appKernel->getProjectDir().'/public/assets/uploaded/swipe_images', 'lamiale');
+        $path = $this->appKernel->getProjectDir() . '/public/assets/uploaded/swipe_images/';
 
-        file_put_contents($filename, $response->getBody());
+        $name = hash('sha256', microtime(true) . random_int(0, 9_999_999));
 
-        $webmFilename = $filename . '.webm';
-        rename($filename, $webmFilename);
+        if (null !== 50) $name = substr($name, 0, 50);
+        if ($extension = $videoFile->guessExtension()) $name = sprintf('%s.%s', $name, $extension);
 
-        return basename($webmFilename);
+        $fullPath = $path . $name;
+        file_put_contents($fullPath, $response->getBody());
+
+        return basename($fullPath);
     }
 }
