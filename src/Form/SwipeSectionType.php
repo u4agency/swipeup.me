@@ -218,6 +218,9 @@ class SwipeSectionType extends AbstractType
 
                             $setter = 'set' . ucfirst($field);
                             $data->$setter($widgetSwipe);
+                        } else {
+                            $setter = 'set' . ucfirst($field);
+                            $formData->$setter(null);
                         }
                     }
                 });
