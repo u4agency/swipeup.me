@@ -200,11 +200,13 @@ class SwipeSectionType extends AbstractType
                             $widgetsData = $form->getExtraData()[$field . 'Data'] ?? $form->get($field . 'Data')->getData();
 
                             foreach ($widgetsData as $dataName => $dataValue) {
-                                if ($dataValue === null || $formData->$wsGetter() === null) {
+                                if ($dataValue === null) {
                                     continue;
                                 }
 
-                                if (!($widgetData = $formData->$wsGetter()->getSingleWidgetData($dataName))) {
+                                if ($formData->$wsGetter()) {
+                                    $widgetData = $formData->$wsGetter()->getSingleWidgetData($dataName);
+                                } else {
                                     $widgetData = new WidgetData();
                                 }
 
