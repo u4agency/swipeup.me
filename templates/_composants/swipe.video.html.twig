@@ -16,7 +16,7 @@
         <div class="h-1/6 flex items-start justify-center relative">
             {% if swipe.widgetFooter %}
                 {{ include('_components/_widget_footer.html.twig', {
-                    swipe: swipe,
+                    widgetSwipe: swipe.widgetFooter,
                     widget: swipe.widgetFooter.widget,
                     data: swipe.widgetFooter.widgetData,
                 }) }}
