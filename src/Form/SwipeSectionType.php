@@ -186,6 +186,7 @@ class SwipeSectionType extends AbstractType
 
                     foreach ($this->widgetFields as $field) {
                         $wsGetter = 'get' . ucfirst($field);
+                        $wsSetter = 'set' . ucfirst($field);
                         $widgetType = $form->get($field)->getData();
 
                         if ($widgetType instanceof Widget) {
@@ -216,11 +217,9 @@ class SwipeSectionType extends AbstractType
                                 $widgetSwipe->addWidgetData($widgetData);
                             }
 
-                            $setter = 'set' . ucfirst($field);
-                            $data->$setter($widgetSwipe);
+                            $data->$wsSetter($widgetSwipe);
                         } else {
-                            $setter = 'set' . ucfirst($field);
-                            $formData->$setter(null);
+                            $formData->$wsSetter(null);
                         }
                     }
                 });
@@ -263,6 +262,7 @@ class SwipeSectionType extends AbstractType
             $form->add($widgetType . 'Data', $widgetTypes[$widgetValue], [
                 'mapped' => false,
                 'autocomplete_data' => $autocomplete_data ?? [],
+                'allow_extra_fields' => true,
             ]);
         }
     }
