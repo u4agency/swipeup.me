@@ -42,7 +42,6 @@ class SwipeCRUDController extends AbstractController
             }
 
             if (!$section->isValid()) {
-                dd($section->getErrors(true, false));
                 return new Response("Le formulaire n'est pas valide.", 400);
             }
 
