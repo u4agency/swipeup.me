@@ -1,16 +1,13 @@
 {{ form_start(form, {
     'attr': stimulus_controller('confirm-submit', {
-        confirm: 'false',
-        submitAsync: 'true',
+        confirm: false,
+        submitAsync: true,
     }).toArray()
     |merge(stimulus_action('confirm-submit', 'onSubmit', 'submit').toArray()),
 
     'action': path('_api_user_widgets_newsletter', {id:widgetSwipe.id})
 }) }}
-<div
-        {{ stimulus_target('confirm-submit', 'replacedContent') }}
-        class="space-y-2"
->
+<div class="space-y-2">
     {{ form_widget(form.email, {
         'label_attr': {
             'class': 'sr-only'
@@ -19,8 +16,12 @@
             'class': 'rounded-lg border-gray-300 shadow-sm focus:border-swipe-400 focus:ring focus:ring-swipe-200 focus:ring-opacity-50 block w-full sm:text-sm border-gray-300',
         }
     }) }}
-    <button class="relative block rounded-lg bg-gradient-to-br from-swipe-400 to-swipe-900 py-3 px-2 text-white w-full text-center shadow-md">
-        Continuer
-    </button>
+    <div
+            {{ stimulus_target('confirm-submit', 'replacedContent') }}
+    >
+        <button class="relative block rounded-lg bg-gradient-to-br from-swipe-400 to-swipe-900 py-3 px-2 text-white w-full text-center shadow-md">
+            Continuer
+        </button>
+    </div>
 </div>
 {{ form_end(form) }}
