@@ -34,6 +34,18 @@ class SitemapController extends AbstractController
             'priority' => 1
         ];
         $urls[] = [
+            'loc' => $this->generateUrl('app_swipe_create'),
+            'priority' => 0.9
+        ];
+        $urls[] = [
+            'loc' => $this->generateUrl('app_urlshortener_createurlshortener'),
+            'priority' => 0.9
+        ];
+        $urls[] = [
+            'loc' => $this->generateUrl('app_qrcode_createqrcode'),
+            'priority' => 0.9
+        ];
+        $urls[] = [
             'loc' => $this->generateUrl('app_login'),
             'priority' => 0.9
         ];
