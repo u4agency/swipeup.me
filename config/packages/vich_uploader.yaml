@@ -9,6 +9,13 @@ vich_uploader:
         service: Vich\UploaderBundle\Naming\HashNamer
         options: { algorithm: 'sha256', length: 50 }
       delete_on_remove: true
+    swipe_thumbnails:
+      uri_prefix: /assets/uploaded/swipe_thumbnails
+      upload_destination: '%kernel.project_dir%/public/assets/uploaded/swipe_thumbnails'
+      namer:
+        service: Vich\UploaderBundle\Naming\HashNamer
+        options: { algorithm: 'sha256', length: 50 }
+      delete_on_remove: true
     swipeup_logo:
       uri_prefix: /assets/uploaded/swipeup_logo
       upload_destination: '%kernel.project_dir%/public/assets/uploaded/swipeup_logo'

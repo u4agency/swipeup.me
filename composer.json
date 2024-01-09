@@ -72,7 +72,8 @@
         "twig/markdown-extra": "^3.7",
         "twig/twig": "^2.12|^3.0",
         "vich/uploader-bundle": "^2.2",
-        "whichbrowser/parser": "^2.1"
+        "whichbrowser/parser": "^2.1",
+      "ext-zip": "*"
     },
     "config": {
         "allow-plugins": {

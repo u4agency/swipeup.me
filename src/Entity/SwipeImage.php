@@ -26,6 +26,12 @@ class SwipeImage
     #[Vich\UploadableField(mapping: "swipe_background", fileNameProperty: "backgroundName")]
     private $backgroundFile;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $thumbnailName;
+
+    #[Vich\UploadableField(mapping: "swipe_thumbnails", fileNameProperty: "thumbnailName")]
+    private $thumbnailFile;
+
     #[ORM\Column]
     private ?\DateTimeImmutable $uploadedAt = null;
 
@@ -52,6 +58,9 @@ class SwipeImage
     {
         $this->uploadedAt = new \DateTimeImmutable();
         $this->isPublic = false;
+
+        $this->thumbnailName = $this->backgroundName;
+        $this->thumbnailFile = $this->backgroundFile;
     }
 
     public function getId(): ?Uuid
@@ -81,6 +90,30 @@ class SwipeImage
     public function getBackgroundName()
     {
         return $this->backgroundName;
+    }
+
+    public function setThumbnailFile(File $thumbnailFile = null)
+    {
+        $this->thumbnailFile = $thumbnailFile;
+
+        if ($thumbnailFile) {
+            $this->uploadedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getThumbnailFile()
+    {
+        return $this->thumbnailFile;
+    }
+
+    public function setThumbnailName($thumbnailName)
+    {
+        $this->thumbnailName = $thumbnailName;
+    }
+
+    public function getThumbnailName()
+    {
+        return $this->thumbnailName;
     }
 
     public function getUploadedAt(): ?\DateTimeImmutable

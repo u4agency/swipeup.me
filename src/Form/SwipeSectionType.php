@@ -28,6 +28,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class SwipeSectionType extends AbstractType
 {
@@ -35,6 +36,7 @@ class SwipeSectionType extends AbstractType
         private readonly WidgetRepository $widgetRepository,
         private readonly Security         $security,
         private readonly LamialeProcess   $lamialeProcess,
+        private readonly UploaderHelper   $uploaderHelper,
         private readonly array            $widgetFields = ['widgetBody', 'widgetFooter'],
     )
     {
@@ -148,13 +150,15 @@ class SwipeSectionType extends AbstractType
                         // Traitement du fichier soumis
                         if (in_array(MimeType::get($data['background']->getClientOriginalName()), FileTypeService::$imageMimeTypes)) {
                             $swipeImage->setBackgroundName($data['background']); // Nom du fond
-                            $swipeImage->setBackgroundFile($data['background']);
+                            $swipeImage->setBackgroundFile($data['background']); // Nom du fond
                         } else if (in_array(MimeType::get($data['background']->getClientOriginalName()), FileTypeService::$videoMimeTypes)) {
                             $videoProcess = $this->lamialeProcess->get($data['background']);
-                            if ($videoProcess instanceof Exception || $videoProcess instanceof GuzzleException) {
+                            if ($videoProcess instanceof Exception || $videoProcess instanceof GuzzleException || $videoProcess === null) {
                                 $swipeImage->setBackgroundName(null); // Nom du fond
+                                $swipeImage->setThumbnailName(null); // Nom du fond
                             } else {
-                                $swipeImage->setBackgroundName($videoProcess); // Nom du fond
+                                $swipeImage->setBackgroundName($videoProcess['background']); // Nom du fond
+                                $swipeImage->setThumbnailName($videoProcess['thumbnail']); // Nom du fond
                             }
                         } else {
                             return;

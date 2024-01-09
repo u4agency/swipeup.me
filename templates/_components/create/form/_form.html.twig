@@ -22,7 +22,6 @@
     <div class="flex flex-row gap-x-4">
         <div class="w-full space-y-4">
             <div class="space-y-2">
-                <p class="text-xs text-gray-600">Widget Body :</p>
                 <div
                         {{ stimulus_controller('swipe-radio', {
                             classActive: 'text-swipe-800',
@@ -48,7 +47,6 @@
                 </div>
             </div>
             <div class="space-y-2">
-                <p class="text-xs text-gray-600">Widget Footer :</p>
                 <div
                         {{ stimulus_controller('swipe-radio', {
                             classActive: 'text-swipe-800',
@@ -85,7 +83,7 @@
             <label>
                 <img
                         class="bg-clip-border border-2 border-dashed border-swipe-500/50 rounded-xl w-20 h-28 object-cover cursor-pointer"
-                        src="{{ background is not null and background|get_mime_type('backgroundFile') == 'image' ? vich_uploader_asset(background, 'backgroundFile') }}"
+                        src="{{ background is not null ? vich_uploader_asset(background, background.thumbnailName ? 'thumbnailFile' : 'backgroundFile') }}"
                         alt=""
                         {{ stimulus_target('image4label', 'imagePreview') }}
                 >
