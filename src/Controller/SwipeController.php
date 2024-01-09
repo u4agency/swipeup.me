@@ -33,6 +33,7 @@ class SwipeController extends AbstractController
         SwipeUp         $swipeup,
         UploaderHelper  $uploaderHelper,
         KernelInterface $appKernel,
+        Request         $request,
     ): Response
     {
         if ($swipeup->getStatus() === Status::DELETED && !$this->isGranted('ROLE_ADMIN')) throw $this->createNotFoundException();
@@ -42,6 +43,8 @@ class SwipeController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $preview = $request->query->has('preview');
+
         $colors = [];
         $colorsNumber = 4;
         $extractedColors = $swipeup->getLogoName() ? (new ColorExtractor(Palette::fromFilename($appKernel->getProjectDir() . '/public/' . $uploaderHelper->asset($swipeup, 'logoFile'))))->extract($colorsNumber) : null;
@@ -50,6 +53,7 @@ class SwipeController extends AbstractController
         return $this->render('swipe/single.html.twig', [
             'swipeup' => $swipeup,
             'colors' => $colors,
+            'preview' => $preview,
             'lightText' => ColorContrast::getBool($colors[0]),
         ]);
     }

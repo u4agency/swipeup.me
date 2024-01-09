@@ -27,9 +27,9 @@ class AnalyticsVisitsSwipeUpSubscriber implements EventSubscriberInterface
 
         $route = $request->attributes->get('_route');
         $params = $request->attributes->get('_route_params');
+        $preview = $request->query->has('preview');
 
-
-        if ($route !== 'app_swipeup_single' || !$params['slug']) return;
+        if ($route !== 'app_swipeup_single' || !$params['slug'] || $preview) return;
 
         $swipeup = $this->swipeUpRepository->findOneBy(['slug' => $params['slug']]);
 

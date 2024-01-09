@@ -1,5 +1,5 @@
 <div class="
-    h-[100dvh] w-full relative text-center text-lg bg-cover bg-no-repeat bg-center
+    {{ preview ? "h-[686px]" : "h-[100dvh]" }} w-full relative text-center text-lg bg-cover bg-no-repeat bg-center
     before:bg-black/50 before:content-[''] before:w-full before:h-full before:block before:absolute
 "
      style="background-image: url({{ vich_uploader_asset(swipe.background, 'backgroundFile') }})">

@@ -54,18 +54,21 @@
 {% endblock %}
 
 {% block body %}
-    <div
+    {% if not preview %}
+        <span
             {{ stimulus_controller('analytics', {
                 ga: swipeup.gaId,
                 fb: swipeup.fbId,
             }) }}
-            id="app"
-            class="h-full"
-            style="background-color: {{ colors[0] }}"
+    />
+    {% endif %}
+    <div id="app"
+         class="h-full w-full"
+         style="background-color: {{ colors[0] }}"
     >
         <div class="fixed left-0 right-0 spotlight opacity-25"
              style="background: linear-gradient(45deg, {{ colors[1] }}, {{ colors[3] }} 50%, {{ colors[2] }});"></div>
-        <div class="sm:aspect-[9/16] mx-auto h-full relative">
+        <div class="{{ preview ? "h-[686px] w-full" : "h-full sm:aspect-[9/16]" }} mx-auto relative">
             <div
                     class="h-full w-full mySwiper swiper-container"
                     {{ stimulus_controller('swiper', {
@@ -123,18 +126,20 @@
                             {% if swipe.background|get_mime_type('backgroundFile') == 'image' %}
                                 {{ include('_composants/swipe.image.html.twig', {
                                     swipeup: swipeup,
-                                    swipe: swipe
+                                    swipe: swipe,
+                                    preview: preview
                                 }) }}
                             {% elseif swipe.background|get_mime_type('backgroundFile') == 'video' %}
                                 {{ include('_composants/swipe.video.html.twig', {
                                     swipeup: swipeup,
-                                    swipe: swipe
+                                    swipe: swipe,
+                                    preview: preview
                                 }) }}
                             {% endif %}
                         </div>
                     {% endfor %}
                     <div class="swiper-slide">
-                        <div class="h-[100dvh] w-full relative text-center text-lg pt-8 space-y-4 {{ lightText ? 'text-white' : 'text-black' }}">
+                        <div class="{{ preview ? "h-[686px]" : "h-[100dvh]" }} w-full relative text-center text-lg pt-8 space-y-4 {{ lightText ? 'text-white' : 'text-black' }}">
                             <div class="space-y-2">
                                 {{ include('_components/_swipe.logo.html.twig') }}
                                 <h2 class="font-black text-xl">@{{ swipeup.slug }}</h2>

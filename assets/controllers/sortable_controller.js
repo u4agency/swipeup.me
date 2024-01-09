@@ -7,7 +7,6 @@ export default class extends Sortable {
 
     connect() {
         super.connect()
-        console.log('Do what you want here.')
 
         // The sortable.js instance.
         this.sortable
@@ -21,8 +20,10 @@ export default class extends Sortable {
 
     // You can override the `onUpdate` method here.
     async onUpdate({item: t, newIndex: a}) {
-        await fetch(`${this.urlValue + t.dataset.swipeId.toString()}_${(a+1).toString()}`, {
+        await fetch(`${this.urlValue + t.dataset.swipeId.toString()}_${(a + 1).toString()}`, {
             method: 'PATCH',
+        }).then(() => {
+            this.dispatch('sortable:updated');
         });
     }
 
