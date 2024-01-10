@@ -57,14 +57,44 @@ export default class extends Controller {
 
                 this.dispatch('modal:open', {detail: {content}});
             }
+        } else {
+            if (file) {
+                this.updateInput({detail: {file: [file]}})
+            }
         }
     }
 
     updateInput(event) {
-        this.fileInputTarget.files = event.detail.file;
-
         let [file] = event.detail.file;
+        let fileType = mime.getType(file.name).split("/")[0];
 
-        this.imagePreviewTarget.src = URL.createObjectURL(file);
+        if (fileType === "image") {
+            if (file) {
+                this.fileInputTarget.files = event.detail.file;
+
+                this.imagePreviewTarget.src = URL.createObjectURL(file);
+                this.imagePreviewTarget.classList.remove('hidden');
+            }
+        } else {
+            if (file) {
+                let video = document.createElement('video');
+                video.src = URL.createObjectURL(file);
+
+                video.addEventListener('loadeddata', () => {
+                    video.currentTime = 0; // ou un autre moment si vous préférez
+                });
+
+                video.addEventListener('seeked', () => {
+                    let canvas = document.createElement('canvas');
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    let ctx = canvas.getContext('2d');
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    this.imagePreviewTarget.src = canvas.toDataURL();
+                    this.imagePreviewTarget.classList.remove('hidden');
+                });
+            }
+        }
     }
 }

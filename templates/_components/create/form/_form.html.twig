@@ -22,6 +22,16 @@
     <div class="flex flex-row gap-x-4">
         <div class="w-full space-y-4">
             <div class="space-y-2">
+                <p class="text-xs text-gray-600 flex items-center gap-1">
+                    Zone de Contenu
+                    <span
+                    {{ stimulus_controller('tippy', {
+                        text: "La zone de contenu est la partie principale de votre Swipe",
+                    }) }}
+                    >{{ heroicon('information-circle', 'solid', {
+                            'class': 'w-4 h-4 inline-block fill-current',
+                        }) }}</span>
+                </p>
                 <div
                         {{ stimulus_controller('swipe-radio', {
                             classActive: 'text-swipe-800',
@@ -47,6 +57,16 @@
                 </div>
             </div>
             <div class="space-y-2">
+                <p class="text-xs text-gray-600 flex items-center gap-1">
+                    Zone d'Action
+                    <span
+                    {{ stimulus_controller('tippy', {
+                        text: "La zone d'action est la partie qui permet d'interagir avec votre Swipe",
+                    }) }}
+                    >{{ heroicon('information-circle', 'solid', {
+                            'class': 'w-4 h-4 inline-block fill-current',
+                        }) }}</span>
+                </p>
                 <div
                         {{ stimulus_controller('swipe-radio', {
                             classActive: 'text-swipe-800',
@@ -81,19 +101,36 @@
                 class="space-y-2"
         >
             <label>
-                <img
-                        class="bg-clip-border border-2 border-dashed border-swipe-500/50 rounded-xl w-20 h-28 object-cover cursor-pointer"
-                        src="{{ background is not null ? vich_uploader_asset(background, background.thumbnailName ? 'thumbnailFile' : 'backgroundFile') }}"
-                        alt=""
-                        {{ stimulus_target('image4label', 'imagePreview') }}
-                >
-                {{ form_widget(form.background, {
-                    attr: {
-                        'data-image4label-target': 'fileInput',
-                        'data-action': 'change->image4label#updateLabel cropper:crop:save:swipeBackground@window->image4label#updateInput:swipeBackground',
-                        'data-image4label-type-param': 'swipeBackground',
-                    }
-                }) }}
+                <p class="text-xs text-gray-600 flex items-center justify-center gap-1">
+                    Fond
+                    <span
+                    {{ stimulus_controller('tippy', {
+                        text: "Le fond est l'image qui sera affichée en arrière plan de votre Swipe. Cela peut être une image ou une vidéo.",
+                    }) }}
+                    >{{ heroicon('information-circle', 'solid', {
+                            'class': 'w-4 h-4 inline-block fill-current',
+                        }) }}</span>
+                </p>
+                <div class="h-28 w-20 block relative group cursor-pointer bg-clip-border border-2 border-dashed border-swipe-500/50 rounded-xl">
+                    <div class="absolute w-full h-full flex justify-center items-center group-hover:bg-swipe-500/50 duration-200 rounded-xl">
+                        {{ heroicon('camera', 'solid', {
+                            'class': 'fill-swipe-400/75 group-hover:fill-swipe-500 w-10 h-10 duration-200',
+                        }) }}
+                    </div>
+                    <img
+                            class="{{ background is null ? "hidden" }} rounded-xl w-full h-full object-cover cursor-pointer"
+                            src="{{ background is not null ? vich_uploader_asset(background, background.thumbnailName ? 'thumbnailFile' : 'backgroundFile') }}"
+                            alt=""
+                            {{ stimulus_target('image4label', 'imagePreview') }}
+                    >
+                    {{ form_widget(form.background, {
+                        attr: {
+                            'data-image4label-target': 'fileInput',
+                            'data-action': 'change->image4label#updateLabel cropper:crop:save:swipeBackground@window->image4label#updateInput:swipeBackground',
+                            'data-image4label-type-param': 'swipeBackground',
+                        }
+                    }) }}
+                </div>
             </label>
         </div>
     </div>
