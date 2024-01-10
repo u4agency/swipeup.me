@@ -21,12 +21,12 @@
                 <div class="flex-1 py-6 px-4 relative flex flex-col gap-y-4">
                     <div>
                         {% if swipe.widgetBody %}
-                            {{ include('_components/create/widgets.html.twig', {widget: swipe.widgetBody, widgetType: "Body"}) }}
+                            {{ include('_components/create/widgets.html.twig', {widget: swipe.widgetBody, widgetType: "Contenu"}) }}
                         {% endif %}
                     </div>
                     <div>
                         {% if swipe.widgetFooter %}
-                            {{ include('_components/create/widgets.html.twig', {widget: swipe.widgetFooter, widgetType: "Footer"}) }}
+                            {{ include('_components/create/widgets.html.twig', {widget: swipe.widgetFooter, widgetType: "Action"}) }}
                         {% endif %}
                     </div>
                 </div>
