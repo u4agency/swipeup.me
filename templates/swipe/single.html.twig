@@ -42,7 +42,7 @@
         @import url('https://fonts.googleapis.com/css2?family={{swipeup.font}}&display=swap');
 
         .mySwiper {
-            font-family: '{{swipeup.font|replace(' ', '+')}}', 'Reem Kufi', sans-serif;
+            font-family: '{{swipeup.font|replace({"+": " "})}}', 'Reem Kufi', sans-serif;
         }
 
         {% endif %}
