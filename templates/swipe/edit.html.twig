@@ -39,7 +39,7 @@
             </a>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-8 relative">
+        <div class="grid lg:grid-cols-2 gap-8 relative">
             <div
                     class="space-y-8"
             >
@@ -73,11 +73,12 @@
                     }) }}
                 </div>
             </div>
-            <div class="sticky top-24 justify-center hidden md:flex h-min">
+            <div class="sticky top-24 justify-center hidden lg:flex h-min">
                 <div class="relative aspect-[366/729] z-10 mx-auto w-full max-w-[366px]">
                     <div class="absolute inset-y-[calc(1/729*100%)] left-[calc(7/729*100%)] right-[calc(5/729*100%)] rounded-[calc(58/366*100%)/calc(58/729*100%)] shadow-2xl"></div>
                     <div class="absolute left-[calc(23/366*100%)] top-[calc(23/729*100%)] grid h-[calc(686/729*100%)] w-[calc(318/366*100%)] transform overflow-hidden">
                         <div
+                                class="max-w-[318px] w-full h-full relative"
                                 {{ stimulus_controller('iframe', {
                                     link: path('app_swipeup_single', {slug: swipeup.slug, preview: true}),
                                 }) }}
