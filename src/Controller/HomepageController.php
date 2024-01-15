@@ -109,4 +109,15 @@ class HomepageController extends AbstractController
             'page' => $page,
         ]);
     }
+
+    #[Route('/notyf', name: 'app_notyf')]
+    public function notyf(): Response
+    {
+        $this->addFlash('success', 'Ceci est un message de succès');
+        $this->addFlash('info', 'Ceci est un message d\'information');
+        $this->addFlash('warning', 'Ceci est un message d\'avertissement');
+        $this->addFlash('error', 'Ceci est un message d\'erreur');
+
+        return $this->redirectToRoute('app_homepage');
+    }
 }

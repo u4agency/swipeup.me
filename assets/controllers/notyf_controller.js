@@ -11,7 +11,7 @@ export default class extends Controller {
     }
 
     connect() {
-        if (typeof this.flashesValue === "object") {
+        if (this.flashesValue && typeof this.flashesValue === "object" && !Array.isArray(this.flashesValue)) {
             for (const type in this.flashesValue) {
                 this.flashesValue[type].forEach(message => {
                     notyf(type, message);

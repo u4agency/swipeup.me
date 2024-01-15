@@ -1,5 +1,3 @@
-{% set flashes = app.flashes %}
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -19,9 +17,6 @@
     {% endblock %}
 </head>
 <body
-        {{ flashes is defined and flashes is not iterable ? stimulus_controller('notyf', {
-            flashes: flashes|json_encode
-        }) }}
         class="bg-black font-swipe overflow-x-hidden"
 >
 {% include '_includes/navbar_admin.html.twig' %}
