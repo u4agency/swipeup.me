@@ -19,7 +19,7 @@
     {% endblock %}
 </head>
 <body
-        {{ flashes is iterable ? stimulus_controller('notyf', {
+        {{ flashes is not iterable ? stimulus_controller('notyf', {
             flashes: flashes|json_encode
         }) }}
         class="bg-black font-swipe overflow-x-hidden"
