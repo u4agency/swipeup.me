@@ -5,7 +5,7 @@ import notyf from "../utils/notyf";
 export default class extends Controller {
     static values = {
         flashes: {
-            type: "object" | "array",
+            type: Object,
             default: {},
         },
     }
