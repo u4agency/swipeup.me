@@ -1,4 +1,10 @@
-<div class="flex-1 py-6 px-4 relative flex flex-col gap-y-4">
+<div
+        {{ intro ? stimulus_controller('introjs', {
+            dispatch: "_form:modal:finished"
+        }) }}
+        id="newSwipeForm"
+        class="flex-1 py-6 px-4 relative flex flex-col gap-y-4"
+>
     <div class="flex justify-end">
         <button
                 {{ stimulus_action(stimulus_controller_name, stimulus_action_name ?? 'revert') }}
@@ -21,7 +27,13 @@
     }) }}
     <div class="flex flex-row gap-x-4">
         <div class="w-full space-y-4">
-            <div class="space-y-2">
+            <div
+                    {{ stimulus_target('introjs', 'element') }}
+                    data-title="Zone de Contenu"
+                    data-intro="La zone de contenu est la partie centrale de votre Swipe. C'est ici que vous allez pouvoir ajouter des éléments dynamiques."
+                    data-step="1"
+                    class="space-y-2"
+            >
                 <p class="text-xs text-gray-600 flex items-center gap-1">
                     Zone de Contenu
                     <span
@@ -35,12 +47,16 @@
                 <div
                         {{ stimulus_controller('swipe-radio', {
                             classActive: 'text-swipe-800',
-                            specificWidgetUrl: path('_api_widget_select'),
+                            specificWidgetUrl: path('_api_widget_select', {intro}),
                             widgetType: 'widgetBody',
                         }) }}
                 >
                     <div
-                            {{ stimulus_target('swipe-radio', 'radio') }}
+                            {{ stimulus_target('swipe-radio', 'radio')
+                            |stimulus_target('introjs', 'element') }}
+                            data-title="Ajouter un élément"
+                            data-intro="C'est la liste des éléments que vous pouvez ajouter dans votre Swipe."
+                            data-step="4"
                     >
                         {{ form_widget(form.widgetBody) }}
                     </div>
@@ -56,7 +72,13 @@
                     </div>
                 </div>
             </div>
-            <div class="space-y-2">
+            <div
+                    {{ stimulus_target('introjs', 'element') }}
+                    data-title="Zone d'Action"
+                    data-intro="La zone d'action est la partie qui permet d'interagir avec votre Swipe. C'est ici que vous allez pouvoir ajouter des éléments interactifs."
+                    data-step="2"
+                    class="space-y-2"
+            >
                 <p class="text-xs text-gray-600 flex items-center gap-1">
                     Zone d'Action
                     <span
@@ -70,7 +92,7 @@
                 <div
                         {{ stimulus_controller('swipe-radio', {
                             classActive: 'text-swipe-800',
-                            specificWidgetUrl: path('_api_widget_select'),
+                            specificWidgetUrl: path('_api_widget_select', {intro}),
                             widgetType: 'widgetFooter',
                         }) }}
                 >
@@ -98,9 +120,14 @@
                     width: 1080,
                     height: 1920,
                 }) }}
-                class="space-y-2"
         >
-            <label>
+            <label
+                    {{ stimulus_target('introjs', 'element') }}
+                    data-title="Fond du Swipe"
+                    data-intro="Le fond est l'image qui sera affichée en arrière plan de votre Swipe. Cela peut être une image ou une vidéo."
+                    data-step="3"
+                    class="space-y-2"
+            >
                 <p class="text-xs text-gray-600 flex items-center justify-center gap-1">
                     Fond
                     <span

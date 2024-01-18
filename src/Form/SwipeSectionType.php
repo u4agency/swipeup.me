@@ -78,7 +78,13 @@ class SwipeSectionType extends AbstractType
                 'class' => Widget::class,
                 'placeholder' => $this->getIcon('x-mark', "Supprimer le widget"),
                 'label_html' => true,
-                'choice_label' => fn(Widget $widget) => $this->getIcon($widget->getIcon(), $widget->getDescription()),
+                'choice_label' => fn(Widget $widget) => $this->getIcon($widget->getIcon(), $widget->getDescription(), $widget->getIcon() === "pencil-square" ? [
+                    'data-introjs-target' => "element",
+                    'data-title' => "Éditer le contenu",
+                    'data-intro' => "Cliquez sur l'icône avec le crayon pour ajouter un texte au milieu de votre section et modifier sa couleur !",
+                    'data-step' => 5,
+                    'data-action' => "click->introjs#close",
+                ] : null),
                 'choices' => $this->widgetRepository->findByDisplay("widgetBody"),
                 'data' => $isEdit && $swipe->getWidgetBody() ? $swipe->getWidgetBody()->getWidget() : null,
                 'attr' => [
@@ -239,12 +245,13 @@ class SwipeSectionType extends AbstractType
         ]);
     }
 
-    private function getIcon($icon, $content): false|array|string
+    private function getIcon($icon, $content, array $classes = []): false|array|string
     {
         return Heroicons::get($icon, 'solid', [
             'class' => 'hover:text-swipe-800 w-6 h-6 fill-current cursor-pointer',
             'data-controller' => 'tippy',
             'data-tippy-text-value' => $content,
+            ...$classes,
         ]);
     }
 

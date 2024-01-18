@@ -1,6 +1,13 @@
 {# templates/_components/create/form/text.html.twig #}
 
-<div class="specific-widget space-y-2 py-4">
+<div
+        {{ intro ? stimulus_controller('introjs') }}
+        {{ stimulus_target('introjs', 'element') }}
+        data-title="Formulaire de texte"
+        data-intro="Ce formulaire permet de créer un champ de texte."
+        data-step="1"
+        class="specific-widget space-y-2 py-4"
+>
     {{ form_widget(form[widget ~ 'Data'].text) }}
     {{ form_row(form[widget ~ 'Data'].color) }}
 </div>

@@ -53,6 +53,7 @@ class UserController extends AbstractController
 
         return $this->render('swipe/edit.html.twig', [
             'swipeup' => $swipeup,
+            'intro' => $this->getUser()->getSwipeUps()->count() === 1 && $swipeup->getSwipes()->count() <= 1,
         ]);
     }
 

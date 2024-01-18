@@ -134,6 +134,7 @@ class ApiController extends AbstractController
             'action' => $this->generateUrl('_api_swipe_create'),
             'swipeup' => $swipeup,
             'background' => $swipe->getBackground(),
+            'intro' => $this->getUser()->getSwipeUps()->count() === 1 && $swipeup->getSwipes()->count() <= 1,
         ]);
     }
 
@@ -160,10 +161,10 @@ class ApiController extends AbstractController
         ]);
         $form->get($request->query->get('widget'))->setData($widget);
 
-
         return $this->render('_components/create/form/' . $widget->getName() . '.html.twig', [
             'form' => $form->createView(),
             'widget' => $request->query->get('widget'),
+            'intro' => (bool)$request->query->get('intro'),
         ]);
     }
 

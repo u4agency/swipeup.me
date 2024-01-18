@@ -1,14 +1,24 @@
-{% for swipe in swipes %}
-    <div data-swipe-id="{{ swipe.id }}"
-         class="bg-white rounded-xl relative before:content[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-white/80 before:rounded-xl"
-         style="background-image: url('{{ vich_uploader_asset(swipe.background, swipe.background.thumbnailName ? 'thumbnailFile' : 'backgroundFile') }}');
-                 background-size: cover; background-position: center;"
+{% for key, swipe in swipes %}
+    <div
+            {{ stimulus_target('introjs', 'element') }}
+            data-intro="Ceci est le Swipe que vous venez de créer"
+            data-swipe-id="{{ swipe.id }}"
+            data-step="4"
+            class="bg-white rounded-xl relative before:content[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-white/80 before:rounded-xl"
+            style="background-image: url('{{ vich_uploader_asset(swipe.background, swipe.background.thumbnailName ? 'thumbnailFile' : 'backgroundFile') }}');
+                    background-size: cover; background-position: center;"
     >
         <div class="z-10 relative flex">
             <div class="flex items-center justify-center w-8 h-auto text-black">
-                {{ heroicon('bars-4', 'solid', {
-                    'class': "fill-current w-5 h-5 handle",
-                }) }}
+                <div
+                        {{ stimulus_target('introjs', 'element') }}
+                        data-intro="Vous pouvez le déplacer en cliquant ici et en le glissant vers le haut ou le bas"
+                        data-step="5"
+                >
+                    {{ heroicon('bars-4', 'solid', {
+                        'class': "fill-current w-5 h-5 handle",
+                    }) }}
+                </div>
             </div>
             <div
                     {{ stimulus_controller('swipe--edit', {
@@ -32,6 +42,9 @@
                 </div>
                 <div class="flex gap-2 justify-end px-6 pb-3">
                     <button
+                            {{ stimulus_target('introjs', 'element') }}
+                            data-intro="Vous pouvez modifier ce Swipe en cliquant ici"
+                            data-step="6"
                             {{ stimulus_action('swipe--edit', 'getEditForm', 'click') }}
                             class="text-black"
                     >
@@ -41,6 +54,9 @@
                         }) }}
                     </button>
                     <form
+                            {{ stimulus_target('introjs', 'element') }}
+                            data-intro="Et le supprimer en cliquant ici"
+                            data-step="7"
                             {{ stimulus_controller('confirm-submit',  {
                                 title: "Remove this item?",
                                 icon: "warning",

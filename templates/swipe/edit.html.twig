@@ -5,7 +5,18 @@
 {% endblock %}
 
 {% block body %}
-    <main class="font-light body-font py-24 max-w-7xl mx-auto space-y-8 lg:space-y-12 px-4">
+    <main
+            {{ intro ? stimulus_controller('introjs', {
+                steps: [
+                    {
+                        title: "Bienvenue dans votre SwipeUp",
+                        intro: "Nous allons vous présenter les différentes fonctionnalités de l'application"
+                    }
+                ],
+                dispatch: "introjs:modal:close",
+            }) }}
+            class="font-light body-font py-24 max-w-7xl mx-auto space-y-8 lg:space-y-12 px-4"
+    >
         <h1 class="sr-only">{{ swipeup.title }}</h1>
 
         {{ include('_includes/modal.html.twig', {
@@ -15,6 +26,10 @@
 
         <div class="w-full flex justify-between">
             <a
+                    {{ stimulus_target('introjs', 'element') }}
+                    data-title="Paramètres du SwipeUp"
+                    data-intro="Ici vous pouvez modifier les paramètres du SwipeUp comme son titre, son logo, et plein d'autres choses."
+                    data-step="1"
                     href="{{ path('app_user_swipeup_settings', {slug: swipeup.slug}) }}"
                     class="text-right text-gray-500 hover:text-gray-400 text-xl flex gap-2 items-baseline"
             >
@@ -26,6 +41,10 @@
                 <span class="sr-only md:not-sr-only">Paramètres du SwipeUp</span>
             </a>
             <a
+                    {{ stimulus_target('introjs', 'element') }}
+                    data-title="Lien du SwipeUp"
+                    data-intro="C'est le lien que vous pouvez partager pour que les gens puissent voir votre SwipeUp."
+                    data-step="2"
                     href="{{ path('app_swipeup_single', {slug: swipeup.slug}) }}"
                     class="text-right text-swipe-500 hover:text-swipe-600 text-xl flex gap-2 items-baseline"
             >
@@ -51,13 +70,23 @@
                         {{ stimulus_action('swipe-section', 'revert', 'swipe--edit:swipe:edit@window') }}
                 >
                     <button
-                            {{ stimulus_action('swipe-section', 'addSwipe') }}
+                            {{ stimulus_action('swipe-section', 'addSwipe')
+                            |stimulus_action('introjs', 'close', 'click', {'button': true})
+                            |stimulus_action('swipe-section', 'addSwipe', 'introjs:introjs:modal:close@window') }}
+                            {{ stimulus_target('introjs', 'element') }}
+                            data-title="Création d'un Swipe"
+                            data-intro="Cliquez sur le bouton pour créer un Swipe. Un Swipe est une section de votre SwipeUp. Vous pouvez en créer autant que vous voulez."
+                            data-step="8"
                             class="bg-swipe-500 hover:bg-swipe-600 cursor-pointer w-full rounded-xl p-3 text-white text-xl flex gap-2 justify-center"
                     >
                         <span>Ajouter un Swipe</span>
                     </button>
                 </div>
                 <div
+                        {{ stimulus_target('introjs', 'element') }}
+                        data-title="Vos sections"
+                        data-intro="Ici vous pouvez voir toutes les sections de votre SwipeUp qu'on appelle des “Swipes”."
+                        data-step="3"
                         class="space-y-4 text-white"
                         {{ stimulus_controller('swipe--swipes', {
                             url: fragment_uri(controller('App\\Controller\\ApiController::getSwipes', {slug: swipeup.slug})),
@@ -86,8 +115,12 @@
                         >
                         </div>
                     </div>
-                    <img alt="" loading="lazy" width="366" height="729"
-                         class="pointer-events-none absolute inset-0 h-full w-full" style="color:transparent"
+                    <img alt=""
+                         loading="lazy"
+                         width="366"
+                         height="729"
+                         class="pointer-events-none absolute inset-0 h-full w-full"
+                         style="color:transparent"
                          src="{{ asset('assets/images/phone-frame.svg') }}"></div>
             </div>
         </div>

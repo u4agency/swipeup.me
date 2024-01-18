@@ -17,6 +17,10 @@ class TextWidgetType extends AbstractType
                 'required' => true,
                 'attr' => [
                     "placeholder" => "Le titre de votre section",
+                    'data-introjs-target' => "element",
+                    'data-title' => "Ajouter un texte à votre section",
+                    'data-intro' => "Vous pouvez ajouter un texte à votre section.",
+                    'data-step' => 2,
                 ],
                 'data' => $options['autocomplete_data']['text'] ?? null,
             ])
@@ -25,6 +29,10 @@ class TextWidgetType extends AbstractType
                 'label' => "La couleur du texte de votre section",
                 'attr' => [
                     "placeholder" => "La couleur du texte de votre section",
+                    'data-introjs-target' => "element",
+                    'data-title' => "Changer la couleur du texte",
+                    'data-intro' => "Vous pouvez changer la couleur du texte de votre section.",
+                    'data-step' => 3,
                 ],
                 'data' => $options['autocomplete_data']['color'] ?? null,
             ]);
