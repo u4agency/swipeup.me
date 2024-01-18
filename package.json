@@ -44,6 +44,7 @@
         "fullpage.js": "^4.0.9",
         "image-palette": "^2.1.0",
         "image-pixels": "^2.2.2",
+        "intro.js": "^7.2.0",
         "mime": "^4.0.0",
         "postcss-100vh-fix": "^1.0.2",
         "postcss-viewport-height-correction": "^1.1.1",
