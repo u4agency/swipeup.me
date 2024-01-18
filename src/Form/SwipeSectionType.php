@@ -59,7 +59,7 @@ class SwipeSectionType extends AbstractType
                 'label' => "Fond de la section",
                 'required' => !$isEdit,
                 'attr' => [
-                    'class' => 'hidden',
+                    'class' => 'sr-only',
                     'accept' => implode(", ", $acceptedMimeTypes),
                 ],
                 'data' => $isEdit ? $swipe->getBackground()->getBackgroundFile() : null,
