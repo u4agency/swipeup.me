@@ -7,7 +7,8 @@ import analytics from "../services/analytics";
 export default class extends Controller {
     static targets = ['pagination', 'newsletterPopup'];
     static values = {
-        isFeaturedSwipeUp: Boolean, analyticsUrl: String,
+        isFeaturedSwipeUp: Boolean,
+        analyticsUrl: String,
     };
 
     connect() {
@@ -25,16 +26,20 @@ export default class extends Controller {
             spaceBetween: 0,
             mousewheel: true,
             pagination: {
-                el: this.paginationTarget, clickable: true,
+                el: this.paginationTarget,
+                clickable: true,
             },
             on: {
                 init: (event) => {
-                    this.swipeAnalytics(event.slides[event.activeIndex].dataset.swipe, event.slides[event.activeIndex].dataset.analyticsCsrf)
-                }, slideChange: (event) => {
-                    this.swipeAnalytics(event.slides[event.activeIndex].dataset.swipe, event.slides[event.activeIndex].dataset.analyticsCsrf, this.lastAnalyticsSwipeId,)
+                    if (this.hasAnalyticsUrlValue) this.swipeAnalytics(event.slides[event.activeIndex].dataset.swipe, event.slides[event.activeIndex].dataset.analyticsCsrf)
+                },
+                slideChange: (event) => {
+                    if (this.hasAnalyticsUrlValue) {
+                        this.swipeAnalytics(event.slides[event.activeIndex].dataset.swipe, event.slides[event.activeIndex].dataset.analyticsCsrf, this.lastAnalyticsSwipeId,)
 
-                    if (event.activeIndex === 1 && this.isFeaturedSwipeUpValue && this.isNewsletterPopup) {
-                        this.openNewsletterPopup(event);
+                        if (event.activeIndex === 1 && this.isFeaturedSwipeUpValue && this.isNewsletterPopup) {
+                            this.openNewsletterPopup(event);
+                        }
                     }
                 },
             }
