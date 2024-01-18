@@ -49,7 +49,6 @@ class SwipeCRUDController extends AbstractController
                 $entityManager->persist($swipe);
                 $entityManager->flush();
             } catch (\Exception $exception) {
-                dd($exception);
                 return new Response('Une erreur est survenue.', 500);
             }
 
