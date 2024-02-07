@@ -14,7 +14,14 @@ export default class extends Controller {
     }
 
     connect() {
-        this.introJs = introJs();
+        this.introJs = introJs().setOptions({
+            exitOnOverlayClick: false,
+            exitOnEsc: false,
+            nextLabel: "Suivant",
+            prevLabel: "Retour",
+            skipLabel: "Passer",
+            doneLabel: "Fin",
+        });
         this.introJs
             .addSteps(
                 [
