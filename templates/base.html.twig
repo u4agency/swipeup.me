@@ -55,23 +55,11 @@
                 subTitle: block('title'),
             }) }}
         {% endblock %}
-
-        <script>
-            document.addEventListener("mousemove", e => {
-                cursorFollower.style.cssText = `display: block; transform: translate3d(${e.clientX - 150}px, ${e.clientY - 150}px, 0);`
-            });
-        </script>
     {% endblock %}
 </head>
 <body
         class="bg-black font-swipe overflow-x-hidden"
 >
-<div class="overflow-hidden inset-0 -z-50 fixed blur-[100px] select-none pointer-events-none">
-    <div id="cursorFollower"
-         class="w-[300px] h-[300px] -z-50 bg-swipe-100 absolute rounded-full opacity-40"
-         style="display:none;">
-    </div>
-</div>
 {% include '_includes/navbar.html.twig' %}
 {% block body %}{% endblock %}
 {% include '_includes/footer.html.twig' %}

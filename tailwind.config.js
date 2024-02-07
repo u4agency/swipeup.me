@@ -9,6 +9,17 @@ module.exports = {
     ],
     theme: {
         extend: {
+            backgroundPosition: {
+                '50_4': '50% 50%, 50% 50%',
+                '350-50_2': '350% 50%, 350% 50%',
+            },
+            backgroundSize: {
+                '200-100': "200%, 100%",
+                '300-200': "300%, 200%",
+            },
+            backgroundImage: {
+                'rainbow': "repeating-linear-gradient(100deg,#000 0%,#000 7%,transparent 10%,transparent 12%,#000 16%), repeating-linear-gradient(100deg,#60a5fa 10%,#e879f9 15%,#60a5fa 20%,#5eead4 25%,#60a5fa 30%)"
+            },
             inset: {
                 '1/5': '20%', '2/5': '40%', '3/5': '60%', '4/5': '80%',
             },
@@ -27,28 +38,28 @@ module.exports = {
             },
             colors: {
                 'swipe': {
-                    '0': "#edfffe",
-                    '25': "#c0ffff",
-                    '50': "#a3fcfe",
-                    '75': "#64f7fc",
-                    '100': "#05fefc",
-                    '200': "#08e8f8",
-                    '300': "#0bd2f3",
-                    '400': "#0ebcef",
-                    '500': "#11a6ea",
-                    '600': "#1490e6",
-                    '700': "#177ae1",
-                    '800': "#1a64dd",
-                    '900': "#1d4ed8",
-                    '950': "#1e44af",
-                    '1000': "#1e3a8a",
-                    '1100': "#172754",
-                }
+                    '50': '#f0f9ff',
+                    '100': '#e0f2fe',
+                    '200': '#bbe6fc',
+                    '300': '#7fd2fa',
+                    '400': '#3abbf6',
+                    '500': '#11a6ea',
+                    '600': '#0482c5',
+                    '700': '#05689f',
+                    '800': '#095983',
+                    '900': '#0d4a6d',
+                    '950': '#092f48',
+                },
+
             },
             transitionTimingFunction: {
                 'gradient': 'cubic-bezier(.1, 0, .9, 1)',
             },
             keyframes: {
+                jumbo: {
+                    '0%': {backgroundPosition: '50% 50%, 50% 50%'},
+                    '100%': {backgroundPosition: '350% 50%, 350% 50%'},
+                },
                 fadeOut: {
                     '0%': {opacity: '100%'}, '100%': {opacity: '0%'},
                 },
@@ -82,6 +93,7 @@ module.exports = {
                 },
             },
             animation: {
+                jumbo: 'jumbo 60s linear infinite',
                 'gradient-1': 'firstGradient 11s ease infinite',
                 'gradient-2': 'secondGradient 11s ease infinite reverse',
                 'gradient-3': 'thirdGradient 11s ease infinite',
