@@ -1,3 +1,5 @@
+{% set flashes = app.flashes %}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -58,6 +60,9 @@
     {% endblock %}
 </head>
 <body
+        {{ flashes is defined and flashes|length > 0 ? stimulus_controller('notyf', {
+            flashes: flashes|json_encode|raw
+        }) }}
         class="bg-black font-swipe overflow-x-hidden"
 >
 {% include '_includes/navbar.html.twig' %}
