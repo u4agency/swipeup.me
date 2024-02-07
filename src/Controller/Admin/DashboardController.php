@@ -109,7 +109,14 @@ class DashboardController extends AbstractDashboardController
             $dailyCountsAll[$day]++;
         }
 
-        $period2 = new \DatePeriod(\DateTimeImmutable::createFromFormat('Y-m-d', array_keys($dailyCountsAll)[0]), new \DateInterval('P1D'), $endDate);
+        $period2 = new \DatePeriod(
+            \DateTimeImmutable::createFromFormat(
+                'Y-m-d',
+                count(array_keys($dailyCountsAll)) > 0 ? array_keys($dailyCountsAll)[0] : $startDate->format('Y-m-d')
+            ),
+            new \DateInterval('P1D'),
+            $endDate
+        );
         $completeDailyCountsAll = array_fill_keys(array_map(fn($day) => $day->format('Y-m-d'), iterator_to_array($period2)), 0);
 
         foreach ($dailyCountsAll as $day => $count) {
@@ -124,7 +131,7 @@ class DashboardController extends AbstractDashboardController
 
             $previousKey = $dataSwipesTotal[$key];
         }
-        
+
         $monTableauDernieres30 = array_slice($dataSwipesTotal, -$days);
         $labels = array_keys($monTableauDernieres30);
 
