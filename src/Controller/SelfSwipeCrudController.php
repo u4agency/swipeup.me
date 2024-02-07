@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/api/swipe', name: '_api_swipe_')]
-class SwipeCRUDController extends AbstractController
+class SelfSwipeCrudController extends AbstractController
 {
     #[Route('/e{id}', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(
