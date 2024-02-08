@@ -12,13 +12,7 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class SitemapController extends AbstractController
 {
-    /**
-     * @Route("sitemap.xml", name="sitemap", defaults={"_format"="xml"})
-     * @param Request $request
-     * @param SwipeUpRepository $swipeUpRepository
-     * @param UploaderHelper $uploaderHelper
-     * @return Response
-     */
+    #[Route('sitemap.xml', name: 'sitemap', defaults: ['_format' => 'xml'])]
     public function sitemap(
         Request         $request,
         SwipeUpRepository $swipeUpRepository,
@@ -82,12 +76,8 @@ class SitemapController extends AbstractController
 
         return $response;
     }
-
-    /**
-     * @Route("robots.txt", name="robots", defaults={"_format"="txt"})
-     * @param Request $request
-     * @return Response
-     */
+    
+    #[Route('robots.txt', name: 'robots', defaults: ['_format' => 'txt'])]
     public function robots(Request $request): Response
     {
         // Nous récupérons le nom d'hôte depuis l'URL
