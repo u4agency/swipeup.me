@@ -54,7 +54,7 @@
         "stimulus-sortable": "^4.1.1",
         "stimulus-use": "^0.52.0",
         "sweetalert2": "^11.7.22",
-        "swiper": "^8.4.7",
+        "swiper": "^11.0.6",
         "tailwindcss-stimulus-components": "^3.0.4"
     }
 }
