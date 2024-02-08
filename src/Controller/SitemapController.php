@@ -76,7 +76,7 @@ class SitemapController extends AbstractController
 
         return $response;
     }
-    
+
     #[Route('robots.txt', name: 'robots', defaults: ['_format' => 'txt'])]
     public function robots(Request $request): Response
     {

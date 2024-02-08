@@ -56,10 +56,8 @@ class Posts
     #[Assert\File(maxSize: '8192k', mimeTypes: ["image/jpeg", "image/png", "image/webp"])]
     private $imageFile;
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updatedTimestamps(): void
     {
         $dateTimeNow = new \DateTime('now');
