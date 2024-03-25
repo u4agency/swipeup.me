@@ -112,7 +112,7 @@ class SitemapController extends AbstractController
                 'priority' => 0.9
             ];
 
-            foreach ($pageRepository->findAll() as $page) {
+            foreach ($pageRepository->findBy([], ['createdAt' => "DESC"]) as $page) {
                 $urls[] = [
                     'loc' => $this->generateUrl('app_page', ['slug' => $page->getSlug()]),
                     'lastmod' => $page->getUpdatedAt()->format('c'),
@@ -122,7 +122,7 @@ class SitemapController extends AbstractController
             }
         }
         if ($name === 'swipeup') {
-            foreach ($swipeUpRepository->findBy(['status' => Status::PUBLIC]) as $swipeUp) {
+            foreach ($swipeUpRepository->findBy(['status' => Status::PUBLIC], ['createdAt' => "DESC"]) as $swipeUp) {
                 $urls[] = [
                     'loc' => $this->generateUrl('app_swipeup_single', ['slug' => $swipeUp->getSlug()]),
                     'lastmod' => $swipeUp->getUpdatedAt()->format('c'),
@@ -138,10 +138,10 @@ class SitemapController extends AbstractController
             }
         }
         if ($name === 'posts') {
-            foreach ($postRepository->findBy(['status' => Status::PUBLIC]) as $post) {
+            foreach ($postRepository->findBy(['status' => Status::PUBLIC], ['createdAt' => "DESC"]) as $post) {
                 $urls[] = [
                     'loc' => $this->generateUrl('app_article', ['slug' => $post->getSlug()]),
-                    'lastmod' => $post->getUpdatedAt()->format('c'),
+                    'lastmod' => $post->getCreatedAt()->format('c'),
                     'changefreq' => 'daily',
                     'priority' => 0.7,
                     'image' => [
