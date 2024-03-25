@@ -118,11 +118,13 @@
                     <h1 class="py-8 md:py-16 text-center text-black capitalize w-full text-4xl md:text-7xl font-bold leading-tight relative z-10 text-transparent bg-clip-text bg-gradient-to-br from-swipe-700 to-swipe-100">
                         {{ article.title }}
                     </h1>
-                    <figure>
-                        <img src="{{ vich_uploader_asset(article, 'imageFile') }}"
-                             alt="L'image de l'article"
-                             class="w-full aspect-[16/7] rounded-3xl object-cover">
-                    </figure>
+                    {% if article.imageName %}
+                        <figure>
+                            <img src="{{ vich_uploader_asset(article, 'imageFile') }}"
+                                 alt="L'image de l'article"
+                                 class="w-full aspect-[16/7] rounded-3xl object-cover">
+                        </figure>
+                    {% endif %}
                     <div class="relative w-full space-y-4">
                         <p class="text-gray-500 text-sm font-bold">Écrit
                             le {{ article.createdAt|date('d/m/Y \à H:i') }}{{ article.updatedAt != article.createdAt ? ' • Mis à jour le ' ~ article.updatedAt|date('d/m/Y \à H:i') }}
