@@ -45,6 +45,9 @@ class SwipeUpEditType extends AbstractType
             ->add('slug', TextType::class, [
                 'label' => 'Lien du SwipeUp',
             ])
+            ->add('logoName', TextType::class, [
+                'label' => 'Logo du SwipeUp',
+            ])
             ->add('logoFile', VichImageType::class, [
                 'label' => 'Logo du SwipeUp',
                 'attr' => [

@@ -1,0 +1,169 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Créer votre SwipeUp
+{% endblock %}
+
+{% block body %}
+    {{ include('_includes/modal.html.twig', {
+        dispatches: ["image4label:modal:open"],
+        id: "logo" ~ swipeup.id,
+    }) }}
+
+    <div class="flex max-h-dvh">
+        <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 rounded-r-3xl z-0 bg-black relative lg:overflow-y-auto lg:overflow-x-hidden">
+            <div class="mx-auto w-full lg:w-[30rem] relative h-full pt-24 pb-12 flex flex-col gap-16 justify-between">
+                <div class="opacity-75 absolute inset-0 -z-[1] overflow-hidden blur-[100px] select-none pointer-events-none">
+                    <div class="top-2/5 left-3/5 w-[700px] h-[700px] -z-[2] bg-swipe-100 absolute rounded-full opacity-60 ease-gradient animate-gradient-1"></div>
+                    <div class="top-3/5 left-2/5 w-[600px] h-[600px] -z-[1] bg-swipe-500 absolute rounded-full opacity-60 ease-gradient animate-gradient-2"></div>
+                    <div class="top-1/2 left-1/2 w-[500px] h-[500px] -z-[3] bg-swipe-900 absolute rounded-full opacity-60 ease-gradient animate-gradient-3"></div>
+                </div>
+                <div class="space-y-4">
+                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                        Personnalisez les informations de votre SwipeUp !
+                    </h1>
+                    <p class="text-lg tracking-tight text-gray-300">
+                        Personnalisez votre SwipeUp en y ajoutant un titre, une biographie et une photo de profil.
+                    </p>
+                </div>
+                {{ form_start(form, {
+                    'attr': {
+                        'class': 'flex flex-wrap gap-4 items-center',
+                    }
+                }) }}
+
+                <div
+                        {{ stimulus_controller('image4label', {
+                            isLoadedActivated: false
+                        })
+                        |stimulus_controller('input-pass') }}
+                        class="space-y-2 w-full"
+                >
+                    <p class="text-lg text-white text-left font-bold">Logo du SwipeUp</p>
+
+                    {{ form_widget(form.logoName, {
+                        attr: {
+                            'class': 'hidden',
+                            ...stimulus_target('input-pass', 'input').toArray()
+                        }
+                    }) }}
+                    <div class="-mx-4 overflow-x-auto overflow-y-hidden">
+                        <div class="flex flex-row gap-4 items-center px-4 pb-2 lg:pb-0">
+                            <img
+                                    {{ stimulus_action('input-pass', 'handleUpdate', 'click') }}
+                                    {{ stimulus_target('input-pass', 'picture') }}
+                                    data-value="defaultLogo-1.webp"
+                                    class="{{ swipeup.logoName == 'defaultLogo-1.webp' ? "border-double border-4 border-black" }} cursor-pointer w-20 h-20 rounded-full object-contain hover:bg-swipe-500/50"
+                                    src="{{ asset('assets/uploaded/swipeup_logo/defaultLogo-1.webp') }}"
+                            >
+                            <img
+                                    {{ stimulus_action('input-pass', 'handleUpdate', 'click') }}
+                                    {{ stimulus_target('input-pass', 'picture') }}
+                                    data-value="defaultLogo-2.webp"
+                                    class="{{ swipeup.logoName == 'defaultLogo-2.webp' ? "border-double border-4 border-black" }} cursor-pointer w-20 h-20 rounded-full object-contain hover:bg-swipe-500/50"
+                                    src="{{ asset('assets/uploaded/swipeup_logo/defaultLogo-2.webp') }}"
+                            >
+                            <img
+                                    {{ stimulus_action('input-pass', 'handleUpdate', 'click') }}
+                                    {{ stimulus_target('input-pass', 'picture') }}
+                                    data-value="defaultLogo-3.webp"
+                                    class="{{ swipeup.logoName == 'defaultLogo-3.webp' ? "border-double border-4 border-black" }} cursor-pointer w-20 h-20 rounded-full object-contain hover:bg-swipe-500/50"
+                                    src="{{ asset('assets/uploaded/swipeup_logo/defaultLogo-3.webp') }}"
+                            >
+                            <div
+                                    class="rounded-full"
+                                    {{ stimulus_action('input-pass', 'handleUpdate', 'click') }}
+                            >
+                                <label class="block w-[5.25rem] h-[5.25rem] relative group cursor-pointer">
+                                    <div class="absolute w-full h-full flex justify-center items-center group-hover:bg-swipe-500/50 duration-200 rounded-full">
+                                        {{ heroicon('plus', 'solid', {
+                                            'class': 'fill-swipe-400/75 group-hover:fill-swipe-500 w-12 h-12 duration-200',
+                                        }) }}
+                                    </div>
+                                    <img
+                                            class="rounded-full border-2 border-swipe-500/50 object-contain hover:bg-swipe-500/50 w-full h-full"
+                                            src=""
+                                            alt=""
+                                            {{ stimulus_target('input-pass', 'picture') }}
+                                            {{ stimulus_target('image4label', 'imagePreview') }}
+                                    >
+                                    {{ form_widget(form.logoFile, {
+                                        attr: {
+                                            'data-image4label-target': 'fileInput',
+                                            'data-action': 'change->image4label#updateLabel cropper:crop:save:swipeupLogo@window->image4label#updateInput',
+                                            'data-image4label-type-param': 'swipeupLogo',
+                                        }
+                                    }) }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="text-red-600">{{ form_errors(form.logoFile) }}</div>
+                        <div class="text-red-600">{{ form_errors(form.logoName) }}</div>
+                    </div>
+                </div>
+
+                <div class="space-y-2 w-full">
+                    {{ form_label(form.title, null, {
+                        'label_attr': {
+                            'class': 'text-lg text-white text-left font-bold'
+                        },
+                    }) }}
+                    <div class="w-full border border-neutral-700 rounded-2xl">
+                        <div class="bg-transparent flex rounded-2xl max-w-screen-sm relative py-4 px-3 text-lg text-gray-200 border-4 border-transparent">
+                            {{ form_widget(form.title, {
+                                'attr': {
+                                    'class': 'bg-transparent text-lg border-none focus:ring-0 focus:outline-none w-full overflow-x-hidden p-0 m-0 placeholder-gray-400',
+                                    'value': '',
+                                    'placeholder': 'Votre nom',
+                                },
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="text-red-600">{{ form_errors(form.title) }}</div>
+                </div>
+
+                <div class="space-y-2 w-full">
+                    {{ form_label(form.description, null, {
+                        'required': true,
+                        'label_attr': {
+                            'class': 'text-lg text-white text-left font-bold'
+                        },
+                    }) }}
+                    <div class="w-full border border-neutral-700 rounded-2xl">
+                        <div class="bg-transparent flex rounded-2xl max-w-screen-sm relative py-4 px-3 text-lg text-gray-200 border-4 border-transparent">
+                            {{ form_widget(form.description, {
+                                'attr': {
+                                    'class': 'bg-transparent text-lg border-none focus:ring-0 focus:outline-none w-full overflow-x-hidden p-0 m-0 placeholder-gray-400',
+                                    'value': '',
+                                    'placeholder': 'Biographie',
+                                },
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="text-red-600">{{ form_errors(form.description) }}</div>
+                </div>
+
+                {{ form_row(form, {
+                    'label_attr': {
+                        'class': "hidden"
+                    },
+                    'attr': {
+                        'class': "hidden"
+                    }
+                }) }}
+
+                <button type="submit"
+                        class="inline-block w-full text-center text-white bg-gradient-to-bl from-swipe-500 to-swipe-600 hover:from-swipe-600 hover:to-swipe-700 focus:from-swipe-700 focus:to-swipe-800 border-0 py-4 px-6 focus:outline-none rounded-lg text-lg">
+                    Continuer
+                </button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="relative hidden w-0 flex-1 lg:block -ml-8 -z-[3]">
+            <img class="absolute inset-0 h-full w-full object-cover"
+                 src="{{ asset('assets/images/swipeup_background.webp') }}"
+                 alt="Image avec différents SwipeUp">
+        </div>
+    </div>
+{% endblock %}
+

@@ -57,6 +57,51 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/swipeup/@{slug}/steps', name: 'swipeup_steps')]
+    #[Route('/swipeup/@{slug}/steps/customize', name: 'swipeup_steps_customize')]
+    public function stepsCustomizeSwipeUp(
+        SwipeUp                $swipeup,
+        EntityManagerInterface $entityManager,
+        Request                $request,
+    ): Response
+    {
+        if ($swipeup->getStatus() === Status::DELETED && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', "Ce SwipeUp n'existe pas !");
+            return $this->redirectToRoute('app_user_admin_list');
+        }
+
+        if ($swipeup->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', "Vous n'êtes pas l'auteur de ce SwipeUp !");
+            return $this->redirectToRoute('app_swipeup_single', [
+                'slug' => $swipeup->getSlug()
+            ]);
+        }
+
+        $form = $this->createForm(SwipeUpEditType::class, $swipeup);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $slugger = new AsciiSlugger();
+                $swipeup->setSlug($slugger->slug($swipeup->getSlug()));
+
+                $entityManager->persist($swipeup);
+                $entityManager->flush();
+            } catch (\Exception $exception) {
+                $this->addFlash('error', "Une erreur est survenue lors de la modification du SwipeUp !");
+            }
+
+            return $this->redirectToRoute('app_user_swipeup_edit', [
+                'slug' => $swipeup->getSlug()
+            ]);
+        }
+
+        return $this->render('swipe/steps_customize.html.twig', [
+            'swipeup' => $swipeup,
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route('/swipeup/@{slug}/settings', name: 'swipeup_settings')]
     public function settingsSwipeUp(
         SwipeUp                $swipeup,

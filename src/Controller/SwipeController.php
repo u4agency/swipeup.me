@@ -101,7 +101,7 @@ class SwipeController extends AbstractController
                 return $this->redirectToRoute('app_swipe_create');
             }
 
-            return $this->redirectToRoute('app_user_swipeup_edit', ['slug' => $swipeup->getSlug()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_swipeup_steps_customize', ['slug' => $swipeup->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('swipe/create.html.twig', [

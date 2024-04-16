@@ -6,58 +6,59 @@
 
 {% block body %}
     <div class="flex min-h-dvh">
-        <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-            <div class="mx-auto w-full max-w-sm lg:w-96 relative">
+        <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 rounded-r-3xl z-0 bg-black relative">
+            <div class="mx-auto w-full lg:w-[30rem] relative h-full pt-24 pb-12 flex flex-col gap-8 justify-between">
                 <div class="opacity-75 absolute inset-0 -z-[1] overflow-hidden blur-[100px] select-none pointer-events-none">
                     <div class="top-2/5 left-3/5 w-[700px] h-[700px] -z-[2] bg-swipe-100 absolute rounded-full opacity-60 ease-gradient animate-gradient-1"></div>
                     <div class="top-3/5 left-2/5 w-[600px] h-[600px] -z-[1] bg-swipe-500 absolute rounded-full opacity-60 ease-gradient animate-gradient-2"></div>
                     <div class="top-1/2 left-1/2 w-[500px] h-[500px] -z-[3] bg-swipe-900 absolute rounded-full opacity-60 ease-gradient animate-gradient-3"></div>
                 </div>
                 <div>
-                    <h1 class="mt-6 text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
                         Créer votre propre SwipeUp en 2 clics !
                     </h1>
                 </div>
-
-                <div class="mt-8">
-                    <div class="mt-6">
-                        {{ form_start(form, {
+                {{ form_start(form, {
+                    'attr': {
+                        'class': 'flex flex-wrap gap-2 items-center justify-center',
+                        ...stimulus_controller('search-preview', {
+                            url: path('_api_swipeup-name_search')
+                        }).toArray(),
+                    }
+                }) }}
+                {{ form_label(form.slug, null, {
+                    'label_attr': {
+                        'class': 'sr-only'
+                    },
+                }) }}
+                <div class="w-full border border-neutral-700 rounded-2xl">
+                    <div
+                            {{ stimulus_target('search-preview', 'result') }}
+                            class="bg-transparent flex rounded-2xl max-w-screen-sm relative py-4 px-3 text-lg text-gray-200 border-4 border-transparent"
+                    >
+                        <p class="min-w-fit">swipeup.me/@</p>
+                        {{ form_widget(form.slug, {
                             'attr': {
-                                'class': 'space-y-6'
-                            }
+                                'class': 'bg-transparent text-lg border-none focus:ring-0 focus:outline-none w-full overflow-x-hidden p-0 m-0 mr-2 placeholder-gray-400',
+                                ...stimulus_target('search-preview', 'input').toArray(),
+                            },
                         }) }}
-                        <div>
-                            {{ form_label(form.slug, null, {
-                                'label_attr': {
-                                    'class': 'block text-sm font-medium text-gray-300'
-                                },
-                            }) }}
-                            <div class="mt-1">
-                                <div class="flex max-w-lg rounded-md shadow-sm">
-                                    <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500">
-                                        swipeup.me/@
-                                    </span>
-                                    {{ form_widget(form.slug, {
-                                        'attr': {
-                                            'class': 'block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-swipe-500 focus:ring-swipe-500'
-                                        },
-                                    }) }}
-                                </div>
-                            </div>
-                            <div class="text-red-600">{{ form_errors(form.slug) }}</div>
-                        </div>
-                        <div>
-                            <button type="submit"
-                                    class="flex w-full justify-center rounded-md border border-transparent bg-swipe-600 py-2 px-4 font-medium text-white shadow-sm hover:bg-swipe-700 focus:outline-none focus:ring-2 focus:ring-swipe-500 focus:ring-offset-2">
-                                Créer mon SwipeUp
-                            </button>
-                        </div>
-                        {{ form_end(form) }}
                     </div>
                 </div>
+                <div class="text-red-600">{{ form_errors(form.slug) }}</div>
+                <button type="submit"
+                        class="inline-block w-full text-center text-white bg-gradient-to-bl from-swipe-500 to-swipe-600 hover:from-swipe-600 hover:to-swipe-700 focus:from-swipe-700 focus:to-swipe-800 border-0 py-4 px-6 focus:outline-none rounded-lg text-lg">
+                    Créer mon SwipeUp
+                </button>
+                {{ form_end(form) }}
+
+                <p class="text-base tracking-tight text-white">
+                    En créant votre SwipeUp, vous acceptez d'être le seul responsable des fichiers que vous mettez en
+                    ligne. SwipeUp ne gère pas les plaintes ni les litiges relatifs au contenu partagé via votre compte.
+                </p>
             </div>
         </div>
-        <div class="relative hidden w-0 flex-1 lg:block">
+        <div class="relative hidden w-0 flex-1 lg:block -ml-8 -z-[3]">
             <img class="absolute inset-0 h-full w-full object-cover"
                  src="{{ asset('assets/images/swipeup_background.webp') }}"
                  alt="Image avec différents SwipeUp">

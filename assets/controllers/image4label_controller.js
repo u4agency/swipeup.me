@@ -18,6 +18,10 @@ export default class extends Controller {
             type: Number,
             default: 320,
         },
+        isLoadedActivated: {
+            type: Boolean,
+            default: true,
+        }
     }
 
     connect() {
@@ -32,7 +36,7 @@ export default class extends Controller {
         if (aTarget) {
             const imgTarget = aTarget.getElementsByTagName('img')[0];
             aTarget.classList.add('hidden');
-            this.imagePreviewTarget.src = imgTarget.src;
+            if (this.isLoadedActivatedValue) this.imagePreviewTarget.src = imgTarget.src;
         }
     }
 

@@ -26,8 +26,7 @@ class SwipeUpCreateType extends AbstractType
                 'required' => true,
                 'label' => 'Lien du SwipeUp',
                 'attr' => [
-                    'class' => 'text-lg w-full overflow-x-hidden outline-none mr-2 border-none p-0',
-                    'placeholder' => 'votrenom',
+                    'placeholder' => 'ToTheMoon',
                 ],
                 'constraints' => [
                     new NotBlank([
