@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 #[Route('/api')]
 class ApiController extends AbstractController
@@ -174,7 +175,8 @@ class ApiController extends AbstractController
         SwipeUpRepository $swipeUpRepository,
     ): Response
     {
-        return new Response((int)(bool)$swipeUpRepository->findOneBy(['slug' => $request->request->get('swipeup')]));
+        $slugger = new AsciiSlugger();
+        return new Response((int)(bool)$swipeUpRepository->findOneBy(['slug' => $slugger->slug($request->request->get('swipeup'))]));
     }
 
     public function getSwipes(
