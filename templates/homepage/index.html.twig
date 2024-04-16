@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section class="font-light sm:text-xl text-gray-300 body-font">
-        <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-            <div class="opacity-75 absolute inset-0 -z-[1] overflow-hidden blur-[100px] select-none pointer-events-none">
-                <div class="top-2/5 left-3/5 w-[700px] h-[700px] -z-[2] bg-swipe-100 absolute rounded-full opacity-60 ease-gradient animate-gradient-1"></div>
-                <div class="top-3/5 left-2/5 w-[600px] h-[600px] -z-[1] bg-swipe-500 absolute rounded-full opacity-60 ease-gradient animate-gradient-2"></div>
-                <div class="top-1/2 left-1/2 w-[500px] h-[500px] -z-[3] bg-swipe-900 absolute rounded-full opacity-60 ease-gradient animate-gradient-3"></div>
-            </div>
+    <div class="absolute inset-0 overflow-hidden h-[50dvh]">
+        <div class="jumbo absolute -inset-[10px] bg-rainbow blur-md opacity-25 saturate-200 bg-300-200 bg-50_4 pointer-events-none after:content-[''] after:absolute after:inset-0 after:bg-rainbow after:bg-200-100 after:animate-jumbo after:bg-fixed after:mix-blend-difference"></div>
+    </div>
 
+    <section class="font-light sm:text-xl text-gray-300 body-font">
+        <div class="container mx-auto flex px-4 lg:px-6 md:flex-row flex-col items-center py-12">
             <div
-                    class="font-body text-white leading-relaxed px-4 pt-16 md:pt-36 z-10 relative mx-auto"
+                    class="font-body text-white leading-relaxed px-4 py-24 md:py-48 z-10 relative mx-auto"
                     data-aos="fade-up"
                     data-aos-duration="750"
             >
@@ -46,467 +44,179 @@
                         >
                     </div>
                 </div>
-                <div class="space-y-16">
-                    <div class="text-center space-y-8">
-                        <h1 class="mx-auto max-w-4xl text-5xl sm:text-6xl font-bold lg:text-7xl text-white">
-                            Sur combien de <span
-                                    class="font-black text-transparent bg-clip-text bg-gradient-to-tr from-swipe-900 to-swipe-100">liens</span>
-                            cliquez-vous sans vous souvenir ?
-                        </h1>
-                        <p class="max-w-xl mx-auto mt-6 text-gray-200">
-                            Seuls les créatifs comptent. Faites de votre bio avec Swipe Up le lien que l'on n'oublie pas
-                            !
-                        </p>
-                        <form
-                                {{ stimulus_controller('search-preview', {
-                                    url: path('_api_swipeup-name_search')
-                                }) }}
-                                method="get"
-                                action="{{ path('app_register') }}"
-                                class="flex flex-wrap gap-2 items-center justify-center"
-                        >
+                <div class="text-center space-y-8">
+                    <h1 class="mx-auto max-w-4xl text-4xl sm:text-6xl font-bold lg:text-7xl text-white">
+                        Sur combien de <span
+                                class="font-black text-transparent bg-clip-text bg-gradient-to-tr from-swipe-300 to-swipe-600">liens</span>
+                        cliquez-vous sans vous souvenir ?
+                    </h1>
+                    <p class="max-w-xl mx-auto mt-6 text-gray-200">
+                        Seuls les créatifs comptent. Faites de votre bio avec Swipe Up le lien que l'on n'oublie pas
+                        !
+                    </p>
+                    <form
+                            {{ stimulus_controller('search-preview', {
+                                url: path('_api_swipeup-name_search')
+                            }) }}
+                            method="get"
+                            action="{{ path('app_register') }}"
+                            class="flex flex-wrap gap-2 items-center justify-center"
+                    >
+                        <div class="border border-neutral-700 rounded-2xl">
                             <div
                                     {{ stimulus_target('search-preview', 'result') }}
-                                    class="bg-white flex max-w-64 relative py-4 px-3 rounded-lg text-lg text-gray-600 border-4 border-transparent"
+                                    class="bg-transparent flex rounded-2xl max-w-screen-sm relative py-4 px-3 text-lg text-gray-200 border-4 border-transparent"
                             >
-                                <p>swipeup.me/@</p>
+                                <p class="min-w-fit">swipeup.me/@</p>
                                 <label>
                                     <input
                                             {{ stimulus_target('search-preview', 'input') }}
                                             type="text"
                                             name="swipeup_create"
-                                            placeholder="gumbraise"
-                                            class="text-lg border-none focus:ring-0 focus:outline-none w-full overflow-x-hidden p-0 m-0 mr-2"
+                                            placeholder="ToTheMoon"
+                                            class="bg-transparent text-lg border-none focus:ring-0 focus:outline-none w-full overflow-x-hidden p-0 m-0 mr-2"
                                             required>
                                 </label>
+                                <button aria-label="Créer mon SwipeUp"
+                                        class="ml-4 p-1 self-center bg-gradient-to-tr from-swipe-300 to-swipe-500 rounded-full hover:from-swipe-200 hover:to-swipe-400 focus:outline-none focus:from-swipe-400 focus:to-swipe-600">
+                                    {{ heroicon('chevron-right', 'solid', {
+                                        'class': 'w-6 h-6 text-swipe-950'
+                                    }) }}
+                                </button>
                             </div>
-
-                            <button class="w-64 sm:w-auto text-center inline-flex justify-center text-white bg-gradient-to-tr from-swipe-900 to-swipe-400 hover:to-swipe-500 focus:to-swipe-600 border-0 py-4 px-6 focus:outline-none rounded-lg text-lg">
-                                Créer mon SwipeUp
-                            </button>
-                        </form>
-                    </div>
-                    <div class="flex justify-center mt-10 z-10">
-                        <video data-aos="fade-up"
-                               data-aos-duration="750"
-                               data-aos-delay="400"
-                               class="w-full rounded-xl lg:w-4/5 aspect-video"
-                               controls
-                               playsinline
-                               preload="none">
-                            <source src="{{ asset('assets/videos/swipeup_presentation.webm') }}"
-                                    type="video/webm">
-                        </video>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
-    <section class="">
+    <section class="px-4 lg:px-6 bg-swipe-950">
         <div data-aos="fade-down"
              data-aos-duration="1000"
              data-aos-easing="ease-in-out-back"
              data-aos-once="true"
         >
-            <div class="mx-auto max-w-screen-lg space-y-6 pt-12 text-white text-center">
+            <div class="mx-auto max-w-screen-lg space-y-6 py-12 text-white text-center">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold">Un concept innovant</h2>
-                <p class="text-gray-400 font-light sm:text-xl">
+                <p class="text-gray-300 font-light sm:text-xl">
                     Rejoignez des millions de créateurs pour simplifier votre présence en ligne avec notre lien en bio.
                     Un espace unique pour partager tout ce que vous créez, publiez, produisez et vendez sur :
                 </p>
                 <div class="flex flex-wrap items-center justify-evenly gap-y-6 max-w-md md:max-w-screen-lg mt-20 mx-auto">
-                    <div class="basis-[10%] sm:basis-1/4 md:basis-[15%]">
-                        <img class="object-contain grayscale max-h-[max(50px,min(5vw,100px))] w-[max(150px,min(10vw,250px))] max-w-[calc(100vw-32px)] opacity-100 p-4"
+                    <div class="basis-1/3 sm:basis-1/4 md:basis-[15%]">
+                        <img class="object-contain grayscale max-h-24 w-full opacity-100 p-4"
                              src="{{ asset('assets/images/youtube_logo.svg') }}"
                              alt="YouTube">
                     </div>
-                    <div class="basis-[10%] sm:basis-1/4 md:basis-[15%]">
-                        <img class="object-contain grayscale invert max-h-[max(50px,min(5vw,100px))] w-[max(150px,min(10vw,250px))] max-w-[calc(100vw-32px)] opacity-100 p-4"
+                    <div class="basis-1/3 sm:basis-1/4 md:basis-[15%]">
+                        <img class="object-contain grayscale invert max-h-24 w-full opacity-100 p-4"
                              src="{{ asset('assets/images/instagram_logo.svg') }}"
                              alt="Instagram">
                     </div>
-                    <div class="basis-[10%] sm:basis-1/4 md:basis-[15%]">
-                        <img class="object-contain grayscale invert max-h-[max(50px,min(5vw,100px))] w-[max(150px,min(10vw,250px))] max-w-[calc(100vw-32px)] opacity-100 p-4"
+                    <div class="basis-1/3 sm:basis-1/4 md:basis-[15%]">
+                        <img class="object-contain grayscale invert max-h-24 w-full opacity-100 p-4"
                              src="{{ asset('assets/images/TikTok_Logo.svg') }}"
                              alt="TikTok">
                     </div>
-                    <div class="basis-[10%] sm:basis-1/4 md:basis-[15%]">
-                        <img class="object-contain grayscale max-h-[max(50px,min(5vw,100px))] w-[max(150px,min(10vw,250px))] max-w-[calc(100vw-32px)] opacity-100 p-4"
+                    <div class="basis-1/3 sm:basis-1/4 md:basis-[15%]">
+                        <img class="object-contain grayscale max-h-24 w-full opacity-100 p-4"
                              src="{{ asset('assets/images/Snapchat_logo.svg') }}"
                              alt="Snapchat">
                     </div>
-                    <div class="basis-[10%] sm:basis-1/4 md:basis-[15%]">
-                        <img class="object-contain grayscale max-h-[max(50px,min(5vw,100px))] w-[max(150px,min(10vw,250px))] max-w-[calc(100vw-32px)] opacity-100 p-4"
+                    <div class="basis-1/3 sm:basis-1/4 md:basis-[15%]">
+                        <img class="object-contain grayscale max-h-24 w-full opacity-100 p-4"
                              src="{{ asset('assets/images/twitch_logo.svg') }}"
                              alt="Twitch">
                     </div>
-                    <div class="basis-[10%] sm:basis-1/4 md:basis-[15%]">
-                        <img class="object-contain grayscale invert max-h-[max(50px,min(5vw,100px))] w-[max(150px,min(10vw,250px))] max-w-[calc(100vw-32px)] opacity-100 p-4"
-                             src="{{ asset('assets/images/Shopify_logo.svg') }}"
-                             alt="Shopify">
-                    </div>
-                    <div class="basis-[10%] sm:basis-1/4 md:basis-[15%]">
-                        <img class="object-contain grayscale h-[max(50px,min(5vw,100px))] w-[max(150px,min(10vw,250px))] max-w-[calc(100vw-32px)] opacity-100 p-4"
-                             src="{{ asset('assets/images/wordpress_logo.png') }}"
-                             alt="WordPress">
-                    </div>
-                    <div class="basis-[10%] sm:basis-1/4 md:basis-[15%]">
-                        <img class="object-contain grayscale h-[max(50px,min(5vw,100px))] w-[max(150px,min(10vw,250px))] max-w-[calc(100vw-32px)] opacity-100 p-4"
-                             src="{{ asset('assets/images/www_logo.svg') }}"
-                             alt="Web">
-                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <turbo-frame id="swipeup-exemples">
-        {% if swipeups|length > 0 %}
-            <section data-aos="fade-right"
-                     id="swipes"
-                     class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 text-gray-400">
-                <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Quelques exemples de SwipeUp</h2>
-                </div>
-                <div class="mt-20">
-                    <div class="relative">
-                        <div class="rounded-lg overflow-hidden">
-                            <div
-                                    {{ stimulus_controller('diapo') }}
-                                    class="swiper-container"
-                            >
-                                <div class="swiper-wrapper">
-                                    {% for key, swipeup in swipeups %}
-                                        <div class="swiper-slide">
-                                            <div data-aos="fade-up"
-                                                 data-aos-delay="{{ 200*(key) }}">
-                                                <a href="{{ path('app_swipeup_single', {slug:swipeup.slug}) }}"
-                                                   target="_blank"
-                                                   class="relative group"
-                                                   tabindex="-1">
-                                                    <img src="{{ vich_uploader_asset(swipeup.swipes[0].background, swipeup.swipes[0].background.thumbnailName ? 'thumbnailFile' : 'backgroundFile')|imagine_filter('swipeup_thumbnail') }}"
-                                                         alt="{{ swipeup.description }}"
-                                                         width="10px"
-                                                         class="px-0 rounded-lg max-w-[180px] w-[180px] h-[320px] object-center object-cover mx-auto"/>
-                                                    <div class="px-4 py-3 text-center w-full">
-                                                        <h3 class="truncate font-semibold text-indigo-700 group-hover:text-indigo-800 duration-100">
-                                                            {{ swipeup.title }}
-                                                        </h3>
-                                                    </div>
-                                                </a>
+    <section data-aos="fade-right"
+             id="swipes"
+             class="py-8 mx-auto max-w-screen-xl lg:py-16 px-4 lg:px-6 text-gray-400">
+        <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Quelques exemples de SwipeUp</h2>
+        </div>
+        <div class="mt-20">
+            <div class="relative">
+                <div class="rounded-lg overflow-hidden">
+                    <div
+                            {{ stimulus_controller('diapo') }}
+                            class="swiper-container"
+                    >
+                        <div class="swiper-wrapper">
+                            {% for key, swipeup in swipeups %}
+                                <div class="swiper-slide">
+                                    <div data-aos="fade-up"
+                                         data-aos-delay="{{ 200*(key) }}">
+                                        <a href="{{ path('app_swipeup_single', {slug:swipeup.slug}) }}"
+                                           target="_blank"
+                                           class="relative group"
+                                           tabindex="-1">
+                                            <img src="{{ vich_uploader_asset(swipeup.swipes[0].background, swipeup.swipes[0].background.thumbnailName ? 'thumbnailFile' : 'backgroundFile')|imagine_filter('swipeup_thumbnail') }}"
+                                                 alt="{{ swipeup.description }}"
+                                                 width="10px"
+                                                 class="px-0 rounded-lg max-w-[180px] w-[180px] h-[320px] object-center object-cover mx-auto"/>
+                                            <div class="px-4 py-3 text-center w-full">
+                                                <h3 class="truncate font-semibold text-indigo-700 group-hover:text-indigo-800 duration-100">
+                                                    {{ swipeup.title }}
+                                                </h3>
                                             </div>
-                                        </div>
-                                    {% endfor %}
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-            </section>
-        {% endif %}
-    </turbo-frame>
-    <section data-aos="fade-right"
-             id="presentation"
-             class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 text-gray-400">
-        <div class="max-w-xl mb-10 mx-auto text-center lg:max-w-2xl md:mb-12">
-            <div>
-                <p class="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider uppercase rounded-full text-white bg-gradient-to-tr from-swipe-900 to-swipe-400">
-                    Nouveauté
+            </div>
+        </div>
+    </section>
+    <section class="px-4 lg:px-6 bg-swipe-950">
+        <div data-aos="fade-right"
+             data-aos-duration="1000"
+             data-aos-easing="ease-in-out-back"
+             data-aos-once="true"
+        >
+            <div class="mx-auto max-w-screen-lg space-y-6 py-12 text-white text-center">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold">Vous êtes à un clic de votre SwipeUp !</h2>
+                <p class="text-gray-300 font-light sm:text-xl">
+                    Rejoignez des millions de créateurs pour simplifier votre présence en ligne avec notre lien en bio.
                 </p>
-            </div>
-            <h2 class="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-white sm:text-4xl md:mx-auto">
-              <span class="relative inline-block">
-                <svg viewBox="0 0 52 24" fill="currentColor"
-                     class="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-blue-gray-100 lg:w-32 lg:-ml-28 lg:-mt-10 sm:block">
-                  <defs>
-                    <pattern id="fdca20a0-aeb4-4caf-ba1b-4351eee42363" x="0" y="0" width=".135" height=".30">
-                      <circle cx="1" cy="1" r=".7"></circle>
-                    </pattern>
-                  </defs>
-                  <rect fill="url(#fdca20a0-aeb4-4caf-ba1b-4351eee42363)" width="52" height="24"></rect>
-                </svg>
-                <span class="relative">Découvrez</span>
-              </span>
-                la nouvelle ère du web !
-            </h2>
-            <p class="font-light sm:text-xl">
-                Avec SwipeUp, développer votre présence en ligne est intuitif, rapide et efficace.
-            </p>
-        </div>
-        <div class="grid max-w-md gap-8 row-gap-10 sm:mx-auto lg:max-w-full lg:grid-cols-3 text-gray-300">
-            <div class="flex flex-col sm:flex-row">
-                <div class="sm:mr-4">
-                    <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full">
-                        {{ heroicon('device-phone-mobile', 'outline', {
-                            'class': "stroke-current w-12 h-12 text-swipe-500",
+                <form
+                        {{ stimulus_controller('search-preview', {
+                            url: path('_api_swipeup-name_search')
                         }) }}
+                        method="get"
+                        action="{{ path('app_register') }}"
+                        class="flex flex-wrap gap-2 items-center justify-center"
+                >
+                    <div class="border border-neutral-400 rounded-2xl">
+                        <div
+                                {{ stimulus_target('search-preview', 'result') }}
+                                class="bg-transparent rounded-2xl flex max-w-screen-sm relative py-4 px-3 text-lg text-gray-100 border-4 border-transparent"
+                        >
+                            <p class="min-w-fit">swipeup.me/@</p>
+                            <label>
+                                <input
+                                        {{ stimulus_target('search-preview', 'input') }}
+                                        type="text"
+                                        name="swipeup_create"
+                                        placeholder="ToTheMoon"
+                                        class="bg-transparent text-lg border-none focus:ring-0 focus:outline-none w-full overflow-x-hidden p-0 m-0 mr-2"
+                                        required>
+                            </label>
+                            <button aria-label="Créer mon SwipeUp"
+                                    class="ml-4 p-1 self-center bg-gradient-to-tr from-swipe-300 to-swipe-500 rounded-full hover:from-swipe-200 hover:to-swipe-400 focus:outline-none focus:from-swipe-400 focus:to-swipe-600">
+                                {{ heroicon('chevron-right', 'solid', {
+                                    'class': 'w-6 h-6 text-swipe-950'
+                                }) }}
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <h3 class="mb-2 font-semibold leading-5">L'audiovisuel : le pouls de SwipeUp</h3>
-                    <p class="mb-3 text-sm text-gray-400">
-                        Boostez votre SwipeUp avec des éléments audiovisuels pour une expérience utilisateur immersive.
-                    </p>
-                    <ul class="mb-4 -ml-1 space-y-2">
-                        <li class="flex items-start">
-                            <span class="mr-1">
-                                {{ heroicon('star', 'solid', {
-                                    'class': "stroke-current fill-current w-5 h-5 mt-px text-swipe-500",
-                                }) }}
-                            </span> Immersif et interactif
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-1">
-                                {{ heroicon('star', 'solid', {
-                                    'class': "stroke-current fill-current w-5 h-5 mt-px text-swipe-500",
-                                }) }}
-                            </span> Expérience utilisateur enrichissante
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-1">
-                                {{ heroicon('star', 'solid', {
-                                    'class': "stroke-current fill-current w-5 h-5 mt-px text-swipe-500",
-                                }) }}
-                            </span> Rendez vous inoubliable
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="flex flex-col sm:flex-row">
-                <div class="sm:mr-4">
-                    <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full">
-                        {{ heroicon('arrow-trending-up', 'solid', {
-                            'class': "stroke-current fill-current w-12 h-12 text-swipe-500",
-                        }) }}
-                    </div>
-                </div>
-                <div>
-                    <h3 class="mb-2 font-semibold leading-5">Tunnel d'acquisition client performant</h3>
-                    <p class="mb-3 text-sm text-gray-400">
-                        Améliorez vos conversions avec des fonctionnalités de suivi automatisées
-                    </p>
-                    <ul class="mb-4 -ml-1 space-y-2">
-                        <li class="flex items-start">
-                            <span class="mr-1">
-                                {{ heroicon('star', 'solid', {
-                                    'class': "stroke-current fill-current w-5 h-5 mt-px text-swipe-500",
-                                }) }}
-                            </span> Création simplifiée
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-1">
-                                {{ heroicon('star', 'solid', {
-                                    'class': "stroke-current fill-current w-5 h-5 mt-px text-swipe-500",
-                                }) }}
-                            </span> Ciblage précis
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-1">
-                                {{ heroicon('star', 'solid', {
-                                    'class': "stroke-current fill-current w-5 h-5 mt-px text-swipe-500",
-                                }) }}
-                            </span> Adapté à tous
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="flex flex-col sm:flex-row">
-                <div class="sm:mr-4">
-                    <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full">
-                        {{ heroicon('globe-europe-africa', 'solid', {
-                            'class': "fill-current w-12 h-12 text-swipe-500",
-                        }) }}
-                    </div>
-                </div>
-                <div>
-                    <h3 class="mb-2 font-semibold leading-5">Faites un geste pour la planète</h3>
-                    <p class="mb-3 text-sm text-gray-400">
-                        Nous nous engageons à minimiser l'impact environnemental de notre hébergement !
-                    </p>
-                    <ul class="mb-4 -ml-1 space-y-2">
-                        <li class="flex items-start">
-                            <span class="mr-1">
-                                {{ heroicon('star', 'solid', {
-                                    'class': "stroke-current fill-current w-5 h-5 mt-px text-swipe-500",
-                                }) }}
-                            </span> Projet énergies vertes
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-1">
-                                {{ heroicon('star', 'solid', {
-                                    'class': "stroke-current fill-current w-5 h-5 mt-px text-swipe-500",
-                                }) }}
-                            </span> Hébergement énergétiquement durable
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-1">
-                                {{ heroicon('star', 'solid', {
-                                    'class': "stroke-current fill-current w-5 h-5 mt-px text-swipe-500",
-                                }) }}
-                            </span> Éco-responsable & Respecte l'environnement
-                        </li>
-                    </ul>
-                </div>
+                </form>
             </div>
         </div>
-    </section>
-    <section data-aos="fade-up"
-             id="offres"
-             class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-        <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">
-                Découvrez notre offre unique !
-            </h2>
-            <p class="mb-5 font-light sm:text-xl text-gray-400">
-                SwipeUp est gratuit et flexible pour répondre à tous vos besoins.
-            </p>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 xl:gap-10">
-            <div></div>
-            <div data-aos="fade-up"
-                 data-aos-delay="200"
-                 class="w-full flex flex-col mx-auto max-w-lg text-center rounded-lg border shadow border-gray-600 text-white lg:order-none order-first relative">
-                <div class="w-full absolute rounded-t p-2">
-                    <a href="#newsletter"
-                       class="inline-flex justify-between items-center py-1 px-1 pr-4 text-sm text-gray-200 border border-gray-400 rounded-full">
-                        <span class="text-xs bg-swipe-600 rounded-full text-white px-4 py-1.5 mr-3">VENTE FLASH</span>
-                        <span
-                                class="text-sm font-medium">Profitez de cette offre !</span>
-                        {{ heroicon('chevron-right', 'outline', {
-                            'class': "stroke-current ml-2 w-4 h-4",
-                            'stroke-width': 3
-                        }) }}
-                    </a>
-                </div>
-
-                <div class="p-6 xl:p-8 mt-8 flex flex-col">
-                    <h3 class="mb-4 text-2xl font-semibold">
-                        OFFRE GRATUITE
-                    </h3>
-                    <p class="font-light sm:text-lg text-gray-400">
-                        C'est votre chance de transformer votre présence en ligne !
-                    </p>
-                    <p class="mb-4 text-xl font-semibold">
-                        Bêta
-                    </p>
-                    <div class="flex justify-center items-baseline my-8">
-                        <span class="mr-2 text-5xl font-extrabold">0€</span>
-                    </div>
-                    <!-- List -->
-                    <ul role="list" class="mb-8 space-y-4 text-left">
-                        <li class="flex items-center space-x-3">
-                            <span class="w-5 h-5 text-center text-green-400">1</span>
-                            <span>Pages</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <span class="w-5 h-5 text-center text-green-400">5</span>
-                            <span>Sections</span>
-                        </li>
-                        <li class="flex items-baseline space-x-3">
-                            {{ heroicon('check', 'outline', {
-                                'class': "stroke-current flex-shrink-0 w-4 h-4 text-green-400",
-                                'stroke-width': 3
-                            }) }}
-                            <span>Support via notre formulaire</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            {{ heroicon('check', 'outline', {
-                                'class': "stroke-current flex-shrink-0 w-4 h-4 text-green-400",
-                                'stroke-width': 3
-                            }) }}
-                            <span>Couleurs modifiable</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            {{ heroicon('check', 'outline', {
-                                'class': "stroke-current flex-shrink-0 w-4 h-4 text-green-400",
-                                'stroke-width': 3
-                            }) }}
-                            <span>Titre modifiable</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            {{ heroicon('check', 'outline', {
-                                'class': "stroke-current flex-shrink-0 w-4 h-4 text-green-400",
-                                'stroke-width': 3
-                            }) }}
-                            <span>Icône modifiable</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            {{ heroicon('x-mark', 'outline', {
-                                'class': "stroke-current flex-shrink-0 w-4 h-4 text-gray-400",
-                                'stroke-width': 3
-                            }) }}
-                            <span>Nom de domaine personnalisé</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            {{ heroicon('x-mark', 'outline', {
-                                'class': "stroke-current flex-shrink-0 w-4 h-4 text-gray-400",
-                                'stroke-width': 3
-                            }) }}
-                            <span>Shooting photo offert</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            {{ heroicon('x-mark', 'outline', {
-                                'class': "stroke-current flex-shrink-0 w-4 h-4 text-gray-400",
-                                'stroke-width': 3
-                            }) }}
-                            <span>Désactiver le bandeau publicitaire</span>
-                        </li>
-                    </ul>
-                    <a href="#newsletter"
-                       class="border-2 border-white hover:bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white hover:text-black">Commencer</a>
-                </div>
-            </div>
-            <div></div>
-        </div>
-    </section>
-    <section data-aos="fade-right"
-             class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 text-gray-400">
-        <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">SwipeUp en quelques chiffres</h2>
-        </div>
-        <div class="grid row-gap-8 sm:grid-cols-3">
-            <div class="text-center">
-                <span class="text-5xl font-bold text-swipe-400">{{ numbers.swipes }}</span>
-                <p class="font-bold">Swipe</p>
-            </div>
-            <div class="text-center">
-                <span class="text-5xl font-bold text-swipe-400">{{ numbers.swipeups }}</span>
-                <p class="font-bold">Sites</p>
-            </div>
-            <div class="text-center">
-                <span class="text-5xl font-bold text-swipe-400">{{ numbers.sections }}</span>
-                <p class="font-bold">Sections</p>
-            </div>
-        </div>
-    </section>
-    <section data-aos="fade-left"
-             class="py-16 px-4 mx-auto max-w-screen-xl lg:py-32 lg:px-6 text-gray-400"
-             id="newsletter">
-        <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">
-                Suivez la révolution SwipeUp !
-            </h2>
-            <div class="space-y-2">
-                <p class="font-light sm:text-xl">
-                    Pour suivre l'aventure SwipeUp, inscrivez-vous dès maintenant à la newsletter
-                </p>
-            </div>
-        </div>
-        {{ form_start(newsletterForm, {
-            attr: {
-                'data-turbo':"false"
-            }
-        }) }}
-        <div class="bg-white rounded-full flex w-full max-w-2xl mx-auto gap-2 shadow-md group">
-            <div class="sr-only">{{ form_label(newsletterForm.email) }}</div>
-            {{ form_widget(newsletterForm.email, {
-                attr: {
-                    class:"focus:outline-none bg-transparent text-black rounded-l-full py-3 px-5 w-full md:w-3/5 border-none"
-                }
-            }) }}
-            <button class="rounded-full bg-gradient-to-br from-swipe-400 to-swipe-900 py-3 px-2 text-white w-full md:w-2/5 border-none border-swipe-500 group-focus:border-2">
-                Continuer
-            </button>
-        </div>
-        {{ form_end(newsletterForm) }}
     </section>
 {% endblock %}

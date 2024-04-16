@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="{{ hostname ~ asset('assets/sitemap/sitemap-css.xsl') }}"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for url in urls %}
+        <sitemap>
+            <loc>
+                {% if url.loc|replace({hostname:''}) == url.loc %}
+                    {{ hostname }}{{ url.loc }}
+                {% else %}
+                    {{ url.loc }}
+                {% endif %}
+            </loc>
+            {% if url.lastmod is defined %}
+                <lastmod>{{ url.lastmod }}</lastmod>
+            {% endif %}
+        </sitemap>
+    {% endfor %}
+</sitemapindex>

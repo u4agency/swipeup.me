@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="{{ hostname ~ asset('assets/sitemap/sitemap-css.xsl') }}"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
@@ -34,10 +35,12 @@
 
             {# Si il y a une image #}
             {% if url.image is defined and url.image is not empty %}
-                <image:image>
-                    <image:loc>{% if url.image.loc|replace({hostname:''}) == url.image.loc %}{{ hostname }}{{ url.image.loc }}{% else %}{{ url.image.loc }}{% endif %}</image:loc>
-                    <image:title>{{ url.image.title }}</image:title>
-                </image:image>
+                {% for image in url.image %}
+                    <image:image>
+                        <image:loc>{{ image.loc|replace({hostname:''}) == image.loc and image.local is not defined ? hostname ~ image.loc : image.loc }}</image:loc>
+                        <image:title>{{ image.title }}</image:title>
+                    </image:image>
+                {% endfor %}
             {% endif %}
         </url>
     {% endfor %}

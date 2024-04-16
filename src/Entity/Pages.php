@@ -34,10 +34,10 @@ class Pages
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updatedTimestamps(): void
     {
         $dateTimeNow = new \DateTime('now');

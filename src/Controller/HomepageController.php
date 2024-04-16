@@ -78,6 +78,15 @@ class HomepageController extends AbstractController
         ]);
     }
 
+    #[Route('/new', name: 'app_new')]
+    public function new(SwipeUpRepository $swipeUpRepository,): Response
+    {
+        return $this->render('pages/new.html.twig', [
+            'controller_name' => 'HomepageController',
+            'swipeups' => $swipeUpRepository->findBy(['featuredSwipeUp' => true]),
+        ]);
+    }
+
     #[Route('/changelog', name: 'app_changelog')]
     public function changelog(
         KernelInterface $appKernel

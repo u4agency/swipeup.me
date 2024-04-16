@@ -1,5 +1,6 @@
 import {Controller} from "stimulus";
-import Swiper, {Pagination, Mousewheel} from 'swiper';
+import Swiper from 'swiper';
+import {Pagination, Mousewheel} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import analytics from "../services/analytics";

@@ -1,5 +1,6 @@
 import {Controller} from "stimulus";
-import Swiper, {Autoplay} from 'swiper';
+import Swiper from 'swiper';
+import {Autoplay} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 

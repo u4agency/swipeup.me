@@ -196,3 +196,7 @@
     @apply list-disc;
   }
 }
+
+.jumbo {
+  mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
+}

@@ -245,7 +245,7 @@ class ApiController extends AbstractController
         WNewsletterRepository $WNewsletterRepository
     ): Response
     {
-        if ($this->getUser() && $widgetSwipe->getSwipe()->getSwipeup()->getAuthor() !== $this->getUser()) {
+        if ($this->getUser() && $widgetSwipe->getSwipe()->getSwipeup()->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_login');
         }
 

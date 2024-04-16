@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/api/swipeup', name: '_api_swipeup_')]
-class SwipeUpCRUDController extends AbstractController
+class SelfSwipeUpCrudController extends AbstractController
 {
     #[Route('/d{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, SwipeUp $swipeup, EntityManagerInterface $entityManager): Response
