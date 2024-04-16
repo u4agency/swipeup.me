@@ -88,7 +88,7 @@ class SwipeSectionType extends AbstractType
                 'choices' => $this->widgetRepository->findByDisplay("widgetBody"),
                 'data' => $isEdit && $swipe->getWidgetBody() ? $swipe->getWidgetBody()->getWidget() : null,
                 'attr' => [
-                    'class' => "flex flex-row gap-y-4",
+                    'class' => "flex flex-row overflow-x-auto pb-2",
                 ],
             ])
             ->add('widgetFooter', EntityType::class, [
@@ -102,7 +102,7 @@ class SwipeSectionType extends AbstractType
                 'choices' => $this->widgetRepository->findByDisplay("widgetFooter"),
                 'data' => $isEdit && $swipe->getWidgetFooter() ? $swipe->getWidgetFooter()->getWidget() : null,
                 'attr' => [
-                    'class' => "flex flex-row gap-y-4",
+                    'class' => "flex flex-row overflow-x-auto pb-2",
                 ],
             ]);
 
@@ -247,12 +247,14 @@ class SwipeSectionType extends AbstractType
 
     private function getIcon($icon, $content, array $classes = []): false|array|string
     {
-        return Heroicons::get($icon, 'solid', [
-            'class' => 'hover:text-swipe-800 w-6 h-6 fill-current cursor-pointer',
-            'data-controller' => 'tippy',
-            'data-tippy-text-value' => $content,
-            ...$classes,
-        ]);
+        $tippy = !empty($content) ? 'data-controller="tippy" data-tippy-text-value="' . $content . '"' : null;
+
+        return '<div class="mr-1 p-7 rounded-xl border border-gray-400 cursor-pointer text-gray-800 hover:text-swipe-800" ' . $tippy . '>' .
+            Heroicons::get($icon, 'solid', [
+                'class' => 'w-6 h-6 fill-current',
+                ...$classes,
+            ])
+            . '</div>';
     }
 
     private function setupSpecificWidgetField(FormInterface $form, ?string $widgetType, ?string $option, ?array $autocomplete_data = null): void

@@ -26,7 +26,7 @@
         }
     }) }}
     <div class="flex flex-row gap-x-4">
-        <div class="w-full space-y-4">
+        <div class="space-y-4 overflow-hidden">
             <div
                     {{ stimulus_target('introjs', 'element') }}
                     data-title="Zone de Contenu"
@@ -120,6 +120,7 @@
                     width: 1080,
                     height: 1920,
                 }) }}
+                class="h-min min-w-[5rem]"
         >
             <label
                     {{ stimulus_target('introjs', 'element') }}
