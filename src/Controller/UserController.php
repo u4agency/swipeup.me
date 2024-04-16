@@ -2,7 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Swipe;
+use App\Entity\SwipeImage;
 use App\Entity\SwipeUp;
+use App\Entity\WidgetData;
+use App\Entity\WidgetSwipe;
+use App\Form\SwipeFastType;
+use App\Form\SwipeSectionType;
 use App\Form\SwipeUpEditType;
 use App\Form\UserEditFormType;
 use App\Repository\AnalyticsVisitsSwipeUpRepository;
@@ -10,6 +16,7 @@ use App\Repository\AnalyticsVisitsURLShortenerRepository;
 use App\Repository\NewsletterRepository;
 use App\Repository\SwipeUpRepository;
 use App\Repository\URLShortenerRepository;
+use App\Repository\WidgetRepository;
 use App\Service\Status;
 use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -82,12 +89,117 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $slugger = new AsciiSlugger();
-                $swipeup->setSlug($slugger->slug($swipeup->getSlug()));
+                $entityManager->persist($swipeup);
+                $entityManager->flush();
+            } catch (\Exception $exception) {
+                $this->addFlash('error', "Une erreur est survenue lors de la modification du SwipeUp !");
+            }
+
+            return $this->redirectToRoute('app_user_swipeup_steps_firstswipe', [
+                'slug' => $swipeup->getSlug()
+            ]);
+        }
+
+        return $this->render('swipe/steps_customize.html.twig', [
+            'swipeup' => $swipeup,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/swipeup/@{slug}/steps/first-swipe', name: 'swipeup_steps_firstswipe')]
+    public function stepsFirstSwipeSwipeUp(
+        SwipeUp                $swipeup,
+        EntityManagerInterface $entityManager,
+        Request                $request,
+        WidgetRepository       $widgetRepository,
+    ): Response
+    {
+        if ($swipeup->getStatus() === Status::DELETED && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', "Ce SwipeUp n'existe pas !");
+            return $this->redirectToRoute('app_user_admin_list');
+        }
+
+        if ($swipeup->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', "Vous n'êtes pas l'auteur de ce SwipeUp !");
+            return $this->redirectToRoute('app_swipeup_single', [
+                'slug' => $swipeup->getSlug()
+            ]);
+        }
+
+        $form = $this->createForm(SwipeFastType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $textWidget = $widgetRepository->findOneBy(['name' => 'text']);
+                $buttonWidget = $widgetRepository->findOneBy(['name' => 'button']);
+
+                $background = $form->get('background')->getData();
+
+                $swipeImage = new SwipeImage();
+                $swipeImage->setBackgroundFile($background);
+                $swipeImage->setBackgroundName($background);
+                $swipeImage->setAuthor($this->getUser());
+
+
+                $swipeBodyData = new WidgetData();
+                $swipeBodyData->setDataName('text');
+                $swipeBodyData->setDataValue('Rejoignez-moi sur ' . $form->get('text')->getData() . ' !');
+                $swipeBodyData->setWidget($textWidget);
+
+                $swipeBody = new WidgetSwipe();
+                $swipeBody->setWidget($textWidget);
+                $swipeBody->addWidgetData($swipeBodyData);
+
+                $swipeFooterDataText = new WidgetData();
+                $swipeFooterDataText->setDataName('text');
+                $swipeFooterDataText->setDataValue($form->get('text')->getData());
+                $swipeFooterDataText->setWidget($buttonWidget);
+                $swipeFooterDataHref = new WidgetData();
+                $swipeFooterDataHref->setDataName('href');
+                $swipeFooterDataHref->setDataValue($form->get('link')->getData());
+                $swipeFooterDataHref->setWidget($buttonWidget);
+                $swipeFooterDataColorType = new WidgetData();
+                $swipeFooterDataColorType->setDataName('colorType');
+                $swipeFooterDataColorType->setDataValue('simple');
+                $swipeFooterDataColorType->setWidget($buttonWidget);
+                $swipeFooterDataColor = new WidgetData();
+                $swipeFooterDataColor->setDataName('primaryColor');
+                $swipeFooterDataColor->setDataValue('#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT));
+                $swipeFooterDataColor->setWidget($buttonWidget);
+
+                $swipeFooter = new WidgetSwipe();
+                $swipeFooter->setWidget($buttonWidget);
+                $swipeFooter->addWidgetData($swipeFooterDataText);
+                $swipeFooter->addWidgetData($swipeFooterDataHref);
+                $swipeFooter->addWidgetData($swipeFooterDataColorType);
+                $swipeFooter->addWidgetData($swipeFooterDataColor);
+
+                $swipe = new Swipe();
+                $swipe->setSwipeUp($swipeup);
+                $swipe->setBackground($swipeImage);
+                $swipe->setSequence(0);
+                $swipe->setWidgetBody($swipeBody);
+                $swipe->setWidgetFooter($swipeFooter);
+
+
+                $entityManager->persist($swipeImage);
+
+                $entityManager->persist($swipeBody);
+                $entityManager->persist($swipeBodyData);
+
+                $entityManager->persist($swipeFooter);
+                $entityManager->persist($swipeFooterDataText);
+                $entityManager->persist($swipeFooterDataHref);
+                $entityManager->persist($swipeFooterDataColorType);
+                $entityManager->persist($swipeFooterDataColor);
+
+                $entityManager->persist($swipe);
 
                 $entityManager->persist($swipeup);
                 $entityManager->flush();
             } catch (\Exception $exception) {
+                throw $exception;
                 $this->addFlash('error', "Une erreur est survenue lors de la modification du SwipeUp !");
             }
 
@@ -96,7 +208,7 @@ class UserController extends AbstractController
             ]);
         }
 
-        return $this->render('swipe/steps_customize.html.twig', [
+        return $this->render('swipe/steps_firstswipe.html.twig', [
             'swipeup' => $swipeup,
             'form' => $form->createView(),
         ]);

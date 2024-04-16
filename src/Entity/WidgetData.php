@@ -95,7 +95,6 @@ class WidgetData
     }
 
     #[ORM\PreUpdate]
-    #[ORM\PrePersist]
     public function setUpdatedAtValue(): void
     {
         $this->updatedAt = new \DateTimeImmutable('now');
