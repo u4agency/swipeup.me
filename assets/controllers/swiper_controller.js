@@ -10,6 +10,7 @@ export default class extends Controller {
     static values = {
         isFeaturedSwipeUp: Boolean,
         analyticsUrl: String,
+        isPreview: Boolean,
     };
 
     connect() {
@@ -32,10 +33,10 @@ export default class extends Controller {
             },
             on: {
                 init: (event) => {
-                    if (this.hasAnalyticsUrlValue) this.swipeAnalytics(event.slides[event.activeIndex].dataset.swipe, event.slides[event.activeIndex].dataset.analyticsCsrf)
+                    if (this.hasAnalyticsUrlValue && !this.isPreviewValue) this.swipeAnalytics(event.slides[event.activeIndex].dataset.swipe, event.slides[event.activeIndex].dataset.analyticsCsrf)
                 },
                 slideChange: (event) => {
-                    if (this.hasAnalyticsUrlValue) {
+                    if (this.hasAnalyticsUrlValue && !this.isPreviewValue) {
                         this.swipeAnalytics(event.slides[event.activeIndex].dataset.swipe, event.slides[event.activeIndex].dataset.analyticsCsrf, this.lastAnalyticsSwipeId,)
 
                         if (event.activeIndex === 1 && this.isFeaturedSwipeUpValue && this.isNewsletterPopup) {

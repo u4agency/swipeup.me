@@ -74,6 +74,7 @@
                     {{ stimulus_controller('swiper', {
                         isFeaturedSwipeUp: swipeup.isFeaturedSwipeUp,
                         analyticsUrl: not preview ? path('_api_analytics_swipe_visit'),
+                        isPreview: preview,
                     }) }}
             >
                 <div class="swiper-wrapper">
