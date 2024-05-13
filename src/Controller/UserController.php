@@ -17,9 +17,14 @@ use App\Repository\NewsletterRepository;
 use App\Repository\SwipeUpRepository;
 use App\Repository\URLShortenerRepository;
 use App\Repository\WidgetRepository;
+use App\Service\FileTypeService;
+use App\Service\LamialeProcess;
 use App\Service\Status;
 use App\Service\UserService;
+use Defr\PhpMimeType\MimeType;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +33,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
+use function PHPUnit\Framework\throwException;
 
 #[Route('/admin', name: 'app_user_')]
 #[IsGranted('IS_AUTHENTICATED')]
@@ -112,6 +118,7 @@ class UserController extends AbstractController
         EntityManagerInterface $entityManager,
         Request                $request,
         WidgetRepository       $widgetRepository,
+        LamialeProcess         $lamialeProcess,
     ): Response
     {
         if ($swipeup->getStatus() === Status::DELETED && !$this->isGranted('ROLE_ADMIN')) {
@@ -137,8 +144,24 @@ class UserController extends AbstractController
                 $background = $form->get('background')->getData();
 
                 $swipeImage = new SwipeImage();
-                $swipeImage->setBackgroundFile($background);
-                $swipeImage->setBackgroundName($background);
+                if (in_array(MimeType::get($background->getClientOriginalName()), FileTypeService::$imageMimeTypes)) {
+                    $swipeImage->setBackgroundName($background); // Nom du fond
+                    $swipeImage->setBackgroundFile($background); // Nom du fond
+                } else if (in_array(MimeType::get($background->getClientOriginalName()), FileTypeService::$videoMimeTypes)) {
+                    $videoProcess = $lamialeProcess->get($background);
+                    if ($videoProcess instanceof Exception || $videoProcess instanceof GuzzleException || $videoProcess === null) {
+                        $swipeImage->setBackgroundName(null); // Nom du fond
+                        $swipeImage->setThumbnailName(null); // Nom du fond
+
+                        $this->addFlash('error', "Une erreur est survenue lors de la mise en ligne du fond !");
+                    } else {
+                        $swipeImage->setBackgroundName($videoProcess['background']); // Nom du fond
+                        $swipeImage->setThumbnailName($videoProcess['thumbnail']); // Nom du fond
+                    }
+                } else {
+                    $this->addFlash('error', "Une erreur est survenue lors de la mise en ligne du fond !");
+                    throw new Exception();
+                }
                 $swipeImage->setAuthor($this->getUser());
 
 
@@ -199,7 +222,6 @@ class UserController extends AbstractController
                 $entityManager->persist($swipeup);
                 $entityManager->flush();
             } catch (\Exception $exception) {
-                throw $exception;
                 $this->addFlash('error', "Une erreur est survenue lors de la modification du SwipeUp !");
             }
 
