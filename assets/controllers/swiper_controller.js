@@ -46,6 +46,50 @@ export default class extends Controller {
                 },
             }
         });
+
+        // Gestion du scroll conditionnel sur la dernière slide pour la molette de la souris
+        document.querySelectorAll('.swiper-slide .overflow-y-auto').forEach(element => {
+            element.addEventListener('wheel', (event) => {
+                if (element.scrollTop === 0 && event.deltaY < 0) {
+                    // Si la scrollbar est tout en haut et que l'utilisateur essaie de défiler vers le haut
+                    this.swiper.slidePrev();
+                    event.preventDefault();
+                } else if (element.scrollHeight - element.scrollTop === element.clientHeight && event.deltaY > 0) {
+                    // Si la scrollbar est tout en bas et que l'utilisateur essaie de défiler vers le bas
+                    this.swiper.slideNext();
+                    event.preventDefault();
+                } else {
+                    // Sinon, autorisez le défilement normal
+                    event.stopPropagation();
+                }
+            });
+
+            // Gestion du scroll conditionnel sur la dernière slide pour les événements tactiles
+            let startY, startScrollTop;
+
+            element.addEventListener('touchstart', (event) => {
+                startY = event.touches[0].pageY;
+                startScrollTop = element.scrollTop;
+            });
+
+            element.addEventListener('touchmove', (event) => {
+                let currentY = event.touches[0].pageY;
+                let diffY = startY - currentY;
+
+                if (element.scrollTop === 0 && diffY < 0) {
+                    // Si la scrollbar est tout en haut et que l'utilisateur essaie de défiler vers le haut
+                    this.swiper.slidePrev();
+                    event.preventDefault();
+                } else if (element.scrollHeight - element.scrollTop === element.clientHeight && diffY > 0) {
+                    // Si la scrollbar est tout en bas et que l'utilisateur essaie de défiler vers le bas
+                    this.swiper.slideNext();
+                    event.preventDefault();
+                } else {
+                    // Sinon, autorisez le défilement normal
+                    event.stopPropagation();
+                }
+            });
+        });
     }
 
     swipeAnalytics(id, token, exited = null) {
